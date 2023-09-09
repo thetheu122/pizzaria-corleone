@@ -1,4 +1,5 @@
 import './index.scss'
+import '../../../assets/config/fonts-config.scss'
 import Mais from '../../../assets/images/icons/more_icon.svg'
 import Sino from '../../../assets/images/icons/order_on_icon.svg'
 import Adm from '../../../assets/images/icons/adm_icon.svg'

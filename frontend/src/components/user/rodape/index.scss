@@ -1,0 +1,39 @@
+.rodape{
+    padding: 20px 50px;
+    text-align: left;
+    display: flex;
+    height: 279px;
+    flex-shrink: 0;
+    background-color: #FFC857;
+    gap: 100px;
+
+    img{
+        width: 25px;
+        height: 25px;
+    }
+
+    h3{
+        font-family: Lato;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        width: 200px;
+    }
+
+    p{
+        color: rgba(0, 0, 0, 0.75);
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        width: 189px;
+        flex-shrink: 0;
+    }
+
+
+    .contatos{
+        
+
+        
+    }
+}
