@@ -5,7 +5,7 @@
     height: 279px;
     flex-shrink: 0;
     background-color: #FFC857;
-    gap: 100px;
+    gap: 70px;
 
     img{
         width: 25px;
@@ -13,11 +13,19 @@
     }
 
     h3{
-        font-family: Lato;
+        font-family: lato-bold;
         font-size: 20px;
         font-style: normal;
         font-weight: 600;
-        width: 200px;
+        width: 70px;
+    }
+
+    h4{
+        font-family: lato-bold;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        width: 230px;
     }
 
     p{
@@ -25,15 +33,39 @@
         font-size: 18px;
         font-style: normal;
         font-weight: 400;
+        font-family: lato-regular;
         line-height: normal;
         width: 189px;
         flex-shrink: 0;
     }
 
+    .redes-sociais{
+        h4{
+            margin: 20px 0px 10px 0px;
+        }
+        div > img{
+            margin-right: 15px;
+        }
+    }
+
 
     .contatos{
-        
 
-        
+        h4{
+            margin: 10px 0px;
+        }
+        div{
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            img{
+                margin-right: 5px;
+            }
+            p{
+                margin: 0px;
+            }
+        }
     }
+
+
 }

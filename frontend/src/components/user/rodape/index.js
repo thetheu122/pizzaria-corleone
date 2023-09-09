@@ -33,7 +33,7 @@ export default function Rodape(){
 
             <div>
                 <div className='redes-sociais'>
-                    <p>Siga-nos nas redes Sociais</p>
+                    <h4>Siga-nos nas redes Sociais</h4>
                     <div>
                         <img alt='whatsapp' src={Whatsapp}/>
                         <img alt='instagram' src={Instagram}/>
@@ -43,7 +43,7 @@ export default function Rodape(){
                 </div>
 
                 <div className='contatos'>
-                    <h3>Outros Contatos</h3>
+                    <h4>Outros Contatos</h4>
                     <div>
                         <img alt='telefone' src={Telefone}/>
                         <p>+55 11 993673706</p>
