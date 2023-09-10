@@ -1,65 +1,86 @@
-.card-product {
+.cardCarrinho {
     display: flex;
     align-items: center;
-    padding: 10px 10px;
+    padding: 5px 5px;
     border-radius: 10px;
 
+    p{
+        font-family: lato-regular;
+    }
 
-    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.30);
 
-    width: 300.984px;
-    height: 161px;
+    box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.30);;
+
+    width: 390.984px;
+    height: 131px;
     
-    .produto {
+    .alimento {
         background-image: url('../../../assets/images/pictures/pizza-marguerita.png');
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 5px;
 
-        width: 244.483px;
-        height: 145.772px;
+        width: 184.483px;
+        height: 100%;
     }
 
-    .descricao-produto{
-        margin-left: 5px;
-    }
-
-    .descricaoProduto {
-
-
-        h3 {
-            color: #000;
-            font-family: lobster-two-regular;
-            font-size: 23px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-            margin: 0px;
-        }
-    }
-
-    .circulo {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: #53220D;
+    .descricaoProduto{
         display: flex;
-        align-items: center;
-        justify-content: center;
+        justify-content: space-between;
 
-        margin-top: 25px;
+        h3{
+            font-family: lobster-two-regular;
+font-size: 19px;
+font-style: normal;
+font-weight: 700;
+            width: calc(100% - 25px);
+        }
 
-        img {
-            filter: invert(100%);
-            width: 20px;
-            height: 20px;
+        .circulo{
+            border: 1px solid #000;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 3px;
+            margin-bottom: 15px;
+            margin-right: 5px;
+
+            img{
+                height: 17px;
+                width: 17px;
+            }
         }
     }
+
+    .pequenasInformacoes{
+        height: 100%;
+        width:calc(100% - 184.483px) ;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-left: 4px;
+        padding: 10px 2px;
+    }
+
+
+    .baixoDescricaoProdutos {
+        display: flex;
+        justify-content: space-between;
+        margin-left: 5px ;
+        justify-self: end   ;
+        
+        > p{
+            margin-right: 7px;
+        }
+        
+
 
     .pretin {
         display: flex;
         align-items: center;
-        margin-top: 4px;
         p {
             color: #000;
             font-size: 15px;
@@ -74,5 +95,5 @@
             height: 20px;
             margin-right: 5px;
         }
-    }
+    }}
 }
