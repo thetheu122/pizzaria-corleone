@@ -8,6 +8,8 @@ import Cabecalho from '../../components/user/cabecalho'
 import CardProduct from '../../components/user/cardProduct'
 import CardProduto from '../../components/user/card-produto'
 import Rodape from '../../components/user/rodape'
+import { useState } from 'react'
+import Modal from '../../components/user/modal'
 
 export default function Cardapio() {
 
@@ -39,7 +41,7 @@ export default function Cardapio() {
                 <div className='esquerda'>
                     <div className='filtro-nome'>
                         <p>Digite e aperte enter...</p>
-                        <img alt='lupa' src={Lupa} />
+                        <img alt='lupa' src={Lupa}/>
                     </div>
 
                     <div className='ordenado'>
@@ -115,37 +117,36 @@ export default function Cardapio() {
 
                 <div className='direitaMeio'>
                     <div>
-                        <CardProduto />
-                        <CardProduto />
-                    </div>
-
-                    <div>
-                        <CardProduto />
+                        <CardProduto/>
                         <CardProduto />
                     </div>
 
                     <div>
-                        <CardProduto />
-                        <CardProduto />
+                        <CardProduto/>
+                        <CardProduto/>
+                    </div>
+
+                    <div>
+                        <CardProduto/>
+                        <CardProduto/>
                     </div>
                 </div>
             </div>
 
             <div className='paginacao'>
-                    <div className='bolotas'>
-                        <div className='circulo'>1</div>
-                        <div className='circulo'>2</div>
-                        <div className='circulo'>3</div>
-                    </div>
+                <div className='bolotas'>
+                    <div className='circulo'>1</div>
+                    <div className='circulo'>2</div>
+                    <div className='circulo'>3</div>
+                </div>
 
-                    <div className='proximo'>
-                        <p>Proximo</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
-                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#830D23" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                    </div>
+                <div className='proximo'>
+                    <p>Proximo</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                        <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#830D23" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
             </div>
-
             <Rodape />
         </main>
     )
