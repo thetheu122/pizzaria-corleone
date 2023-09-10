@@ -1,0 +1,37 @@
+.carrinhoSideBar{
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+
+    box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.5);
+
+    position:absolute;
+    right: 0;
+    top:0;
+
+    padding: 30px 40px;
+    
+    width: 427px;
+    height: 100vh;
+
+
+     > svg{
+        justify-self:start;
+        align-self: self-start;
+    }
+
+    .cozinheiroCentral{
+        text-align: center;
+        margin-left: 40px;
+
+        > h2{
+            font-family: lobster-two-regular;
+        }
+
+        > p{
+            font-family: lato-regular;
+        }
+    }
+
+}

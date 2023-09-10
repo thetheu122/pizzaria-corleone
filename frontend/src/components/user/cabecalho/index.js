@@ -1,13 +1,19 @@
+import { useState } from 'react'
+
 import './index.scss'
 import '../../../assets/config/fonts-config.scss'
+
 import Mais from '../../../assets/images/icons/more_icon.svg'
 import Sino from '../../../assets/images/icons/order_on_icon.svg'
 import Adm from '../../../assets/images/icons/adm_icon.svg'
 import Cardapio from '../../../assets/images/icons/cardapio_icon.svg'
-import Carrinho from '../../../assets/images/icons/shopping-cart_icon.svg'
+import CarrinhoIcon from '../../../assets/images/icons/shopping-cart_icon.svg';
 import Conta from '../../../assets/images/icons/conta.svg'
+import Carrinho from '../carrinho'
 
 export default function Cabecalho(){
+
+    const [sideBar, setSideBar] = useState(false)
 
 
     return(
@@ -34,8 +40,8 @@ export default function Cabecalho(){
                     <img alt='cardapio' src={Cardapio}/>
                     <p>Cardapio</p>
                 </div>
-                <div className='carrinho'>
-                    <img alt='Carrinho' src={Carrinho}/>
+                <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
+                    <img alt='Carrinho' src={CarrinhoIcon}/>
                     <p>Carrinho</p>
                 </div>
                 <div className='minha-conta'>
@@ -43,6 +49,8 @@ export default function Cabecalho(){
                     <p>Minha Conta</p>
                 </div>
             </div>
+
+            {sideBar && <Carrinho onClose={() => setSideBar(false)}/>}
         </main>
     )
 }
