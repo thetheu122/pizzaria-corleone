@@ -7,17 +7,18 @@
     background-color: #FFC857;
     gap: 70px;
 
-    img{
+    .contato{
         width: 25px;
         height: 25px;
     }
 
-    h3{
+    .titutoContato{
         font-family: lato-bold;
         font-size: 20px;
         font-style: normal;
         font-weight: 600;
         width: 70px;
+        margin-top:20px
     }
 
     h4{
@@ -37,6 +38,7 @@
         line-height: normal;
         width: 189px;
         flex-shrink: 0;
+        margin-top: 14px;
     }
 
     .redes-sociais{

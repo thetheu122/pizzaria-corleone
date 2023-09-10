@@ -1,0 +1,217 @@
+.cardapio{
+    overflow-x: hidden;
+    
+    .cima{
+        width: 100vw;
+        height: 213px;
+        background-image: url('../../assets/images/pictures/fundo_pizza.svg');
+        background-repeat: no-repeat;
+        display: flex;
+        flex-direction: column;
+        justify-content:end;
+        align-items:center;
+        padding-bottom: 30px;
+
+        h1{
+            color: #FFF;
+            font-family: lobster-two-regular;
+            font-size: 35px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .opcoes-cima{
+            display: flex;
+            justify-content: space-evenly;
+            width: 500px;
+
+            h2{
+                color: #FFF;
+                font-family: lobster-two-regular;
+                font-size: 23px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+        }
+
+        
+    }
+
+    .meio{
+        display: flex;
+        margin-top: 35px;
+
+        .esquerda{
+            width: 30vw;
+            padding-left: 15px;
+            margin-top: 20px;
+
+            .filtro-nome{
+                width: 253px;
+                height: 47px;
+                border-radius: 30px;
+                background: #E9E8E8;
+                
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 15px;
+
+                p{
+                    color: #777373;
+                    font-family: lato-regular;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                }
+            }
+
+            .ordenado{
+                display: flex;
+                align-items: center;
+                margin-top: 40px;
+                margin-left: 7px;
+                
+
+                p{
+                    margin-right: 3px;
+                    color: #000;
+                    font-family: lato-regular;
+                    font-size: 15px;
+                    font-style: normal;
+                    font-weight: 400;
+                }
+
+                div{
+                    padding: 10px 15px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 145px;
+                    height: 47px;
+                    border-radius: 30px;
+                    border: 1px solid #000;
+                    background: #FFF;
+
+                    p{
+                        color: #777373;
+                        font-family: lato-regular;
+                        font-size: 14px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: normal;
+                    }
+                    
+
+                    img{
+                        filter: invert(100%);
+                        width: 18.972px;
+                        height: 20.134px;
+                        margin-top: 3px;
+                    }
+                  }
+            }  
+            
+            .restricoes{
+                display: flex;
+                flex-direction: column;
+                border-radius: 5px;
+                background: rgba(230, 230, 230, 0.84);
+                
+                width: 294px;
+
+                margin-top: 40px;
+                margin-left: 7px;
+                padding: 15px 25px;
+
+                .ladinho{
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                    height: 45px;
+                    width: 100%;
+                }
+            }
+
+            h1{
+                color: #000;
+                font-family: lobster-two-regular;
+                width: 30px;
+                font-size: 35px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                margin-left: 7px;
+                margin-top: 50px;
+                margin-bottom: 30px;
+            }
+        }
+
+        .direitaMeio{
+            width: 70vw;
+
+            & > div{
+                display: flex;
+                margin-top: 20px;
+            }
+            
+        }
+    }
+
+    .paginacao{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        margin-top: 40px;
+        margin-bottom: 40px;
+
+        .bolotas{
+            margin-right: 160px;
+        }
+
+
+        div{
+            display: flex;
+            gap: 10px;
+        }
+
+        .circulo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid black;
+            color: #000;
+            font-family: lobster-two-regular;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .proximo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 131px;
+            height: 46px;
+            border-radius:30px ;
+            border: #830D23 1px solid;
+            color: #830D23;
+            font-family:lobster-two-regular;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            margin-right: 120px;
+        }
+    }
+
+}

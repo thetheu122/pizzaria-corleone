@@ -14,7 +14,7 @@ export default function CardProduct() {
 
             <div className='descricao-produto'>
 
-                <div className='cima'>
+                <div className='descricaoProduto'>
                     <h3>Pizza Margherita</h3>
                     <div className='pretin'>
                         <p>4.9</p>

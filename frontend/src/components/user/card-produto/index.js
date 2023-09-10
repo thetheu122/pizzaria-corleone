@@ -23,7 +23,7 @@ export default function CardProduto(){
 
             <div className='descricao-produto'>
 
-                <div className='cima'>
+                <div className='precoNome'>
                     <h3>Pizza Margherita</h3>
                     <p>R$ 71,00</p>
                 </div>
