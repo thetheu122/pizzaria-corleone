@@ -1,6 +1,7 @@
 .carrinhoSideBar{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+
 
     background-color: white;
 
@@ -10,7 +11,7 @@
     right: 0;
     top:0;
 
-    padding: 30px 40px;
+    padding: 30px 20px;
     
     width: 427px;
     height: 100vh;
@@ -19,11 +20,16 @@
      > svg{
         justify-self:start;
         align-self: self-start;
+
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     .cozinheiroCentral{
         text-align: center;
         margin-left: 40px;
+        display: none;
 
         > h2{
             font-family: lobster-two-regular;

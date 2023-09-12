@@ -10,9 +10,10 @@
     background: rgba(0, 0, 0, 0.24);
     margin: 0px;
     box-sizing: border-box;
-    
+   
 
-    .logo-principal{
+
+    .logo-principal {
         width: 216px;
         height: 63px;
         flex-shrink: 0;
@@ -21,48 +22,51 @@
     }
 
     .direita-cabecalho,
-    .esquerda-cabecalho{
+    .esquerda-cabecalho {
         width: 40vw;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         padding: 0px 20px;
 
-        img{
+        img {
             width: 20px;
             height: 20px;
             margin-right: 3px;
         }
 
-        div{
+        div {
             display: flex;
             align-items: center;
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
             }
         }
 
-        .carrinho > img{
+        .carrinho>img {
             filter: invert(100%);
             width: 25px;
-            height: 25px;   
+            height: 25px;
         }
 
-        .minha-conta > img{
+        .minha-conta>img {
             filter: invert(100%);
         }
 
-        .cardapio > img{
+        .cardapio>img {
             width: 35px;
             height: 35px;
         }
 
-        p{
+        p {
             color: #FFF;
             font-size: 16px;
             font-weight: 400;
             font-family: lato-regular;
+            text-decoration: none;
+            /* Remova o sublinhado padrão */
+            outline: none;
         }
     }
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import './index.scss'
 import '../../../assets/config/fonts-config.scss'
@@ -27,19 +28,26 @@ export default function Cabecalho(){
                     <img alt='pedidos-ativos' src={Sino}/>
                     <p>Pedidos Ativos</p>
                 </div>
+                
+                <Link to='/cadastro' style={{ textDecoration: 'none', outline: 'none' }}>
                 <div className='adm-page'>
                     <img alt='adm' src={Adm}/>
-                    <p>Pagina do Associado</p>
+                    <p>Cadastro</p>
                 </div>
+                </Link>
             </div>
 
+            <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
             <div className='logo-principal'></div>
+            </Link>
 
             <div className='direita-cabecalho'>
+                <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
                 <div className='cardapio'>
                     <img alt='cardapio' src={Cardapio}/>
                     <p>Cardapio</p>
                 </div>
+                </Link>
                 <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
                     <img alt='Carrinho' src={CarrinhoIcon}/>
                     <p>Carrinho</p>

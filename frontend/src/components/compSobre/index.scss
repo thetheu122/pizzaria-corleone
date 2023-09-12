@@ -1,0 +1,90 @@
+
+
+
+
+
+.comp-sobre-nos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+
+    .container {
+        display: flex;
+        background-image: url(../../assets/img/retangulo.png);
+        background-position: cover;
+
+        flex-direction: column;
+        background-size: cover;
+        justify-content: center;
+        color: #fff;
+        padding: 25px 25px 55px 100px;
+    }
+
+    .titulo {
+        font-size: 16px;
+    }
+
+
+    .conteudo {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .esquerda {
+        display: flex;
+        padding-right: 30px
+    }
+
+    .direita {
+        display: flex;
+        flex-direction: column;
+        width: 600px;
+        padding: 15px 20px;
+    }
+
+    .direita div {
+        background-color: #53220D;
+        width: 460px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        position: relative;
+        right: 280px;
+        margin-bottom: 12px;
+    }
+
+    .direita p {
+        font-size: 18px;
+        width: 520px;
+        font-weight: 300;
+        margin-bottom: 10px;
+    }
+
+    .direita span {
+        font-size: 18px;
+        width: 500px;
+        font-weight: 400;
+    }
+
+    button{
+        position: relative;
+        right: -600px;
+        width: 150px;
+        height: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 30px;
+        border: none;
+
+        font-size: 16px;
+        color: #53220D;
+        background-color: #fff;
+    }
+    
+}

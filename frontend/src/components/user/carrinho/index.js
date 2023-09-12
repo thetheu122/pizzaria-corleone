@@ -2,6 +2,7 @@ import './index.scss';
 import '../../../assets/config/fonts-config.scss';
 
 import Cozinheiro from '../../../assets/images/pictures/cozinheiro.png'
+import CardCarrinho from '../carrinhoCard';
 
 export default function Carrinho({ onClose }) {
 
@@ -18,6 +19,8 @@ export default function Carrinho({ onClose }) {
                 <h2>Carrinho Vazio</h2>
                 <p>Adicione itens ao seu carrinho</p>
             </div>
+
+            <CardCarrinho />
         </div>
     )
 }

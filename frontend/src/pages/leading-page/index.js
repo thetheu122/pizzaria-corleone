@@ -5,7 +5,7 @@ import Rodape from '../../components/user/rodape'
 import Cabecalho from '../../components/user/cabecalho'
 import Secao from '../../assets/images/pictures/ingredientes.png'
 import Mais from '../../assets/images/pictures/sobre-nos.png'
-
+import CompSobre from '../../components/compSobre'
 export default function Leading() {
 
 
@@ -100,7 +100,7 @@ export default function Leading() {
                 </button>
             </div>
         <img src={Secao} className='ingredientes'/>
-        <img src={Mais} className='mais-sobre'/>
+        <CompSobre/>
         <button className='redirecionar'>
             Experimente aqui a <strong>Pizza</strong> digna de um <strong>Don</strong>
         </button>
