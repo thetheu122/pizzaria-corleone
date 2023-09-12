@@ -1,5 +1,7 @@
 import './index.scss'
+import '../../assets/config/fonts-config.scss'
 import { useState } from "react"
+import { Link } from 'react-router-dom';
 
 export default function TelaAssociado() {
 
@@ -57,17 +59,16 @@ export default function TelaAssociado() {
 
       <div className='containeer'>
         <div className='esquerda'>
-          <div className='sair'>
 
-
-          </div>
 
           <div className='bemvindo'>
-            <h1>Bem-vindo<br /> Associado!</h1>
+            <h1>Bem-vindo<br /> <strong>Associado!</strong> </h1>
             <p>Gerencie suas operações agora mesmo. <br /> </p>
             <a href=''>Clicou errado?</a>
-            <button>Voltar</button>
 
+            <Link to='/'style={{ textDecoration: 'none', outline: 'none' }}>
+            <button>Voltar</button>
+            </Link>
           </div>
 
         </div>
