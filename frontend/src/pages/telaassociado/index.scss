@@ -1,0 +1,175 @@
+.pag-cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../images//fundoo.png');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+
+    .containeer{
+        display: flex;
+        flex-direction: row;
+        background-color: #fff;
+        border-radius: 5px;
+       
+    }
+
+    
+    .esquerda {
+        background-color: #53220D;
+        padding: 20px;
+        padding-top: 60px;
+        padding-left: 30px;
+        padding-right: 30px;
+        width: 250px;
+        height: 500px;
+      
+        border-radius: 0px 20px 20px 0px;
+        justify-content: center;
+    }
+
+    .sair {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        color: #fff;
+        position: relative;
+        bottom: 80px;
+    }
+
+    .sair img {
+        height: 12px;
+        padding-right: 5px;
+    }
+
+    .bemvindo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+       
+    }
+
+    .bemvindo h1{
+        margin-top: 50px;
+        font-size: 22px;
+        color: #fff;
+        padding-bottom: 20px;
+        padding-right: 70px;
+    }
+
+    .bemvindo p{
+        font-size: 8px;
+        color: #fff;
+        padding-bottom: 25px;
+        width: 210px;
+        padding-left: 30px;
+        margin-top: -30px;
+        font-size: 18px;
+    }
+
+    .bemvindo button {
+        margin-top: 5px;
+        margin-bottom: 50px;
+        background-color: #FFC857;
+        color: #fff;
+        padding: 10px;
+        border-radius: 50px;
+        width: 150px;
+        font-size: 15px;
+        border: none;
+    }
+
+    .bemvindo a {
+        color: #fff;
+        font-size: 13px;
+        text-decoration: none;
+
+    }
+
+    .direita {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 430px;
+        padding: 3px;
+        background-color: #fff;
+        border-radius: 3px;
+    
+       
+    }
+
+    .direita h2 {
+        font-size: 22px;
+        color: #53220D;
+    }
+
+
+  
+
+    .divisao p {
+        font-size: 20px;
+        padding: 0px 10px;
+    }
+
+    .plataformas {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .plataformas img {
+        padding: 0px 10px;
+    }
+
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .inputs input {
+        border: #A59A9A 1px solid;
+        width: 250px;
+        height: 40px;
+        padding: 0px 3px;
+        border-radius: 7px;
+        outline: #A59A9A;
+    }
+
+
+    .inputs div {
+        margin: 5px 0px;
+    }
+
+    .final {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .final button {
+        background-color: #53220D;
+        width: 170px;
+        padding: 10px;
+        border-radius: 50px;
+        color: #fff ;
+        font-size: 16px;
+        border: #000 2px solid;
+    }
+
+    .final p {
+        font-size: 14px;
+        color: #555555;
+    }
+
+    .final a{
+        text-decoration: none;
+        color: #4272EF;
+    }
+
+}

@@ -10,6 +10,8 @@ import Cadastro from './pages/cadastro'
 import CadastroPart2 from './pages/cadastropart2';
 import Login from './pages/login'
 import CompSobre from './components/compSobre'; 
+import SobreNos from './pages/sobrenos';
+import TelaAssociado from './pages/telaassociado';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,9 +19,11 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Leading />} />
+        <Route path='/sobrenos' element ={<SobreNos/>} />
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/cadastro' element={<Cadastro />} />
         <Route path='/cadastroPart2' element={<CadastroPart2 />} />
+        <Route path='/associado' element={<TelaAssociado/>} />
         <Route path='/login' element={<Login />} />
         <Route path='/comp' element={<CompSobre />} />
       </Routes>

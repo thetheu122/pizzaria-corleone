@@ -120,6 +120,10 @@
                 img{
                     filter: invert(100%);
                 }
+
+                &:hover{
+                    cursor: pointer;
+                }
             }
 
             .mais-detalhes{

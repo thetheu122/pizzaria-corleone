@@ -20,19 +20,21 @@ export default function Cabecalho(){
     return(
         <main className='cabecalho'>
             <div className='esquerda-cabecalho'>
+                <Link to='/sobrenos' style={{ textDecoration: 'none', outline: 'none' }}>
                 <div className='sobre-nos'>
                     <img alt='sobre-nos' src={Mais}/>
                     <p>Sobre nos</p>
                 </div>
+                </Link>
                 <div className='pedidos-ativos'>
                     <img alt='pedidos-ativos' src={Sino}/>
                     <p>Pedidos Ativos</p>
                 </div>
                 
-                <Link to='/cadastro' style={{ textDecoration: 'none', outline: 'none' }}>
+                <Link to='/associado' style={{ textDecoration: 'none', outline: 'none' }}>
                 <div className='adm-page'>
                     <img alt='adm' src={Adm}/>
-                    <p>Cadastro</p>
+                    <p>Pagina do Associado</p>
                 </div>
                 </Link>
             </div>
@@ -52,10 +54,12 @@ export default function Cabecalho(){
                     <img alt='Carrinho' src={CarrinhoIcon}/>
                     <p>Carrinho</p>
                 </div>
+                <Link to='/cadastro' style={{ textDecoration: 'none', outline: 'none' }}>
                 <div className='minha-conta'>
                     <img alt='minha-conta' src={Conta}/>
                     <p>Minha Conta</p>
                 </div>
+                </Link>
             </div>
 
             {sideBar && <Carrinho onClose={() => setSideBar(false)}/>}
