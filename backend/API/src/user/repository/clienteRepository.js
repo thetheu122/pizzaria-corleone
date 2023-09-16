@@ -1,4 +1,4 @@
-import con from "../../conection.js";
+import { con } from "../../conection.js";
 
 
 export async function inserirCliente(clientes) {
@@ -24,7 +24,7 @@ export async function inserirCliente(clientes) {
 
 
 
-export async function Login(email, senha) {
+export async function loginCliente(email, senha) {
     let comando =
     `
         SELECT
@@ -32,7 +32,7 @@ export async function Login(email, senha) {
         tb_cliente.ds_email      AS Email,
         tb_cliente.ds_senha      AS senha
         FROM tb_cliente
-        WHERE ds_email = ?,
+        WHERE ds_email = ?
         AND ds_senha = ?
     `
     const [resposta] = await con.query(comando, [ email , senha])
