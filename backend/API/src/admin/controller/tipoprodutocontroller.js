@@ -1,5 +1,5 @@
 import  { Router } from "express";
-import { alterartipo, inserirtipoproduto, listartipo, verificar } from "../repository/tipoProdutoRepository.js";
+import { alterartipo, inserirtipoproduto, listartipo, verificar } from "../repository/tipoprodutorepository.js";
 
 const endpoints = Router()
 

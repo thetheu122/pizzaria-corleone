@@ -7,9 +7,10 @@ export async function inserircometario( comentario){
                          VALUES ( ?)
     `
 
-    const [ resposta] = await con.query( comando , [comentario.comentario ])
-    comentario.id = resposta.insertId
-    return comentario
+const [ resposta] = await con.query( comando , [comentario.comentario ])
+
+comentario.id = resposta.insertId
+return comentario
 }
 
 
@@ -32,18 +33,33 @@ return[resposta]
 
 
 
-export async function alterartipo(id , comentario){
+export async function alterarcomentario(id , comentario){
 
 	const comando = `
 	UPDATE tb_comentario
     SET    ds_comentario  = ?
-    WHERE  id_comentario = ? `
+    WHERE  id_comentario  = ? `
 
-	const [resposta] = await con.query( comando , [
-		comentario.comentario,
-		id
-	])
-	return resposta.affectedRows
+const [resposta] = await con.query( comando , [
+ comentario.comentario,
+    id 
+])
+
+
+
+return resposta.affectedRows
+}
+
+
+
+export async function deletarcomentario (id){
+
+    const comando =`
+    DELETE FROM tb_comentario 
+    WHERE       id_comentario = ?;
+    `
+const [ resposta ] = await con.query( comando ,[id])
+return resposta.affectedRows
 
 
 }
