@@ -24,18 +24,17 @@ export async function inserirCliente(clientes) {
 
 
 
-export async function Login(email) {
-    let comando = `
-    SELECT
-tb_cliente.id_cliente    AS ID,
-tb_cliente.ds_email      AS Email,
-FROM
-tb_cliente
-INNER JOIN
-tb_endereco ON tb_cliente.id_endereco = tb_endereco.id_endereco
-LEFT JOIN
-tb_cartao ON tb_cliente.id_cartao = tb_cartao.id_cartao;
+export async function Login(email, senha) {
+    let comando =
     `
-
-    
-}
+        SELECT
+        tb_cliente.id_cliente    AS ID,
+        tb_cliente.ds_email      AS Email,
+        tb_cliente.ds_senha      AS senha
+        FROM tb_cliente
+        WHERE ds_email = ?,
+        AND ds_senha = ?
+    `
+    const [resposta] = await con.query(comando, [ email , senha])
+    return resposta;
+};

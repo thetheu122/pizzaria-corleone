@@ -5,7 +5,7 @@ export async function cadastrarEndereco(endereco){
     let comando =
     `
     INSERT INTO tb_endereco (ds_estado, ds_municipio, ds_rua, ds_numero, ds_cep)
-         VALUES (?, ?, ?, ?, ?, ?)
+         VALUES (?, ?, ?, ?, ?)
     `
     let respos = await con.query(comando,[
         endereco.estado,
