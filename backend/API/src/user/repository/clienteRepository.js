@@ -1,4 +1,4 @@
-import con from "./connection";
+import con from "../../conection.js";
 
 
 export async function inserirCliente(clientes) {

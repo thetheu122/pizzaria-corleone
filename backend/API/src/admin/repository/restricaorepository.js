@@ -1,4 +1,4 @@
-import { con} from "./conection";
+import { con } from "../../conection.js";
 
 
 export async function inserirrestricao(){

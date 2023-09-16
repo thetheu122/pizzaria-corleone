@@ -1,5 +1,5 @@
 
-import { con } from "./conection.js";
+import { con } from "../../conection.js";
 
 export async function inserirtipoproduto (tipo){
 
