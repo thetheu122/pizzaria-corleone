@@ -1,0 +1,36 @@
+.historico{
+
+    background-image:url('../assets//images/Rectangle\ 67.png') ;
+    background-size: 100%;
+   
+
+     width: 100%;
+     min-width: 1420px;
+
+     height: auto;
+     min-height: 800px;
+    
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+
+ .fundo{
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+
+   background-color: white;
+   width: 550px;
+   height: auto;
+   min-height: 610px;
+
+   border-radius: 10px;
+   margin-left: 10px;
+ }
+ .fundo h1{
+    color: #53220D;
+ }
+
+
+}

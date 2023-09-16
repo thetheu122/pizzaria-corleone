@@ -1,0 +1,32 @@
+.favorito{
+    background-image:url('../assets//images/Rectangle\ 67.png') ;
+    background-size: 100%;
+   
+
+     width: 100%;
+     min-width: 1420px;
+
+     height: auto;
+     min-height: 800px;
+    
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+     .fundo{
+
+        padding: 10px 0px 0px 0px;
+        display: flex;
+       flex-direction: column;
+       align-items: center;
+       justify-content: start;
+    
+       background-color: white;
+       width: 550px;
+       height: auto;
+       min-height: 600px;
+    
+       border-radius: 10px;
+       margin-left: 10px;
+     }
+}

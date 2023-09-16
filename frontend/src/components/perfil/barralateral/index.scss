@@ -1,0 +1,111 @@
+
+.barra-lateral{
+    *{
+        margin: 0px;
+    }
+
+  
+    
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+
+ .fundo{
+    display: flex;
+    flex-direction: column;
+    align-items: start ; 
+
+    background-color: white;
+    width: 400px !important;
+    height: 540px !important;
+
+    border-radius: 10px !important;
+ }
+ .fundo > p {
+    margin-left: 20px !important;
+    margin-bottom: 20px !important;
+ }
+
+ .barra-lateral-secao-01-circulo{
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    background-color: rgb(150, 150, 150);
+ }
+
+ .barra-lateral-secao-01{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+ }
+
+
+.barra-lateral-voltar{
+   margin-top: 4px;
+    width: 100%;
+    display: flex;
+    align-items: start;
+}
+.barra-lateral-voltar > img {
+   margin-left: 5px;
+    margin-top: 5px;
+    width: 15px;
+}
+
+
+.barra-lateral-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px;
+    width: 350px;
+    height: 340px;
+}
+
+
+ .barra-lateral-links > div {
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height:66px;
+
+    cursor: pointer;
+
+    margin-left: 5px;
+ 
+    border-top: 0.6px solid rgb(77, 77, 77);
+ }
+
+ .link-barra-lateral{
+   display: flex;
+   align-items: center;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color:black !important;
+    margin-left: 6px;
+ }
+ .barra-lateral-links > div > img{
+    width: 20px;
+    margin-right: 5px;
+   
+ }
+ .pedidos-ativos{
+   border-top: none !important;
+ }
+
+ 
+
+ .barra-lateral-links :hover{
+
+    background-color: rgb(214, 214, 214);
+   
+ }
+
+
+}   
