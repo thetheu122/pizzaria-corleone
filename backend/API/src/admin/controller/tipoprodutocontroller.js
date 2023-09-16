@@ -70,7 +70,7 @@ endpoints.put ('/tipo/alterar/:id', async (req,resp) =>{
 
           else{
             const resposta = await alterartipo(id , tipo)
-            resp.send(resposta)''
+            resp.send(resposta)
           }
       }
 
