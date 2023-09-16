@@ -2,10 +2,24 @@ import { con } from "../../conection.js";
 
 
 export async function inserirCliente(clientes) {
+   
+    const [existingCliente] = await con.query(
+        'SELECT * FROM tb_cliente WHERE ds_email = ? OR ds_telefone = ?',
+        [clientes.email, clientes.telefone]
+    );
+
+    if (existingCliente.length > 0) {
+        if (existingCliente[0].ds_email === clientes.email) {
+            throw new Error('Já existe um cliente com o mesmo email');
+        } else if (existingCliente[0].ds_telefone === clientes.telefone) {
+            throw new Error('Já existe um cliente com o mesmo telefone');
+        }
+    }
+
     let comando = `
     INSERT INTO tb_cliente (id_endereco, id_cartao, nm_cliente, ds_email, ds_telefone, ds_senha, ds_cpf, ds_nacimento)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    `
+    `;
 
     const [resposta] = await con.query(comando, [
         clientes.endereco,
@@ -16,11 +30,12 @@ export async function inserirCliente(clientes) {
         clientes.senha,
         clientes.cpf,
         clientes.nascimento
-    ])
+    ]);
 
-    clientes.id = resposta.insertId
+    clientes.id = resposta.insertId;
     return clientes;
 }
+
 
 
 
@@ -30,7 +45,6 @@ export async function loginCliente(email, senha) {
         SELECT
         tb_cliente.id_cliente    AS ID,
         tb_cliente.ds_email      AS Email,
-        tb_cliente.ds_senha      AS senha
         FROM tb_cliente
         WHERE ds_email = ?
         AND ds_senha = ?

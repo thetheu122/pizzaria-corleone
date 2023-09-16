@@ -8,6 +8,7 @@ import  cors     from 'cors'
 import tipo from './admin/controller/tipoprodutocontroller.js'
 import comentario from './user/controller/comentarioController.js'
 import endereco from './user/controller/enderecoController.js'
+import cliente from './user/controller/clienteController.js'
 
 const server = express()
 server.use(cors())
@@ -17,6 +18,7 @@ server.use(express.json())
 server.use(tipo)
 server.use(comentario)
 server.use(endereco)
+server.use(cliente)
 
 
 
