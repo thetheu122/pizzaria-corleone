@@ -1,5 +1,5 @@
 import  { Router } from "express";
-import { inserircometario, listarcomentario } from "../repository/comentariorepository.js";
+import { inserircometario, listarcomentario } from "../repository/comentarioRepository.js";
 
 
 const endpoints = Router()

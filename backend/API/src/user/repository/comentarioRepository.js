@@ -1,4 +1,4 @@
-import { con } from "./conection.js";
+import { con } from "../../repository/conection.js";
 
 
 export async function inserircometario( comentario){

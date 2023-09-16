@@ -5,8 +5,8 @@ import  cors     from 'cors'
 
 
 // import endpoints
-import tipo from './controller/tipoprodutocontroller.js'
-import comentario from './controller/comentario.js'
+import tipo from './admin/controller/tipoprodutocontroller.js'
+import comentario from './user/controller/comentarioController.js'
 
 
 const server = express()
