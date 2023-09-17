@@ -12,9 +12,9 @@ const endpoints = Router();
 
 endpoints.post('/produto', async (req, resp) => {
   try {
-    const {produto} = req.body;
-
-    
+    const produto = req.body;
+     
+    console.log(produto)
       const resposta = await inserirProduto(produto);
 
       resp.send(resposta);
@@ -38,6 +38,8 @@ endpoints.get('/produto', async (req, resp) => {
 
 });
 
+
+endpoints.get('/produto/img')
 
 
 endpoints.put('/produto/alterar/:id', async (req, resp) => {

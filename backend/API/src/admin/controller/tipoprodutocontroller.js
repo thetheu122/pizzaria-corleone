@@ -14,13 +14,13 @@ endpoints.post( '/tipo' , async (req , resp) =>{
       }
       
       else{
-        const existente = await verificar(tipo)
+        const existente = await verificar({tipo})
 
         if( existente ){
           resp.status(400).send({erro: 'Tipo de produto ja encontrado'})
         }
         else{
-          const resposta = await inserirtipoproduto({tipo})
+          const resposta = await inserirtipoproduto(tipo)
           resp.send(resposta)
         }
        
