@@ -1,24 +1,34 @@
-import './index.scss'
-import Fundo from '../../assets/img/fundopizza.png'
-import SetaEsquerda from '../../assets/img/seta-branca 1.png'
-import Google from '../../assets/img/google 1.png'
-import Facebook from '../../assets/img/Vector.png'
-import Instagram from '../../assets/img/insta 1.png'
-import Iphone from '../../assets/img/maca 1.png'
+import React, { useState } from 'react';
+import './index.scss';
+import SetaEsquerda from '../../assets/img/seta-preta 1.png';
+import Google from '../../assets/img/google 1.png';
+import Facebook from '../../assets/img/Vector.png';
+import Instagram from '../../assets/img/insta 1.png';
+import Iphone from '../../assets/img/maca 1.png';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import CadastroPart2 from '../cadastropart2';
 
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+function App(props) {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
 
-function App() {
-  const [nome, setNome] = useState('')
-  const [email, setEmail] = useState('')
-  const [telefone, setTelefone] = useState('')
-  const [senha, setSenha] = useState('')
+  const [cadastro, setCadastro] = useState(true);
+  const [continuacaoCadas, setContinuacaoCadas] = useState(false);
+
+  const inversao = () =>{
+    setCadastro(!cadastro)
+    setContinuacaoCadas(!continuacaoCadas)
+  }
 
 
 
   return (
+
     <div className="pag-cadastro">
+      {cadastro && 
       <div className='container'>
         <div className='esquerda'>
           <div className='sair'>
@@ -27,10 +37,10 @@ function App() {
           </div>
 
           <div className='bemvindo'>
-            <h1>Bem-vindo<br/> de volta</h1>
-            <p>Acesse sua conta agora <br/> mesmo.</p>
+            <h1>Bem-vindo<br /> de volta</h1>
+            <p>Acesse sua conta agora <br /> mesmo.</p>
             <Link to='/login'>
-            <button>Entrar</button>
+              <button>Entrar</button>
             </Link>
             <a href=''>Esqueceu a senha?</a>
           </div>
@@ -78,30 +88,34 @@ function App() {
             </div>
 
             <div>
-              <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='E-mail'/>
+              <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='E-mail' />
             </div>
 
             <div>
-              <input type='text' value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder='Telefone'/>
+              <input type='text' value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder='Telefone' />
             </div>
 
             <div>
-              <input type='text' value={senha} onChange={(e) => setSenha(e.target.value)} placeholder='Senha'/>
+              <input type='text' value={senha} onChange={(e) => setSenha(e.target.value)} placeholder='Senha' />
             </div>
           </div>
 
-          <Link to='/cadastroPart2'>
-          <div className='final'>
-            <button>Criar conta</button>
-            <p>Ao criar uma conta, você concorda com nossos<br/> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
-          </div>
-          </Link>
+          
+            <div className='final'>
+                <button onClick={inversao}>Criar conta</button>
+              <p>
+                Ao criar uma conta, você concorda com nossos<br />{' '}
+                <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a>
+              </p>
+            </div>
+          
 
         </div>
 
 
 
-      </div>
+      </div>}
+      {continuacaoCadas && <CadastroPart2 inversao={inversao}nome={nome} telefone={telefone} senha={senha} email={email}/>}
     </div>
   );
 }
