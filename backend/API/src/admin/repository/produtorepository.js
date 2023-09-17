@@ -119,3 +119,17 @@ return resposta
     const [res] = await con.query(comando, [id]);
     return res.affectedRows;
   }
+
+  export async function imagem(imagem, id){
+
+    const comando =
+    `INSERT INTO tb_imagem (img_produto, id_produto)
+    VALUES (?, ?);
+    
+    `
+
+    const [ respsta ] =await con.query(comando, [imagem, id])
+    return respsta.affectedRows
+    
+  
+}
