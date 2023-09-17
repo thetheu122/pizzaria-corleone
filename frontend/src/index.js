@@ -26,7 +26,6 @@ root.render(
         <Route path='/sobrenos' element ={<SobreNos/>} />
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/cadastro' element={<Cadastro />} />
-        <Route path='/cadastroPart2' element={<CadastroPart2 />} />
         <Route path='/associado' element={<TelaAssociado/>} />
         <Route path='/login' element={<Login />} />
         <Route path='/comp' element={<CompSobre />} />
