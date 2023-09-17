@@ -1,6 +1,5 @@
 
-import { con} from "./conection.js";
-
+import { con } from "../../conection.js";
 
 export async function inserirrestricao(restricao){
 
@@ -63,3 +62,30 @@ const [ resposta ] = await con.query( comando )
 return resposta
 }
 
+export async function atualizarRestricao(id, novaDescricao, idproduto) {
+    const comando = `
+      UPDATE tb_restricao
+      SET ds_restricao = ?,
+      id_produto = ?
+      WHERE id_restricao = ?;
+    `;
+  
+    const [resposta] = await con.query(comando, [
+      novaDescricao,
+      idproduto,
+      id
+    ]);
+  
+    return resposta.affectedRows;
+  }
+  
+  export async function excluirRestricao(id) {
+    const comando = `
+      DELETE FROM tb_restricao
+      WHERE id_restricao = ?;
+    `;
+  
+    const [resposta] = await con.query(comando, [id]);
+  
+    return resposta.affectedRows;
+  }
