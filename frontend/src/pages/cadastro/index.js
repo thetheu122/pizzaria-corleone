@@ -7,8 +7,16 @@ import Instagram from '../../assets/img/insta 1.png'
 import Iphone from '../../assets/img/maca 1.png'
 
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 function App() {
+  const [nome, setNome] = useState('')
+  const [email, setEmail] = useState('')
+  const [telefone, setTelefone] = useState('')
+  const [senha, setSenha] = useState('')
+
+
+
   return (
     <div className="pag-cadastro">
       <div className='container'>
@@ -66,19 +74,19 @@ function App() {
 
           <div className='inputs'>
             <div>
-              <input type='text' placeholder='Nome Completo' />
+              <input type='text' value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome Completo' />
             </div>
 
             <div>
-              <input type='text' placeholder='E-mail'/>
+              <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='E-mail'/>
             </div>
 
             <div>
-              <input type='text' placeholder='Telefone'/>
+              <input type='text' value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder='Telefone'/>
             </div>
 
             <div>
-              <input type='text' placeholder='Senha'/>
+              <input type='text' value={senha} onChange={(e) => setSenha(e.target.value)} placeholder='Senha'/>
             </div>
           </div>
 
