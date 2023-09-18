@@ -21,6 +21,7 @@ CREATE TABLE tb_produto (
 	
 id_produto	   	      INT PRIMARY KEY AUTO_INCREMENT,
 ds_tipo_produto		  INT NOT NULL,
+id_restricao          INT NOT NULL,
 ds_ingredientes       VARCHAR(500)  NOT NULL,     
 nm_produto            VARCHAR(200)  NOT NULL,
 vl_preco              VARCHAR(200)  NOT NULL,
@@ -30,6 +31,7 @@ bt_disponivel         bool  NOT NULL,
 
 
 FOREIGN KEY   (ds_tipo_produto) REFERENCES  tb_tipo_produto (id_tipo_produto)
+FOREIGN KEY (id_restricao) REFERENCES tb_restricao(id_restricao)
 
 );
 
@@ -47,10 +49,9 @@ FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 CREATE TABLE tb_restricao (
 
 id_restricao       INT PRIMARY KEY AUTO_INCREMENT,
-id_produto         INT ,
-ds_restricao       VARCHAR(200) ,
+ds_restricao       VARCHAR(200) 
 
-FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
+
 );
 
 
