@@ -17,7 +17,7 @@ export default function TelaAssociado() {
      
 
     try {
-    
+  
       let associadoo = {
         nome: nome,
         email:email,
