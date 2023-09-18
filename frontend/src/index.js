@@ -12,6 +12,10 @@ import Login from './pages/login'
 import CompSobre from './components/compSobre'; 
 import SobreNos from './pages/sobrenos';
 import TelaAssociado from './pages/telaassociado';
+import Pagamento from './pages/pagamento';
+import Pedidosativos from './pages/pedidosativos';
+import Cadastrarproduto from './pages/cadastrarproduto';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,6 +29,10 @@ root.render(
         <Route path='/associado' element={<TelaAssociado/>} />
         <Route path='/login' element={<Login />} />
         <Route path='/comp' element={<CompSobre />} />
+        <Route path='/pagamento' element={<Pagamento/>}/>
+        <Route path='/ativos' element={<Pedidosativos/>}/>
+        <Route path='/cadastroproduto' element={<Cadastrarproduto/>}/>
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

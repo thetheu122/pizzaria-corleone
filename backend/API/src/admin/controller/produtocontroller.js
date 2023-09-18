@@ -4,7 +4,12 @@ import {
   listarProdutos,
   atualizarProduto,
   excluirProduto,
+  listarprodutoimg,
+  imagem
 } from '../repository/produtorepository.js';
+
+import multer from 'multer';
+const upload = multer({ dest: 'storage/produto' });
 
 const endpoints = Router();
 
@@ -73,6 +78,40 @@ endpoints.put('/produto/alterar/:id', async (req, resp) => {
       resp.status(500).send({ erro: err.message });
     }
   });
+
+
+
+endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => {
+  try {
+    const { id } = req.params;
+    const image = req.file.path;
+    const resposta = await imagem(image, id);
+
+    if (resposta != 1) {
+      console.log( 'imagem nao pode ser salva')
+    }
+   
+
+    resp.status(204).send();
+  } catch (err) {
+    resp.status(400).send({
+      erro: err.message,
+    });
+  }
+});
+
   
+
+  endpoints.get('/produto/img', async (req, resp) => {
+    try {
+  
+      const imagem = await listarprodutoimg();
+      resp.send(imagem);
+  
+    } catch (err) {
+      resp.status(400).send({ erro: err.message });
+    }
+  
+  });
   export default endpoints;
   
