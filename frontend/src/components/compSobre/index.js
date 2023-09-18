@@ -8,7 +8,7 @@ import Fundo from '../../assets/img/retangulo.png';
 export default function CompSobre() {
     return(
         <div className="comp-sobre-nos">
-            <div className="container">
+            <div className="containerrr">
                 <div className="titulo">
                     <h1>A Corleone Pizzaria</h1>
                 </div>
