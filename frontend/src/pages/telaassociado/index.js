@@ -2,6 +2,7 @@ import './index.scss'
 import '../../assets/config/fonts-config.scss'
 import { useState } from "react"
 import { Link } from 'react-router-dom';
+import  axios from 'axios'
 
 export default function TelaAssociado() {
 
@@ -11,17 +12,37 @@ export default function TelaAssociado() {
   const [cnpj, setcpnj] = useState('')
   const [associado, setassociado] = useState([])
 
-  function entrar() {
-    let associadoo = {
-      nome: nome,
-      email: email,
-      senha: senha,
-      cpnj: cnpj
+  
+  async function entrar() {
+     
+
+    try {
+    
+      let associadoo = {
+        nome: nome,
+        email:email,
+        senha:senha,
+        cnpj: cnpj
+      }
+      
+      const response = await axios.put('http://localhost:5000/usuarioadm/login', associadoo);
+    
+  
+      if (response.status === 200) {
+        alert(response.data.message);
+       
+      }
+    } 
+      catch (error) {
+        
+      if (error.response) {
+        alert( error.response.data.erro);
+      } else {
+        alert( error.message);
+      }
     }
-
-    setassociado([...associado, associadoo])
-
   }
+  
 
 
   return (
@@ -51,7 +72,9 @@ export default function TelaAssociado() {
         </div>
 
         <div className='final'>
-          <button>Entrar</button>
+          <Link>
+               <button onClick={entrar}>Entrar</button>
+          </Link>
           <p>Ao criar uma conta, você concorda com nossos<br /> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
         </div>
 

@@ -1,6 +1,6 @@
-import { con } from "../../conection.js";
+import { con } from '../../conection.js'
 
-export async function loginadm(associado) {
+export async function loginadm(nome,email,senha,cnpj) {
 
 
     const comando = `
@@ -21,15 +21,16 @@ export async function loginadm(associado) {
     
     const [linha] = await con.query(comando,
         [ 
-            associado.nome, 
-            associado.email,
-            associado.senha,
-            associado.cnpj,
+            nome,
+            email,
+            senha,
+            cnpj
           
         ]
          );
-  
-
-    return linha[0];
+ 
+console.log(nome,email,senha,cnpj)
+    return linha.length > 0;
+    
     
 }

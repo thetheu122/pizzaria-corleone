@@ -11,7 +11,7 @@ import endereco from './user/controller/enderecoController.js'
 import cliente from './user/controller/clienteController.js'
 import restricao from'./admin/controller/restricaocontroller.js'
 import produto   from './admin/controller/produtocontroller.js'
-import usuario from './admin/controller/usuariocontroler.js'
+import usuario   from './admin/controller/usuariocontroler.js'
 
 
 const server = express()

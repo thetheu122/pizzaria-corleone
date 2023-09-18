@@ -86,7 +86,7 @@ return resposta
         tb_tipo_produto.ds_tipo_produto = ?,
         tb_produto.vl_preco = ?,
         tb_produto.vl_preco_promocional = ?,
-        tb_comentario.ds_comentario = ?,
+        tb_comentario.ds_c = ?,
         tb_produto.ds_descricao = ?,
         tb_produto.bt_disponivel = ?
       WHERE tb_produto.id_produto = ?
