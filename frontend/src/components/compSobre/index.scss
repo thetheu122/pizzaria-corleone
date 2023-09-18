@@ -8,13 +8,16 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
+    margin-bottom: 30px;
 
 
-    .container {
+    .containerrr {
         display: flex;
-        background-image: url(../../assets/img/retangulo.png);
-        background-position: cover;
+        background-color: #53220D;
+        border-radius: 30px;
+        background-image: none;
+        background-size: cover;
 
         flex-direction: column;
         background-size: cover;
@@ -85,6 +88,15 @@
         font-size: 16px;
         color: #53220D;
         background-color: #fff;
+        padding: 20px 20px;
+
+        transition: 150ms;
+
+        &:hover{
+            background-color:#FFC857;
+            color:#ffffff;
+            cursor: pointer;
+        }
     }
     
 }

@@ -1,11 +1,14 @@
 import './index.scss'
 import '../../assets/config/fonts-config.scss'
+import { Link } from 'react-router-dom'
 
 import Rodape from '../../components/user/rodape'
 import Cabecalho from '../../components/user/cabecalho'
 import Secao from '../../assets/images/pictures/ingredientes.png'
 import Mais from '../../assets/images/pictures/sobre-nos.png'
 import CompSobre from '../../components/compSobre'
+
+    
 export default function Leading() {
 
 
@@ -30,7 +33,9 @@ export default function Leading() {
                             <h2>Sabor Excepcional</h2>
                             <p>Palavras presentes em cada mordidas em nossas pizzas.</p>
                         </div>
+                        <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
                         <button>Confira Aqui</button>
+                        </Link>
                     </div>
                 </div>
 
@@ -40,7 +45,9 @@ export default function Leading() {
                             <h2>Qualidade</h2>
                             <p>Trago diretamente da Sicília, Itália. O sabor é indescritível.</p>
                         </div>
+                        <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
                         <button>Confira Aqui</button>
+                        </Link>
                     </div>
                 </div>
 
@@ -50,7 +57,9 @@ export default function Leading() {
                             <h2>Tradição</h2>
                             <p>Palavras presentes em cada mordidas em nossas pizzas.</p>
                         </div>
+                        <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
                         <button>Confira Aqui</button>
+                        </Link>
                     </div>
                 </div>
 

@@ -26,15 +26,17 @@ function App(props) {
 
 
   return (
-
-    <div className="pag-cadastro">
-      {cadastro && 
+    <>
+    {cadastro &&
+    <div className="pag-cadastro">  
       <div className='container'>
         <div className='esquerda'>
+          <Link to='/'>
           <div className='sair'>
             <img src={SetaEsquerda} />
             <p>Voltar</p>
           </div>
+          </Link>
 
           <div className='bemvindo'>
             <h1>Bem-vindo<br /> de volta</h1>
@@ -114,9 +116,11 @@ function App(props) {
 
 
 
-      </div>}
+      </div>
+      </div>
+    }
       {continuacaoCadas && <CadastroPart2 inversao={inversao}nome={nome} telefone={telefone} senha={senha} email={email}/>}
-    </div>
+    </>
   );
 }
 
