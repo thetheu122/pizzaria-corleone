@@ -14,16 +14,22 @@
         flex-direction: row;
         background-color: #fff;
         border-radius: 20px;
+        width: 55vw;
+        height: 75vh; 
+        align-items: center;
     }
 
     .esquerda {
         display: flex;
         flex-direction: column;
         background-color: #53220D;
-        padding: 20px;
-        width: 377px;
+        padding: 20px 50px;
         border-radius: 20px;
-        justify-content: center;
+        justify-content: space-between;
+    }
+
+    h6 {
+        color: #53220D;
     }
 
     .sair {
@@ -31,24 +37,25 @@
         flex-direction: row;
         align-items: center;
         color: #fff;
-        position: relative;
-        bottom: 80px;
+        text-decoration: none;
     }
 
     .sair img {
         height: 12px;
         padding-right: 5px;
+        filter: invert(100%);
     }
 
     .bemvindo{
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        height: 100%;
     }
 
     .bemvindo h1{
-        font-size: 40px;
+        font-size: 32px;
         color: #fff;
         padding-bottom: 15px;
     }
@@ -56,23 +63,25 @@
     .bemvindo p{
         font-size: 20px;
         color: #fff;
-        padding-bottom: 25px;
+        margin-bottom: 25px;
     }
 
     .bemvindo button {
         margin-top: 25px;
-        background-color: #FFC857;
+        background-color: #ffb219;
         color: #fff;
-        padding: 10px;
+        padding: 5px 15px;
         border-radius: 50px;
         width: 150px;
         font-size: 20px;
+        border: none;
     }
 
     .bemvindo a {
         color: #fff;
         font-size: 13px;
         text-decoration: none;
+        text-align: center;
     }
 
     .direita {
@@ -84,7 +93,7 @@
     }
 
     .direita h2 {
-        font-size: 40px;
+        font-size: 10px;
         color: #53220D;
     }
 
@@ -152,6 +161,7 @@
         color: #fff ;
         font-size: 16px;
         border: #000 2px solid;
+        margin: 15px 0px;
     }
 
     .final p {

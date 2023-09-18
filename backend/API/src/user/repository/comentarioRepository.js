@@ -5,7 +5,7 @@ export async function inserircometario( comentario){
     const comando =
      `INSERT INTO tb_comentario ( ds_comentario)
                          VALUES ( ?)
-    `
+    ` 
 
 const [ resposta] = await con.query( comando , [comentario.comentario ])
 

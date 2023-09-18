@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './index.scss';
+import '../../assets/config/fonts-config.scss'
 import SetaEsquerda from '../../assets/img/seta-preta 1.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';

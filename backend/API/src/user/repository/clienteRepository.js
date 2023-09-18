@@ -43,12 +43,13 @@ export async function loginCliente(email, senha) {
     let comando =
     `
         SELECT
-        tb_cliente.id_cliente    AS ID,
-        tb_cliente.ds_email      AS Email,
+        tb_cliente.id_cliente    AS id,
+        tb_cliente.ds_email      as email
         FROM tb_cliente
         WHERE ds_email = ?
         AND ds_senha = ?
     `
+
     const [resposta] = await con.query(comando, [ email , senha])
     return resposta;
 };
