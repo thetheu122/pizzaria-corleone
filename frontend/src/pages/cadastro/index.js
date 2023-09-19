@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import './index.scss';
+
 import SetaEsquerda from '../../assets/img/seta-preta 1.png';
 import Google from '../../assets/img/google 1.png';
 import Facebook from '../../assets/img/Vector.png';
@@ -8,6 +10,9 @@ import Iphone from '../../assets/img/maca 1.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import CadastroPart2 from '../cadastropart2';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App(props) {
   const [nome, setNome] = useState('');
@@ -19,8 +24,58 @@ function App(props) {
   const [continuacaoCadas, setContinuacaoCadas] = useState(false);
 
   const inversao = () =>{
+    if(!nome){
+      toast.warn('Digite o seu nome', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else if(!email){
+      toast.warn('Digite o seu email', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else if(!telefone){
+      toast.warn('Digite o seu telefone', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else if(!senha){
+      toast.warn('Digite a sua senha', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else{
     setCadastro(!cadastro)
     setContinuacaoCadas(!continuacaoCadas)
+  }
   }
 
 
@@ -29,24 +84,25 @@ function App(props) {
     <>
     {cadastro &&
     <div className="pag-cadastro">  
-      <div className='container'>
+      <div className='cadastro-cliente'>
         <div className='esquerda'>
-          <Link to='/'>
+          <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
           <div className='sair'>
             <img src={SetaEsquerda} />
-            <p>Voltar</p>
+            <p style={{ textDecoration: 'none', outline: 'none' }}>Voltar</p>
           </div>
           </Link>
 
-          <div className='bemvindo'>
-            <h1>Bem-vindo<br /> de volta</h1>
-            <p>Acesse sua conta agora <br /> mesmo.</p>
-            <Link to='/login'>
-              <button>Entrar</button>
-            </Link>
-            <a href=''>Esqueceu a senha?</a>
+          <div className='Container_bem-vindo'>
+            <div className='bemvindo'>
+              <h1>Bem-vindo<br /> de volta</h1>
+              <p>Acesse sua conta agora <br /> mesmo.</p>
+              <Link to='/login' style={{ textDecoration: 'none', outline: 'none' }}>
+                <button>Entrar</button>
+              </Link>
+              <a href='' style={{ textDecoration: 'none', outline: 'none' }}>Esqueceu a senha?</a>
+            </div>
           </div>
-
         </div>
 
 
@@ -120,6 +176,7 @@ function App(props) {
       </div>
     }
       {continuacaoCadas && <CadastroPart2 inversao={inversao}nome={nome} telefone={telefone} senha={senha} email={email}/>}
+      <ToastContainer/>
     </>
   );
 }

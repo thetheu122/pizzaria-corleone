@@ -1,177 +1,90 @@
-
-
 .pag-cadastro {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(../../assets/img/fundopizza.png);
+
+    background-image: url('../../assets/images/pictures/fundo-leading.png');
     background-size: cover;
-    height: 100vh;
+    background-repeat: repeat;
+
+    font-family: lato-regular;
+
     width: 100vw;
+    height: 100vh;
 
-    .container{
+    .cadastro-cliente {
+        height: 605px;
+
         display: flex;
-        flex-direction: row;
-        background-color: #fff;
-        border-radius: 20px;
-        width: 55vw;
-        height: 75vh; 
-        align-items: center;
+
+        .esquerda {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
+            border-radius: 20px 0px 0px 20px;
+            background: #53220D;
+
+            width: 377.454px;
+            height: 603.832px;
+
+            .Container_bem-vindo {
+
+                display: flex;
+                align-items: center;
+
+                height: 85%;
+            }
+
+            .sair {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+
+                width: 360.454px;
+
+                padding: 10px 0px 0px 10px;
+
+                gap: 5px;
+
+                text-decoration: none;
+                outline: none;
+
+                color: white;
+                
+
+                img {
+                    width: 10.929px;
+                    height: 12.743px;
+                    filter:invert(100%);
+                    margin-top: 3px;
+                }
+            }
+
+            color: white;
+        }
+
+        .direita {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            width: 618px;
+            height: 605px;
+            
+            background-color: white;
+            border-radius: 0px 20px 20px 0px;
+
+            .plataformas{
+                display: flex;
+                gap: 10px;
+
+                div:nth-child(2) {
+                    margin-top: 0.3em;
+                }
+            }
+
+        }
     }
-
-    .esquerda {
-        display: flex;
-        flex-direction: column;
-        background-color: #53220D;
-        padding: 20px 50px;
-        border-radius: 20px;
-        justify-content: space-between;
-    }
-
-    h6 {
-        color: #53220D;
-    }
-
-    .sair {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .sair img {
-        height: 12px;
-        padding-right: 5px;
-        filter: invert(100%);
-    }
-
-    .bemvindo{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        height: 100%;
-    }
-
-    .bemvindo h1{
-        font-size: 32px;
-        color: #fff;
-        padding-bottom: 15px;
-    }
-
-    .bemvindo p{
-        font-size: 20px;
-        color: #fff;
-        margin-bottom: 25px;
-    }
-
-    .bemvindo button {
-        margin-top: 25px;
-        background-color: #ffb219;
-        color: #fff;
-        padding: 5px 15px;
-        border-radius: 50px;
-        width: 150px;
-        font-size: 20px;
-        border: none;
-    }
-
-    .bemvindo a {
-        color: #fff;
-        font-size: 13px;
-        text-decoration: none;
-        text-align: center;
-    }
-
-    .direita {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 518px;
-        padding: 20px;
-    }
-
-    .direita h2 {
-        font-size: 10px;
-        color: #53220D;
-    }
-
-
-    .divisao {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .divisao div {
-        height: 2px;
-        width: 94px;
-        background-color: #A59A9A;
-    }
-
-    .divisao p {
-        font-size: 20px;
-        padding: 0px 10px;
-    }
-
-    .plataformas {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .plataformas img {
-        padding: 0px 10px;
-    }
-
-
-    .inputs {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .inputs input {
-        border: #A59A9A 1px solid;
-        width: 292px;
-        height: 50px;
-        padding: 0px 5px;
-        border-radius: 7px;
-        outline: #A59A9A;
-    }
-
-
-    .inputs div {
-        margin: 5px 0px;
-    }
-
-    .final {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    .final button {
-        background-color: #53220D;
-        width: 200px;
-        padding: 15px;
-        border-radius: 50px;
-        color: #fff ;
-        font-size: 16px;
-        border: #000 2px solid;
-        margin: 15px 0px;
-    }
-
-    .final p {
-        font-size: 14px;
-        color: #555555;
-    }
-
-    .final a{
-        text-decoration: none;
-        color: #4272EF;
-    }
-
 }

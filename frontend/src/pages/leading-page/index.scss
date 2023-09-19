@@ -14,8 +14,9 @@
         text-align: center;
 
         background-image: url('../../assets/images/pictures/fundo-leading.png');
+        background-attachment: fixed;
         background-repeat: no-repeat;
-        background-position: cover;
+        background-size: cover;
 
         h2 {
             color:#FFF;
@@ -334,24 +335,28 @@
         background-image: url(../../assets/images/pictures/pipi.png);
         width: 266px;
         height: 206px;
+        border-radius: 6px;
     }
 
     .classeSobremesa {
         background-image: url(../../assets/images/pictures/soso.png);
         width: 266px;
         height: 206px;
+        border-radius: 6px;
     }
 
     .classeBebidas {
         background-image: url(../../assets/images/pictures/bebe.png);
         width: 266px;
         height: 206px;
+        border-radius: 6px;
     }
 
     .classeVegana {
         background-image: url(../../assets/images/pictures/opop.png);
         width: 266px;
         height: 206px;
+        border-radius: 6px;
     }
 
 
@@ -467,7 +472,6 @@
         font-weight: 400;
         line-height: normal;
 
-        margin-top: 50px;
 
         transition: 150ms;
 

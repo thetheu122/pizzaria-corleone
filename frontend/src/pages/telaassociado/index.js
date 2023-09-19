@@ -46,7 +46,7 @@ export default function TelaAssociado() {
 
 
   return (
-    <div className="pag-cadastro">
+    <div className="login-associado">
 
       <div className='direita'>
         <h2>Entrar na Conta Associada</h2>

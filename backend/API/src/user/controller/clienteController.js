@@ -8,7 +8,7 @@ server.post('/cliente/cadastro', async (req, resp) => {
         let resposta = req.body;
         
         if (!resposta) {
-            throw new Error("Os dados do cliente estão faltando");
+            throw new Error("Os dados do cadastro está faltando");
         }
     
         const camposObrigatorios = [
@@ -48,6 +48,25 @@ server.get('/cliente/login', async (req, resp) => {
     try {
         let email = req.query.email;
         let senha = req.query.senha;
+
+        const camposObrigatorios = [
+            "email",
+            "senha"
+        ];
+    
+        const camposFaltando = [];
+    
+        camposObrigatorios.forEach((campo) => {
+            if (!(campo in resposta) || !resposta[campo]) {
+                camposFaltando.push(campo);
+            }
+        });
+    
+        if (camposFaltando.length > 0) {
+            const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
+            throw new Error(mensagemErro);
+        }
+
         let respo = await loginCliente(email, senha)
         resp.status(200).send(respo)
     } catch (err) {

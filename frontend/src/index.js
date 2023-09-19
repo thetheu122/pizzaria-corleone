@@ -4,6 +4,8 @@ import './index.scss';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import './assets/config/fonts-config.scss'
+//fsgds
 import Leading from './pages/leading-page';
 import Cardapio from './pages/cardapio';
 import Cadastro from './pages/cadastro'
@@ -15,6 +17,7 @@ import TelaAssociado from './pages/telaassociado';
 import Pagamento from './pages/pagamento';
 import Pedidosativos from './pages/pedidosativos';
 import Cadastrarproduto from './pages/cadastrarproduto';
+import Informacoes from './components/infoproduto/informacoes';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -32,6 +35,8 @@ root.render(
         <Route path='/pagamento' element={<Pagamento/>}/>
         <Route path='/ativos' element={<Pedidosativos/>}/>
         <Route path='/cadastroproduto' element={<Cadastrarproduto/>}/>
+        <Route path='/informacao' element={<Informacoes/>}/>
+
 
       </Routes>
     </BrowserRouter>

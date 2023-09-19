@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Rodape from '../../components/user/rodape'
 import Cabecalho from '../../components/user/cabecalho'
 import Secao from '../../assets/images/pictures/ingredientes.png'
-import Mais from '../../assets/images/pictures/sobre-nos.png'
+
 import CompSobre from '../../components/compSobre'
 
     

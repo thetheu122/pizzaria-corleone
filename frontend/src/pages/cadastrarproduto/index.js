@@ -1,26 +1,41 @@
-
 import './index.scss'
-import { useState } from 'react'
-
-
 
 import axios from 'axios'
+import React, { useState } from 'react';
+import storage from 'local-storage';
+
+
+
+
+
+
 const api = axios.create({
     baseURL: 'http://localhost:5000'
 })
 
-export async function cadastrarproduto(nome, tipoproduto, igredientes, restricao, preco, descricao) {
-    const resposta = await api.post('/produto', {
-        nome: nome,
-        tipoproduto: tipoproduto,
-        igredientes: igredientes,
-        restricao: restricao,
-        preco: preco,
-        descricao: descricao
-    })
 
+export async function cadastrarproduto(nome, tipo, igredientes, preco_promocional, descricao) {
+    const resposta = await api.post('/produto', {
+        tipo:tipo,
+        igredientes:igredientes,
+        nome:nome,
+        descricao:descricao,
+        preco_promocional:preco_promocional,
+       
+    })
     return resposta.data
+    
 }
+
+
+
+export async function restricao(restricao){
+    const resposta =await api.post('/restricao',{
+        restricao:restricao
+    })
+}
+
+
 
 export async function enviarimagemProduto(id, imagem) {
     const formData = new FormData()
@@ -40,28 +55,45 @@ export async function enviarimagemProduto(id, imagem) {
 
 
 
-export default function Cadastrarproduto() {
+
+export default function Cadastro() {
     const [nome, setnome] = useState('')
     const [tipoproduto, settipoproduto] = useState([])
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState([])
+    const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
 
-
-
-
-    async function salvarclick() {
-        try {
-            //const produto = storage('produto').id;
-            const r = await cadastrarproduto(nome, tipoproduto, ingredientes, restricao, preco, descricao);
-
-            alert('Produto cadastrado com sucesso')
-
-        } catch (err) {
-            alert(err.message)
-        }
+    
+  const restricaoo = (novaRestricao) => {
+    if (restricao === novaRestricao) {
+    
+      setrestricao('');
+    } else {
+     
+      setrestricao(novaRestricao);
     }
+  };
+
+
+
+
+  async function salvarclick() {
+    try {
+        const produto = storage('root').id;
+        const resposta = await cadastrarproduto(nome, tipoproduto, ingredientes, restricao, preco, descricao, produto);
+
+        if (resposta.status === 200) {
+            alert('Produto cadastrado com sucesso');
+        } else {
+            alert('Erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
+        }
+    } catch (err) {
+        alert('Erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
+        console.error(err);
+    }
+}
+
 
     return (
         <div className='connt'>
