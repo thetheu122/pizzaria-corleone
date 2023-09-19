@@ -1,4 +1,6 @@
 
+INSERT INTO tb_cartao ( ds_numero , ds_nome ,ds_validade ,ds_cvv)
+			   VALUES ( ' 0000-0000 ', 'maximosmiguel' , '28/12' , '123' );
 
 INSERT INTO tb_endereco (ds_estado, ds_municipio, ds_rua, ds_numero, ds_cep)
 VALUES ('São Paulo', 'São Paulo', 'Rua da Amostra, 123', '123', '12345-678');
@@ -65,6 +67,12 @@ WHERE id_cliente = 1;
 
 INSERT INTO tb_restricao (ds_restricao )
 				  VALUES (  'ovo') ;
+                  
+	
+INSERT INTO tb_restricao (ds_restricao )
+				  VALUES (  'Glutem') ;
+INSERT INTO tb_restricao (ds_restricao )
+				  VALUES (  '') ;
 
 SELECT
     tb_restricao.id_restricao  as id,
@@ -90,7 +98,15 @@ WHERE          id_restricao = 1;
 
 
 INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
-					 VALUES ( 'sobremesa');
+					 VALUES ( 'Bebida');
+                     
+                     
+INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
+					 VALUES ( 'Sobremesa');
+                     
+                     
+INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
+					 VALUES ( 'Salgado');
                      
 SELECT  id_tipo_produto  as ID,
 		ds_tipo_produto  as Classificação
@@ -173,3 +189,22 @@ WHERE tb_produto.id_produto = 1;
 
 DELETE FROM tb_produto
 WHERE   id_produto = 1;
+
+
+
+SELECT
+	tb_produto.id_produto             as ID,
+    tb_produto.nm_produto             as Nome,  
+    tb_tipo_produto.ds_tipo_produto   as Classificação ,
+	tb_produto.vl_preco               as Preço,
+	tb_produto.vl_preco_promocional   as Preço_promocional,
+    tb_produto.ds_ingredientes     as ingredientes,
+    tb_produto.ds_descricao           as Descrição ,
+    tb_produto.bt_disponivel          as disponivel
+FROM
+    tb_produto
+INNER JOIN
+    tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+    where tb_produto.nm_produto = '?'
+    or   tb_produto.ds_ingredientes ='?' 
+    or   tb_produto.ds_descricao = '?';

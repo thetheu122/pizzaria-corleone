@@ -5,7 +5,8 @@ import {
   atualizarProduto,
   excluirProduto,
   listarprodutoimg,
-  imagem
+  imagem,
+  verificarproduto
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -18,15 +19,65 @@ const endpoints = Router();
 endpoints.post('/produto', async (req, resp) => {
   try {
     const produto = req.body;
-     
-    console.log(produto)
-      const resposta = await inserirProduto(produto);
+    const errors = [];
 
-      resp.send(resposta);
-    
+    if( produto.tipo === 'Bebida'|| produto.tipo ==="bebida"){
+        produto.tipo = 1
+    }
+
+    if(produto.tipo ==="Sobremesa" || produto.tipo ==="sobremesa" ){
+       produto.tipo = 2
+    }
+
+    if(produto.tipo ==='Salgado'|| produto.tipo ==="salgado"){
+       produto.tipo = 3
+    }
+  
+    if (!produto.tipo) {
+      errors.push('Campo tipo vazio. É necessário preencher todos os campos.');
+    }
+  
+    if (!produto.ingredientes) {
+      errors.push('Campo ingredientes vazio. É necessário preencher todos os campos.');
+    }
+  
+    if (!produto.nome) {
+      errors.push('Campo nome vazio. É necessário preencher todos os campos.');
+    }
+  
+    if (!produto.preco) {
+      errors.push('Campo preço vazio. É necessário preencher todos os campos.');
+    }
+  
+    if (!produto.descricao) {
+      errors.push('Campo descricao vazio. É necessário preencher todos os campos.');
+    }
+  
+    if (!produto.disponivel) {
+      errors.push('Campo disponivel vazio. É necessário preencher todos os campos.');
+    }
+
+  
+    if (errors.length > 0) {
+      resp.status(400).send({ errors });
+
+    } 
+      else {
+      const verificar = await verificarproduto(produto);
+  
+      if (verificar === true) {
+        resp.status(400).send({ erro: 'Produto já cadastrado' });
+      } else {
+        const resposta = await inserirProduto(produto);
+        resp.send(resposta);
+      }
+    }
+
+
   } catch (err) {
-    resp.status(400).send({ erro: err.message });
+    resp.status(500).send({ erro: err.message });
   }
+  
 });
 
 
@@ -44,7 +95,7 @@ endpoints.get('/produto', async (req, resp) => {
 });
 
 
-endpoints.get('/produto/img')
+
 
 
 endpoints.put('/produto/alterar/:id', async (req, resp) => {
@@ -63,6 +114,8 @@ endpoints.put('/produto/alterar/:id', async (req, resp) => {
       resp.status(500).send({ erro: err.message });
     }
   });
+
+
   
   endpoints.delete('/produto/:id', async (req, resp) => {
     try {
