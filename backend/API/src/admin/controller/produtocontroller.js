@@ -44,7 +44,7 @@ endpoints.post('/produto', async (req, resp) => {
     if (!produto.nome) {
       errors.push('Campo nome vazio. É necessário preencher todos os campos.');
     }
-  
+  ///hsddsbfsdbhsd
     if (!produto.preco) {
       errors.push('Campo preço vazio. É necessário preencher todos os campos.');
     }
