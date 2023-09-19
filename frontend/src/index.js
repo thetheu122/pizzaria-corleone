@@ -4,8 +4,6 @@ import './index.scss';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import './assets/config/fonts-config.scss'
-//fsgdsfdsgsdsdgfsgds
 import Leading from './pages/leading-page';
 import Cardapio from './pages/cardapio';
 import Cadastro from './pages/cadastro'
@@ -17,8 +15,8 @@ import TelaAssociado from './pages/telaassociado';
 import Pagamento from './pages/pagamento';
 import Pedidosativos from './pages/pedidosativos';
 import Cadastrarproduto from './pages/cadastrarproduto';
-import Informacoes from './components/infoproduto/informacoes';
-//sdffdsdsfsdPfgdfgfd
+import Editarproduto from './pages/editarProduto';
+import AlterarProdutosAdm from './pages/alterarProdutosAdm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -35,8 +33,9 @@ root.render(
         <Route path='/pagamento' element={<Pagamento/>}/>
         <Route path='/ativos' element={<Pedidosativos/>}/>
         <Route path='/cadastroproduto' element={<Cadastrarproduto/>}/>
-        <Route path='/informacao' element={<Informacoes/>}/>
-
+        <Route path='/cadastroproduto/alterar/:idParam' element={<Cadastrarproduto/>}/>
+        <Route path='/editarproduto' element={<Editarproduto />} />
+        <Route path='/listaprodutos' element={<AlterarProdutosAdm />} />
 
       </Routes>
     </BrowserRouter>
