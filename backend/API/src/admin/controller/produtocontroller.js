@@ -78,7 +78,7 @@ endpoints.post('/produto', async (req, resp) => {
     resp.status(500).send({ erro: err.message });
   }
   
-});
+})
 
 
 
