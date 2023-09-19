@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import './index.scss';
+
 import SetaEsquerda from '../../assets/img/seta-preta 1.png';
 import Google from '../../assets/img/google 1.png';
 import Facebook from '../../assets/img/Vector.png';
@@ -84,22 +86,23 @@ function App(props) {
     <div className="pag-cadastro">  
       <div className='cadastro-cliente'>
         <div className='esquerda'>
-          <Link to='/'>
+          <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
           <div className='sair'>
             <img src={SetaEsquerda} />
-            <p>Voltar</p>
+            <p style={{ textDecoration: 'none', outline: 'none' }}>Voltar</p>
           </div>
           </Link>
 
-          <div className='bemvindo'>
-            <h1>Bem-vindo<br /> de volta</h1>
-            <p>Acesse sua conta agora <br /> mesmo.</p>
-            <Link to='/login'>
-              <button>Entrar</button>
-            </Link>
-            <a href=''>Esqueceu a senha?</a>
+          <div className='Container_bem-vindo'>
+            <div className='bemvindo'>
+              <h1>Bem-vindo<br /> de volta</h1>
+              <p>Acesse sua conta agora <br /> mesmo.</p>
+              <Link to='/login' style={{ textDecoration: 'none', outline: 'none' }}>
+                <button>Entrar</button>
+              </Link>
+              <a href='' style={{ textDecoration: 'none', outline: 'none' }}>Esqueceu a senha?</a>
+            </div>
           </div>
-
         </div>
 
 

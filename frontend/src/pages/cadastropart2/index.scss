@@ -3,7 +3,7 @@
 
 .pag-cadastro-part2 {
     display: flex;
-    background-image: url(../../assets/img/fundopizza.png);
+    background-image: url('../../assets/images/pictures/fundo-leading.png');
     background-size: cover;
     justify-content: center;
     align-items: center;
@@ -25,29 +25,33 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-    }
-    .kitar img {
-        height: 12px;
-        padding-right: 5px;
+
+        img {
+            height: 12px;
+            padding-right: 5px;
+        }
     }
 
     .conteudo {
         display: flex;
         flex-direction: column;
         padding: 20px 35px;
+
+        h1 {
+            color: #53220D;
+            font-size: 32px;
+            padding-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #8B8585;
+            padding: 5px 0px;
+        }
     }
 
-    .conteudo > h1 {
-        color: #53220D;
-        font-size: 32px;
-        padding-bottom: 10px;
-    }
 
-    .conteudo > p {
-        font-size: 16px;
-        color: #8B8585;
-        padding: 5px 0px;
-    }
+    .conteudo > 
 
     .informacoes {
         display: flex;
@@ -64,18 +68,18 @@
         display: flex;
         flex-direction: column;
         padding-right: 30px;
-    }
 
-    .esquerda input {
-        border: #D9D9D9 2px solid;
-        padding: 10px 10px;
-        border-radius: 7px;
-        width: 260px;
-        margin-bottom: 5px;
-    }
+        input {
+            border: #D9D9D9 2px solid;
+            padding: 10px 10px;
+            border-radius: 7px;
+            width: 260px;
+            margin-bottom: 5px;
 
-    .esquerda input::placeholder {
-        color: #A59A9A;
+            &::placeholder {
+                color: #A59A9A;
+            }
+        }
     }
 
     .separacao{
@@ -101,35 +105,35 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
 
-    .direita input {
-        border: #D9D9D9 2px solid;
-        padding: 10px 10px;
-        border-radius: 7px;
-        width: 260px;
-        margin-bottom: 5px;
-    }
+        input {
+            border: #D9D9D9 2px solid;
+            padding: 10px 10px;
+            border-radius: 7px;
+            width: 260px;
+            margin-bottom: 5px;
 
-    .direita button {
-        padding: 10px 60px;
-        border-radius: 50px;
-        border: #000 2px solid;
-        background-color: #53220D;
-        color: #fff;
-        font-size: 14px;
-        margin-top: 15px;
-    }
+            button {
+                padding: 10px 60px;
+                border-radius: 50px;
+                border: #000 2px solid;
+                background-color: #53220D;
+                color: #fff;
+                font-size: 14px;
+                margin-top: 15px;
+            }
 
+            p {
+                color: #5e5e5e;
+                font-size: 14px;
+                text-align: center;
+            }
 
-    .direita p {
-        color: #5e5e5e;
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .direita a {
-        color: #4272EF;
-        text-decoration: none;
+            a {
+                color: #4272EF;
+                text-decoration: none;
+            }
+        }
+    
     }
 }

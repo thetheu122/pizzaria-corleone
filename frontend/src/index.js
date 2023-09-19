@@ -4,6 +4,8 @@ import './index.scss';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import './assets/config/fonts-config.scss'
+
 import Leading from './pages/leading-page';
 import Cardapio from './pages/cardapio';
 import Cadastro from './pages/cadastro'
