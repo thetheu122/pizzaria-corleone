@@ -18,7 +18,7 @@ import Pagamento from './pages/pagamento';
 import Pedidosativos from './pages/pedidosativos';
 import Cadastrarproduto from './pages/cadastrarproduto';
 import Informacoes from './components/infoproduto/informacoes';
-//sdffdsdsfsdP
+//sdffdsdsfsdPfgdfgfd
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
