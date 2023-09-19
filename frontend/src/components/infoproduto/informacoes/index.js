@@ -1,27 +1,30 @@
 import { Link } from 'react-router-dom';
-import './index.scss';
+import './index.scss'
 
 
-import  Pizza         from '../assets/images/descricao.png';
-import  comida  from '../assets/images/document 1.png'
+import  Pizza         from '../../../assets/img/descricao.png';
+import  comida  from '../../../assets/img/document 1.png'
 
 
 
-import  Voltar        from '../assets/images/seta-esquerda.png'
-import  estrela       from '../assets/images/star_77949 1.png'
-import  carrinho      from '../assets/images/shopping-cart (1) 1.png'
-import  duplaestrela  from '../assets/images/image 52.png'
-import  coraco        from '../assets/images/Union (1).png'
-import  estrelabranca from '../assets/images/Vector (14).png'
+import  Voltar        from '../../../assets/img//seta-esquerda.png'
+import  estrela       from '../../../assets/img/star_77949 1.png'
+import  carrinho      from '../../../assets/img/shopping-cart (1) 1.png'
+import  duplaestrela  from '../../../assets/img/image 52.png'
+import  coraco        from '../../../assets/img/Union (1).png'
+import  estrelabranca from '../../../assets/img/Vector (14).png'
+//Vector (14).png/// 
 
-import Recomendacoes from '../recomendacoes';
-import Comentarios from '../comentario';
+import Recomendacoes from '../recomendacoes/index';
+import Cabecalho from '../../user/cabecalho';
+import Comentarios from '../comentario/index';
 
 export default function Informacoes(){
     
     return(
 
         <div className=' informacoes'>
+            <Cabecalho></Cabecalho>
               <div className='informacoes-titulo'>
                   <h1> Margherita </h1>
               </div>
@@ -119,7 +122,7 @@ export default function Informacoes(){
 
                             <div className='secao-informacao-avaliacao-comentario'>
                                  <Comentarios usuario={{nome: "Regina", Comentario: "Farinha, água, sal, fermento ,molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem"}}/>
-                                 <Comentarios usuario={{nome: "Pedro", Comentario: "Farinha, água, sal, fermento ,molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem"}}/>
+                                 <Comentarios usuario={{nome: "Matheus  ", Comentario: "Farinha, água, sal, fermento ,molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem"}}/>
                                  <Comentarios usuario={{nome: "Bruno", Comentario: "Farinha, água, sal, fermento ,molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem"}}/>
                                  <Comentarios usuario={{nome: "João", Comentario: "Farinha, água, sal, fermento ,molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem"}} />
 

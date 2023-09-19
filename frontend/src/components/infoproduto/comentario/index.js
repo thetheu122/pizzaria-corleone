@@ -1,7 +1,7 @@
 import './index.scss'
-import  estrelabranca from '../assets/images/Vector (14).png'
-import  estrela       from '../assets/images/star_77949 1.png'
-import  peril         from '../assets/images/Vector (15).png'
+import  estrelabranca from '../../../assets/img/Vector (14).png'
+import  estrela       from '../../../assets/img/star_77949 1.png'
+import  peril         from '../../../assets/img//Vector (15).png'
 
 export default function Comentarios(props){
 
