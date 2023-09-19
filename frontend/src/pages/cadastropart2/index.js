@@ -5,6 +5,9 @@ import SetaEsquerda from '../../assets/img/seta-preta 1.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function CadastroPart2(props) {
   const [dia, setDia] = useState('');
   const [mes, setMes] = useState('');
@@ -16,7 +19,8 @@ export default function CadastroPart2(props) {
   const [cep, setCep] = useState('');
   const [cpf, setCpf] = useState('');
 
-  const addCliente = async () => {  
+const addCliente = async () => {  
+  try {
     let requestEn = {
       estado: estado,
       municipio: municipio,
@@ -24,25 +28,64 @@ export default function CadastroPart2(props) {
       numero: num,
       cep: cep,
     };
+    
     let responseEn = await axios.post('http://localhost:5000/endereco/cadastro', requestEn);
-    console.log(responseEn.data[0].insertId)
+    
+    if (responseEn.status !== 200) {
+      toast.error((`Erro ao cadastrar endereço: ${responseEn.statusText}`), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
 
-    let nascimento = `${dia}/${mes}/${ano}`
+    let nascimento = `${dia}/${mes}/${ano}`;
 
     let requestCl = {
       endereco: responseEn.data[0].insertId,
-      cartao:1,
-      cliente:props.nome,
-      email:props.email,
-      telefone:props.telefone,
-      senha:props.senha,
-      cpf:cpf,
-      nascimento:nascimento
+      cartao: 1,
+      cliente: props.nome,
+      email: props.email,
+      telefone: props.telefone,
+      senha: props.senha,
+      cpf: cpf,
+      nascimento: nascimento
     }
 
-    let responseCl = await axios.post('http://localhost:5000/cliente/cadastro',requestCl )
-    console.log(responseCl)
-  };
+    let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
+
+    if (responseCl.status !== 200) {
+      toast.error((`Erro ao cadastrar cliente: ${responseCl.statusText}`), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+    }
+
+  } catch (error) {
+    toast.error((`Erro no processo de cadastro: ${error}`), {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
+}
+    
 
 
   return (
@@ -84,6 +127,7 @@ export default function CadastroPart2(props) {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
   );
 }

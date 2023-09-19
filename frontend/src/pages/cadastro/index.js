@@ -9,6 +9,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import CadastroPart2 from '../cadastropart2';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App(props) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -19,8 +22,58 @@ function App(props) {
   const [continuacaoCadas, setContinuacaoCadas] = useState(false);
 
   const inversao = () =>{
+    if(!nome){
+      toast.warn('Digite o seu nome', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else if(!email){
+      toast.warn('Digite o seu email', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else if(!telefone){
+      toast.warn('Digite o seu telefone', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else if(!senha){
+      toast.warn('Digite a sua senha', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    else{
     setCadastro(!cadastro)
     setContinuacaoCadas(!continuacaoCadas)
+  }
   }
 
 
@@ -29,7 +82,7 @@ function App(props) {
     <>
     {cadastro &&
     <div className="pag-cadastro">  
-      <div className='container'>
+      <div className='cadastro-cliente'>
         <div className='esquerda'>
           <Link to='/'>
           <div className='sair'>
@@ -120,6 +173,7 @@ function App(props) {
       </div>
     }
       {continuacaoCadas && <CadastroPart2 inversao={inversao}nome={nome} telefone={telefone} senha={senha} email={email}/>}
+      <ToastContainer/>
     </>
   );
 }
