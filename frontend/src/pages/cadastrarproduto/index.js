@@ -13,6 +13,7 @@ const api = axios.create({
     baseURL: 'http://localhost:5000'
 })
 
+
 export async function cadastrarproduto(nome, tipo, igredientes, preco_promocional, descricao) {
     const resposta = await api.post('/produto', {
         tipo:tipo,
@@ -22,16 +23,19 @@ export async function cadastrarproduto(nome, tipo, igredientes, preco_promociona
         preco_promocional:preco_promocional,
        
     })
-
     return resposta.data
     
 }
+
+
 
 export async function restricao(restricao){
     const resposta =await api.post('/restricao',{
         restricao:restricao
     })
 }
+
+
 
 export async function enviarimagemProduto(id, imagem) {
     const formData = new FormData()
@@ -46,6 +50,7 @@ export async function enviarimagemProduto(id, imagem) {
     return resposta.status
 
 }
+
 
 
 
@@ -85,7 +90,7 @@ export default function Cadastro() {
         }
     } catch (err) {
         alert('Erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
-        console.error(err); // Exibe o erro no console para fins de depuração.
+        console.error(err);
     }
 }
 
