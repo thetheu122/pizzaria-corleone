@@ -1,6 +1,7 @@
 
 import './index.scss'
 import { useState } from 'react'
+import storage from  'local-storage'
 
 
 
@@ -14,12 +15,17 @@ export async function cadastrarproduto(nome, tipoproduto, igredientes, restricao
         nome: nome,
         tipoproduto: tipoproduto,
         igredientes: igredientes,
-        restricao: restricao,
         preco: preco,
         descricao: descricao
     })
 
     return resposta.data
+}
+
+export async function restricao(restricao){
+    const resposta =await api.post('/produto',{
+        restricao:restricao
+    })
 }
 
 export async function enviarimagemProduto(id, imagem) {
@@ -44,17 +50,28 @@ export default function Cadastrarproduto() {
     const [nome, setnome] = useState('')
     const [tipoproduto, settipoproduto] = useState([])
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState([])
+    const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
+
+    
+  const restricaoo = (novaRestricao) => {
+    if (restricao === novaRestricao) {
+    
+      setrestricao('');
+    } else {
+     
+      setrestricao(novaRestricao);
+    }
+  };
 
 
 
 
     async function salvarclick() {
         try {
-            //const produto = storage('produto').id;
-            const r = await cadastrarproduto(nome, tipoproduto, ingredientes, restricao, preco, descricao);
+            const produto = storage('usuario-logado').id;
+            const r = await cadastrarproduto(nome, tipoproduto, ingredientes, restricao, preco, descricao, produto);
 
             alert('Produto cadastrado com sucesso')
 
