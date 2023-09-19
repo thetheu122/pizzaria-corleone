@@ -1,8 +1,8 @@
 import './index.scss'
 
-import pizza  from '../assets/images/descricao.png'
-import carrinho from '../assets/images/vista-lateral-vazia-do-carrinho-de-compras (1).png'
-import  coracao  from '../assets/images/Union (1).png'
+import pizza  from '../../../assets/img/descricao.png'
+import carrinho from '../../../assets/img/vista-lateral-vazia-do-carrinho-de-compras (1).png'
+import  coracao  from '../../../assets/img/Union (1).png'
 
 export default function CardFavorito(){
 

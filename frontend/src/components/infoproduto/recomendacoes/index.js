@@ -1,6 +1,6 @@
 import './index.scss'
-import  estrela from '../assets/images/star_77949 1.png' 
-import  carinho from '../assets/images/shopping-cart (1) 1.png'
+import  estrela from '../../../assets/img/star_77949 1.png' 
+import  carinho from '../../../assets/img/shopping-cart (1) 1.png'
 
 export default function Recomendacoes (props){
 

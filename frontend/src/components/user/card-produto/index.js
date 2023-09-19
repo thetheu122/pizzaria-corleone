@@ -10,6 +10,7 @@ import Star from '../../../assets/images/icons/star_icon.svg'
 import Modal from '../modal'
 
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function CardProduto(){
     const [isModalOpen, setModalOpen] = useState(false);
@@ -38,10 +39,10 @@ export default function CardProduto(){
                         <div className='circulo'>
                             <img alt='carrinho' src={Carrinho} onClick={() => setModalOpen(!isModalOpen)}/>
                         </div>
-                        <div className='mais-detalhes'>
+                        <Link to='/informacao' className='mais-detalhes'>
                             <p>Mais Detalhes</p>
                             <img alt='seta' src={Seta}/>
-                        </div>
+                        </Link>
                     </div>
                     <div className='pretin'>
                         <p>4.9</p>

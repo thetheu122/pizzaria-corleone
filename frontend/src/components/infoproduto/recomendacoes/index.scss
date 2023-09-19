@@ -9,14 +9,14 @@
     justify-content: start;
 
     width:23vw ;
-    height: 26vh;
+    height: 21vh !important;
 
     padding: 10px 0px 0px 10px;
     box-shadow: 1px 3px 5px 3px  rgb(199, 199, 199);
     border-radius: 8px;
    
     *{
-        margin:0px;
+        margin:0px ;
     }
     
     .recomendacao-comida-img {
@@ -47,10 +47,11 @@
         display: flex;
         margin-bottom: 5px;
     }
-    .recomendacao-lateral > div > img {
-     width: 20px;
-     height: 20px;
-    
+    .recomendacao-lateral   {
+     div>img {
+         width: 20px !important;
+         height: 20px !important;}
+     
     }
 
     .circulo-carinho{
@@ -60,6 +61,7 @@
 
         width: 35px !important;
         height: 32px !important;
+        margin: 0px !important;
 
         border-radius: 100% !important;
         background-color: #53220D !important;
