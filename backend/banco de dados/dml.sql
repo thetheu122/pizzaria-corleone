@@ -164,7 +164,7 @@ SELECT
     tb_tipo_produto.ds_tipo_produto   as Classificação ,
 	tb_produto.vl_preco               as Preço,
 	tb_produto.vl_preco_promocional   as Preço_promocional,
-    tb_produto.ds_ingredientes     as ingredientes,
+    tb_produto.ds_ingredientes        as ingredientes,
     tb_produto.ds_descricao           as Descrição ,
     tb_produto.bt_disponivel          as disponivel
 FROM
