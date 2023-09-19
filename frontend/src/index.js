@@ -5,7 +5,7 @@ import './index.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import './assets/config/fonts-config.scss'
-//fsgds
+//fsgdsfdsgsdsdgfsgds
 import Leading from './pages/leading-page';
 import Cardapio from './pages/cardapio';
 import Cadastro from './pages/cadastro'
@@ -18,7 +18,7 @@ import Pagamento from './pages/pagamento';
 import Pedidosativos from './pages/pedidosativos';
 import Cadastrarproduto from './pages/cadastrarproduto';
 import Informacoes from './components/infoproduto/informacoes';
-
+//sdffdsdsfsd
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
