@@ -1,8 +1,12 @@
 import './index.scss'
 import  estrela from '../../../assets/img/star_77949 1.png' 
 import  carinho from '../../../assets/img/shopping-cart (1) 1.png'
+import Modal from '../../user/modal';
+import { useState } from 'react';
+
 
 export default function Recomendacoes (props){
+    const [isModalOpen, setModalOpen] = useState(false);
 
     return(
 
@@ -25,13 +29,14 @@ export default function Recomendacoes (props){
                                                  
                         </div>
 
-                              <div className='circulo-carinho'>
+                              <div className='circulo-carinho'onClick={() => setModalOpen(!isModalOpen)}>
                         
                                     <img src={carinho}/>
                               </div>
                 </div>
 
-               
+                {isModalOpen && <Modal onClose={() => setModalOpen(false)}/>}
+
 
             </div>
 

@@ -40,21 +40,23 @@ export default function Cardapio() {
             <div className='meio'>
                 <div className='esquerda'>
                     <div className='filtro-nome'>
-                        <p>Digite e aperte enter...</p>
+                        <input placeholder='Digite e aperte enter...'></input>
                         <img alt='lupa' src={Lupa}/>
                     </div>
 
                     <div className='ordenado'>
                         <p>Ordenar por: </p>
                         <div>
-                            <p>Mais vendidas</p>
-                            <img alt='lupa' src={Seta} />
+                            <select>
+                                  <option>Mais vendidas</option>
+                                  <option>Novidades</option>
+                            </select>
                         </div>
                     </div>
 
                     <div className='restricoes'>
                         <div className='ladinho'>
-                            <input type='radio' />
+                            <input  type='radio' />
                             <p>Vegano</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">

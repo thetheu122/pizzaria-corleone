@@ -18,9 +18,11 @@ import  estrelabranca from '../../../assets/img/Vector (14).png'
 import Recomendacoes from '../recomendacoes/index';
 import Cabecalho from '../../user/cabecalho';
 import Comentarios from '../comentario/index';
+import Modal from '../../user/modal'
+import { useState } from 'react';
 
 export default function Informacoes(){
-    
+    const [isModalOpen, setModalOpen] = useState(false);
     return(
 
         <div className=' informacoes'>
@@ -32,7 +34,7 @@ export default function Informacoes(){
 
                     
                             <img src={Voltar}/>
-                        <Link className='link' > Voltar </Link>
+                        <Link className='link' to='/cardapio' > Voltar </Link>
                       
                    
 
@@ -75,9 +77,9 @@ export default function Informacoes(){
 
                             <div>
 
-                                    <div className='button-01'>
-                                           <img src={carrinho}/> 
-                                           <p>Adicione ao carrinho</p>
+                                    <div className='button-01' onClick={() => setModalOpen(!isModalOpen)}>
+                                           <img src={carrinho} /> 
+                                           <p >Adicione ao carrinho</p>
                                     </div>  
                                      
                                      <div className='button-02'>
@@ -128,6 +130,7 @@ export default function Informacoes(){
 
                             </div>
                 </div>
+                {isModalOpen && <Modal onClose={() => setModalOpen(false)}/>}
         </div>
     )
 }
