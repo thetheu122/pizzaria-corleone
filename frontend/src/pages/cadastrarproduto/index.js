@@ -3,6 +3,7 @@ import './index.scss'
 import axios from 'axios'
 import React, { useState } from 'react';
 import storage from 'local-storage';
+import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
 
 
@@ -97,12 +98,8 @@ export default function Cadastro() {
 
     return (
         <div className='connt'>
-            <div className='comp' >
 
-            </div>
-
-
-
+            <CompAtalhosAdm />
 
 
             <div className='cont' >
