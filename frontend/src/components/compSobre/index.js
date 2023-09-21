@@ -2,6 +2,7 @@
 import './index.scss'
 import Restaurante from '../../assets/img/restaurante comp.png';
 import Fundo from '../../assets/img/retangulo.png';
+import { Link } from 'react-router-dom'
 
 
 
@@ -24,7 +25,9 @@ export default function CompSobre() {
                         <span>Convidamos você a se juntar a nós nesta jornada gastronômica única. Deixe-nos transportar você para a Itália, mesmo que esteja a milhares de quilômetros de distância. Descubra a magia da culinária italiana, com um toque especial do Brasil, na Corleone Pizzaria.</span>
                     </div>
                 </div>
-                <button>Mais sobre nos</button>
+                <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
+                    <button>Mais sobre nos</button>
+                </Link>
                 
             </div>
         </div>
