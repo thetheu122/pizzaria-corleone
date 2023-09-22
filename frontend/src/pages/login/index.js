@@ -15,11 +15,9 @@ export default function Login() {
 
   const login = async () => {
     let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
-    console.log(response)
     if (response.data.length == 1) {
       toast.info("Login realizado com sucesso")
     }
-    //apenas teste
     else {
       toast.error("Falha ao realizar o Login")
     }

@@ -15,7 +15,7 @@ import Mastercard from '../../images/Mastercard.png'
 export default function Pagamento(){
     return(
 
-        <div className='container'>
+        <div className='forma-pag'>
 
 
             <div className='containerr'>

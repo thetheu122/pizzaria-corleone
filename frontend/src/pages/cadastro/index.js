@@ -23,8 +23,8 @@ function App(props) {
   const [cadastro, setCadastro] = useState(true);
   const [continuacaoCadas, setContinuacaoCadas] = useState(false);
 
-  const inversao = () =>{
-    if(!nome){
+  const inversao = () => {
+    if (!nome) {
       toast.warn('Digite o seu nome', {
         position: "top-right",
         autoClose: 5000,
@@ -34,9 +34,9 @@ function App(props) {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
-    else if(!email){
+    else if (!email) {
       toast.warn('Digite o seu email', {
         position: "top-right",
         autoClose: 5000,
@@ -46,9 +46,9 @@ function App(props) {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
-    else if(!telefone){
+    else if (!telefone) {
       toast.warn('Digite o seu telefone', {
         position: "top-right",
         autoClose: 5000,
@@ -58,9 +58,9 @@ function App(props) {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
-    else if(!senha){
+    else if (!senha) {
       toast.warn('Digite a sua senha', {
         position: "top-right",
         autoClose: 5000,
@@ -70,113 +70,113 @@ function App(props) {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
-    else{
-    setCadastro(!cadastro)
-    setContinuacaoCadas(!continuacaoCadas)
-  }
+    else {
+      setCadastro(!cadastro)
+      setContinuacaoCadas(!continuacaoCadas)
+    }
   }
 
 
 
   return (
     <>
-    {cadastro &&
-    <div className="pag-cadastro">  
-      <div className='cadastro-cliente'>
-        <div className='esquerda'>
-          <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
-          <div className='sair'>
-            <img src={SetaEsquerda} />
-            <p style={{ textDecoration: 'none', outline: 'none' }}>Voltar</p>
-          </div>
-          </Link>
-
-          <div className='Container_bem-vindo'>
-            <div className='bemvindo'>
-              <h1>Bem-vindo<br /> de volta</h1>
-              <p>Acesse sua conta agora <br /> mesmo.</p>
-              <Link to='/login' style={{ textDecoration: 'none', outline: 'none' }}>
-                <button>Entrar</button>
+      {cadastro &&
+        <div className="pag-cadastro">
+          <div className='cadastro-cliente'>
+            <div className='esquerda'>
+              <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
+                <div className='sair'>
+                  <img src={SetaEsquerda} />
+                  <p style={{ textDecoration: 'none', outline: 'none' }}>Voltar</p>
+                </div>
               </Link>
-              <a href='' style={{ textDecoration: 'none', outline: 'none' }}>Esqueceu a senha?</a>
-            </div>
-          </div>
-        </div>
 
-
-        <div className='direita'>
-          <h2>Crie sua conta</h2>
-
-          <div className='divisao'>
-            <div></div>
-            <p>Acesso Rápido</p>
-            <div></div>
-          </div>
-
-          <div className='plataformas'>
-            <div>
-              <a href=''><img src={Google} /></a>
+              <div className='Container_bem-vindo'>
+                <div className='bemvindo'>
+                  <h1>Bem-vindo<br /> de volta</h1>
+                  <p>Acesse sua conta agora <br /> mesmo.</p>
+                  <Link to='/login' style={{ textDecoration: 'none', outline: 'none' }}>
+                    <button>Entrar</button>
+                  </Link>
+                  <a href='' style={{ textDecoration: 'none', outline: 'none' }}>Esqueceu a senha?</a>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <a href=''><img src={Facebook} /></a>
-            </div>
 
-            <div>
-              <a href=''><img src={Instagram} /></a>
-            </div>
+            <div className='direita'>
+              <h2>Crie sua conta</h2>
 
-            <div>
-              <a href=''><img src={Iphone} /></a>
-            </div>
-          </div>
+              <div className='divisao'>
+                <div></div>
+                <p>Acesso Rápido</p>
+                <div></div>
+              </div>
+
+              <div className='plataformas'>
+                <div>
+                  <a href=''><img src={Google} /></a>
+                </div>
+
+                <div>
+                  <a href=''><img src={Facebook} /></a>
+                </div>
+
+                <div>
+                  <a href=''><img src={Instagram} /></a>
+                </div>
+
+                <div>
+                  <a href=''><img src={Iphone} /></a>
+                </div>
+              </div>
 
 
-          <div className='divisao'>
-            <div></div>
-            <p>Ou</p>
-            <div></div>
-          </div>
+              <div className='divisao'>
+                <div></div>
+                <p>Ou</p>
+                <div></div>
+              </div>
 
-          <div className='inputs'>
-            <div>
-              <input type='text' value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome Completo' />
-            </div>
+              <div className='inputs'>
+                <div>
+                  <input type='text' value={nome} onChange={(e) => setNome(e.target.value)} placeholder='Nome Completo' />
+                </div>
 
-            <div>
-              <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='E-mail' />
-            </div>
+                <div>
+                  <input type='text' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='E-mail' />
+                </div>
 
-            <div>
-              <input type='text' value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder='Telefone' />
-            </div>
+                <div>
+                  <input type='text' value={telefone} onChange={(e) => setTelefone(e.target.value)} placeholder='Telefone' />
+                </div>
 
-            <div>
-              <input type='text' value={senha} onChange={(e) => setSenha(e.target.value)} placeholder='Senha' />
-            </div>
-          </div>
+                <div>
+                  <input type='text' value={senha} onChange={(e) => setSenha(e.target.value)} placeholder='Senha' />
+                </div>
+              </div>
 
-          
-            <div className='final'>
+
+              <div className='final'>
                 <button onClick={inversao}>Criar conta</button>
-              <p>
-                Ao criar uma conta, você concorda com nossos<br />{' '}
-                <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a>
-              </p>
+                <p>
+                  Ao criar uma conta, você concorda com nossos<br />{' '}
+                  <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a>
+                </p>
+              </div>
+
+
             </div>
-          
 
+
+
+          </div>
         </div>
-
-
-
-      </div>
-      </div>
-    }
-      {continuacaoCadas && <CadastroPart2 inversao={inversao}nome={nome} telefone={telefone} senha={senha} email={email}/>}
-      <ToastContainer/>
+      }
+      {continuacaoCadas && <CadastroPart2 inversao={inversao} nome={nome} telefone={telefone} senha={senha} email={email} />}
+      <ToastContainer />
     </>
   );
 }
