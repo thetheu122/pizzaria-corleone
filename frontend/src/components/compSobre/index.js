@@ -2,6 +2,7 @@
 import './index.scss'
 import Restaurante from '../../assets/img/restaurante comp.png';
 import Fundo from '../../assets/img/retangulo.png';
+import { Link } from 'react-router-dom'
 
 
 
@@ -28,7 +29,8 @@ export default function CompSobre() {
                                                                                                             
                     </div>
                 </div>
-               
+                <button>Mais sobre nos</button>
+                
             </div>
         </div>
     )
