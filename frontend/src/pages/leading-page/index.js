@@ -117,7 +117,7 @@ export default function Leading() {
             </div>
         <img src={Secao} className='ingredientes'/>
 
-        <Link to='/sobrenos' className='compsobre'>
+        <Link to='/sobrenos'  className='compsobre'>
                <CompSobre/>
         </Link>
         
