@@ -29,7 +29,7 @@ export default function CompSobre() {
                                                                                                             
                     </div>
                 </div>
-                <button>Mais sobre nos</button>
+            
                 
             </div>
         </div>
