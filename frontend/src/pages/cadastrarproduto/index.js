@@ -9,7 +9,7 @@ import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
 export default function Cadastro() {
     const [nome, setnome] = useState('')
-    const [tipoproduto, settipoproduto] = useState('')
+    const [tipoproduto, settipoproduto] = useState(0)
     const [ingredientes, setingrediente] = useState('')
     const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
@@ -20,6 +20,7 @@ export default function Cadastro() {
     
     const [erroCadastro, setErroCadastro] = useState('');
     const [erroRestricao, setErroRestricao] = useState('');
+    const [respProduto, setRespProduto] = useState(null);
 
     async function cadastrarProduto(){
 
@@ -44,19 +45,23 @@ export default function Cadastro() {
             restricao:restricao
         }
 
+
         let resprestricao= await axios.post('http://localhost:5000/restricao', restricaoo)
         console.log(resprestricao)
 
         
+       
+        alert(imagem)
+  
+        let respImagem = await axios.post(`http://localhost:5000/produto/${respProduto.data.id}/capa`,imagem );
+        console.log(respImagem);
 
-        let formData = new FormData();
-        formData.append('imagem', imagem);
-        let respImagem = await axios.post('http://localhost:5000/produto/img', formData);
-         console.log(respImagem);
+
+        
 
         if (respCadastro.status === 200) {
-            
             alert("Produto cadastrado com sucesso!");
+
             
         } else {
             alert(`Erro ao cadastrar o produto: ${respCadastro.statusText}, ${resprestricao.statusText}`);
@@ -75,13 +80,11 @@ export default function Cadastro() {
        
     }
     }
-
+      
     function handleImagemChange(e) {
         const arquivo = e.target.files[0];
         setImagem(arquivo);
     }
-   
-
 
   
 
@@ -135,13 +138,13 @@ export default function Cadastro() {
                                         value="Vinho"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                settipoproduto('Vinho');
+                                                settipoproduto('Bebida');
                                             } else {
                                                 settipoproduto('');
                                             }
                                         }}
                                     />
-                                    <p className='nomeproduto'>Vinho</p>
+                                    <p className='nomeproduto'>Bebida</p>
                                 </div>
 
 
