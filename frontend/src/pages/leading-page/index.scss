@@ -1,5 +1,10 @@
 .leadingPage {
 
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+
     .introducao {
         display: flex;
         flex-direction: column;
@@ -406,7 +411,17 @@
                     font-weight: 400;
                     line-height: normal;
                 }
-            }
+           
+           
+         
+        }
+
+        h3{
+            color: #000;
+           }
+           p{
+            color: #000;
+           }
         }
 
         button {
@@ -465,10 +480,7 @@
     }
 
     .redirecionar {
-        position: relative;
-        top: 55%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        // transform: translate(-50%, -50%);
         width: 604.486px;
         height: 64px;
         border: 0.5px solid #53220D;
