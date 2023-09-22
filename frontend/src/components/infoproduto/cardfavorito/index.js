@@ -23,7 +23,7 @@ export default function CardFavorito(){
                     </div>
 
 
-                    <div className=' favorito-icons'>
+                    <div className='favorito-icons'>
 
                         <h3> R$ 71,00</h3>
                         <div className ='favorito-circulo'>

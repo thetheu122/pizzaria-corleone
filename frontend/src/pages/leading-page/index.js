@@ -116,7 +116,11 @@ export default function Leading() {
                 </Link>
             </div>
         <img src={Secao} className='ingredientes'/>
-        <CompSobre/>
+
+        <Link to='/sobrenos'  className='compsobre'>
+               <CompSobre/>
+        </Link>
+        
         <button className='redirecionar'>
             Experimente aqui a <strong>Pizza</strong> digna de um <strong>Don</strong>
         </button>
