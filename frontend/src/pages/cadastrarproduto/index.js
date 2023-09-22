@@ -7,93 +7,83 @@ import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
 
 
-///fdgfffffffdgdfgfP
-
-
-const api = axios.create({
-    baseURL: 'http://localhost:5000'
-})
-
-
-export async function cadastrarproduto(nome, tipo, igredientes, preco_promocional, descricao) {
-    const resposta = await api.post('/produto', {
-        tipo:tipo,
-        igredientes:igredientes,
-        nome:nome,
-        descricao:descricao,
-        preco_promocional:preco_promocional,
-       
-    })
-    return resposta.data
-    
-}
-
-
-
-export async function restricao(restricao){
-    const resposta =await api.post('/restricao',{
-        restricao:restricao
-    })
-}
-
-
-
-export async function enviarimagemProduto(id, imagem) {
-    const formData = new FormData()
-    formData.append('capa', imagem)
-
-    const resposta = await api.post(`/produto/${id}/capa`, formData, {
-        headers: {
-            "Content-Type": "multipaer/form-data"
-        }
-    })
-
-    return resposta.status
-
-}
-
-
-
-
-
-
 export default function Cadastro() {
     const [nome, setnome] = useState('')
-    const [tipoproduto, settipoproduto] = useState([])
+    const [tipoproduto, settipoproduto] = useState('')
     const [ingredientes, setingrediente] = useState('')
     const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
+    const [disponivel, setdisponivel] = useState(true);
+    const [imagem, setImagem] = useState(null);
 
     
-  const restricaoo = (novaRestricao) => {
-    if (restricao === novaRestricao) {
-    
-      setrestricao('');
-    } else {
-     
-      setrestricao(novaRestricao);
-    }
-  };
+    const [erroCadastro, setErroCadastro] = useState('');
+    const [erroRestricao, setErroRestricao] = useState('');
 
+    async function cadastrarProduto(){
 
-
-
-  async function salvarclick() {
-    try {
-        const produto = storage('root').id;
-        const resposta = await cadastrarproduto(nome, tipoproduto, ingredientes, restricao, preco, descricao, produto);
-
-        if (resposta.status === 200) {
-            alert('Produto cadastrado com sucesso');
-        } else {
-            alert('Erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
+        try{
+        let cadastrar={
+            tipo: tipoproduto, 
+            ingredientes: ingredientes,
+            nome: nome,
+            preco: preco,
+            descricao: descricao,
+            disponivel: disponivel,
+           
         }
-    } catch (err) {
-        alert('Erro ao cadastrar o produto. Por favor, tente novamente mais tarde.');
-        console.error(err);
+
+       
+
+        let respCadastro= await axios.post('http://localhost:5000/produto', cadastrar)
+        console.log(cadastrar)
+
+
+        let restricaoo={
+            restricao:restricao
+        }
+
+        let resprestricao= await axios.post('http://localhost:5000/restricao', restricaoo)
+        console.log(resprestricao)
+
+        
+
+        let formData = new FormData();
+        formData.append('imagem', imagem);
+        let respImagem = await axios.post('http://localhost:5000/produto/img', formData);
+         console.log(respImagem);
+
+        if (respCadastro.status === 200) {
+            
+            alert("Produto cadastrado com sucesso!");
+            
+        } else {
+            alert(`Erro ao cadastrar o produto: ${respCadastro.statusText}, ${resprestricao.statusText}`);
+        }
+        if (!nome || !tipoproduto || !ingredientes || !restricao || preco <= 0 || !descricao ) {
+            alert("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+
+    }catch(err){
+        if (err.response) {
+            alert(`Erro ao cadastrar o produto: ${JSON.stringify(err.response.data)}`);
+        } else {
+            alert(`Erro ao cadastrar o produto: ${err.message}`);
+        }
+       
     }
-}
+    }
+
+    function handleImagemChange(e) {
+        const arquivo = e.target.files[0];
+        setImagem(arquivo);
+    }
+   
+
+
+  
 
 
     return (
@@ -114,7 +104,9 @@ export default function Cadastro() {
 
                     <div className='img'>
                         <div className='ti-h1'>
-                            <h1>Adicionar uma imagem +</h1>
+                 
+                        <input type="file" accept="image/*" onChange={handleImagemChange} />
+
                         </div>
                     </div>
 
@@ -311,10 +303,11 @@ export default function Cadastro() {
                         </div>
 
                         <div className='fin-botao'>
-                            <button onClick={salvarclick}>Finalizar Cadastro</button>
+                            <button onClick={cadastrarProduto}>Finalizar Cadastro</button>
                         </div>
 
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -322,4 +315,5 @@ export default function Cadastro() {
 
 
     )
-}
+                                    }
+
