@@ -98,19 +98,19 @@ export async function inserirProduto(produto) {
   export async function listarprodutoimg(){
  
     const comando = `
-    SELECT      tb_produto.id_produto  as Produto,
-            tb_produto.nm_produto as Produto,
-            tb_produto.ds_tipo_produto as Classificação,
-            tb_produto.vl_preco as Preço,
-            tb_produto.vl_preco_promocional as Preço_promocional,
-            tb_produto.ds_ingredientes as Ingredientes,
-            tb_produto.ds_descricao as Descrição,
-            tb_produto.bt_disponivel as Disponivel,
-			'     tb_imagem.id_imagem  as id_imagem,  
-            tb_imagem.img_produto as imagem 
-          
-FROM       tb_imagem 
-INNER JOIN tb_produto ON tb_imagem.id_produto = tb_produto.id_produto;`   
+    SELECT
+    tb_produto.id_produto             as ID,
+      tb_produto.nm_produto             as Nome, 
+    tb_tipo_produto.ds_tipo_produto   as Tipo ,
+    tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as Descrição ,
+    tb_produto.vl_preco               as Preço,
+    tb_produto.vl_preco_promocional   as Preço_promocional,
+      tb_produto.bt_disponivel          as disponivel
+  FROM
+      tb_produto
+  INNER JOIN
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto;`   
 
 
 const [ resposta ] = await con.query( comando )
@@ -123,17 +123,17 @@ return resposta
  export async function editarproduto ( produto , id ){
 
   const comando = `
-   UPDATE tb_produto
-   INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-   SET
-          tb_produto.nm_produto = ?,
-          tb_tipo_produto.ds_tipo_produto = ?,
-          tb_produto.vl_preco = ?,
-          tb_produto.vl_preco_promocional = ?,
-          tb_produto.ds_ingredientes = ?,
-          tb_produto.ds_descricao = ?,
-          tb_produto.bt_disponivel = ?
-   WHERE  tb_produto.id_produto = ? `
+  UPDATE tb_produto
+  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  SET
+      tb_produto.nm_produto = ?,
+      tb_tipo_produto.ds_tipo_produto = ?,
+      tb_produto.ds_ingredientes = ?,
+      tb_produto.vl_preco = ?,
+      tb_produto.ds_descricao = ?,
+      tb_produto.vl_preco_promocional = ?,
+      tb_produto.bt_disponivel = ?
+  WHERE tb_produto.id_produto = ?`
 
 
   const [ resposta ] = await con.query( comando , [
