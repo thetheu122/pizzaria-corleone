@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   inserirProduto,
   listarProdutos,
-  atualizarProduto,
+  editarproduto,
   excluirProduto,
   listarprodutoimg,
   imagem,
@@ -97,24 +97,87 @@ endpoints.get('/produto', async (req, resp) => {
 
 
 
+endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
-endpoints.put('/produto/alterar/:id', async (req, resp) => {
-    try {
-      const { id } = req.params;
-      const { produto} = req.body;
-      console.log(produto)
-  
-      const resposta = await atualizarProduto(produto,id);
-  
-      if (resposta === 0) {
-        resp.status(404).send({ message: 'Produto não encontrado' });
-      } else {
-        resp.status(200).send({ message: 'Produto atualizado com sucesso' });
-      }
-    } catch (err) {
-      resp.status(500).send({ erro: err.message });
+  try {
+    
+    const { id }  = req.params
+    const produto = req.body
+     
+    const erro = []
+
+   if( produto.tipo === 'Bebida'|| produto.tipo ==="bebida"){
+       produto.tipo = 1
+  }
+
+  if(produto.tipo ==="Sobremesa" || produto.tipo ==="sobremesa" ){
+     produto.tipo = 2
+  }
+
+  if(produto.tipo ==='Salgado'|| produto.tipo ==="salgado"){
+     produto.tipo = 3
+  }
+     
+
+    if (!produto.nome){
+       erro.push('Campo nome vazio .É necessario preencher todos os campos')
     }
-  });
+
+    if (!produto.tipo){
+      erro.push( " Campo tipo vazio.É necessario preencher todos os campos ")
+    }
+    if(!produto.ingredientes){
+      erro.push("Campo ingredientes vazio. É necessario preencher todos os campos")
+    }
+    if(!produto.preco){
+      erro.push("Campo preço vazio . É necessario preencher todos os campos")
+    }
+    if(!produto.descricao){
+      erro.push("Campo descrição vazio . É necessario preencher todos os campos")
+    }
+    if(!produto.preco_promocional){
+      erro.push("Campo preco promocional vazio. É necessario preencher todos os campos")
+    }
+    if(!produto.disponivel){
+      erro.push("campo Disponivel vazio. É necessario preencher todos os campos")
+    }
+
+    if ( erro.length > 0){
+       resp.status(400).send({ erro : erro })
+    }
+
+    else {
+     
+            const verificar = await verificarproduto(produto)
+
+          if( verificar === true){
+            resp.status(400).send({erro: 'Produto ja cadastrado'})
+          }
+
+        else{
+
+            const resposta = await editarproduto( produto , id ) 
+            if( resposta === 0){
+              resp.status(400).send({err: "produto não encontrado"})
+            }
+
+            else{
+              resp.status(200).send({message:'produto alterado com sucesso'})
+            }
+        } 
+    
+      }
+ 
+  }  catch (err) {
+    resp.status(400).send({erro:err.message})
+  }
+
+
+})
+
+
+
+
 
 
   

@@ -13,7 +13,7 @@ ds_tipo_produto         VARCHAR(100)
 );
 
 
-
+	
 
 
 
@@ -29,7 +29,7 @@ vl_preco_promocional  VARCHAR(200) ,
 bt_disponivel         bool  NOT NULL,
 
 
-FOREIGN KEY   (ds_tipo_produto) REFERENCES  tb_tipo_produto (id_tipo_produto) 
+FOREIGN KEY   (ds_tipo_produto) REFERENCES  tb_tipo_produto (id_tipo_produto)
 
 );
 
@@ -44,16 +44,16 @@ FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 
 );
 
-
-	CREATE TABLE tb_restricao (
+CREATE TABLE tb_restricao (
 
 id_restricao       INT PRIMARY KEY AUTO_INCREMENT,
-id_produto         INT,
+id_produto         INT ,
 ds_restricao       VARCHAR(200) ,
+
 FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
-
-
 );
+
+
 
 CREATE TABLE tb_imagem (
 
@@ -64,6 +64,29 @@ img_produto 	 VARCHAR(500),
 FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 
 );
+
+       
+       
+SELECT      tb_produto.id_produto  as Produto,
+            tb_produto.nm_produto as Produto,
+            tb_produto.ds_tipo_produto as Classificação,
+            tb_produto.vl_preco as Preço,
+            tb_produto.vl_preco_promocional as Preço_promocional,
+            tb_produto.ds_ingredientes as Ingredientes,
+            tb_produto.ds_descricao as Descrição,
+            tb_produto.bt_disponivel as Disponivel,
+			tb_imagem.id_imagem  as id_imagem,  
+            tb_imagem.img_produto as imagem 
+          
+FROM       tb_imagem 
+INNER JOIN tb_produto ON tb_imagem.id_produto = tb_produto.id_produto;
+
+
+insert into tb_imagem (id_produto , img_produto)
+			   VALUES ( 2 , 'MAMMSPXPAMPMXMXXMXPMXPMX');
+
+
+           
 
 
 
@@ -80,7 +103,8 @@ ds_cvv       VARCHAR(100)  NOT NULL
 );
 
 
-
+INSERT INTO tb_cartao ( ds_numero , ds_nome ,ds_validade ,ds_cvv)
+			   VALUES ( ' 0000-0000 ', 'maximosmiguel' , '28/12' , '123' );
 
 
 
@@ -163,6 +187,7 @@ FOREIGN  KEY ( id_pedido) 	REFERENCES tb_pedido ( id_pedido )
 CREATE TABLE tb_associado (
 
 id_associado   INT PRIMARY KEY AUTO_INCREMENT ,
+nm_nome        VARCHAR(100)  NOT NULL,
 ds_email       VARCHAR (100) NOT NULL ,
 ds_senha       VARCHAR (100) NOT NULL ,
 ds_cnpj        VARCHAR (100) NOT NULL
