@@ -106,7 +106,7 @@ export async function inserirProduto(produto) {
             tb_produto.ds_ingredientes as Ingredientes,
             tb_produto.ds_descricao as Descrição,
             tb_produto.bt_disponivel as Disponivel,
-			tb_imagem.id_imagem  as id_imagem,  
+			'     tb_imagem.id_imagem  as id_imagem,  
             tb_imagem.img_produto as imagem 
           
 FROM       tb_imagem 
@@ -120,30 +120,33 @@ return resposta
   
   export async function atualizarProduto(id , produto) {
     const comando = `
-      UPDATE tb_produto
-      INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-      INNER JOIN tb_comentario ON tb_produto.ds_comentario = tb_comentario.id_comentario
-      SET
-        tb_produto.nm_produto = ?,
-        tb_tipo_produto.ds_tipo_produto = ?,
-        tb_produto.vl_preco = ?,
-        tb_produto.vl_preco_promocional = ?,
-        tb_comentario.ds_c = ?,
-        tb_produto.ds_descricao = ?,
-        tb_produto.bt_disponivel = ?
+    UPDATE tb_produto
+    INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+    SET
+      tb_produto.nm_produto = ?,
+      tb_tipo_produto.ds_tipo_produto = ?,
+      tb_produto.vl_preco = ?,
+      tb_produto.ds_ingredientes = ?,
+      tb_produto.ds_descricao = ?, 
+      tb_produto.bt_disponivel = ?
       WHERE tb_produto.id_produto = ?
     `;
+
+
   
     const [res] = await con.query(comando,[
-        produto.tipo_produto,
-        produto.omentario,
         produto.nome,
+        produto.classificacao,
         produto.preco,
+        produto.ingredientes,
         produto.descricao,
-        produto.preco_promocional,
         produto.disponivel,
         id
-    ]);
+    ])
+
+    console.log(produto.nome)
+
+    
   
     return res
     ;

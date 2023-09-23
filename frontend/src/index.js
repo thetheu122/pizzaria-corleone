@@ -23,6 +23,9 @@ import AlterarProdutosAdm from './pages/alterarProdutosAdm';
 import ComprarPedido from './pages/comprarPedido';
 import EnderecoPedido from './pages/enderecopedido';
 import Confirmacaopedidos from './pages/confirmacaopedidos';
+import EditarProduto from './pages/editarProduto';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -45,6 +48,7 @@ root.render(
         <Route path='/pedido1' element={<ComprarPedido />} />
         <Route path='/pedido2' element={<EnderecoPedido/>} />
         <Route path='/pedido3' element={<Confirmacaopedidos/>} />
+        <Route path='/produto/alterar/:id' element={<EditarProduto/>} />
 
       </Routes>
     </BrowserRouter>

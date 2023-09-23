@@ -5,12 +5,16 @@ import React, { useState } from 'react';
 import storage, { set } from 'local-storage';
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
+import { useParams } from 'react-router-dom';
 
 
 
-export default function Cadastro() {
+
+
+
+export default function EditarProduto() {
     const [nome, setnome] = useState('')
-    const [tipoproduto, settipoproduto] = useState(0)
+    const [classificacao, setclassificacao] = useState(0)
     const [ingredientes, setingrediente] = useState('')
     const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
@@ -18,115 +22,39 @@ export default function Cadastro() {
     const [disponivel, setdisponivel] = useState(true);
     const [imagem, setImagem] = useState(null);
 
-    
-    const [erroCadastro, setErroCadastro] = useState('');
-    const [erroRestricao, setErroRestricao] = useState('');
-    const [respProduto, setRespProduto] = useState(null);
-   // const [id, setId] = useState(0)
-    
+    const {id} = useParams();
 
-    async function cadastrarProduto(){
 
-        try{
-        let cadastrar={
-            tipo: tipoproduto, 
-            ingredientes: ingredientes,
-            nome: nome,
-            preco: preco,
-            descricao: descricao,
+
+
+
+async function alterarProduto() {
+    try {
+        const produto = {
+            nome:nome,
+            classificacao: classificacao,
+            preco:preco,
+            ingredientes:ingredientes,
+            descricao:descricao,
             disponivel: disponivel,
-           
         }
-
-       
-
-        let respCadastro= await axios.post('http://localhost:5000/produto', cadastrar)
-        console.log(cadastrar)
-
-
-        let restricaoo={
-            restricao:restricao
-        }
-
-       // setId(respCadastro.id);
-
-        let resprestricao= await axios.post('http://localhost:5000/restricao', restricaoo)
-        console.log(resprestricao)
+        const r = await axios.put(`http://localhost:5000/produto/alterar/${id}`, produto)
 
         
-       
-        alert(imagem)
-  
-        let respImagem = await axios.post(`http://localhost:5000/produto/${respProduto.data.id}/capa`,imagem );
-        console.log(respImagem);
-
+    if (r.status === 200) {
+        alert("Produto alterado!");
+    }
 
         
-
-        if (respCadastro.status === 200) {
-            alert("Produto cadastrado com sucesso!");
-
-            
-        } else {
-            alert(`Erro ao cadastrar o produto: ${respCadastro.statusText}, ${resprestricao.statusText}`);
-        }
-        if (!nome || !tipoproduto || !ingredientes || !restricao || preco <= 0 || !descricao ) {
-            alert("Por favor, preencha todos os campos obrigatórios.");
-            return;
-        }
-
-    }catch(err){
+    } catch (err) {
         if (err.response) {
-            alert(`Erro ao cadastrar o produto: ${JSON.stringify(err.response.data)}`);
+            alert(`Erro na tentativa de alterar o produto: ${JSON.stringify(err.response.data)}`);
         } else {
-            alert(`Erro ao cadastrar o produto: ${err.message}`);
-        }
-       
-    }
-    }
-      
-    function handleImagemChange(e) {
-        const arquivo = e.target.files[0];
-        setImagem(arquivo);
-    }
-
-
-
-   /* async function alterarProduto(id, tipoproduto, ingredientes, nome, preco, descricao, disponivel) {
-        const r = await axios.put(`http://localhost:5000/produto/alterar/${id}`, {
-            nome: nome,
-            tipoproduto: tipoproduto,
-            ingredientes: ingredientes,
-            preco: preco,
-            descricao: descricao,
-            disponivel: disponivel
-        })
-
-        return r.data
-
-        alert(imagem)
-  
-
-        let respImagem = await axios.post(`http://localhost:5000/produto/${respProduto.data.id}/capa`,imagem );
-        console.log(respImagem);
-
-        function handleImagemChange(e) {
-            const arquivo = e.target.files[0];
-            setImagem(arquivo)
+            alert(`Erro na tentativa de alterar o produto: ${err.message}`);
         }
     }
 
-
-    async function clickbutton() {
-        if(id==0) 
-        {
-            cadastrarProduto();
-        }
-        else {
-            alterarProduto();
-        }
-
-    }*/
+}
 
 
   
@@ -151,7 +79,7 @@ export default function Cadastro() {
                     <div className='img'>
                         <div className='ti-h1'>
                  
-                        <input type="file" accept="image/*" onChange={handleImagemChange} />
+                        <input type="file" accept="image/*"  />
 
                         </div>
                     </div>
@@ -181,9 +109,9 @@ export default function Cadastro() {
                                         value="Vinho"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                settipoproduto('Bebida');
+                                                setclassificacao('Bebida');
                                             } else {
-                                                settipoproduto('');
+                                                setclassificacao('');
                                             }
                                         }}
                                     />
@@ -199,9 +127,9 @@ export default function Cadastro() {
                                         value="Sobremesa"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                settipoproduto('Sobremesa');
+                                                setclassificacao('Sobremesa');
                                             } else {
-                                                settipoproduto('');
+                                                setclassificacao('');
                                             }
                                         }}
                                     />
@@ -218,9 +146,9 @@ export default function Cadastro() {
                                         value="Salgado"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                settipoproduto('Salgado');
+                                                setclassificacao('Salgado');
                                             } else {
-                                                settipoproduto('');
+                                                setclassificacao('');
                                             }
                                         }}
                                     />
@@ -349,7 +277,7 @@ export default function Cadastro() {
                         </div>
 
                         <div className='fin-botao'>
-                            <button onClick={cadastrarProduto}>Finalizar Cadastro</button>
+                            <button onClick={alterarProduto}>Finalizar Cadastro</button>
                         </div>
 
                     </div>
@@ -361,5 +289,6 @@ export default function Cadastro() {
 
 
     )
-                                    }
+
+}
 

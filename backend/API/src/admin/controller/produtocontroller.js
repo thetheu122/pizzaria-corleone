@@ -102,6 +102,7 @@ endpoints.put('/produto/alterar/:id', async (req, resp) => {
     try {
       const { id } = req.params;
       const { produto} = req.body;
+      console.log(produto)
   
       const resposta = await atualizarProduto(produto,id);
   
