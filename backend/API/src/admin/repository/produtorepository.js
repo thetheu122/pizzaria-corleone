@@ -148,7 +148,7 @@ return resposta
   ])
 
   if( produto.tipo === 1){
-    produto.tipo = "Bebida"
+      produto.tipo = "Bebida"
 }
 
 if(produto.tipo ===2){

@@ -151,12 +151,12 @@ INSERT INTO tb_produto ( ds_tipo_produto , ds_ingredientes , nm_produto , vl_pre
                 
 SELECT
 	tb_produto.id_produto             as ID,
-    tb_produto.nm_produto             as Nome,  
-    tb_tipo_produto.ds_tipo_produto   as Tipo ,
+    tb_produto.nm_produto             as Nome, 
+	tb_tipo_produto.ds_tipo_produto   as Tipo ,
+	tb_produto.ds_ingredientes        as ingredientes,
+    tb_produto.ds_descricao           as Descrição ,
 	tb_produto.vl_preco               as Preço,
 	tb_produto.vl_preco_promocional   as Preço_promocional,
-    tb_produto.ds_ingredientes        as ingredientes,
-    tb_produto.ds_descricao           as Descrição ,
     tb_produto.bt_disponivel          as disponivel
 FROM
     tb_produto
@@ -170,12 +170,13 @@ INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_ti
 SET
     tb_produto.nm_produto = 'Novo Nome',
     tb_tipo_produto.ds_tipo_produto = 'Nova Classificação',
-    tb_produto.vl_preco = 'Novo Preço',
-    tb_produto.vl_preco_promocional = 'Novo Preço Promocional',
     tb_produto.ds_ingredientes = 'Novo Comentário',
+  	tb_produto.vl_preco = 'Novo Preço',
     tb_produto.ds_descricao = 'Nova Descrição',
+    tb_produto.vl_preco_promocional = 'Novo Preço Promocional',
     tb_produto.bt_disponivel = 1
 WHERE tb_produto.id_produto = 1;
+
 
 
 DELETE FROM tb_produto
