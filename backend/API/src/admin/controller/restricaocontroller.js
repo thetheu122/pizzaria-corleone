@@ -26,11 +26,9 @@ endpoints.post ( '/restricao' , async (req,resp) =>{
             if( existe  ){
                 resp.status(400).send({erro:'Restricao ja cadastrada'})
             }
-
             else{
-                const    resposta = await inserirrestricao({restricao})
-                resp.send(resposta)
-                
+                const resposta = await inserirrestricao({restricao})
+                resp.send(resposta)   
             }
        }
     } 

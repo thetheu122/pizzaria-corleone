@@ -78,44 +78,88 @@ export async function inserirProduto(produto) {
                 
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as Nome,  
-      tb_tipo_produto.ds_tipo_produto   as Classificação ,
-    tb_produto.vl_preco               as Preço,
-    tb_produto.vl_preco_promocional   as Preço_promocional,
-      tb_produto.ds_ingredientes     as ingredientes,
-      tb_produto.ds_descricao           as Descrição ,
-      tb_produto.bt_disponivel          as disponivel
+      tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.ds_tipo_produto   as tipo ,
+    tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as descricao ,
+    tb_produto.vl_preco               as preço,
+    tb_produto.vl_preco_promocional   as Preco_promocional,
+      tb_produto.bt_disponivel          as disponivel,
+      tb_imagem.img_produto             as imagem,
+    tb_restricao.ds_restricao         as restricao
   FROM
       tb_produto
   INNER JOIN
-      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto;
-    `;
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto;
   
+  
+    `;
+
     const [res] = await con.query(comando);
     return res;
   }
 
-  export async function listarprodutoimg(){
- 
+
+
+
+
+
+  export async function listarpornome (nome) {
+
     const comando = `
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as Nome, 
-    tb_tipo_produto.ds_tipo_produto   as Tipo ,
+      tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.ds_tipo_produto   as tipo ,
     tb_produto.ds_ingredientes        as ingredientes,
-      tb_produto.ds_descricao           as Descrição ,
-    tb_produto.vl_preco               as Preço,
-    tb_produto.vl_preco_promocional   as Preço_promocional,
-      tb_produto.bt_disponivel          as disponivel
+      tb_produto.ds_descricao           as descricao ,
+    tb_produto.vl_preco               as preço,
+    tb_produto.vl_preco_promocional   as Preco_promocional,
+      tb_produto.bt_disponivel          as disponivel,
+      tb_imagem.img_produto             as imagem,
+    tb_restricao.ds_restricao         as restricao
   FROM
       tb_produto
   INNER JOIN
-        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto;`   
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  where tb_produto.nm_produto like ?
+    `
+  
+    const [ resposta ] = await con.query( comando ,['%'+nome+'%'])
+    return  resposta
+  } 
 
 
-const [ resposta ] = await con.query( comando )
-return resposta 
+  export async function listarportipo ( tipo ){
+    const comando = `
+    SELECT
+    tb_produto.id_produto             as ID,
+      tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.ds_tipo_produto   as tipo ,
+    tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as descricao ,
+    tb_produto.vl_preco               as preço,
+    tb_produto.vl_preco_promocional   as Preco_promocional,
+      tb_produto.bt_disponivel          as disponivel,
+      tb_imagem.img_produto             as imagem,
+    tb_restricao.ds_restricao         as restricao
+  FROM
+      tb_produto
+  INNER JOIN
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  where tb_tipo_produto.ds_tipo_produto like ?
+    `
+
+  const [ resposta ] = await con.query( comando , ["%"+tipo+"%"])
+  return resposta
   }
+
   
   
 
