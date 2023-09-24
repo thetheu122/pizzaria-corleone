@@ -230,3 +230,21 @@ if(produto.tipo ===3){
     
   
 }
+
+
+export async function alterarImagem(imagem, id){
+
+  const comando =
+  `UPDATE tb_imagem
+  SET img_produto = ?
+  WHERE id_imagem = ?
+  
+  `
+
+  const [ resposta ] =await con.query(comando, [imagem, id])
+  return resposta
+  
+
+}
+
+

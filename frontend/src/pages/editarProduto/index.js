@@ -23,6 +23,7 @@ export default function EditarProduto() {
     const [imagem, setImagem] = useState('');
 
     const {id} = useParams();
+    
 
 
     async function enviarimagem(id, imagem) {
@@ -54,7 +55,12 @@ async function alterarProduto() {
             descricao:descricao,
             disponivel: disponivel,
         }
+        const alergia = {
+            restricao: restricao
+            
+        }
 
+        const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${id}`, restricao)
 
         const r = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
         const img = await enviarimagem(id, imagem)
@@ -62,6 +68,9 @@ async function alterarProduto() {
     if (r.status === 200) {
         alert("Produto alterado!");
     }
+
+
+
 
 
 
@@ -112,7 +121,7 @@ async function alterarProduto() {
                     <div className='img' onClick={escolherImagem}>
                         <div className='ti-h1'>
 
-                            <img src={mostrarImagem()} alt='' />
+                            <img src={mostrarImagem()} alt='IMAGEM DO PRODUTO' />
                  
                         <input type="file" id='imagemcapa' accept="image/*"  onChange={e => setImagem(e.target.files[0])} />
 

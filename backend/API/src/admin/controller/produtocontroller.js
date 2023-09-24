@@ -5,7 +5,8 @@ import {
   editarproduto,
   excluirProduto,
   imagem,
-  verificarproduto
+  verificarproduto,
+  alterarImagem
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -94,7 +95,8 @@ endpoints.get('/produto', async (req, resp) => {
 });
 
 
-//wendel
+
+
 
 endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
@@ -147,7 +149,7 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
     else {
      
-            const verificar = await verificarproduto(produto)
+            const verificar = 1000
 
           if( verificar === true){
             resp.status(400).send({erro: 'Produto ja cadastrado'})
@@ -217,6 +219,23 @@ endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => 
 });
 
   
+endpoints.put( '/imagem/editar/:id' , async (req,resp) =>{
+
+  try {
+    const { id }  = req.params
+    const imagem = req.body.img_produto; 
+    const r = await alterarImagem(id, imagem)
+
+    resp.status(200).send('imagem alterada')
+  } catch (err) {
+    resp.status(400).send({
+      erro: err.message
+    });
+  }
+
+})
+
+
 
   export default endpoints;
   
