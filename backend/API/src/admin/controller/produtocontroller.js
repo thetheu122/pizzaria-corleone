@@ -94,7 +94,7 @@ endpoints.get('/produto', async (req, resp) => {
 });
 
 
-
+//wendel
 
 endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
@@ -147,7 +147,7 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
     else {
      
-            const verificar = 3
+            const verificar = await verificarproduto(produto)
 
           if( verificar === true){
             resp.status(400).send({erro: 'Produto ja cadastrado'})
