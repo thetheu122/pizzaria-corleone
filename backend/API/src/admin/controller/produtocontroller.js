@@ -29,18 +29,10 @@ endpoints.post('/produto', async (req, resp) => {
     if ( analiseerros.length > 0){
          resp.status(400).send({erro :analiseerros})
     }
-
-      else {
-          const verificar = await verificarproduto(produto);
-  
-          if (verificar === true) {
-            resp.status(400).send({ erro: 'Produto já cadastrado' });
-          }
-            else {
-            const resposta = await inserirProduto(produto);
-            resp.send(resposta);
-          }
-    }
+    else {
+        const resposta = await inserirProduto(produto);
+        resp.send(resposta);
+    } 
 
   } catch (err) {
     resp.status(500).send({ erro: err.message });
@@ -103,32 +95,19 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
      
    const analiseerros = await analise(produto)
 
-    if ( analiseerros > 0){
+    if ( analiseerros.length > 0){
        resp.status(400).send({ erro : analiseerros })
     }
-
     else {
-            const verificar = await verificarproduto(produto)
-
-          if ( verificar === true ){
-               resp.status(400).send({erro: 'Produto ja cadastrado'})
-           }
-
-        else{
-               const resposta = await editarproduto( produto , id ) 
-              if( resposta === 0){
-                resp.status(400).send({err: "produto não encontrado"})
-              } 
-
-              else{
-                resp.status(200).send({message:'produto alterado com sucesso'})
-              }
-            } 
-    
+        const resposta = await editarproduto( produto , id ) 
+        if( resposta === 0){
+            resp.status(400).send({err: "produto não encontrado"})
+         } 
+         else{
+         resp.status(200).send({message:'produto alterado com sucesso'})
+        }
       }
- 
   }
-  
     catch (err) {
           resp.status(400).send({erro:err.message})
     }
@@ -138,8 +117,6 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
 
 
-
-  
   endpoints.delete('/produto/:id', async (req, resp) => {
     try {
       const { id } = req.params;

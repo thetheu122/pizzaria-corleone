@@ -1,3 +1,5 @@
+import { verificarproduto } from "../repository/produtorepository.js"
+
 
 
 export async function analise (produto){
@@ -28,7 +30,16 @@ for( let cont in tipo ){
     erros.push( `Campo ${validar} vazio . É necessario preencher todos os campos `)
   }
 
+  if (erros.length === 0){
+    const verificar = await verificarproduto(produto)
+    if(verificar === true){
+     erros.push('Produto ja cadastrado')
+    }
+  }
+
   return erros
 
 }
+
+
 
