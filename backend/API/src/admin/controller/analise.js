@@ -5,21 +5,23 @@ import { verificarproduto } from "../repository/produtorepository.js"
 export async function analise (produto){
 
 
-const tipo = {
-bebida      : produto.tipo ,
-sobremesa   : produto.tipo ,
-salgado     : produto.tipo ,
-vegano      : produto.tipo,
-vegetariano : produto.tipo
-}
+const tipo = [
+"bebida"     ,
+"sobremesa"  ,
+"salgado"    ,
+"vegano"     ,
+"vegetariano" 
+]
 
-for( let cont in tipo ){
-   for( let contador = 1  ; contador <= Object.keys(tipo).length ; contador ++){        
-    if ( produto.tipo === cont){
-         produto.tipo = contador }
-    }
-   
-}
+
+ for ( let cont = 1 ; cont <6 ; cont ++){
+  if (produto.tipo === tipo[cont -1]){
+      produto.tipo = cont
+  }
+
+ }
+
+
 
   const erros = []
      
@@ -40,6 +42,3 @@ for( let cont in tipo ){
   return erros
 
 }
-
-
-

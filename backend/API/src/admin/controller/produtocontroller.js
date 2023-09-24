@@ -1,3 +1,5 @@
+
+
 import { Router } from 'express';
 import {
   inserirProduto,
@@ -6,10 +8,10 @@ import {
   excluirProduto,
   imagem,
   verificarproduto,
-  alterarImagem
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
+import { analise } from './analise.js';
 const upload = multer({ dest: 'storage/produto' });
 
 const endpoints = Router();
@@ -19,51 +21,12 @@ const endpoints = Router();
 endpoints.post('/produto', async (req, resp) => {
   try {
     const produto = req.body;
-    const errors = [];
-
-    if( produto.tipo === 'Bebida'|| produto.tipo ==="bebida"){
-        produto.tipo = 1
-    }
-
-    if(produto.tipo ==="Sobremesa" || produto.tipo ==="sobremesa" ){
-       produto.tipo = 2
-    }
-
-    if(produto.tipo ==='Salgado'|| produto.tipo ==="salgado"){
-       produto.tipo = 3
-    }
-  
-    if (!produto.tipo) {
-      errors.push('Campo tipo vazio. É necessário preencher todos os campos.');
-    }
-  
-    if (!produto.ingredientes) {
-      errors.push('Campo ingredientes vazio. É necessário preencher todos os campos.');
-    }
-  
-    if (!produto.nome) {
-      errors.push('Campo nome vazio. É necessário preencher todos os campos.');
-    }
-  
-    if (!produto.preco) {
-      errors.push('Campo preço vazio. É necessário preencher todos os campos.');
-    }
-  
-    if (!produto.descricao) {
-      errors.push('Campo descricao vazio. É necessário preencher todos os campos.');
-    }
-  
-    if (!produto.disponivel) {
-      errors.push('Campo disponivel vazio. É necessário preencher todos os campos.');
-    }
-
-  
-    if (errors.length > 0) {
-      resp.status(400).send({ errors });
+    const verificar = await analise(produto)
+    if (verificar.length > 0) {
+      resp.status(400).send({ erro: verificar });
 
     } 
       else {
-      const verificar = await verificarproduto(produto);
   
       if (verificar === true) {
         resp.status(400).send({ erro: 'Produto já cadastrado' });
@@ -72,7 +35,6 @@ endpoints.post('/produto', async (req, resp) => {
         resp.send(resposta);
       }
     }
-
 
   } catch (err) {
     resp.status(500).send({ erro: err.message });
@@ -98,65 +60,20 @@ endpoints.get('/produto', async (req, resp) => {
 
 
 
+
 endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
   try {
     
     const { id }  = req.params
     const produto = req.body
-     
-    const erro = []
 
-   if( produto.tipo === 'Bebida'|| produto.tipo ==="bebida"){
-       produto.tipo = 1
-  }
+    const verificar = await analise(produto)
 
-  if(produto.tipo ==="Sobremesa" || produto.tipo ==="sobremesa" ){
-     produto.tipo = 2
-  }
-
-  if(produto.tipo ==='Salgado'|| produto.tipo ==="salgado"){
-     produto.tipo = 3
-  }
-     
-
-    if (!produto.nome){
-       erro.push('Campo nome vazio .É necessario preencher todos os campos')
+   if( verificar.length > 0){
+       resp.status(400).send({erro: verificar})
     }
-
-    if (!produto.tipo){
-      erro.push( " Campo tipo vazio.É necessario preencher todos os campos ")
-    }
-    if(!produto.ingredientes){
-      erro.push("Campo ingredientes vazio. É necessario preencher todos os campos")
-    }
-    if(!produto.preco){
-      erro.push("Campo preço vazio . É necessario preencher todos os campos")
-    }
-    if(!produto.descricao){
-      erro.push("Campo descrição vazio . É necessario preencher todos os campos")
-    }
-    /*if(!produto.preco_promocional){
-      erro.push("Campo preco promocional vazio. É necessario preencher todos os campos")
-    }*/
-    if(!produto.disponivel){
-      erro.push("campo Disponivel vazio. É necessario preencher todos os campos")
-    }
-
-    if ( erro.length > 0){
-       resp.status(400).send({ erro : erro })
-    }
-
-    else {
-     
-            const verificar = 1000
-
-          if( verificar === true){
-            resp.status(400).send({erro: 'Produto ja cadastrado'})
-          }
-
         else{
-
             const resposta = await editarproduto( produto , id ) 
             if( resposta === 0){
               resp.status(400).send({err: "produto não encontrado"})
@@ -166,8 +83,6 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
               resp.status(200).send({message:'produto alterado com sucesso'})
             }
         } 
-    
-      }
  
   }  catch (err) {
     resp.status(400).send({erro:err.message})
@@ -177,6 +92,33 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 })
 
 
+
+
+
+endpoints.put( '/produto/editar/campos/:idproduto' , async (req,resp)=>{
+
+  try {
+    const {id} = req.params
+    const produto = req.body
+
+    const verificar = await analise(produto)
+
+    if(verificar.length > 0 ){
+      resp.status(400).send({erro:verificar})
+    }
+    else{
+      const resposta = await editarprodutocomleto(produto , id)
+      if( resposta === 0){
+        resp.status(400).send({err: "produto não encontrado"})
+     } 
+     else{
+     resp.status(200).send({message:'produto alterado com sucesso'})
+    }
+    }
+  } catch (err) {
+    resp.status(400).send({})
+  }
+})
 
 
 
@@ -238,4 +180,4 @@ endpoints.put( '/imagem/editar/:id' , async (req,resp) =>{
 
 
   export default endpoints;
-  
+

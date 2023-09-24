@@ -1,11 +1,12 @@
+
 import { con } from "../../conection.js";
 
 export async function inserirProduto(produto) {
     const comando = `
       INSERT INTO tb_produto ( 
+        nm_produto ,
         ds_tipo_produto , 
         ds_ingredientes,
-        nm_produto ,
         vl_preco ,    
         ds_descricao , 
         vl_preco_promocional , 
@@ -16,9 +17,9 @@ export async function inserirProduto(produto) {
          console.log(produto)
   
     const [res] = await con.query(comando,[
+        produto.nome, 
         produto.tipo,
         produto.ingredientes,
-        produto.nome,
         produto.preco,
         produto.descricao,
         produto.preco_promocional,
@@ -206,6 +207,48 @@ if(produto.tipo ===3){
 
  }
 
+ export async function editarprodutocomleto ( produto , id ){
+
+  const comando = `
+  UPDATE tb_produto
+  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  SET
+      tb_produto.nm_produto = ?,
+      tb_tipo_produto.ds_tipo_produto = ?,
+      tb_produto.ds_ingredientes = ?,
+      tb_produto.vl_preco = ?,
+      tb_produto.ds_descricao = ?,
+      tb_produto.vl_preco_promocional = ?,
+      tb_produto.bt_disponivel = ?,
+      tb_restricao.ds_restricao  =?,  
+    tb_imagem.img_produto    =  ?    
+  WHERE tb_produto.id_produto = ?
+  and   tb_restricao.id_restricao=?
+  and   tb_imagem.id_imagem = ?`
+
+
+  const [ resposta ] = await con.query( comando , [
+        produto.nome,
+        produto.tipo,
+        produto.ingredientes,
+        produto.preco,
+        produto.descricao,
+        produto.preco_promocional,
+        produto.disponivel,
+        produto.restricao,
+        produto.imagem,
+        id,
+        produto.id_restricao,
+        produto.id_imagem
+  ])
+
+  return resposta
+}
+
+
+
   
   export async function excluirProduto(id) {
     const comando = `
@@ -246,5 +289,3 @@ export async function alterarImagem(imagem, id){
   
 
 }
-
-

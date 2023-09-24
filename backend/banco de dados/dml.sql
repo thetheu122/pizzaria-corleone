@@ -1,4 +1,3 @@
-
 DROP TABLE TB_ASSOCIADO;
 
 INSERT INTO  tb_associado (nm_nome,ds_email,ds_senha,ds_cnpj)
@@ -186,7 +185,7 @@ insert into tb_imagem (id_produto , img_produto)
 -- GGFG  // tabela produto  //
 
 
-INSERT INTO tb_produto ( ds_tipo_produto , ds_ingredientes , nm_produto , vl_preco , ds_descricao , vl_preco_promocional , bt_disponivel) 
+INSERT INTO tb_produto ( nm_produto , ds_ingredientes , ds_tipo_produto , vl_preco , ds_descricao , vl_preco_promocional , bt_disponivel) 
                 VALUES ( 1 , 'arroz', 'Pizza de chocolate' , '71,00' , ' pizza de chocolate com chocolate ' ,'30' , true);
                 
                 
@@ -346,7 +345,8 @@ SET
 	tb_imagem.img_produto    = 'imagem atualizada',
 	tb_restricao.ds_restricao  ='ovo'     
 WHERE tb_produto.id_produto = 1
-and   tb_restricao.id_restricao=1;
+and   tb_restricao.id_restricao=1
+and   tb_imagem.id_imagem = 1;
 
 
 
@@ -354,3 +354,5 @@ and   tb_restricao.id_restricao=1;
 
 DELETE FROM tb_produto
 WHERE   id_produto = 1;
+
+  
