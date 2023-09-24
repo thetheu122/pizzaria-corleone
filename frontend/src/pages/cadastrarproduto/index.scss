@@ -8,7 +8,7 @@
   .cont{
     display: flex;
     flex-direction: column;
-    
+    margin-left: 30px; 
     width: 100%;
   }
 
@@ -22,11 +22,11 @@
       padding-top: 70px;
       width: 100%;
       display: flex;
-      padding-left: 220px;
+      padding-left: 200px;
     
       
       margin-right: -150px;
- 
+      margin-left: -30px ;
       margin-top: -20px;
     
 
@@ -38,6 +38,15 @@
     margin-left: -150px;
   }
 
+  #imagemCapa{
+    visibility: hidden;
+    position: absolute;
+  }
+
+  .imagem-capa{
+    height: 350px;
+    width: 360px;
+  }
   
   .contt{
       flex-direction: row;
@@ -68,6 +77,11 @@
   .ti-h1{
     font-size: 12px;
 
+  }
+
+  .disponivel{
+    font-size: 8px;
+    margin-top: 10px;
   }
   
   .dadosdoproduto {
@@ -206,6 +220,10 @@
       align-items: center; 
     
   }
+
+  
+  
+
  
   
 }
