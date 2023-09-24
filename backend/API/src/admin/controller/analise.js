@@ -23,7 +23,7 @@ for( let cont in tipo ){
 
   const erros = []
      
-  const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco','preco_promocional','disponivel']
+  const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco','disponivel']
   for ( const validar of campos){
 
     if(!produto[validar])
