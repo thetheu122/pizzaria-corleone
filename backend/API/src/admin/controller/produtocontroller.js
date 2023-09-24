@@ -4,7 +4,6 @@ import {
   listarProdutos,
   editarproduto,
   excluirProduto,
-  listarprodutoimg,
   imagem,
   verificarproduto
 } from '../repository/produtorepository.js';
@@ -148,7 +147,7 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
     else {
      
-            const verificar = await verificarproduto(produto)
+            const verificar = 3
 
           if( verificar === true){
             resp.status(400).send({erro: 'Produto ja cadastrado'})
@@ -219,16 +218,5 @@ endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => 
 
   
 
-  endpoints.get('/produto/img', async (req, resp) => {
-    try {
-  
-      const imagem = await listarprodutoimg();
-      resp.send(imagem);
-  
-    } catch (err) {
-      resp.status(400).send({ erro: err.message });
-    }
-  
-  });
   export default endpoints;
   

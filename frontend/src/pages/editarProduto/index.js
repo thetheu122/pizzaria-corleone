@@ -20,16 +20,32 @@ export default function EditarProduto() {
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
     const [disponivel, setdisponivel] = useState(true);
-    const [imagem, setImagem] = useState(null);
+    const [imagem, setImagem] = useState('');
 
     const {id} = useParams();
 
 
+    async function enviarimagem(id, imagem) {
+        const formData = new FormData();
+        formData.append('capa', imagem);
+    
+        const r = await axios.post(`http://localhost:5000/produto/${id}/capa`, formData , {
+            headers: {
+                "Content-type": "multipart/form-data"
+            },
+        })
+    }
 
 
 
 async function alterarProduto() {
     try {
+
+        if (!imagem) {
+                throw new Error('escolha uma imagem')
+        }
+
+
         const produto = {
             nome:nome,
             tipo: tipo,
@@ -38,8 +54,10 @@ async function alterarProduto() {
             descricao:descricao,
             disponivel: disponivel,
         }
-        const r = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
 
+
+        const r = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
+        const img = await enviarimagem(id, imagem)
         
     if (r.status === 200) {
         alert("Produto alterado!");
@@ -59,8 +77,21 @@ async function alterarProduto() {
 }
 
 
-  
 
+
+
+
+    function escolherImagem() {
+        document.getElementById('imagemcapa').click();
+    }
+
+
+    function mostrarImagem() {
+        if (imagem) {
+            return URL.createObjectURL(imagem);
+        }
+        return ''
+    }
 
     return (
         <div className='connt'>
@@ -78,10 +109,12 @@ async function alterarProduto() {
                 <div className='contt'>
 
 
-                    <div className='img'>
+                    <div className='img' onClick={escolherImagem}>
                         <div className='ti-h1'>
+
+                            <img src={mostrarImagem()} alt='' />
                  
-                        <input type="file" accept="image/*"  />
+                        <input type="file" id='imagemcapa' accept="image/*"  onChange={e => setImagem(e.target.files[0])} />
 
                         </div>
                     </div>

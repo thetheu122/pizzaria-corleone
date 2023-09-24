@@ -1,3 +1,9 @@
+
+DROP TABLE TB_ASSOCIADO;
+
+INSERT INTO  tb_associado (nm_nome,ds_email,ds_senha,ds_cnpj)
+					VALUES('1' , '1','1','1');
+
 -- GGFG  // tabela endereco ///
 
 
@@ -18,6 +24,9 @@ WHERE id_endereco = 1;
 
 INSERT INTO tb_cartao (ds_numero, ds_nome, ds_validade, ds_cvv)
 			   VALUES ('1234567890123456', 'João Silva', '12/25', '123');
+               
+               INSERT INTO tb_cartao ( ds_numero , ds_nome ,ds_validade ,ds_cvv)
+			   VALUES ( ' 0000-0000 ', 'maximosmiguel' , '28/12' , '123' );
 
 SELECT *
 FROM tb_cartao;
@@ -64,8 +73,8 @@ WHERE id_cliente = 1;
 
 -- GGFG  // TABELA RESTRICAO //
 
-INSERT INTO tb_restricao (ds_restricao )
-				  VALUES (  'ovo') ;
+INSERT INTO tb_restricao (ds_restricao , id_produto)
+				  VALUES (  'glutem' ,1) ;
 
 SELECT
     tb_restricao.id_restricao  as id,
@@ -91,13 +100,21 @@ WHERE          id_restricao = 1;
 
 
 INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
-					 VALUES ( 'Bebida');
+					 VALUES ( 'bebida');
                      
 INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
-					 VALUES ( 'Sobremesa');          
+					 VALUES ( 'sobremesa');          
                      
 INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
-					 VALUES ( 'Salgado');
+					 VALUES ( 'salgado');
+                     
+
+INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
+					 VALUES ( 'vegano');       
+                     
+INSERT INTO tb_tipo_produto ( ds_tipo_produto ) 
+					 VALUES ( 'vegetariano');
+                     
                      
 SELECT  id_tipo_produto  as ID,
 		ds_tipo_produto  as Classificação
@@ -141,16 +158,105 @@ DELETE FROM tb_comentario
 WHERE       id_comentario =1;
 
 
+-- // tabela imagem ///
+
+       
+       
+SELECT      tb_produto.id_produto  as Produto,
+            tb_produto.nm_produto as Produto,
+            tb_produto.ds_tipo_produto as Classificação,
+            tb_produto.vl_preco as Preço,
+            tb_produto.vl_preco_promocional as Preço_promocional,
+            tb_produto.ds_ingredientes as Ingredientes,
+            tb_produto.ds_descricao as Descrição,
+            tb_produto.bt_disponivel as Disponivel,
+			tb_imagem.id_imagem  as id_imagem,  
+            tb_imagem.img_produto as imagem 
+          
+FROM       tb_imagem 
+INNER JOIN tb_produto ON tb_imagem.id_produto = tb_produto.id_produto;
+
+
+insert into tb_imagem (id_produto , img_produto)
+			   VALUES ( 2 , 'MAMMSPXPAMPMXMXXMXPMXPMX');
+
+
 
 
 -- GGFG  // tabela produto  //
+
 
 INSERT INTO tb_produto ( ds_tipo_produto , ds_ingredientes , nm_produto , vl_preco , ds_descricao , vl_preco_promocional , bt_disponivel) 
                 VALUES ( 1 , 'arroz', 'Pizza de chocolate' , '71,00' , ' pizza de chocolate com chocolate ' ,'30' , true);
                 
                 
+--  // select to produto que tem restricao          
+     
 SELECT
 	tb_produto.id_produto             as ID,
+    tb_produto.nm_produto             as nome, 
+	tb_tipo_produto.ds_tipo_produto   as tipo ,
+	tb_produto.ds_ingredientes        as ingredientes,
+    tb_produto.ds_descricao           as descricao ,
+	tb_produto.vl_preco               as preço,
+	tb_produto.vl_preco_promocional   as Preco_promocional,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_restricao.ds_restricao         as restricao
+FROM
+    tb_produto
+INNER JOIN
+      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto;
+ 
+ 
+-- // selct tabela produto com imagem //
+
+SELECT
+	tb_produto.id_produto             as ID,
+    tb_produto.nm_produto             as nome, 
+	tb_tipo_produto.ds_tipo_produto   as tipo ,
+	tb_produto.ds_ingredientes        as ingredientes,
+    tb_produto.ds_descricao           as descricao ,
+	tb_produto.vl_preco               as preço,
+	tb_produto.vl_preco_promocional   as Preco_promocional,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.img_produto             as imagem
+FROM
+    tb_produto
+INNER JOIN
+      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto;    
+    
+    
+    
+    
+    
+-- // select da tabela produto com a jução das tres tabelas ( produto , imagem , restrição ) ///
+
+    SELECT
+	tb_produto.id_produto             as ID,
+    tb_produto.nm_produto             as nome, 
+	tb_tipo_produto.ds_tipo_produto   as tipo ,
+	tb_produto.ds_ingredientes        as ingredientes,
+    tb_produto.ds_descricao           as descricao ,
+	tb_produto.vl_preco               as preço,
+	tb_produto.vl_preco_promocional   as Preco_promocional,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.img_produto             as imagem,
+	tb_restricao.ds_restricao         as restricao
+FROM
+    tb_produto
+INNER JOIN
+      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto;
+
+
+    
+ -- select tabela produto com o tipo 
+ 
+select 
+    	tb_produto.id_produto         as ID,
     tb_produto.nm_produto             as Nome, 
 	tb_tipo_produto.ds_tipo_produto   as Tipo ,
 	tb_produto.ds_ingredientes        as ingredientes,
@@ -158,13 +264,58 @@ SELECT
 	tb_produto.vl_preco               as Preço,
 	tb_produto.vl_preco_promocional   as Preço_promocional,
     tb_produto.bt_disponivel          as disponivel
+    
+FROM tb_produto
+INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto;
+  
+  
+-- select pelo nome do produto 
+
+    SELECT
+	tb_produto.id_produto             as ID,
+    tb_produto.nm_produto             as nome, 
+	tb_tipo_produto.ds_tipo_produto   as tipo ,
+	tb_produto.ds_ingredientes        as ingredientes,
+    tb_produto.ds_descricao           as descricao ,
+	tb_produto.vl_preco               as preço,
+	tb_produto.vl_preco_promocional   as Preco_promocional,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.img_produto             as imagem,
+	tb_restricao.ds_restricao         as restricao
 FROM
     tb_produto
 INNER JOIN
-      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto;
-    
-    
-    
+      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+where tb_produto.nm_produto like '%novo%';
+
+-- busca por tipo 
+
+  SELECT
+	tb_produto.id_produto             as ID,
+    tb_produto.nm_produto             as nome, 
+	tb_tipo_produto.ds_tipo_produto   as tipo ,
+	tb_produto.ds_ingredientes        as ingredientes,
+    tb_produto.ds_descricao           as descricao ,
+	tb_produto.vl_preco               as preço,
+	tb_produto.vl_preco_promocional   as Preco_promocional,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.img_produto             as imagem,
+	tb_restricao.ds_restricao         as restricao
+FROM
+    tb_produto
+INNER JOIN
+      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+where tb_tipo_produto.ds_tipo_produto like '%N%';
+
+
+
+   
+-- update do produto com o tipo   
+
 UPDATE tb_produto
 INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
 SET
@@ -176,6 +327,28 @@ SET
     tb_produto.vl_preco_promocional = 'Novo Preço Promocional',
     tb_produto.bt_disponivel = 1
 WHERE tb_produto.id_produto = 1;
+
+
+
+-- update do produto atualizando as tres tabelas ( imagem , produto , restricao )
+UPDATE tb_produto
+INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+SET
+    tb_produto.nm_produto = 'Novo Nome',
+    tb_tipo_produto.ds_tipo_produto = 'Nova Classificação',
+    tb_produto.ds_ingredientes = 'Novo Comentário',
+  	tb_produto.vl_preco = 'Novo Preço',
+    tb_produto.ds_descricao = 'Nova Descrição',
+    tb_produto.vl_preco_promocional = 'Novo Preço Promocional',
+    tb_produto.bt_disponivel = 1,
+	tb_imagem.img_produto    = 'imagem atualizada',
+	tb_restricao.ds_restricao  ='ovo'     
+WHERE tb_produto.id_produto = 1
+and   tb_restricao.id_restricao=1;
+
+
 
 
 

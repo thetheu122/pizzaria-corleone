@@ -13,10 +13,6 @@ ds_tipo_produto         VARCHAR(100)
 );
 
 
-	
-
-
-
 CREATE TABLE tb_produto (
 	
 id_produto	   	      INT PRIMARY KEY AUTO_INCREMENT,
@@ -65,30 +61,7 @@ FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 
 );
 
-       
-       
-SELECT      tb_produto.id_produto  as Produto,
-            tb_produto.nm_produto as Produto,
-            tb_produto.ds_tipo_produto as Classificação,
-            tb_produto.vl_preco as Preço,
-            tb_produto.vl_preco_promocional as Preço_promocional,
-            tb_produto.ds_ingredientes as Ingredientes,
-            tb_produto.ds_descricao as Descrição,
-            tb_produto.bt_disponivel as Disponivel,
-			tb_imagem.id_imagem  as id_imagem,  
-            tb_imagem.img_produto as imagem 
-          
-FROM       tb_imagem 
-INNER JOIN tb_produto ON tb_imagem.id_produto = tb_produto.id_produto;
-
-
-insert into tb_imagem (id_produto , img_produto)
-			   VALUES ( 2 , 'MAMMSPXPAMPMXMXXMXPMXPMX');
-
-
            
-
-
 
 
 
@@ -101,10 +74,6 @@ ds_validade  VARCHAR(100) NOT NULL,
 ds_cvv       VARCHAR(100)  NOT NULL
 
 );
-
-
-INSERT INTO tb_cartao ( ds_numero , ds_nome ,ds_validade ,ds_cvv)
-			   VALUES ( ' 0000-0000 ', 'maximosmiguel' , '28/12' , '123' );
 
 
 
