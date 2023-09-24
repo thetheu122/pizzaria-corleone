@@ -19,7 +19,7 @@ import Pedidosativos from './pages/pedidosativos';
 import Cadastrarproduto from './pages/cadastrarproduto';
 import Informacoes from './components/infoproduto/informacoes';
 import CompAtalhosAdm from './components/compAtalhosAdm';
-import AlterarProdutosAdm from './pages/alterarProdutosAdm';
+import listarProdutosAdm from './pages/listarProdutosAdm';
 import ComprarPedido from './pages/comprarPedido';
 import EnderecoPedido from './pages/enderecopedido';
 import Confirmacaopedidos from './pages/confirmacaopedidos';
@@ -44,7 +44,7 @@ root.render(
         <Route path='/cadastroproduto' element={<Cadastrarproduto/>}/>
         <Route path='/informacao' element={<Informacoes/>}/>
         <Route path='/compatalhos' element={<CompAtalhosAdm/>} />
-        <Route path='/produtos' element={<AlterarProdutosAdm/>} />
+        <Route path='/produtos' element={<listarProdutosAdm/>} />
         <Route path='/pedido1' element={<ComprarPedido />} />
         <Route path='/pedido2' element={<EnderecoPedido/>} />
         <Route path='/pedido3' element={<Confirmacaopedidos/>} />

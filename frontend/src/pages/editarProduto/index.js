@@ -14,7 +14,7 @@ import { useParams } from 'react-router-dom';
 
 export default function EditarProduto() {
     const [nome, setnome] = useState('')
-    const [classificacao, setclassificacao] = useState(0)
+    const [tipo, settipo] = useState(0)
     const [ingredientes, setingrediente] = useState('')
     const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
@@ -32,18 +32,20 @@ async function alterarProduto() {
     try {
         const produto = {
             nome:nome,
-            classificacao: classificacao,
-            preco:preco,
+            tipo: tipo,
             ingredientes:ingredientes,
+            preco:preco,
             descricao:descricao,
             disponivel: disponivel,
         }
-        const r = await axios.put(`http://localhost:5000/produto/alterar/${id}`, produto)
+        const r = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
 
         
     if (r.status === 200) {
         alert("Produto alterado!");
     }
+
+
 
         
     } catch (err) {
@@ -109,9 +111,9 @@ async function alterarProduto() {
                                         value="Vinho"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                setclassificacao('Bebida');
+                                                settipo('Bebida');
                                             } else {
-                                                setclassificacao('');
+                                                settipo('');
                                             }
                                         }}
                                     />
@@ -127,9 +129,9 @@ async function alterarProduto() {
                                         value="Sobremesa"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                setclassificacao('Sobremesa');
+                                                settipo('Sobremesa');
                                             } else {
-                                                setclassificacao('');
+                                                settipo('');
                                             }
                                         }}
                                     />
@@ -146,9 +148,9 @@ async function alterarProduto() {
                                         value="Salgado"
                                         onChange={(e) => {
                                             if (e.target.checked) {
-                                                setclassificacao('Salgado');
+                                                settipo('Salgado');
                                             } else {
-                                                setclassificacao('');
+                                                settipo('');
                                             }
                                         }}
                                     />

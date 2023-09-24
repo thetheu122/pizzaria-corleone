@@ -77,57 +77,22 @@ export default function Cadastro() {
 
     }catch(err){
         if (err.response) {
-            alert(`Erro ao cadastrar o produto: ${JSON.stringify(err.response.data)}`);
+            alert(`Erro ao cadastrar o produto: ${JSON.stringify(err.response.data)}`)
         } else {
-            alert(`Erro ao cadastrar o produto: ${err.message}`);
+            alert(`Erro ao cadastrar o produto: ${err.message}`)
         }
        
     }
     }
       
     function handleImagemChange(e) {
-        const arquivo = e.target.files[0];
-        setImagem(arquivo);
+        const arquivo = e.target.files[0]
+        setImagem(arquivo)
     }
 
 
 
-   /* async function alterarProduto(id, tipoproduto, ingredientes, nome, preco, descricao, disponivel) {
-        const r = await axios.put(`http://localhost:5000/produto/alterar/${id}`, {
-            nome: nome,
-            tipoproduto: tipoproduto,
-            ingredientes: ingredientes,
-            preco: preco,
-            descricao: descricao,
-            disponivel: disponivel
-        })
-
-        return r.data
-
-        alert(imagem)
-  
-
-        let respImagem = await axios.post(`http://localhost:5000/produto/${respProduto.data.id}/capa`,imagem );
-        console.log(respImagem);
-
-        function handleImagemChange(e) {
-            const arquivo = e.target.files[0];
-            setImagem(arquivo)
-        }
-    }
-
-
-    async function clickbutton() {
-        if(id==0) 
-        {
-            cadastrarProduto();
-        }
-        else {
-            alterarProduto();
-        }
-
-    }*/
-
+   
 
   
 
@@ -361,5 +326,5 @@ export default function Cadastro() {
 
 
     )
-                                    }
+}
 

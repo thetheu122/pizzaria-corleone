@@ -15,7 +15,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import './index.scss'
 
-export default function AlterarProdutosAdm() {
+export default function  ListarProdutosAdm() {
 
     const[nome,setNome] = useState('')
     const[tipo, setTipo] = useState('')

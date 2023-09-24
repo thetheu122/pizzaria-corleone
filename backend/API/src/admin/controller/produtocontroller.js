@@ -135,9 +135,9 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
     if(!produto.descricao){
       erro.push("Campo descrição vazio . É necessario preencher todos os campos")
     }
-    if(!produto.preco_promocional){
+    /*if(!produto.preco_promocional){
       erro.push("Campo preco promocional vazio. É necessario preencher todos os campos")
-    }
+    }*/
     if(!produto.disponivel){
       erro.push("campo Disponivel vazio. É necessario preencher todos os campos")
     }
