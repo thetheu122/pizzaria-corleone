@@ -31,7 +31,93 @@ export default function Cabecalho() {
     const [signIn, toggle] = useState(true);
 
 
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const [cadastro, setCadastro] = useState(true);
+  const [continuacaoCadas, setContinuacaoCadas] = useState(false);
+
+  const inversao = () => {
+    if (!nome) {
+      toast.warn('Digite o seu nome', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else if (!email) {
+      toast.warn('Digite o seu email', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else if (!telefone) {
+      toast.warn('Digite o seu telefone', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else if (!senha) {
+      toast.warn('Digite a sua senha', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else {
+      setCadastro(!cadastro)
+      setContinuacaoCadas(!continuacaoCadas)
+    }
+  }
+
+  const [emailLogin, setEmailLogin] = useState('')
+  const [senhaLogin, setSenhaLogin] = useState('')
+  
+  const navigate = useNavigate()
+  const login = async () => {
+    try {
+      let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
+      if (response.data.length == 1) {
+        toast.info("Login realizado com sucesso")
+        
+      }
+      else {
+        toast.error("Falha ao realizar o Login")
+      }
+    } catch (error) {
+
+    }
+
+  }
+
+
     return (
+        <>
+        {cadastro &&
         <main className='cabecalho'>
             <div className='esquerda-cabecalho'>
                 <Link to='/sobrenos' style={{ textDecoration: 'none', outline: 'none' }}>
@@ -87,20 +173,20 @@ export default function Cabecalho() {
               <Components.SignUpContainer signinIn={signIn}>
                   <Components.Form>
                       <Components.Title>Criar Conta</Components.Title>
-                      <Components.Input type='text' placeholder='Nome' />
-                      <Components.Input type='email' placeholder='Email' />
-                      <Components.Input type='password' placeholder='Senha' />
-                      <Components.Button>Sign Up</Components.Button>
+                      <Components.Input type='text' placeholder='Nome' value={nome} onChange={(e) => setNome(e.target.value)}/>
+                      <Components.Input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                      <Components.Input type='password' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+                      <Components.Button>Criar conta</Components.Button>
                   </Components.Form>
               </Components.SignUpContainer>
 
               <Components.SignInContainer signinIn={signIn}>
                    <Components.Form>
-                       <Components.Title>Sign in</Components.Title>
-                       <Components.Input type='email' placeholder='Email' />
-                       <Components.Input type='password' placeholder='Password' />
-                       <Components.Anchor href='#'>Forgot your password?</Components.Anchor>
-                       <Components.Button>Sigin In</Components.Button>
+                       <Components.Title>Entrar</Components.Title>
+                       <Components.Input type='email' placeholder='Email' value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)}/>
+                       <Components.Input type='password' placeholder='Senha' value={senhaLogin} onChange={(e) => setSenhaLogin(e.target.value)} />
+                       <Components.Anchor href='#'>Esqueceu a senha?</Components.Anchor>
+                       <Components.Button>Entrar</Components.Button>
                    </Components.Form>
               </Components.SignInContainer>
 
@@ -110,20 +196,20 @@ export default function Cabecalho() {
                   <Components.LeftOverlayPanel signinIn={signIn}>
                       <Components.Title>Bem-vindo(a)</Components.Title>
                       <Components.Paragraph>
-                          To keep connected with us please login with your personal info
+                          Para manter conectado com a gente, por favor, entre com sua conta
                       </Components.Paragraph>
                       <Components.GhostButton onClick={() => toggle(true)}>
-                          Sign In
+                          Entrar
                       </Components.GhostButton>
                       </Components.LeftOverlayPanel>
 
                       <Components.RightOverlayPanel signinIn={signIn}>
-                        <Components.Title>Hello, Friend!</Components.Title>
+                        <Components.Title>Olá Amigo!</Components.Title>
                         <Components.Paragraph>
-                            Enter Your personal details and start journey with us
+                            Entre e aventuresse em nosso cardápio rico e inclusivo
                         </Components.Paragraph>
                             <Components.GhostButton onClick={() => toggle(false)}>
-                                Sigin Up
+                                Entrar
                             </Components.GhostButton> 
                       </Components.RightOverlayPanel>
   
@@ -133,6 +219,9 @@ export default function Cabecalho() {
           </Components.Container>
             </Modal>
             {sideBar && <Carrinho onClose={() => setSideBar(false)} />}
-        </main>
+        </main>}
+        {continuacaoCadas && <CadastroPart2 inversao={inversao} nome={nome} telefone={telefone} senha={senha} email={email} />}
+        <ToastContainer />
+        </>
     )
 }
