@@ -10,10 +10,10 @@ export default function Cadastro() {
     const [nome, setnome] = useState('')
     const [tipoproduto, settipoproduto] = useState('')
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState('')
-    const [preco, setpreco] = useState('')
+    const [restricao, setrestricao] = useState([])
+    const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
-    const [disponivel, setDisponivel] = useState(true);
+    const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState();
 
 
@@ -25,15 +25,15 @@ export default function Cadastro() {
     try {
      
       const cadastrar = {
+        nome: nome,
         tipo: tipoproduto,
         ingredientes: ingredientes,
-        nome: nome,
         preco: preco,
         descricao: descricao,
         disponivel: disponivel,
       };
 
-  
+   
 
       const respCadastro = await axios.post('http://localhost:5000/produto', cadastrar);
       const productId = respCadastro.data.id;
@@ -50,7 +50,8 @@ export default function Cadastro() {
         restricao: restricao,
         idProduto: productId,
       };
-      //alert(JSON.stringify(restricaoData));
+
+    alert(JSON.stringify(restricaoData));
       
      
       const resprestricao = await axios.post('http://localhost:5000/restricao', restricaoData);
@@ -69,6 +70,11 @@ export default function Cadastro() {
       if (!nome || !tipoproduto || !ingredientes || !restricao || preco <= 0 || !descricao) {
         alert('Por favor, preencha todos os campos obrigatórios.');
         return;
+      }
+
+      if(!restricao){
+        alert('Preencher o campo restrição');
+        return
       }
     } catch (err) {
       if (err.response) {
@@ -172,6 +178,32 @@ export default function Cadastro() {
                                     <label className='nomeproduto'>Salgado</label>
                                 </div>
                             </div>
+
+                            
+                            {/* <div className='prod'>
+                                <div className='in'>
+                                    <input
+                                        className="tay"
+                                        type="checkbox"
+                                        value="Vegano"
+                                        checked={tipoproduto === 'Vegano'}
+                                        onChange={(e) => selecionarTipo(e, 'Vegano')}
+                                    />
+                                    <label className='nomeproduto'>Vegano</label>
+                                </div>
+
+                                
+                            <div className='prod'>
+                                <div className='in'>
+                                    <input
+                                        className="tay"
+                                        type="checkbox"
+                                        value="Vegetariano"
+                                        checked={tipoproduto === 'Vegetariano'}
+                                        onChange={(e) => selecionarTipo(e, 'Vegetariano')}
+                                    />
+                                    <label className='nomeproduto'>Vegetariano</label>
+                                </div> */}
 
 
 
