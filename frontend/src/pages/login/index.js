@@ -5,6 +5,8 @@ import Google from '../../assets/img/google 1.png'
 import { useState } from 'react'
 import axios from 'axios'
 
+import { Navigate, useNavigate } from 'react-router-dom'
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,15 +14,22 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Login() {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
-
+  
+  const navigate = useNavigate()
   const login = async () => {
-    let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
-    if (response.data.length == 1) {
-      toast.info("Login realizado com sucesso")
+    try {
+      let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
+      if (response.data.length == 1) {
+        toast.info("Login realizado com sucesso")
+        
+      }
+      else {
+        toast.error("Falha ao realizar o Login")
+      }
+    } catch (error) {
+
     }
-    else {
-      toast.error("Falha ao realizar o Login")
-    }
+
   }
 
   return (
@@ -54,7 +63,7 @@ export default function Login() {
         pauseOnHover
         theme="dark"
       />
-      </div>
+    </div>
   );
 }
 

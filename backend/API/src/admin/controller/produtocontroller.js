@@ -88,10 +88,11 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
 
 
-endpoints.put( '/produto/editar/campos/:idproduto' , async (req,resp)=>{
+endpoints.put( '/produto/editar/campos/:idproduto' , upload.single('capa'), async  (req,resp)=>{
 
   try {
     const {id} = req.params
+    const imagem = req.body.img_produto; 
     const produto = req.body
 
     const verificar = await analise(produto)

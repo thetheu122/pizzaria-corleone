@@ -6,22 +6,23 @@ export async function analise (produto){
 
 
 const tipo = [
-"bebida"     ,
-"sobremesa"  ,
-"salgado"    ,
-"vegano"     ,
-"vegetariano" 
+"Bebida"     ,
+"Sobremesa"  ,
+"Salgado"    ,
+"Vegano"     ,
+"Vegetariano" ,
+
 ]
 
 
- for ( let cont = 1 ; cont <6 ; cont ++){
+ for ( let cont = 1 ; cont <11 ; cont ++){
   if (produto.tipo === tipo[cont -1]){
       produto.tipo = cont
   }
 
  }
 
-
+console.log(produto.tipo)
 
   const erros = []
      
