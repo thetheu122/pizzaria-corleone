@@ -16,10 +16,10 @@ export default function EditarProduto() {
     const [nome, setnome] = useState('')
     const [tipo, settipo] = useState(0)
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState('')
+    const [restricao, setrestricao] = useState([])
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
-    const [disponivel, setdisponivel] = useState(true);
+    const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState('');
 
     const {id} = useParams();
@@ -55,24 +55,36 @@ async function alterarProduto() {
             descricao:descricao,
             disponivel: disponivel,
         }
-        const alergia = {
-            restricao: restricao
-            
-        }
-
-        const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${id}`, restricao)
 
         const r = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
+
+        const productId   = r.data.id;
+        
+        const consulta = await axios.get('http://localhost:5000/restricao/'+restricao )
+        const idrestricao = consulta.data.id
+
+
+        alert(idrestricao)
+
+        const alergia = {
+            restricao: restricao,
+            idProduto: productId,
+            idrestricao :idrestricao
+        
+        }
+        alert(restricao)
+
+        
+        const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${id}`, alergia)
+
+        
         const img = await enviarimagem(id, imagem)
         
+
+
     if (r.status === 200) {
         alert("Produto alterado!");
     }
-
-
-
-
-
 
         
     } catch (err) {
@@ -319,6 +331,14 @@ async function alterarProduto() {
                             <h1>Adicione uma descrição do seu produto</h1>
                             <input type='text' placeholder='Escreva..' value={descricao} onChange={e => setdescricao(e.target.value)} />
                         </div>
+                        <div className='disponivel'>
+                            <h1>Disponível:</h1>
+                            <input
+                         type='checkbox'
+                               checked={disponivel}
+                              onChange={() => setDisponivel(!disponivel)} 
+                                 />
+                           </div>
 
                         <div className='fin-botao'>
                             <button onClick={alterarProduto}>Finalizar Cadastro</button>

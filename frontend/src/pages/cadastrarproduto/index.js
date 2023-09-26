@@ -48,7 +48,7 @@ export default function Cadastro() {
 
       const restricaoData = {
         restricao: restricao,
-        idProduto: productId,
+        idProduto: productId
       };
 
     //alert(JSON.stringify(restricaoData));

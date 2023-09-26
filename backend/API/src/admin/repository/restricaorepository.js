@@ -46,23 +46,22 @@ else{
 
 
 
-export async function listarestricao(){
+export async function listarestricao(nome){
 
     const comando = `
     SELECT
     tb_restricao.id_restricao  as id,
-    tb_restricao.ds_restricao  as Restrição ,
-    tb_produto.nm_produto      as Produto
+    tb_restricao.ds_restricao  as Restrição 
     FROM
     tb_restricao
-    INNER JOIN
-    tb_produto ON tb_restricao.id_produto = tb_produto.id_produto;
+    where ds_restricao like ?
+
     `
-const [ resposta ] = await con.query( comando )
+const [ resposta ] = await con.query( comando , ["%"+nome+"%"])
 return resposta
 }
 
-export async function atualizarRestricao(id, novaDescricao, idproduto) {
+export async function atualizarRestricao(restricao, idproduto ,id) {
     const comando = `
       UPDATE tb_restricao
       SET ds_restricao = ?,
@@ -71,7 +70,7 @@ export async function atualizarRestricao(id, novaDescricao, idproduto) {
     `;
   
     const [resposta] = await con.query(comando, [
-      novaDescricao,
+      restricao,
       idproduto,
       id
     ]);

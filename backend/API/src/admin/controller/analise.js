@@ -26,7 +26,7 @@ console.log(produto.tipo)
 
   const erros = []
      
-  const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco','disponivel']
+  const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco']
   for ( const validar of campos){
 
     if(!produto[validar])
