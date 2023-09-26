@@ -41,9 +41,9 @@ endpoints.post ( '/restricao' , async (req,resp) =>{
 })
 
 
-endpoints.get('/restricao' , async ( req, resp ) =>{
-    try {
-        const resposta = await listarestricao()
+endpoints.get('/restricao/:nome' , async ( req, resp ) =>{
+    try {    const {nome} =  req.params
+        const resposta = await listarestricao(nome)
         resp.send(resposta)
     } 
        catch (err) {
@@ -55,9 +55,9 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 
     try {
         const { id } = req.params;
-        const { novaDescricao ,idproduto} = req.body;
-    
-        const resposta = await atualizarRestricao(id , novaDescricao ,idproduto);
+        const { restricao ,idproduto} = req.body;
+        console.log(restricao)
+        const resposta = await atualizarRestricao(id , restricao ,idproduto);
     
         
         if (resposta === 0) {

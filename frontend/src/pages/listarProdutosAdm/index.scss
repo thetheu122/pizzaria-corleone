@@ -100,7 +100,46 @@
     .produtos-listados {
         display: flex;
         flex-direction: column;
+        justify-content: center;
     }
+
+
+    .tabela-listados{
+        flex-direction: column;
+    }
+
+    .produtos-listados img {
+        width: 22px;
+        height: 22px;
+    }
+
+    .produtos-listados thead > tr {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .produtos-listados th {
+        width: 25%;
+    }
+
+    .lista-produto td {
+        width: 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .produtos-listados tbody tr {
+        display: flex;
+        justify-content: space-around;
+    }
+    .cada-produto{
+        display: flex;
+        flex-direction: column;
+    }
+
+    
 
     .comp-linha {
         background-color: #626262;
@@ -177,7 +216,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         width: 40%;
     }
 
