@@ -53,10 +53,10 @@ export async function inserirProduto(produto) {
     tb_tipo_produto.ds_tipo_produto   as Classificação ,
 	  tb_produto.vl_preco               as Preço,
 	  tb_produto.vl_preco_promocional   as Preço_promocional,
-    tb_produto.ds_ingredientes     as ingredientes,
+    tb_produto.ds_ingredientes        as ingredientes,
     tb_produto.ds_descricao           as Descrição ,
     tb_produto.bt_disponivel          as disponivel
-    FROM tb_produto
+    FROM tb_produto 
     INNER JOIN
     tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
     where tb_produto.nm_produto = ?
