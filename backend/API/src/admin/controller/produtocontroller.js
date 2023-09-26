@@ -102,7 +102,7 @@ endpoints.put( '/produto/editar/campos/:idproduto' , upload.single('capa'), asyn
     const imagem = req.body.img_produto; 
     const produto = req.body
 
-    const verificar = await analise(produto)
+    const verificar = await analise(produto , imagem ,id)
 
     if(verificar.length > 0 ){
       resp.status(400).send({erro:verificar})

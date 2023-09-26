@@ -6,10 +6,10 @@ export async function analise (produto){
 
 
 const tipo = [
-"Bebida"     ,
-"Sobremesa"  ,
-"Salgado"    ,
-"Vegano"     ,
+"Bebida"      ,
+"Sobremesa"   ,
+"Salgado"     ,
+"Vegano"      ,
 "Vegetariano" ,
 
 ]
