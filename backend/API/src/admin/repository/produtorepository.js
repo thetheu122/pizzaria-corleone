@@ -207,7 +207,7 @@ if(produto.tipo ===3){
 
  }
 
- export async function editarprodutocomleto ( produto , id ){
+ export async function editarprodutocomleto ( produto , imagem , id ){
 
   const comando = `
   UPDATE tb_produto
@@ -238,7 +238,7 @@ if(produto.tipo ===3){
         produto.preco_promocional,
         produto.disponivel,
         produto.restricao,
-        produto.imagem,
+        imagem,
         id,
         produto.id_restricao,
         produto.id_imagem
@@ -270,8 +270,6 @@ if(produto.tipo ===3){
 
     const [ respsta ] =await con.query(comando, [imagem, id])
     return respsta.affectedRows
-    
-  
 }
 
 
@@ -284,8 +282,6 @@ export async function alterarImagem(imagem, id){
   
   `
 
-  const [ resposta ] =await con.query(comando, [imagem, id])
+  const [ resposta ] = await con.query(comando, [imagem, id])
   return resposta
-  
-
 }

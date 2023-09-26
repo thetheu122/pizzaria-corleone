@@ -8,6 +8,7 @@ import {
   excluirProduto,
   imagem,
   verificarproduto,
+  alterarImagem
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -26,15 +27,7 @@ endpoints.post('/produto', async (req, resp) => {
       resp.status(400).send({ erro: verificar });
 
     } 
-      else {
-  
-      if (verificar === true) {
-        resp.status(400).send({ erro: 'Produto já cadastrado' });
-      } else {
-        const resposta = await inserirProduto(produto);
-        resp.send(resposta);
-      }
-    }
+
 
   } catch (err) {
     resp.status(500).send({ erro: err.message });
@@ -102,7 +95,7 @@ endpoints.put( '/produto/editar/campos/:idproduto' , upload.single('capa'), asyn
     const imagem = req.body.img_produto; 
     const produto = req.body
 
-    const verificar = await analise(produto)
+    const verificar = await analise(produto , imagem ,id)
 
     if(verificar.length > 0 ){
       resp.status(400).send({erro:verificar})

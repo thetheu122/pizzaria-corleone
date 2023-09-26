@@ -5,86 +5,90 @@ import SetaDireita from '../../assets/images/pictures/setadireita.png'
 import Deletar from '../../assets/images/pictures/deletar.png'
 import Editar from '../../assets/images/pictures/editar.png'
 import Setaprabaixo from '../../assets/images/pictures/setaprabaixo.png'
-import axios from 'axios' ;
-import { useState } from 'react';
+import axios from "axios"
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { confirmAlert } from 'react-confirm-alert'; 
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 // isntalar --> npm i react-confirm-alert --save       
 //para parar o erro
 
 import './index.scss'
 
-export default function  ListarProdutosAdm() {
+export default function ListarProdutosAdm() {
 
-    const[nome,setNome] = useState('')
-    const[tipo, setTipo] = useState('')
-    const[ingredientes,setIngredientes] = useState('')
-    const[preferencias, setPreferencias] = useState('')
-    const[preco, setPreco] = useState('')
-    const[descricao, setDescricao] = useState('')
-    const[busca, setBusca] = useState('');
-    const[listarProdutos, setListarprodutos] = useState([]);
-    const[id, setId] = useState(0);
+    const [busca, setBusca] = useState('');
+    const [listarProdutos, setListarprodutos] = useState([]);
+
+    const [produtos, setProdutos] = useState([])
 
 
     const navigate = useNavigate();
-    
 
-    function alterarProduto(item) {
-        setNome(item.Nome);
-        setTipo(item.Classificação);
-        setIngredientes(item.ingredientes);
-        setPreferencias(item.ano);
-        setPreco(item.idTipoVeiculo);
-        setDescricao(item.Descrição);
-      }
+    function entrarAlterar(id) {
+        navigate(`/produto/alterar/${id}`)
+    }
+
+    useEffect(() => {
+        Listando();
+    }, [])
+
+
+
+
+
+
 
     async function buscarProdutos() {
         const resposta = await axios.get('http://localhost:5000/produto?busca=', busca)
-        setListarprodutos(resposta.data)
+        setProdutos(resposta.data)
+    }
+
+        async function Listando() {
+        const r = await axios.get('http://localhost:5000/produto')
+        setProdutos(r.data)
     }
 
 
     async function apagarProduto(id) {
 
         confirmAlert({
-          title: 'Produto',
-          message: 'Tem certeza que deseja apagar esse produto?',
-          buttons: [
-            {
-              label: 'Sim',
-              onClick: async () => {
-                try {
-                    const resposta = await axios.delete('http://localhost:5000/produto/'+ id)
-                    alert('Produto removido')
-                    buscarProdutos();
-                } catch (err) {
-                    alert(err.response.data.erro);
+            title: 'Produto',
+            message: 'Tem certeza que deseja apagar esse produto?',
+            buttons: [
+                {
+                    label: 'Sim',
+                    onClick: async () => {
+                        try {
+                            const resposta = await axios.delete('http://localhost:5000/produto/' + id)
+                            alert('Produto removido')
+                            Listando();
+                        } catch (err) {
+                            alert(err.response.data.erro);
+                        }
+                    }
+                },
+                {
+                    label: 'Não'
                 }
-              }
-            },
-            {
-              label: 'Não'
-            }
-          ]
+            ]
         });
+
+    }
+
     
-      }
 
 
 
 
 
-      async function alterarProduto() {
-        navigate('/cadastroproduto/alterar/:idParam')
-      }
+
 
 
     return (
         <div className="pagina-alterar-produtos">
 
-            <CompAtalhosAdm/>
+            <CompAtalhosAdm />
 
             <section className="container-produtos">
 
@@ -101,7 +105,7 @@ export default function  ListarProdutosAdm() {
                     <div className="produtos">
                         <div className="buscar">
                             <div onClick={buscarProdutos}><img src={Lupa} /></div>
-                            <input type="" placeholder="busque por nome do produto" onChange={e => setBusca(e.target.value)}/>
+                            <input type="" placeholder="busque por nome do produto" onChange={e => setBusca(e.target.value)} />
                         </div>
 
                         <div className="paginas">
@@ -111,33 +115,40 @@ export default function  ListarProdutosAdm() {
                         </div>
 
                         <div className="produtos-listados">
-                            <div className="comp-linha"></div>
-                            <div className="titulos">
-                                <h3>ID</h3>
-                                <h3>Produto</h3>
-                                <h3>Excluir</h3>
-                                <h3>Alterar</h3>
-                            </div>
 
-                            <div className="comp-alterar">
-                                
-                                {listarProdutos.map(item =>
-                                <div>
-                                    <div className='comp-linha'></div>
-                                        <div className="comp-produtos">
-                                            <h4>#{item.ID}</h4>
-                                            <h3>{item.Nome}</h3>
-                                             <div className='deletar' onClick={() => apagarProduto(item.ID)}><img src={Deletar} /></div>
-                                            <div className="alterar" onClick={() => alterarProduto(item)}><img src={Editar} /></div>
-                                     </div>
-                                     
-                                    </div>
-                                )}
-                                
-                                <div className='comp-linha'></div>
-                            </div>
+                            <table className="tabela-listados">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Produto</th>
+                                        <th>Excluir</th>
+                                        <th>Alterar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+
+                                    {produtos.map(item =>
+                                        <tr className="cada-produto">
+                                            <td className="comp-linha"></td>
+                                            <tr className="lista-produto">
+                                            <td>#{item.ID}</td>
+                                            <td>{item.nome}</td>
+                                            <td className='deletar' onClick={() => apagarProduto(item.ID)}><img src={Deletar} /></td>
+                                            <td className="alterar" onClick={() => entrarAlterar(item.ID)}><img src={Editar} /></td>
+
+                                            </tr>
+                                            
+                                        </tr>
+                                        )}
+                        
+                                </tbody>
+                            </table>
+   
 
                             
+
+
 
                         </div>
                     </div>

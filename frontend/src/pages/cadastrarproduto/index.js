@@ -11,7 +11,7 @@ export default function Cadastro() {
     const [tipoproduto, settipoproduto] = useState('')
     const [ingredientes, setingrediente] = useState('')
     const [restricao, setrestricao] = useState([])
-    const [preco, setpreco] = useState(0)
+    const [preco, setpreco] = useState('')
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState();
@@ -48,10 +48,10 @@ export default function Cadastro() {
 
       const restricaoData = {
         restricao: restricao,
-        idProduto: productId,
+        idProduto: productId
       };
 
-    alert(JSON.stringify(restricaoData));
+    //alert(JSON.stringify(restricaoData));
       
      
       const resprestricao = await axios.post('http://localhost:5000/restricao', restricaoData);
@@ -140,7 +140,7 @@ export default function Cadastro() {
                         <p className='linha'> </p>
 
                         <div className='b-produto'>
-                            <h1>Seu Produto é...</h1>
+                            <p>Seu Produto é...</p>
 
 
 
@@ -177,34 +177,15 @@ export default function Cadastro() {
                                     />
                                     <label className='nomeproduto'>Salgado</label>
                                 </div>
-                            </div>
 
-                            
-                            {/* <div className='prod'>
-                                <div className='in'>
-                                    <input
-                                        className="tay"
-                                        type="checkbox"
-                                        value="Vegano"
-                                        checked={tipoproduto === 'Vegano'}
-                                        onChange={(e) => selecionarTipo(e, 'Vegano')}
-                                    />
-                                    <label className='nomeproduto'>Vegano</label>
+                           
+
+                                <div>
+
+                                    
+
                                 </div>
-
-                                
-                            <div className='prod'>
-                                <div className='in'>
-                                    <input
-                                        className="tay"
-                                        type="checkbox"
-                                        value="Vegetariano"
-                                        checked={tipoproduto === 'Vegetariano'}
-                                        onChange={(e) => selecionarTipo(e, 'Vegetariano')}
-                                    />
-                                    <label className='nomeproduto'>Vegetariano</label>
-                                </div> */}
-
+                            </div>
 
 
                             <p className="linha"></p>
@@ -212,14 +193,14 @@ export default function Cadastro() {
                         </div>
 
                         <div className='ingredientes'>
-                            <h1>Ingredientes:</h1>
+                            <p>Ingredientes:</p>
                             <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
                         </div>
 
                         <p className='linha'></p>
 
                         <div className='preferencia'>
-                            <h1>Pessoas com preferencias alimentares/alergias podem comer</h1>
+                            <p>Pessoas com preferencias alimentares/alergias podem comer</p>
                             <div className='pref-prod'>
                                 <div className='in'>
                                     <input
@@ -278,18 +259,21 @@ export default function Cadastro() {
                         <p className='linha'></p>
 
                         <div className='valor'>
-                            <h1>Qual o preço do seu produto?</h1>
-                            <input type='text' placeholder='Escreva..' value={preco} onChange={e => setpreco(e.target.value)} />
+                            <p>Qual o preço do seu produto?</p>
+                            <input type='text' placeholder='R$' value={preco} onChange={e => setpreco(e.target.value)} />
                         </div>
 
                         <p className='linha'></p>
 
                         <div className='descricao'>
-                            <h1>Adicione uma descrição do seu produto</h1>
+                            <p>Adicione uma descrição do seu produto</p>
                             <input type='text' placeholder='Escreva..' value={descricao} onChange={e => setdescricao(e.target.value)} />
                         </div>
+
+                        <p className='linha'></p>
+                        
                         <div className='disponivel'>
-                            <h1>Disponível:</h1>
+                            <p>Disponível:</p>
                             <input
                          type='checkbox'
                                checked={disponivel}
