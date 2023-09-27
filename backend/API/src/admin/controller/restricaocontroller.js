@@ -28,7 +28,7 @@ endpoints.post ( '/restricao' , async (req,resp) =>{
             }
             else{
                 const resposta = await inserirrestricao({restricao})
-                resp.send(resposta)   
+                resp.send(resposta)
             }
        }
     } 
@@ -55,11 +55,11 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 
     try {
         const { id } = req.params;
-        const { restricao ,idproduto} = req.body;
-        console.log(restricao)
-        const resposta = await atualizarRestricao(id , restricao ,idproduto);
-    
+        const { restricao } = req.body;
         
+        const resposta = await atualizarRestricao(id , restricao );
+        
+
         if (resposta === 0) {
           res.status(404).send({message:"Restrição não encontrada"});
         } else {
@@ -72,7 +72,7 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 })
 
 
-  endpoints.delete( '/restricao/:id', async (req, res) => { 
+  endpoints.delete( '/restricao/:id', async (req, res) => {
     
     try {
       const { id } = req.params;
