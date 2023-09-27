@@ -13,7 +13,7 @@ export default function Cadastro() {
     const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState('')
     const [descricao, setdescricao] = useState('')
-    const [disponivel, setDisponivel] = useState(true);
+    const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState();
 
 
@@ -247,7 +247,7 @@ export default function Cadastro() {
 
                         <div className='valor'>
                             <h1>Qual o preço do seu produto?</h1>
-                            <input type='text' placeholder='Escreva..' value={preco} onChange={e => setpreco(e.target.value)} />
+                            <input type='text' placeholder='R$' value={preco} onChange={e => setpreco(e.target.value)} />
                         </div>
 
                         <p className='linha'></p>
