@@ -56,5 +56,6 @@ export async function loginCliente(email, senha) {
     `
 
     const [resposta] = await con.query(comando, [ email , senha])
+    console.log(resposta)
     return resposta;
 };

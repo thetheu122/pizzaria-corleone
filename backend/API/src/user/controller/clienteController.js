@@ -49,27 +49,19 @@ server.get('/cliente/login', async (req, resp) => {
         let email = req.query.email;
         let senha = req.query.senha;
 
-        console.log(email, senha)
-
-        const camposObrigatorios = [
-            "email",
-            "senha"
-        ];
-    
         const camposFaltando = [];
-    
-        camposObrigatorios.forEach((campo) => {
-            if (!(campo in resposta) || !resposta[campo]) {
-                camposFaltando.push(campo);
-            }
-        });
-    
+       
         if (camposFaltando.length > 0) {
             const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
             throw new Error(mensagemErro);
         }
 
         let respo = await loginCliente(email, senha)
+
+        if(!respo){
+            throw new Error('Credenciais inválidas');
+        }
+
         resp.status(200).send(respo)
     } catch (err) {
         resp.status(404).send(err.message)

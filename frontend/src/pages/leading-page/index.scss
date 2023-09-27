@@ -24,7 +24,7 @@
         background-size: cover;
 
         h2 {
-            color:#FFF;
+            color: #FFF;
             text-align: center;
             font-family: lato-regular;
             font-size: 24px;
@@ -89,9 +89,9 @@
 
         }
     }
-     
 
-    
+
+
     .secaoDoisLeading {
         display: flex;
         align-items: center;
@@ -100,6 +100,18 @@
         margin-bottom: 100px;
 
         gap: 30px;
+
+        transition: .6s;  
+
+        &:hover > div:not(:hover){
+            
+            opacity: 0.6;
+        }
+
+         > div:hover {
+            scale: 1.1;  
+            transition: .6s;
+        }
 
         .propaganda1 {
             display: flex;
@@ -162,9 +174,9 @@
                     transition: 200ms;
                     right: -210px;
 
-                    &:hover{
+                    &:hover {
                         background-color: #FFC857;
-                        color: #53220D;     
+                        color: #53220D;
                         cursor: pointer;
                     }
                 }
@@ -235,7 +247,7 @@
 
                     transition: 200ms;
 
-                    &:hover{
+                    &:hover {
                         background-color: #FFC857;
                         color: #53220D;
                         cursor: pointer;
@@ -308,7 +320,7 @@
                     transition: 200ms;
                     right: -210px;
 
-                    &:hover{
+                    &:hover {
                         background-color: #FFC857;
                         color: #53220D;
                         cursor: pointer;
@@ -411,17 +423,18 @@
                     font-weight: 400;
                     line-height: normal;
                 }
-           
-           
-         
-        }
 
-        h3{
-            color: #000;
-           }
-           p{
-            color: #000;
-           }
+
+
+            }
+
+            h3 {
+                color: #000;
+            }
+
+            p {
+                color: #000;
+            }
         }
 
         button {
@@ -470,7 +483,8 @@
 
         }
     }
-    .compsobre{
+
+    .compsobre {
         width: 100%;
         display: flex;
         justify-content: end;
@@ -497,7 +511,7 @@
 
         transition: 150ms;
 
-        &:hover{
+        &:hover {
 
             background-color: #FFC857;
             color: #FFF;

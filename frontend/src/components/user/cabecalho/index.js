@@ -105,13 +105,40 @@ export default function Cabecalho() {
 
 
   const login = async () => {
-    let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
-    if (response.data.length == 1) {
-      toast.info("Login realizado com sucesso")
+    if(!email){
+      toast.warn('Campo do email vazio', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-    else {
-      toast.error("Falha ao realizar o Login")
+    else if(!senha){
+      toast.warn('Campo da senha vazio', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
+
+    else{
+      let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
+      if (response.data.length == 1) {
+        toast.info("Login realizado com sucesso")
+      }
+      else {
+        toast.error("Falha ao realizar o Login")
+      }
+  }
 
   }
 
@@ -314,7 +341,7 @@ export default function Cabecalho() {
                   </div>
                 </div>
 
-                <div className='direita'>
+                <div className='direitaFin'>
                   <div><input type='text' placeholder='CPF' /></div>
                   <div><input type='text' placeholder='Como você nos conheceu?' /></div>
                   <h1>DOM CORLEONE</h1>
