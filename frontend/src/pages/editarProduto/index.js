@@ -1,4 +1,4 @@
-import './index.scss'
+//import './index.scss'
 
 import axios from 'axios'
 import React, { useState } from 'react';
@@ -54,30 +54,57 @@ async function alterarProduto() {
             preco:preco,
             descricao:descricao,
             disponivel: disponivel,
+            restricao: restricao
         }
 
         const r = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
 
-        const productId   = r.data.id;
+        const productId= id
         
-        const consulta = await axios.get('http://localhost:5000/restricao/'+restricao )
-        const idrestricao = consulta.data.id
-
-
-        alert(idrestricao)
-
-        const alergia = {
-            restricao: restricao,
-            idProduto: productId,
-            idrestricao :idrestricao
         
+        const consulta = await axios.get(`http://localhost:5000/restricao/${restricao}`)
+        
+  
+        if (consulta.status === 200) {
+            // Extraia o ID da restrição da resposta
+            const restricaoId = consulta.data.data.id;
+
+            const alergia = {
+                id: restricaoId,
+                idProduto: productId,
+                restricao: restricao,
+            }
+
+            alert(JSON.stringify(alergia));
+
+            // Agora, você pode fazer uma solicitação PUT para alterar a restrição
+            const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
+
+            // Verifique se a operação de alteração da restrição foi bem-sucedida
+            if (rAlergia.status === 200) {
+                alert("Produto e restrição alterados!");
+            } else {
+                alert("Erro ao alterar a restrição.");
+            }
         }
-        alert(restricao)
+
+        
+
+
+
+        /*const alergia = {
+            id: restricaoId,
+            idProduto: productId,
+            restricao: restricao,
+        }
+
+        alert(JSON.stringify(alergia));
+        
 
         
         const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${id}`, alergia)
 
-        
+        */
         const img = await enviarimagem(id, imagem)
         
 

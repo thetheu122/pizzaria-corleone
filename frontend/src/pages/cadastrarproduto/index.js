@@ -10,7 +10,7 @@ export default function Cadastro() {
     const [nome, setnome] = useState('')
     const [tipoproduto, settipoproduto] = useState('')
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState([])
+    const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState('')
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
@@ -25,15 +25,15 @@ export default function Cadastro() {
     try {
      
       const cadastrar = {
-        nome: nome,
         tipo: tipoproduto,
         ingredientes: ingredientes,
+        nome: nome,
         preco: preco,
         descricao: descricao,
         disponivel: disponivel,
       };
 
-   
+  
 
       const respCadastro = await axios.post('http://localhost:5000/produto', cadastrar);
       const productId = respCadastro.data.id;
@@ -48,10 +48,9 @@ export default function Cadastro() {
 
       const restricaoData = {
         restricao: restricao,
-        idProduto: productId
+        idProduto: productId,
       };
-
-    //alert(JSON.stringify(restricaoData));
+      //alert(JSON.stringify(restricaoData));
       
      
       const resprestricao = await axios.post('http://localhost:5000/restricao', restricaoData);
@@ -70,11 +69,6 @@ export default function Cadastro() {
       if (!nome || !tipoproduto || !ingredientes || !restricao || preco <= 0 || !descricao) {
         alert('Por favor, preencha todos os campos obrigatórios.');
         return;
-      }
-
-      if(!restricao){
-        alert('Preencher o campo restrição');
-        return
       }
     } catch (err) {
       if (err.response) {
@@ -140,7 +134,7 @@ export default function Cadastro() {
                         <p className='linha'> </p>
 
                         <div className='b-produto'>
-                            <p>Seu Produto é...</p>
+                            <h1>Seu Produto é...</h1>
 
 
 
@@ -177,15 +171,8 @@ export default function Cadastro() {
                                     />
                                     <label className='nomeproduto'>Salgado</label>
                                 </div>
-
-                           
-
-                                <div>
-
-                                    
-
-                                </div>
                             </div>
+
 
 
                             <p className="linha"></p>
@@ -193,14 +180,14 @@ export default function Cadastro() {
                         </div>
 
                         <div className='ingredientes'>
-                            <p>Ingredientes:</p>
+                            <h1>Ingredientes:</h1>
                             <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
                         </div>
 
                         <p className='linha'></p>
 
                         <div className='preferencia'>
-                            <p>Pessoas com preferencias alimentares/alergias podem comer</p>
+                            <h1>Pessoas com preferencias alimentares/alergias podem comer</h1>
                             <div className='pref-prod'>
                                 <div className='in'>
                                     <input
@@ -259,21 +246,18 @@ export default function Cadastro() {
                         <p className='linha'></p>
 
                         <div className='valor'>
-                            <p>Qual o preço do seu produto?</p>
+                            <h1>Qual o preço do seu produto?</h1>
                             <input type='text' placeholder='R$' value={preco} onChange={e => setpreco(e.target.value)} />
                         </div>
 
                         <p className='linha'></p>
 
                         <div className='descricao'>
-                            <p>Adicione uma descrição do seu produto</p>
+                            <h1>Adicione uma descrição do seu produto</h1>
                             <input type='text' placeholder='Escreva..' value={descricao} onChange={e => setdescricao(e.target.value)} />
                         </div>
-
-                        <p className='linha'></p>
-                        
                         <div className='disponivel'>
-                            <p>Disponível:</p>
+                            <h1>Disponível:</h1>
                             <input
                          type='checkbox'
                                checked={disponivel}
