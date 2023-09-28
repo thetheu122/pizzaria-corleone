@@ -1,6 +1,7 @@
 import './index.scss'
 import '../../assets/config/fonts-config.scss'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 import Rodape from '../../components/user/rodape'
 import Cabecalho from '../../components/user/cabecalho'
@@ -10,7 +11,7 @@ import CompSobre from '../../components/compSobre'
 
 
 export default function Leading() {
-
+    const navigate = useNavigate()
 
     return (
         <main className='leadingPage'>
@@ -33,9 +34,8 @@ export default function Leading() {
                             <h2>Sabor Excepcional</h2>
                             <p>Palavras presentes em cada mordidas em nossas pizzas.</p>
                         </div>
-                        <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                            <button>Confira Aqui</button>
-                        </Link>
+                        <button onClick={() => navigate('/cardapio')}>Confira Aqui</button>
+
                     </div>
                 </div>
 
@@ -45,9 +45,9 @@ export default function Leading() {
                             <h2>Qualidade</h2>
                             <p>Trago diretamente da Sicília, Itália. O sabor é indescritível.</p>
                         </div>
-                        <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                            <button>Confira Aqui</button>
-                        </Link>
+
+                        <button onClick={() => navigate('/cardapio')}>Confira Aqui</button>
+
                     </div>
                 </div>
 
@@ -57,9 +57,9 @@ export default function Leading() {
                             <h2>Tradição</h2>
                             <p>Palavras presentes em cada mordidas em nossas pizzas.</p>
                         </div>
-                        <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                            <button>Confira Aqui</button>
-                        </Link>
+
+                        <button onClick={() => navigate('/cardapio')}>Confira Aqui</button>
+
                     </div>
                 </div>
 
@@ -76,50 +76,49 @@ export default function Leading() {
             <div className='menuzin'>
                 <h2>Temos pizza e além</h2>
                 <div className='classeProduto'>
-                    <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                        <div>
-                            <div className='classePizza' />
-                            <h3>Pizza</h3>
-                            <p>Chefe Responsável: Henrique Fogaça</p>
-                        </div>
-                    </Link>
-                    <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                        <div>
-                            <div className='classeSobremesa' />
-                            <h3>Sobremesa</h3>
-                            <p>Chefe Responsável: Henela Riso</p>
-                        </div>
-                    </Link>
-                    <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                        <div>
-                            <div className='classeBebidas' />
-                            <h3>Bebidas</h3>
-                            <p>Adega Responsável: Brunello di Montalcino</p>
-                        </div>
-                    </Link>
-                    <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                        <div>
-                            <div className='classeVegana' />
-                            <h3>Opções Veganas</h3>
-                            <p>Chefe Responsável: Alex Atala</p>
-                        </div>
-                    </Link>
+
+                    <div onClick={() => navigate('/cardapio')}>
+                        <div className='classePizza' />
+                        <h3>Pizza</h3>
+                        <p>Chefe Responsável: Henrique Fogaça</p>
+                    </div>
+
+
+                    <div onClick={() => navigate('/cardapio')}>
+                        <div className='classeSobremesa' />
+                        <h3>Sobremesa</h3>
+                        <p>Chefe Responsável: Henela Riso</p>
+                    </div>
+
+
+                    <div onClick={() => navigate('/cardapio')}>
+                        <div className='classeBebidas' />
+                        <h3>Bebidas</h3>
+                        <p>Adega Responsável: Brunello di Montalcino</p>
+                    </div>
+
+
+                    <div onClick={() => navigate('/cardapio')}>
+                        <div className='classeVegana' />
+                        <h3>Opções Veganas</h3>
+                        <p>Chefe Responsável: Alex Atala</p>
+                    </div>
+
                 </div>
 
-                <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-                    <button >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="29" viewBox="0 0 35 29" fill="none">
-                            <path d="M2.88354 15.6783V18.3798C2.88354 18.6182 3.17562 18.7771 3.37034 18.7771H29.7546C30.0467 18.7771 30.2414 18.5387 30.2414 18.3798V15.6783C30.2414 15.5988 30.2414 15.4399 30.144 15.3604L24.3025 10.4341H8.91979L3.07826 15.3604C3.07826 15.5194 2.88354 15.5988 2.88354 15.6783ZM9.30923 11.3081H23.913L28.6836 15.281H18.1689C18.0715 15.9166 17.39 16.3139 16.8059 16.3139C16.027 16.3139 15.5402 15.9166 15.4428 15.281H4.73336L9.30923 11.3081ZM3.95449 16.0756H14.5666L14.664 16.155C15.1508 16.7112 15.9296 17.1085 16.7085 17.1085C17.4874 17.1085 18.2662 16.7907 18.753 16.155L18.8504 16.0756H29.4625V17.9825H3.95449V16.0756Z" />
-                        </svg>
-                        <p>Fazer Pedido</p>
-                    </button>
-                </Link>
+
+                <button >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="29" viewBox="0 0 35 29" fill="none">
+                        <path d="M2.88354 15.6783V18.3798C2.88354 18.6182 3.17562 18.7771 3.37034 18.7771H29.7546C30.0467 18.7771 30.2414 18.5387 30.2414 18.3798V15.6783C30.2414 15.5988 30.2414 15.4399 30.144 15.3604L24.3025 10.4341H8.91979L3.07826 15.3604C3.07826 15.5194 2.88354 15.5988 2.88354 15.6783ZM9.30923 11.3081H23.913L28.6836 15.281H18.1689C18.0715 15.9166 17.39 16.3139 16.8059 16.3139C16.027 16.3139 15.5402 15.9166 15.4428 15.281H4.73336L9.30923 11.3081ZM3.95449 16.0756H14.5666L14.664 16.155C15.1508 16.7112 15.9296 17.1085 16.7085 17.1085C17.4874 17.1085 18.2662 16.7907 18.753 16.155L18.8504 16.0756H29.4625V17.9825H3.95449V16.0756Z" />
+                    </svg>
+                    <p onClick={() => navigate('/cardapio')}>Fazer Pedido</p>
+                </button>
             </div>
             <img src={Secao} className='ingredientes' />
 
-            <CompSobre titulo='preparadas com dedicação'/>
+            <CompSobre titulo='preparadas com dedicação' />
 
-            <button className='redirecionar'>
+            <button className='redirecionar' onClick={() => navigate('/cardapio')}>
                 Experimente aqui a <strong>Pizza</strong> digna de um <strong>Don</strong>
             </button>
             <Rodape />

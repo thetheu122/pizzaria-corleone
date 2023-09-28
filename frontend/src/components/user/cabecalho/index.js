@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import * as Components from './Components';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,6 +28,7 @@ export default function Cabecalho() {
 
   const [signIn, toggle] = useState(true);
 
+  const navigate = useNavigate()
 
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -48,6 +48,8 @@ export default function Cabecalho() {
 
   const [emailLogin, setEmailLogin] = useState('')
   const [senhaLogin, setSenhaLogin] = useState('')
+
+  const [idUsuario, setIdUsuario] = useState('');
 
   const inversao = () => {
     if (!nome) {
@@ -105,40 +107,30 @@ export default function Cabecalho() {
 
 
   const login = async () => {
-    if(!email){
-      toast.warn('Campo do email vazio', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else if(!senha){
-      toast.warn('Campo da senha vazio', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    try {
+      const login =
+      {
+        email: emailLogin,
+        senha: senhaLogin
+      }
+      let response = await axios.post(`http://localhost:5000/cliente/login`, login)
+      setIdUsuario(response.data.id)
+      setIsLogged(true)
+      setOpenLoginModal(false)
 
-    else{
-      let response = await axios.get(`http://localhost:5000/cliente/login?email=${email}&senha=${senha}`)
-      if (response.data.length == 1) {
-        toast.info("Login realizado com sucesso")
-      }
-      else {
-        toast.error("Falha ao realizar o Login")
-      }
-  }
+      toast.success("Login realizado com sucesso", {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } catch (err) {
+      toast.error(err.response.data.erro);
+    }
 
   }
 
@@ -215,36 +207,31 @@ export default function Cabecalho() {
     <>
       <main className='cabecalho'>
         <div className='esquerda-cabecalho'>
-          <Link to='/sobrenos' style={{ textDecoration: 'none', outline: 'none' }}>
-            <div className='sobre-nos'>
-              <img alt='sobre-nos' src={Mais} />
-              <p>Sobre nos</p>
-            </div>
-          </Link>
-          <div className='pedidos-ativos'>
+
+          <div onClick={() => navigate('/sobrenos')} className='sobre-nos'>
+            <img alt='sobre-nos' src={Mais} />
+            <p>Sobre nos</p>
+          </div>
+
+          <div onClick={() => navigate('/pedidos/ativos')} className='pedidos-ativos'>
             <img alt='pedidos-ativos' src={Sino} />
             <p>Pedidos Ativos</p>
           </div>
 
-          <Link to='/associado' style={{ textDecoration: 'none', outline: 'none' }}>
-            <div className='adm-page'>
-              <img alt='adm' src={Adm} />
-              <p>Pagina do Associado</p>
-            </div>
-          </Link>
+          <div onClick={() => navigate('/associado')} className='adm-page'>
+            <img alt='adm' src={Adm} />
+            <p>Pagina do Associado</p>
+          </div>
         </div>
 
-        <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
-          <div className='logo-principal'></div>
-        </Link>
+        <div onClick={() => navigate('/')} className='logo-principal'></div>
+
 
         <div className='direita-cabecalho'>
-          <Link to='/cardapio' style={{ textDecoration: 'none', outline: 'none' }}>
-            <div className='cardapio'>
-              <img alt='cardapio' src={Cardapio} />
-              <p>Cardapio</p>
-            </div>
-          </Link>
+          <div onClick={() => navigate('/cardapio')} className='cardapio'>
+            <img alt='cardapio' src={Cardapio} />
+            <p>Cardapio</p>
+          </div>
           <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
             <img alt='Carrinho' src={CarrinhoIcon} />
             <p>Carrinho</p>
@@ -284,7 +271,7 @@ export default function Cabecalho() {
                 <Components.Input type='email' placeholder='Email' value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} />
                 <Components.Input type='password' placeholder='Senha' value={senhaLogin} onChange={(e) => setSenhaLogin(e.target.value)} />
                 <Components.Anchor href='#'>Esqueceu a senha?</Components.Anchor>
-                <Components.Button onClick={() => login()}>Entrar</Components.Button>
+                <Components.Button onClick={login}>Entrar</Components.Button>
               </Components.Form>
             </Components.SignInContainer>
 
@@ -326,7 +313,7 @@ export default function Cabecalho() {
               <p>Logradouro</p>
 
               <div className='informacoes'>
-                <div className='esquerda'>
+                <div className='esquerdaFds'>
                   <div><input type='text' value={estado} onChange={(e) => setEstado(e.target.value)} placeholder='Estado' /></div>
                   <div><input type='text' value={municipio} onChange={(e) => setMunicipio(e.target.value)} placeholder='Município' /></div>
                   <div><input type='text' value={rua} onChange={(e) => setRua(e.target.value)} placeholder='Rua' /></div>

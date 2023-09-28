@@ -9,7 +9,6 @@ import CardProduct from '../../components/user/cardProduct'
 import CardProduto from '../../components/user/card-produto'
 import Rodape from '../../components/user/rodape'
 import { useState } from 'react'
-import Modal from '../../components/user/modal'
 
 export default function Cardapio() {
 
@@ -55,7 +54,7 @@ export default function Cardapio() {
                     </div>
 
                     <div className='restricoes'>
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input  type='radio' />
                             <p>Vegano</p>
                         </div>
@@ -63,7 +62,7 @@ export default function Cardapio() {
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input type='radio' />
                             <p>Vegetariana</p>
                         </div>
@@ -71,7 +70,7 @@ export default function Cardapio() {
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input type='radio' />
                             <p>Intolerante a Ovo</p>
                         </div>
@@ -79,7 +78,7 @@ export default function Cardapio() {
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input type='radio' />
                             <p>Intolerante a Glúten</p>
                         </div>
@@ -87,7 +86,7 @@ export default function Cardapio() {
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input type='radio' />
                             <p>Intolerante a Lactose</p>
                         </div>
@@ -95,7 +94,7 @@ export default function Cardapio() {
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input type='radio' />
                             <p>Vinho</p>
                         </div>
@@ -103,7 +102,7 @@ export default function Cardapio() {
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='ladinho'>
+                        <div className='restricoesFiltro'>
                             <input type='radio' />
                             <p>Sobremesa</p>
                         </div>

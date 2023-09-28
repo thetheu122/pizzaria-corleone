@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { inserirCliente, loginCliente } from "../repository/clienteRepository.js";
+import { infoCLiente, inserirCliente, loginCliente } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -44,19 +44,35 @@ server.post('/cliente/cadastro', async (req, resp) => {
 
 })
 
-server.get('/cliente/login', async (req, resp) => {
+server.post('/cliente/login', async (req, resp) => {
     try {
-        let email = req.query.email;
-        let senha = req.query.senha;
-
-        const camposFaltando = [];
        
-        if (camposFaltando.length > 0) {
-            const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
-            throw new Error(mensagemErro);
-        }
+        const {email, senha} = req.body
+
+        if(!email)
+            throw new Error('Campo do email vazio');
+        if(!senha)
+            throw new Error('Campo da senha vazio');
 
         let respo = await loginCliente(email, senha)
+
+        if(!respo)
+            throw new Error('Credenciais inválidas');
+        
+
+        resp.status(200).send(respo)
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })
+    }
+});
+
+server.get('/cliente/info', async (req, resp) => {
+    try {
+        let id = req.query.id;
+
+        let respo = await infoCLiente(id)
 
         if(!respo){
             throw new Error('Credenciais inválidas');
@@ -67,6 +83,8 @@ server.get('/cliente/login', async (req, resp) => {
         resp.status(404).send(err.message)
     }
 });
+
+
 
 export default server;
 
