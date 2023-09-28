@@ -26,7 +26,7 @@ console.log(produto.tipo)
 
   const erros = []
      
-  const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco']
+  /*const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco']
   for ( const validar of campos){
 
     if(!produto[validar])
@@ -38,7 +38,7 @@ console.log(produto.tipo)
     if(verificar === true){
      erros.push('Produto ja cadastrado')
     }
-  }
+  }*/
 
   return erros
 

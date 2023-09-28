@@ -17,8 +17,9 @@ import './index.scss'
 
 export default function ListarProdutosAdm() {
 
-    const [busca, setBusca] = useState('');
-    const [listarProdutos, setListarprodutos] = useState([]);
+    const [filtro, setFiltro] = useState('');
+    const[produtosBusca, setProdutosBusca] = useState([])
+
 
     const [produtos, setProdutos] = useState([])
 
@@ -40,7 +41,7 @@ export default function ListarProdutosAdm() {
 
 
     async function buscarProdutos() {
-        const resposta = await axios.get('http://localhost:5000/produto?busca=', busca)
+        const resposta = await axios.get('http://localhost:5000/produto/' + filtro)
         setProdutos(resposta.data)
     }
 
@@ -105,7 +106,7 @@ export default function ListarProdutosAdm() {
                     <div className="produtos">
                         <div className="buscar">
                             <div onClick={buscarProdutos}><img src={Lupa} /></div>
-                            <input type="" placeholder="busque por nome do produto" onChange={e => setBusca(e.target.value)} />
+                            <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} />
                         </div>
 
                         <div className="paginas">

@@ -8,7 +8,8 @@ import {
   excluirProduto,
   imagem,
   verificarproduto,
-  alterarImagem
+  alterarImagem,
+  listarpornome
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -34,6 +35,20 @@ endpoints.post('/produto', async (req, resp) => {
   }
   
 });
+
+endpoints.get('/produto/:nome', async (req, resp) => {
+  try {
+    const {nome} = req.params
+    const r = await listarpornome(nome)
+    console.log(r)
+    resp.send(r)
+    
+  } catch (err) {
+    resp.status(500).send({
+      erro: err.message
+    })
+  }
+})
 
 
 

@@ -103,6 +103,36 @@
         justify-content: center;
     }
 
+    .produtos-listados::-webkit-scrollbar-{
+        width: 10px;
+    }
+
+    .produtos-listados thead,tbody{
+        display: flex;
+        flex-direction: column;
+
+
+        // white-space: nowrap;
+         overflow-x:hidden;
+        //display: inline-block; 
+         height: 550px; 
+         margin-right: 20px;
+    }
+
+    .produtos-listados thead {
+        height: 100% !important;
+        padding: 10px 0px;
+    }
+
+    .tbody{
+        height: 250px !important;
+    }
+
+    .tabela-listados tbody::-webkit-scrollbar-thumb {
+        background-color: rgb(133, 133, 133);
+        border-radius: 20px;
+    }
+
 
     .tabela-listados{
         flex-direction: column;
@@ -128,6 +158,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 10px 0px;
     }
 
     .produtos-listados tbody tr {
@@ -137,6 +168,7 @@
     .cada-produto{
         display: flex;
         flex-direction: column;
+        
     }
 
     
