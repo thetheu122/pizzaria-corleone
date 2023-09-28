@@ -66,21 +66,21 @@ async function alterarProduto() {
         
   
         if (consulta.status === 200) {
-            // Extraia o ID da restrição da resposta
-            const restricaoId = consulta.data.data.id;
+
+            const restricaoId = consulta.data.id;
 
             const alergia = {
-                id: restricaoId,
+                idrestricao: restricaoId,
                 idProduto: productId,
-                restricao: restricao,
+                restricao: restricao
             }
 
             alert(JSON.stringify(alergia));
 
-            // Agora, você pode fazer uma solicitação PUT para alterar a restrição
+
             const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
 
-            // Verifique se a operação de alteração da restrição foi bem-sucedida
+
             if (rAlergia.status === 200) {
                 alert("Produto e restrição alterados!");
             } else {

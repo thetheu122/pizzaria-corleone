@@ -28,6 +28,10 @@ endpoints.post('/produto', async (req, resp) => {
       resp.status(400).send({ erro: verificar });
 
     } 
+    else{
+      const resposta =  await  inserirProduto(produto)
+      resp.send(resposta)
+    }
 
 
   } catch (err) {
@@ -54,8 +58,8 @@ endpoints.get('/produto/:nome', async (req, resp) => {
 
 endpoints.get('/produto', async (req, resp) => {
   try {
-
-    const produtos = await listarProdutos();
+    const restricao = req.params;
+    const produtos = await listarProdutos(restricao);
     resp.send(produtos);
 
   } catch (err) {
