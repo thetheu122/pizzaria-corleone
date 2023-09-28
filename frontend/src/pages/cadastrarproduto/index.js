@@ -24,7 +24,7 @@ export default function Cadastro() {
 
     try {
      
-      const cadastrar = {
+       const cadastrar = {
         tipo: tipoproduto,
         ingredientes: ingredientes,
         nome: nome,
@@ -33,10 +33,15 @@ export default function Cadastro() {
         disponivel: disponivel,
       };
 
-  
+    
+
+      
+
 
       const respCadastro = await axios.post('http://localhost:5000/produto', cadastrar);
       const productId = respCadastro.data.id;
+
+      alert(productId)
 
 
       const respImagem = await axios.post(`http://localhost:5000/produto/${productId}/capa`, formData);
@@ -47,10 +52,11 @@ export default function Cadastro() {
 
 
       const restricaoData = {
-        restricao: restricao,
-        idProduto: productId,
+          produto:productId,
+          restricao: restricao
+        
       };
-      //alert(JSON.stringify(restricaoData));
+      alert(JSON.stringify(restricaoData));
       
      
       const resprestricao = await axios.post('http://localhost:5000/restricao', restricaoData);

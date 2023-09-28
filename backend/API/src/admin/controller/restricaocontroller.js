@@ -15,7 +15,7 @@ const endpoints = Router()
 endpoints.post ( '/restricao' , async (req,resp) =>{
 
     try {
-       const {restricao} = req.body
+       const restricao = req.body
 
        if(!restricao){
         resp.status(400).send({err:'Preencha todos os campos'})
@@ -27,7 +27,7 @@ endpoints.post ( '/restricao' , async (req,resp) =>{
                 resp.status(400).send({erro:'Restricao ja cadastrada'})
             }
             else{
-                const resposta = await inserirrestricao({restricao})
+                const resposta = await inserirrestricao(restricao)
                 resp.send(resposta)
             }
        }
