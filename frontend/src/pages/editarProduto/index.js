@@ -84,9 +84,9 @@ async function alterarProduto() {
 
         }
 
-        if (consulta.status === 200) {
+        if (ids) {
 
-            const restricaoId = consulta.data.id;
+            const restricaoId = 2;
 
             const alergia = {
                 idrestricao: restricaoId,
