@@ -40,6 +40,7 @@ export default function EditarProduto() {
 
 
 async function alterarProduto() {
+
     try {
 
         /*if (!imagem) {
@@ -67,6 +68,7 @@ async function alterarProduto() {
 
         
   
+
         if (ids) {
             const restricaoId = ids.idrestricao;
 
@@ -80,7 +82,25 @@ async function alterarProduto() {
             
             const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
 
-            
+        }
+
+        if (consulta.status === 200) {
+
+            const restricaoId = consulta.data.id;
+
+            const alergia = {
+                idrestricao: restricaoId,
+                idProduto: productId,
+                restricao: restricao
+            }
+
+            alert(JSON.stringify(alergia));
+
+
+            const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
+
+
+
             if (rAlergia.status === 200) {
                 alert("Produto e restrição alterados!");
             } else {
@@ -97,7 +117,7 @@ async function alterarProduto() {
     }
 
         
-    } catch (err) {
+    } catch(err) {
         if (err.response) {
             alert(`Erro na tentativa de alterar o produto: ${JSON.stringify(err.response.data)}`);
         } else {
@@ -106,6 +126,9 @@ async function alterarProduto() {
     }
 
 }
+
+
+
 
 
 

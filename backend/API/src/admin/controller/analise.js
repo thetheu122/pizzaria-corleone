@@ -22,7 +22,7 @@ const tipo = [
 
  }
 
-console.log(produto.tipo)
+
 
   const erros = []
      

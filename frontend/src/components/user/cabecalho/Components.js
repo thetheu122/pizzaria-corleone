@@ -79,12 +79,17 @@
     text-transform: uppercase;
     transition: transform 80ms ease-in;
     margin-top:10px;
+    outline: none!important;
+    transition:.6s;
     &:active{
         transform: scale(0.95);
     }
     &:focus {
         outline: none;
     }
+    &:hover {
+      scale:1.1;
+  }
     font-family:lato-regular;
  `;
  export const GhostButton = styled(Button)`

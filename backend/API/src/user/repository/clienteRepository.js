@@ -2,7 +2,7 @@ import { con } from "../../conection.js";
 
 
 export async function inserirCliente(clientes) {
-   
+
     const [existingCliente] = await con.query(
         'SELECT * FROM tb_cliente WHERE ds_email = ? OR ds_telefone = ?',
         [clientes.email, clientes.telefone]
@@ -12,11 +12,11 @@ export async function inserirCliente(clientes) {
 
     if (existingCliente.length > 0) {
         if (existingCliente[0].ds_email === clientes.email) {
-            
+
         } else if (existingCliente[0].ds_telefone === clientes.telefone) {
             respError = 'Já existe um cliente com o mesmo telefone'
-            return(respError);
-            
+            return (respError);
+
         }
     }
 
@@ -46,7 +46,7 @@ export async function inserirCliente(clientes) {
 
 export async function loginCliente(email, senha) {
     let comando =
-    `
+        `
         SELECT
         tb_cliente.id_cliente    AS id,
         tb_cliente.ds_email      as email
@@ -55,7 +55,29 @@ export async function loginCliente(email, senha) {
         AND ds_senha = ?
     `
 
-    const [resposta] = await con.query(comando, [ email , senha])
-    console.log(resposta)
-    return resposta;
+    const [resposta] = await con.query(comando, [email, senha])
+
+    return resposta[0];
+};
+
+export async function infoCLiente(id) {
+    let comando =
+        `
+        SELECT  
+            id_endereco     as endereco, 
+            id_cartao       as cartao, 
+            nm_cliente      as cliente, 
+            ds_email        as email, 
+            ds_telefone     as telefone, 
+            ds_senha        as senha, 
+            ds_cpf          as cpf, 
+            ds_nascimento   as dtnascimento 
+        FROM tb_cliente
+        WHERE id_cliente = ?;
+
+    `
+
+    const [resposta] = await con.query(comando, [id])
+
+    return resposta[0];
 };
