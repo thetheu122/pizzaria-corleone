@@ -3,6 +3,7 @@ import {
   atualizarRestricao,
   excluirRestricao,
   inserirrestricao,
+  listaTdsRestricao,
   listarestricao,
   verificarrestricao
 } from "../repository/restricaorepository.js";
@@ -41,6 +42,17 @@ endpoints.post ( '/restricao' , async (req,resp) =>{
 })
 
 
+endpoints.get('/restricao' , async ( req, resp ) =>{
+  try {   
+      const resposta = await listaTdsRestricao()
+      resp.send(resposta)
+  }
+     catch (err) {
+      resp.status(400).send({erro:err.message})
+  }
+})
+
+
 endpoints.get('/restricao/:nome' , async ( req, resp ) =>{
     try {    const {nome} =  req.params
         const resposta = await listarestricao(nome)
@@ -50,7 +62,7 @@ endpoints.get('/restricao/:nome' , async ( req, resp ) =>{
         resp.status(400).send({erro:err.message})
     }
 })
-
+  
 endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 
     try {
@@ -90,4 +102,4 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 
   })
 
-export default endpoints
+export default endpoints;

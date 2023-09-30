@@ -27,18 +27,18 @@ server.post('/cliente/cadastro', async (req, resp) => {
             if (!(campo in resposta) || !resposta[campo]) {
                 camposFaltando.push(campo);
             }
-        });
+        })
     
         if (camposFaltando.length > 0) {
             const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
             throw new Error(mensagemErro);
         }
     
-        let respo = await inserirCliente(resposta);
-
-        resp.status(200).send(respo);
+        let respo = await inserirCliente(resposta)
+        
+        resp.status(200).send(respo)
     } catch (err) {
-        resp.status(404).send(err.message);
+        resp.status(404).send(err.message)
     }
     
 

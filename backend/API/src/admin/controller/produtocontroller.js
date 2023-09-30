@@ -9,7 +9,8 @@ import {
   imagem,
   verificarproduto,
   alterarImagem,
-  listarpornome
+  listarpornome,
+  deletarImagem
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -182,6 +183,27 @@ endpoints.put( '/imagem/editar/:id' , async (req,resp) =>{
     resp.status(400).send({
       erro: err.message
     });
+  }
+
+})
+
+
+endpoints.delete('/imagem/deletar/:id', async (req, resp) => {
+  try {
+    const {id} = req.params
+
+
+    const r = await deletarImagem(id)
+
+    if (r === 0) {
+      resp.status(404).send('imagem não encontrada')
+    }
+
+    else {
+      resp.status(200).send("imagem excluida com sucesso")
+    }
+  } catch (err) {
+    resp.status(500).send(err.message)
   }
 
 })

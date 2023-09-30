@@ -18,6 +18,21 @@ restricao.id = resposta.insertId
 return restricao
 }
 
+export async function listaTdsRestricao(){
+
+  const comando = `
+  select 
+					id_restricao          as id,
+					ds_restricao          as restricao
+				  from tb_restricao
+
+  `
+const [ resposta ] = await con.query( comando )
+return resposta
+}
+
+
+
 
 
 export async function verificarrestricao(restricao){
