@@ -10,7 +10,8 @@ import {
   verificarproduto,
   alterarImagem,
   listarpornome,
-  deletarImagem
+  deletarImagem,
+  listarporid
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -45,6 +46,20 @@ endpoints.get('/produto/:nome', async (req, resp) => {
   try {
     const {nome} = req.params
     const r = await listarpornome(nome)
+    console.log(r)
+    resp.send(r)
+    
+  } catch (err) {
+    resp.status(500).send({
+      erro: err.message
+    })
+  }
+})
+
+endpoints.get('/produto/:id', async (req, resp) => {
+  try {
+    const {id} = req.params    
+    const r = await listarporid(id)
     console.log(r)
     resp.send(r)
     

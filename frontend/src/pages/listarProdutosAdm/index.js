@@ -51,8 +51,6 @@ export default function ListarProdutosAdm() {
 
         async function Listando() {
         const r = await axios.get('http://localhost:5000/produto')
-
-
         setProdutos(r.data)
     }
 
@@ -74,7 +72,8 @@ export default function ListarProdutosAdm() {
                 const imagemid = produto.idimagem;
                 const restricaoId = produto.idrestricao;
                 
-                alert(restricaoId);
+                alert(imagemid)
+                alert(restricaoId)
     
                 confirmAlert({
                     title: 'Produto',
@@ -83,7 +82,7 @@ export default function ListarProdutosAdm() {
                         {
                             label: 'Sim',
                             onClick: async () => {
-                                if (restricaoId !== null && imagemid !== null) {
+                                if (!filtro && restricaoId !== null && imagemid !== null) {
                                     try {
                                         const respostaImagem = await axios.delete(`http://localhost:5000/imagem/deletar/${imagemid}`);
                                         const respostaRestricao = await axios.delete(`http://localhost:5000/restricao/${restricaoId}`);
@@ -93,7 +92,20 @@ export default function ListarProdutosAdm() {
                                     } catch (err) {
                                         alert(err.response.data.erro);
                                     }
-                                } else {
+                                }
+                            
+                                else if (filtro && restricaoId !== null && imagemid !== null) {
+                                    try {
+                                        const respostaImagem = await axios.delete(`http://localhost:5000/imagem/deletar/${imagemid}`);
+                                        const respostaRestricao = await axios.delete(`http://localhost:5000/restricao/${restricaoId}`);
+                                        const respostaProduto = await axios.delete(`http://localhost:5000/produto/${id}`);
+                                        alert('Produto removido');
+                                        buscarProdutos();
+                                    } catch (err) {
+                                        alert(err.response.data.erro);
+                                    }
+                                }
+                                else {
                                     alert('Os IDs de restrição ou imagem estão nulos.');
                                 }
                             }
