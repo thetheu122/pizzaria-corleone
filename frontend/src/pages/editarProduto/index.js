@@ -1,7 +1,7 @@
 //import './index.scss'
 
 import axios from 'axios'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import storage, { set } from 'local-storage';
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
@@ -25,6 +25,18 @@ export default function EditarProduto() {
     const {id} = useParams();
     
 
+    useEffect(() => {
+        teste()
+    }, [])
+
+
+    async function teste() {
+        const r = await axios.get('http://localhost:5000/produto');
+        const ids = r.data[0].idrestricao
+
+
+        console.log(ids)
+    }
 
     async function enviarimagem(id, imagem) {
         const formData = new FormData();
@@ -47,6 +59,9 @@ async function alterarProduto() {
                 throw new Error('escolha uma imagem')
         }*/
 
+        
+
+       
 
         const produto = {
             nome:nome,
@@ -55,72 +70,57 @@ async function alterarProduto() {
             preco:preco,
             descricao:descricao,
             disponivel: disponivel,
+            restricao: restricao
             
         }
-
         const resposta = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
 
-        const productId= id
-        
-        
-        const r = await axios.get('http://localhost:5000/produto');
-        const ids = r.data.find(item => item.ID === id);
 
+        
+        
         
   
-
-        if (ids) {
-            const restricaoId = ids.idrestricao;
+        
 
 
+            /*const restricaoId = ids.idrestricao;
 
             const alergia = {
-                idrestricao: restricaoId,
                 restricao: restricao
             }
 
             
             const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
 
-        }
-
-        if (ids) {
-
-            const restricaoId = 2;
-
-            const alergia = {
-                idrestricao: restricaoId,
-                idProduto: productId,
-                restricao: restricao
-            }
-
-            alert(JSON.stringify(alergia));
-
-
-            const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
-
-
+            alert(JSON.stringify(rAlergia));
 
             if (rAlergia.status === 200) {
                 alert("Produto e restrição alterados!");
             } else {
                 alert("Erro ao alterar a restrição.");
             }
-        }
+      
+
+        console.log('Produto:', produto);
+        console.log('Restrição:', alergia);
+*/
+
 
         const img = await enviarimagem(id, imagem)
         
 
 
-    if (r.status === 200) {
+    if (resposta.status === 200) {
         alert("Produto alterado!");
     }
 
         
-    } catch(err) {
+    } catch (err) {
         if (err.response) {
+            console.log('Erro de resposta:', err.response.data);
             alert(`Erro na tentativa de alterar o produto: ${JSON.stringify(err.response.data)}`);
         } else {
+            console.log('Erro não tratado:', err.message);
             alert(`Erro na tentativa de alterar o produto: ${err.message}`);
         }
     }
@@ -268,12 +268,17 @@ async function alterarProduto() {
                                         type="checkbox"
                                         value="Glúten"
                                         onChange={(e) => {
-                                            if (e.target.checked) {
-                                                setrestricao('Glúten');
+                                            const value = e.target.value;
+                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
+                                            if (restricao.includes(value)) {
+                                                // Se já existir, remova-a
+                                                setrestricao(restricao.filter(item => item !== value));
                                             } else {
-                                                setrestricao('');
+                                                // Caso contrário, adicione-a
+                                                setrestricao([...restricao, value]);
                                             }
                                         }}
+                                        checked={restricao.includes('Glúten')} // Verifique se a restrição está marcada
                                     />
                                     <p className='nomeproduto'>Glúten</p>
                                 </div>
@@ -284,12 +289,17 @@ async function alterarProduto() {
                                         type="checkbox"
                                         value="Ovo"
                                         onChange={(e) => {
-                                            if (e.target.checked) {
-                                                setrestricao('Ovo');
+                                            const value = e.target.value;
+                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
+                                            if (restricao.includes(value)) {
+                                                // Se já existir, remova-a
+                                                setrestricao(restricao.filter(item => item !== value));
                                             } else {
-                                                setrestricao('');
+                                                // Caso contrário, adicione-a
+                                                setrestricao([...restricao, value]);
                                             }
                                         }}
+                                        checked={restricao.includes('Ovo')} // Verifique se a restrição está marcada
                                     />
                                     <p className='nomeproduto'>Ovo</p>
                                 </div>
@@ -300,12 +310,17 @@ async function alterarProduto() {
                                         type="checkbox"
                                         value="Leite e seus derivados"
                                         onChange={(e) => {
-                                            if (e.target.checked) {
-                                                setrestricao('Leite e seus derivados');
+                                            const value = e.target.value;
+                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
+                                            if (restricao.includes(value)) {
+                                                // Se já existir, remova-a
+                                                setrestricao(restricao.filter(item => item !== value))
                                             } else {
-                                                setrestricao('');
+                                                // Caso contrário, adicione-a
+                                                setrestricao([...restricao, value])
                                             }
                                         }}
+                                        checked={restricao.includes('Leite e seus derivados')} // Verifique se a restrição está marcada
                                     />
                                     <p className='nomeproduto'>Leite e seus derivados</p>
                                 </div>
@@ -322,12 +337,17 @@ async function alterarProduto() {
                                         type="checkbox"
                                         value="Vegetariano"
                                         onChange={(e) => {
-                                            if (e.target.checked) {
-                                                setrestricao('Vegetariano');
+                                            const value = e.target.value;
+                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
+                                            if (restricao.includes(value)) {
+                                                // Se já existir, remova-a
+                                                setrestricao(restricao.filter(item => item !== value));
                                             } else {
-                                                setrestricao('');
+                                                // Caso contrário, adicione-a
+                                                setrestricao([...restricao, value]);
                                             }
                                         }}
+                                        checked={restricao.includes('Vegetariano')}
                                     />
                                     <p className='nomeproduto'>Vegetariano</p>
                                 </div>
@@ -338,12 +358,17 @@ async function alterarProduto() {
                                         type="checkbox"
                                         value="Vegano"
                                         onChange={(e) => {
-                                            if (e.target.checked) {
-                                                setrestricao('Vegano');
+                                            const value = e.target.value;
+                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
+                                            if (restricao.includes(value)) {
+                                                // Se já existir, remova-a
+                                                setrestricao(restricao.filter(item => item !== value));
                                             } else {
-                                                setrestricao('');
+                                                // Caso contrário, adicione-a
+                                                setrestricao([...restricao, value]);
                                             }
                                         }}
+                                        checked={restricao.includes('Vegano')}
                                     />
                                     <p className='nomeproduto'>Vegano</p>
                                 </div>
