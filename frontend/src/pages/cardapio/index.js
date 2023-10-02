@@ -8,11 +8,24 @@ import Cabecalho from '../../components/user/cabecalho'
 import CardProduct from '../../components/user/cardProduct'
 import CardProduto from '../../components/user/card-produto'
 import Rodape from '../../components/user/rodape'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function Cardapio() {
 
+    const[ produto , setProduto ] = useState([])
 
+async function buscar (){
+
+let resp = await axios.get('http://localhost:5000/produto')
+setProduto(resp.data)
+}
+
+
+
+useEffect(()=>{
+  buscar()  
+},[])
     return (
         <main className='cardapio'>
             <Cabecalho />
@@ -40,7 +53,7 @@ export default function Cardapio() {
                 <div className='esquerda'>
                     <div className='filtro-nome'>
                         <input placeholder='Digite e aperte enter...'></input>
-                        <img alt='lupa' src={Lupa}/>
+                        <img alt='lupa' src={Lupa} />
                     </div>
 
                     <div className='ordenado'>
@@ -117,21 +130,23 @@ export default function Cardapio() {
                 </div>
 
                 <div className='direitaMeio'>
-                    <div>
-                        <CardProduto/>
-                        <CardProduto />
-                    </div>
 
+                {produto.map(item => (
                     <div>
-                        <CardProduto/>
-                        <CardProduto/>
+                    <CardProduto
+                        produto={{
+                        nome: item.nome,
+                        preco: item.preço,
+                        imagem: item.imagem,
+                        }}
+                    />
                     </div>
+                    ))}
 
-                    <div>
-                        <CardProduto/>
-                        <CardProduto/>
-                    </div>
+                    
                 </div>
+
+
             </div>
 
             <div className='paginacao'>
