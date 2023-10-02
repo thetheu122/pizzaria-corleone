@@ -1,6 +1,6 @@
- import styled from 'styled-components';
+import styled from 'styled-components';
 
- export const Container = styled.div`
+export const Container = styled.div`
  background-color: #fff;
  border-radius: 10px;
  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -12,7 +12,7 @@
  min-height: 400px;
  `;
 
- export const SignUpContainer = styled.div`
+export const SignUpContainer = styled.div`
   position: absolute;
   top: 0;
   height: 100%;
@@ -25,12 +25,12 @@
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
-  ` 
-  : null}
+  `
+    : null}
  `;
- 
 
- export const SignInContainer = styled.div`
+
+export const SignInContainer = styled.div`
  position: absolute;
  top: 0;
  height: 100%;
@@ -40,8 +40,8 @@
  z-index: 2;
  ${props => (props.signinIn !== true ? `transform: translateX(100%);` : null)}
  `;
- 
- export const Form = styled.div`
+
+export const Form = styled.div`
  background-color: #ffffff;
  display: flex;
  align-items: center;
@@ -51,29 +51,29 @@
  height: 100%;
  text-align: center;
  `;
- 
- export const Title = styled.h1`
+
+export const Title = styled.h1`
  font-weight: bold;
  margin-botton: 10px;
  font-family:lobster-two-regular;
  `;
- 
- export const Input = styled.input`
- border: none;
+
+export const Input = styled.input`
  padding: 10px 10px;
- border-radius: 7px;
- background-color: #eee;
  padding: 12px 15px;
- margin: 8px 0;
- width: 100%;
+ width: 305px;
+ margin-bottom: 10px;
  outline:none;
  &::placeholder {
   color: #A59A9A;
 }
+border-radius: 7px;
+border: 2px solid #D9D9D9;
+background: #FFF;
  `;
- 
 
- export const Button = styled.button`
+
+export const Button = styled.button`
     border-radius: 20px;
     border: 1px solid #53220D;
     background-color: #FFC857;
@@ -99,19 +99,19 @@
   }
     font-family:lato-regular;
  `;
- export const GhostButton = styled(Button)`
+export const GhostButton = styled(Button)`
  background-color: transparent;
  border-color: #ffffff;
  `;
- 
- export const Anchor = styled.a`
+
+export const Anchor = styled.a`
  color: #333;
  font-size: 14px;
  text-decoration: none;
  margin: 15px 0;
  font-family:lato-regular;
  `;
- export const OverlayContainer = styled.div`
+export const OverlayContainer = styled.div`
 position: absolute;
 top: 0;
 left: 50%;
@@ -121,7 +121,7 @@ overflow: hidden;
 transition: transform 0.6s ease-in-out;
 z-index: 100;
 ${props =>
-  props.signinIn !== true ? `transform: translateX(-100%);` : null}
+    props.signinIn !== true ? `transform: translateX(-100%);` : null}
 `;
 
 export const Overlay = styled.div`
@@ -140,8 +140,8 @@ transform: translateX(0);
 transition: transform 0.6s ease-in-out;
 ${props => (props.signinIn !== true ? `transform: translateX(50%);` : null)}
 `;
- 
- export const OverlayPanel = styled.div`
+
+export const OverlayPanel = styled.div`
      position: absolute;
      display: flex;
      align-items: center;
@@ -156,18 +156,18 @@ ${props => (props.signinIn !== true ? `transform: translateX(50%);` : null)}
      transition: transform 0.6s ease-in-out;
  `;
 
- export const LeftOverlayPanel = styled(OverlayPanel)`
+export const LeftOverlayPanel = styled(OverlayPanel)`
    transform: translateX(-20%);
    ${props => props.signinIn !== true ? `transform: translateX(0);` : null}
  `;
 
- export const RightOverlayPanel = styled(OverlayPanel)`
+export const RightOverlayPanel = styled(OverlayPanel)`
      right: 0;
      transform: translateX(0);
      ${props => props.signinIn !== true ? `transform: translateX(20%);` : null}
  `;
 
- export const Paragraph = styled.p`
+export const Paragraph = styled.p`
  font-size: 14px;
    font-weight: 100;
    line-height: 20px;

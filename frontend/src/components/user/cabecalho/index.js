@@ -326,7 +326,7 @@ export default function Cabecalho() {
                 <ReCAPTCHA
                   sitekey="6LdHbGsoAAAAAEuxguADWAR5shW3Jy3ZNQHtVbOQ"
                   onChange={() => setCaptcha(true)}
-                />
+                /> 
                 <Components.Anchor href='#'>Esqueceu a senha?</Components.Anchor>
                 <Components.Button onClick={login}>Entrar</Components.Button>
               </Components.Form>
@@ -397,11 +397,11 @@ export default function Cabecalho() {
                     <input id='diminuicao' className='separacao' type='text' placeholder='Mês' />
                     <input id='diminuicao' type='text' placeholder='Ano' />
                   </div>
-                  <Components.Input type='text' placeholder='CPF' value={cpf} onChange={(e) => setCpf(e.target.value)} />
-                  <Components.Input type='tel' placeholder='Telefone' value={telefone} onChange={(e) => setTelefone(e.target.value)} />
+                  <Components.Input type='text' placeholder='CPF' className='inputo' value={cpf} onChange={(e) => setCpf(e.target.value)} />
+                  <Components.Input type='tel' placeholder='Telefone' className='inputo' value={telefone} onChange={(e) => setTelefone(e.target.value)} />
                   <h1>Don Corleone</h1>
                   <button onClick={addCliente}>Finalizar Cadastro</button>
-                  <p>Ao criar uma conta, você concorda com nossos<br /> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
+                  <p className='ttt'>Ao criar uma conta, você concorda com nossos<br /> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
                 </div>
               </div>
             </div>
