@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function CardProduto() {
+export default function CardProduto(props) {
     const [openModalCart, setOpenModalCart] = useState(false)
     const [favorito, setFavorito] = useState(false)
 
@@ -53,8 +53,8 @@ export default function CardProduto() {
             <div className='descricao-produto'>
 
                 <div className='precoNome'>
-                    <h3>Pizza Margherita</h3>
-                    <p>R$ 71,00</p>
+                    <h3>{props.produto.nome}</h3>
+                    <p>{props.produto.preco}</p>
                 </div>
 
                 <div className='baixo'>
