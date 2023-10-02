@@ -10,7 +10,8 @@
     background: rgba(0, 0, 0, 0.24);
     margin: 0px;
     box-sizing: border-box;
-   
+    overflow: hidden;
+
 
 
     .logo-principal {
@@ -19,6 +20,14 @@
         flex-shrink: 0;
 
         background: url(../../../assets/images/icons/logo_icon.png) no-repeat;
+
+        transition: .6s;
+
+        &:hover {
+            cursor: pointer;
+            scale: 1.05;
+
+        }
     }
 
     .direita-cabecalho,
@@ -48,6 +57,7 @@
             filter: invert(100%);
             width: 25px;
             height: 25px;
+            scroll-behavior: none;
         }
 
         .minha-conta>img {
@@ -65,23 +75,24 @@
             font-weight: 400;
             font-family: lato-regular;
             text-decoration: none;
-            /* Remova o sublinhado padrão */
             outline: none;
         }
     }
 }
+
 .ReactModal__Overlay {
     opacity: 0;
     transition: opacity 200ms ease-in-out;
-    }
-    
-.ReactModal__Overlay--after-open{
-opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
-opacity: 0;
+.ReactModal__Overlay--after-open {
+    opacity: 1;
 }
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
+}
+
 .modal {
     outline: none;
     position: absolute;
@@ -114,6 +125,7 @@ h1 {
     padding: 15px;
     border-radius: 20px;
     font-family: lato-regular;
+    align-content: center;
 }
 
 .kitar {
@@ -157,6 +169,10 @@ h1 {
     padding: 8px 0px;
 }
 
+.direitaFin{
+    align-content:center ;
+}
+
 .esquerdaFds {
     display: flex;
     flex-direction: column;
@@ -169,14 +185,27 @@ h1 {
         width: 260px;
         margin-bottom: 5px;
 
-        &::placeholder {
-            color: #A59A9A;
-        }
+
     }
 }
 
-.separacao {
-    margin-right: 10px;
+
+.data-nascimento {
+    >input {
+    gap: 15px;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 7px;
+    background-color: #eee;
+    padding: 12px 15px;
+    margin: 8px 0;
+    outline: none;
+    margin-right: 15px;
+
+    &::placeholder {
+        color: #A59A9A;
+    }
+}
 }
 
 

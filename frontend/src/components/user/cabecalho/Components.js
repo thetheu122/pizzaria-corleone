@@ -59,11 +59,17 @@
  `;
  
  export const Input = styled.input`
- background-color: #eee;
  border: none;
+ padding: 10px 10px;
+ border-radius: 7px;
+ background-color: #eee;
  padding: 12px 15px;
  margin: 8px 0;
  width: 100%;
+ outline:none;
+ &::placeholder {
+  color: #A59A9A;
+}
  `;
  
 
@@ -89,6 +95,7 @@
     }
     &:hover {
       scale:1.1;
+      cursor:pointer;
   }
     font-family:lato-regular;
  `;

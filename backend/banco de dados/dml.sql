@@ -6,8 +6,8 @@ INSERT INTO  tb_associado (nm_nome,ds_email,ds_senha,ds_cnpj)
 -- GGFG  // tabela endereco ///
 
 
-INSERT INTO tb_endereco (ds_estado, ds_municipio, ds_rua, ds_numero, ds_cep)
-VALUES ('São Paulo', 'São Paulo', 'Rua da Amostra, 123', '123', '12345-678');
+INSERT INTO tb_endereco (ds_estado, ds_cidade, ds_bairro, ds_rua, ds_numero, ds_cep)
+VALUES ('São Paulo', 'São Paulo', 'Grajau', 'Rua da Amostra, 123', '123', '12345-678');
  
  
 SELECT *

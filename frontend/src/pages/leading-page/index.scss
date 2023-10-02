@@ -104,7 +104,6 @@
         transition: .6s;  
 
         &:hover > div:not(:hover){
-            
             opacity: 0.6;
         }
 
@@ -336,6 +335,8 @@
             font-style: normal;
             font-weight: 300;
             line-height: normal;
+            overflow: hidden;
+            position: relative;
         }
     }
 

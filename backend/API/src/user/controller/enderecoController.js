@@ -14,7 +14,8 @@ server.post('/endereco/cadastro', async (req, resp) => {
 
     const camposObrigatorios = [
         "estado",
-        "municipio",
+        "cidade",
+        "bairro",
         "rua",
         "numero",
         "cep"
@@ -30,10 +31,12 @@ server.post('/endereco/cadastro', async (req, resp) => {
 
     if (camposFaltando.length > 0) {
         const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
-        throw new Error(mensagemErro);
+        resp.send(mensagemErro);
     }
+    else{
     let respe = await cadastrarEndereco(resposta)
     resp.send(respe)
+}
 })
 
 
