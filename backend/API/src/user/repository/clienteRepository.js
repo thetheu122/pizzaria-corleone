@@ -7,16 +7,13 @@ export async function inserirCliente(clientes) {
         'SELECT * FROM tb_cliente WHERE ds_email = ? OR ds_telefone = ?',
         [clientes.email, clientes.telefone]
     );
-
-    let respError = '';
+    console.log(clientes) 
 
     if (existingCliente.length > 0) {
-        if (existingCliente[0].ds_email === clientes.email) {
-
-        } else if (existingCliente[0].ds_telefone === clientes.telefone) {
-            respError = 'Já existe um cliente com o mesmo telefone'
-            return (respError);
-
+        if (existingCliente[0].ds_telefone === clientes.telefone) {
+            throw new Error('Já existe cliente com esse telefone')
+        } else if (existingCliente[0].ds_email === clientes.email) {
+            throw new Error('Já existe um cliente com o mesmo email')
         }
     }
 
@@ -38,6 +35,7 @@ export async function inserirCliente(clientes) {
 
 
     clientes.id = resposta.insertId;
+
     return clientes;
 }
 

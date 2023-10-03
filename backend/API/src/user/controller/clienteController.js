@@ -35,8 +35,12 @@ server.post('/cliente/cadastro', async (req, resp) => {
         }
     
         let respo = await inserirCliente(resposta)
-        
-        resp.status(200).send(respo)
+        console.log(respo)
+        if (respo === 'Já existe cliente com esse telefone' || respo.data === 'Já existe um cliente com o mesmo email') {
+            resp.status(400).send('Já existe cliente com essas credenciais');
+        } else {
+            resp.status(200).send(respo);
+        }
     } catch (err) {
         resp.status(404).send(err.message)
     }
@@ -87,6 +91,3 @@ server.get('/cliente/info', async (req, resp) => {
 
 
 export default server;
-
-
-

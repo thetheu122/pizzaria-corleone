@@ -93,7 +93,8 @@ CREATE TABLE tb_endereco (
 
 id_endereco     INT PRIMARY KEY AUTO_INCREMENT,
 ds_estado       VARCHAR(200)  ,
-ds_municipio    VARCHAR(200)  ,
+ds_cidade       VARCHAR(200)  ,
+ds_bairro       VARCHAR(200)  ,
 ds_rua          VARCHAR(200) NOT NULL ,
 ds_numero       VARCHAR(200) NOT NULL ,
 ds_cep          VARCHAR(200) NOT NULL
