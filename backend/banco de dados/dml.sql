@@ -1,4 +1,3 @@
-DROP TABLE TB_ASSOCIADO;
 
 INSERT INTO  tb_associado (nm_nome,ds_email,ds_senha,ds_cnpj)
 					VALUES('1' , '1','1','1');
@@ -177,17 +176,123 @@ INNER JOIN tb_produto ON tb_imagem.id_produto = tb_produto.id_produto;
 
 
 insert into tb_imagem (id_produto , img_produto)
-			   VALUES ( 2 , 'MAMMSPXPAMPMXMXXMXPMXPMX');
+			   VALUES ( 1 , '');
 
-
+    SELECT
+    tb_produto.id_produto             as ID,
+      tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.ds_tipo_produto   as tipo,
+    tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as descricao,
+    tb_produto.vl_preco               as preço,
+    tb_produto.vl_preco_promocional   as preco_promocional,
+      tb_produto.bt_disponivel          as disponivel,
+      tb_imagem.img_produto             as imagem,
+      tb_restricao.id_restricao         as idrestricao,
+    tb_restricao.ds_restricao         as restricao
+  FROM
+      tb_produto
+  INNER JOIN
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  where tb_produto.id_produto = 1;
 
 
 -- GGFG  // tabela produto  //
 
 
-INSERT INTO tb_produto ( nm_produto , ds_ingredientes , ds_tipo_produto , vl_preco , ds_descricao , vl_preco_promocional , bt_disponivel) 
-                VALUES ( 1 , 'arroz', 'Pizza de chocolate' , '71,00' , ' pizza de chocolate com chocolate ' ,'30' , true);
+INSERT INTO tb_produto (ds_tipo_produto	, nm_produto , ds_ingredientes  , vl_preco , ds_descricao , vl_preco_promocional , bt_disponivel) 
+                VALUES ( 3 , 'Margherita', 'Farinha, água, sal, fermento ,molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem' , '71,00' , ' Saboreie a autêntica Pizza Margherita, feita com ingredientes frescos e de qualidade superior. A combinação perfeita de molho de tomate suculento, queijo mozzarella e manjericão fresco cria uma experiência única. ' ,'30' , true);
                 
+
+-- Inserir Pizza Pepperoni
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+  'Pepperoni',
+  'Pepperoni, queijo mozzarella, molho de tomate',
+  3,
+  71.00,
+  'Deliciosa pizza de Pepperoni, com ingredientes de alta qualidade.',
+  30.00,
+  true
+);
+
+-- Inserir Pizza Prosciutto e Funghi
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+  'Prosciutto e Funghi',
+  'Presunto Parma, cogumelos, queijo mozzarella, molho de tomate',
+  3,
+  75.00,
+  'Uma combinação incrível de presunto Parma, cogumelos e queijo mozzarella.',
+  32.00,
+  true
+);
+
+-- Inserir Pizza Capricciosa
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+   
+  'Capricciosa',
+  'Presunto cozido, alcachofras, azeitonas, cogumelos, queijo mozzarella, molho de tomate',
+  3,
+  80.00,
+  'Uma pizza recheada com sabores variados, incluindo presunto, alcachofras e cogumelos.',
+  35.00,
+  true
+);
+
+-- Inserir Pizza Marinara
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+  'Marinara',
+  'Molho de tomate, alho, orégano, azeite de oliva extra virgem',
+  3,
+  65.00,
+  'Pizza clássica italiana com molho de tomate, alho e orégano.',
+  28.00,
+  true
+);
+
+-- Inserir Pizza Carbonara
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+  'Carbonara',
+  'Ovos, queijo Pecorino Romano, bacon, queijo mozzarella, molho de tomate',
+  3,
+  78.00,
+  'Uma pizza rica em sabores, com bacon e queijo Pecorino Romano.',
+  33.00,
+  true
+);
+
+-- Inserir Pizza Calzone
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+  'Calzone',
+  'Presunto, queijo mozzarella, ricota, molho de tomate',
+  3,
+  70.00,
+  'Um delicioso calzone recheado com presunto, queijo mozzarella e ricota.',
+  30.00,
+  true
+);
+
+-- Inserir Pizza Margherita com Burrata
+INSERT INTO tb_produto (nm_produto, ds_ingredientes, ds_tipo_produto, vl_preco, ds_descricao, vl_preco_promocional, bt_disponivel)
+VALUES (
+
+  'Margherita com Burrata',
+  'Farinha, água, sal, fermento, molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem, burrata',
+  3,
+  85.00,
+  'Uma versão indulgente da clássica Margherita, com adição de burrata cremosa.',
+  38.00,
+  true
+);
+
+             
                 
 --  // select to produto que tem restricao          
      
@@ -354,5 +459,3 @@ and   tb_imagem.id_imagem = 1;
 
 DELETE FROM tb_produto
 WHERE   id_produto = 1;
-
-  

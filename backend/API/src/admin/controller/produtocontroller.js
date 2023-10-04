@@ -56,7 +56,7 @@ endpoints.get('/produto/:nome', async (req, resp) => {
   }
 })
 
-endpoints.get('/produto/:id', async (req, resp) => {
+endpoints.get('/produto/listar/:id', async (req, resp) => {
   try {
     const {id} = req.params    
     const r = await listarporid(id)
