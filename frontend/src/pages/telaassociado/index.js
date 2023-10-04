@@ -48,12 +48,12 @@ export default function TelaAssociado() {
   return (
     <div className="login-associado">
 
-      <div className='direita'>
+      <div className='direitaaaaa'>
         <h2>Entrar na Conta Associada</h2>
 
 
 
-        <div className='inputs'>
+        <div className='inputssss'>
           <div>
             <input type='text' placeholder='Nome completo' value={nome} onChange={e => setnome(e.target.value)} />
           </div>
@@ -86,7 +86,9 @@ export default function TelaAssociado() {
 
           <div className='bemvindo'>
             <h1>Bem-vindo<br /> <strong>Associado!</strong> </h1>
-            <p>Gerencie suas operações agora mesmo. <br /> </p>
+           
+            <p>Gerencie suas operações agora mesmo. </p>
+            
             <a href=''>Clicou errado?</a>
 
             <Link to='/'style={{ textDecoration: 'none', outline: 'none' }}>
