@@ -60,7 +60,7 @@ endpoints.get('/produto/listar/:id', async (req, resp) => {
   try {
     const {id} = req.params    
     const r = await listarporid(id)
-    console.log(r)
+
     resp.send(r)
     
   } catch (err) {

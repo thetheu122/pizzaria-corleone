@@ -16,19 +16,80 @@ import Comentarios from '../comentario/index';
 import Modal from '../../user/modal'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-export default function Informacoes() {
+export default function Informacoes(props) {
     const { id } = useParams();
+    const idusuario = props
+
+    function cadastro (){
+        idusuario = 0 
+        alert(idusuario)
+    }
+
     const [produto, setProduto] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [ comentarioo , setComentarioo ] = useState([])
+    const [ digitado , setDigitado ] = useState('')
+    const [ vizu, setVizu] = useState(true)
+
 
     useEffect(() => {
         async function listar() {
-            const response = await axios.get('http://localhost:5000/produto/listar/'+ id);
+            const response = await axios.get('http://localhost:5000/produto/listar/'+id);
             setProduto(response.data);
         }
         listar();
     }, [id]);
+
+useEffect(()=>{
+    comentario()
+}, [comentarioo])
+
+    async function comentario(){
+        const respo = await axios.get('http://localhost:5000/listar/comentario/'+id)
+    
+        if(respo.data == ''){
+          setVizu(true)
+        }
+        if(respo.lenght ==2 ){
+            alert('erro')
+        }    
+        setComentarioo(respo.data)
+    
+    }
+
+    async function inserircomentario() {
+        let erro = [];
+        const palavras = ['merda', 'porra', 'puta', 'carralho', 'crl', 'cu', 'tmnc', 'vaca', 'viado'];
+      
+        for (let cont of palavras) {
+          if (digitado.includes(cont)) {
+            erro.push(cont);
+            break; 
+          }
+        }
+      
+        if (erro.length === 0) {
+          let comen = {
+            comentario: digitado,
+            id: id,
+            cliente: 1
+          };
+      
+          const resp = await axios.post('http://localhost:5000/comentario', comen);
+          setDigitado('');
+        } else {
+          toast.info("Não permitimos palavras ofensivas no nosso site");
+          setDigitado('')
+        }
+      }
+      
+        
+      
+
+    
 
     return (
         <div className='informacoes'>
@@ -91,7 +152,7 @@ export default function Informacoes() {
             <div className='secao-informacao-avaliacao'>
                 <h1>Avaliações</h1>
                 <div className='secao-informacao-avaliacao-input'>
-                    <input placeholder='Digite sua mensagem' />
+                    <input placeholder='Digite sua mensagem' value={digitado} onChange={ (e) => setDigitado ( e.target.value)}/>
                     <div>
                         <img src={estrelabranca} alt="Estrela Branca" />
                         <img src={estrelabranca} alt="Estrela Branca" />
@@ -99,13 +160,15 @@ export default function Informacoes() {
                         <img src={estrelabranca} alt="Estrela Branca" />
                         <img src={estrelabranca} alt="Estrela Branca" />
                     </div>
-                    <button>Enviar</button>
+                    <button onClick={inserircomentario}>Enviar</button>
                 </div>
                 <div className='secao-informacao-avaliacao-comentario'>
-                    <Comentarios usuario={{ nome: "Regina", Comentario: "Farinha, água, sal, fermento, molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem" }} />
-                    <Comentarios usuario={{ nome: "Matheus", Comentario: "Farinha, água, sal, fermento, molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem" }} />
-                    <Comentarios usuario={{ nome: "Bruno", Comentario: "Farinha, água, sal, fermento, molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem" }} />
-                    <Comentarios usuario={{ nome: "João", Comentario: "Farinha, água, sal, fermento, molho de tomate, muçarela fresca, manjericão fresco, azeite de oliva extra virgem" }} />
+                    
+                    {comentarioo.map((item) => (
+                          <Comentarios usuario ={{nome :item.cliente , comentario:item.Comentario}}/>
+                          ))}
+
+                    
                 </div>
             </div>
             {isModalOpen && <Modal onClose={() => setModalOpen(false)} />}

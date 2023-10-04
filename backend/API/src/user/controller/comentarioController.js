@@ -7,6 +7,7 @@ import {
         inserircometario, 
         listarcomentario  }
  from "../repository/comentarioRepository.js";
+import { analise } from "./verificar.js";
 
 
 
@@ -16,13 +17,15 @@ const endpoints = Router()
 endpoints.post( '/comentario' , async (req , resp ) =>{
 
     try {
-        const  {comentario}  = req.body;
-      
-        if (!comentario) {
-          resp.status(400).send({ err: 'É necessário preencher todos os campos' });
-        } 
+        const  comentario  = req.body;
+
+        const verrificar = await analise(comentario)
+
+        if(verrificar.length > 0){
+          resp.status(350).send({erro:verrificar})
+        }
         else {
-          const resposta = await inserircometario({comentario}); 
+          const resposta = await inserircometario(comentario); 
           resp.send(resposta);
         }
       } catch (err) {
@@ -35,11 +38,12 @@ endpoints.post( '/comentario' , async (req , resp ) =>{
 
 
 
-endpoints.get( '/listar/comentario' , async (req,resp) =>{
+endpoints.get( '/listar/comentario/:id' , async (req,resp) =>{
 
     try {
+      const {id} = req.params
       
-      const resposta = await listarcomentario()
+      const resposta = await listarcomentario(id)
       resp.send(resposta)
   
     } 
@@ -57,7 +61,7 @@ endpoints.put ('/comentario/alterar/:id', async (req,resp) =>{
   try {
 
       const {id}   = req.params
-      const {comentario} = req.body
+      const comentario = req.body
     
     if( !comentario){
         resp.status(400).send({erro:' é necessario prencher todos os campos'})
