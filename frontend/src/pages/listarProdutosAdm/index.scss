@@ -244,7 +244,7 @@
 
     }
 
-    .filtros {
+    .filtros-produtos {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -295,24 +295,31 @@
         background-color: #0D3E53;
         padding: 15px;
         border-radius: 5px;
+        width: 50%;
     }
 
     .bloco-filtro div {
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
 
     .bloco-filtro input {
-        margin-right: 5px;
+        margin-right: 15px;
+    }
+
+    .bloco-filtro p {
+        font-size: 20px;
+        color: #fff;
     }
     
     .tipo {
-        padding: 7px;
+        padding: 25px 10px;
         color: #fff;
     }
     
 
-    .linha {
+    .linha-produtos {
         background-color: #fff;
         height: 1px;
         width: 100%;

@@ -1,17 +1,19 @@
 
 
-import { Router } from 'express';
+import { Router} from 'express';
 import {
   inserirProduto,
   listarProdutos,
   editarproduto,
   excluirProduto,
   imagem,
-  verificarproduto,
   alterarImagem,
   listarpornome,
   deletarImagem,
-  listarporid
+  listarporid,
+  editarprodutocomleto,
+  listarportipo,
+  listarPorRestricao
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -46,11 +48,43 @@ endpoints.get('/produto/:nome', async (req, resp) => {
   try {
     const {nome} = req.params
     const r = await listarpornome(nome)
-    console.log(r)
+
     resp.send(r)
     
   } catch (err) {
     resp.status(500).send({
+      erro: err.message
+    })
+  }
+})
+
+endpoints.get('/produto/restricoes/:restricao', async (req,resp) => {
+  try {
+    const {restricao} = req.params
+
+    const resposta = await listarPorRestricao(restricao)
+
+    resp.send(resposta)
+  } catch (err) {
+    resp.status(400).send({
+      erro: err.message
+    })
+  }
+})
+
+endpoints.get('/produto/tipos/:tipo', async (req , resp) => {
+  try {
+    const {tipo} = req.params
+    
+    const resposta = await listarportipo(tipo)
+
+    if(resposta.length == 0) {
+      resp.status(404).send('tipo não encontrado')
+    }
+  
+    resp.send(resposta)
+  } catch (err) {
+    resp.status(400).send({
       erro: err.message
     })
   }
@@ -184,7 +218,7 @@ endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => 
     resp.status(204).send();
   } catch (err) {
     resp.status(400).send({
-      erro: err.message,
+      erro: err.message
     });
   }
 });

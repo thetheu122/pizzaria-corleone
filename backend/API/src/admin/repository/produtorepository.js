@@ -10,7 +10,7 @@ export async function inserirProduto(produto) {
         vl_preco ,    
         ds_descricao , 
         vl_preco_promocional , 
-        bt_disponivel   )
+        bt_disponivel   
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
   
@@ -163,11 +163,37 @@ export async function inserirProduto(produto) {
     
   
   
-    const [ resposta ] = await con.query( comando ,[id])
+    const [ resposta ] = await con.query( comando ,[id]);
     
-    return  resposta
+    return  resposta;
   } 
 
+
+  export async function listarPorRestricao(restricao) {
+    const comando = `
+    SELECT
+    tb_produto.id_produto             as ID,
+      tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.ds_tipo_produto   as tipo ,
+    tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as descricao ,
+    tb_produto.vl_preco               as preço,
+    tb_produto.vl_preco_promocional   as Preco_promocional,
+      tb_produto.bt_disponivel          as disponivel,
+      tb_imagem.img_produto             as imagem,
+    tb_restricao.ds_restricao         as restricao
+  FROM
+      tb_produto
+  INNER JOIN
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  where tb_restricao.ds_restricao like ?
+    `
+
+    const [resposta] = await con.query(comando, [`%${restricao}%`])
+    return resposta
+  }
 
 
 
@@ -192,8 +218,9 @@ export async function inserirProduto(produto) {
   left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
   where tb_tipo_produto.ds_tipo_produto like ?
     `
-
+  
   const [ resposta ] = await con.query( comando , ["%"+tipo+"%"])
+  console.log(resposta)
   return resposta
   }
 
