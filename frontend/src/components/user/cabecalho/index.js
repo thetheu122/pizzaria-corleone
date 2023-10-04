@@ -3,8 +3,9 @@ import * as Components from './Components';
 import ReCAPTCHA from "react-google-recaptcha";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
 import './index.scss'
@@ -44,6 +45,7 @@ export default function Cabecalho() {
   const [rua, setRua] = useState('');
   const [num, setNum] = useState('');
   const [cep, setCep] = useState('');
+  const [endereco, setEndereco] = useState({})
   const [cpf, setCpf] = useState('');
 
   const [captcha, setCaptcha] = useState(false)
@@ -106,6 +108,7 @@ export default function Cabecalho() {
     }
     else {
       setOpenCadastroModal(!openCadastroModal)
+      setCaptcha(false)
     }
   }
 
@@ -153,35 +156,27 @@ export default function Cabecalho() {
   }
 
   const addCliente = async () => {
-    let requestEn = {
-      estado: estado,
-      cidade: cidade,
-      bairro: bairro,
-      rua: rua,
-      numero: num,
-      cep: cep,
-    };
+    try {
+      let requestEn = {
+        estado: estado,
+        cidade: cidade,
+        bairro: bairro,
+        rua: rua,
+        numero: num,
+        cep: cep,
+      };
+  
+      let responseEn = await axios.post('http://localhost:5000/endereco/cadastro', requestEn);
+      
+    
 
-    let responseEn = await axios.post('http://localhost:5000/endereco/cadastro', requestEn);
-
-    if (responseEn.status !== 200) {
-      toast.error((`Erro ao cadastrar endereço: ${responseEn.statusText}`), {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-    }
+    //puxar da api o id do ultimo endereco cadastrado
+  
 
     let nascimento = `${dia}/${mes}/${ano}`;
 
     let requestCl = {
-      endereco: responseEn.data[0].insertId,
-      cartao: 1,
+      endereco: responseEn.data.id,
       cliente: nome,
       email: email,
       telefone: telefone,
@@ -190,12 +185,13 @@ export default function Cabecalho() {
       nascimento: nascimento
     }
 
+    console.log(requestCl)
+
     let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
 
-    console.log(responseCl)
-
+    console.log(responseCl.status)
     if (responseCl.status !== 200) {
-      toast.error((`Erro ao cadastrar cliente: ${responseCl.statusText}`), {
+      toast.error((`Erro ao cadastrar cliente: ${responseCl.response.data}`), {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -218,10 +214,8 @@ export default function Cabecalho() {
         theme: "dark",
       });
     }
-  }
-
-  const infoCep = async () => {
-    toast.info((`Dando merda`), {
+  } catch (err) {
+    toast.error((err.response.data.erro), {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -231,28 +225,96 @@ export default function Cabecalho() {
       progress: undefined,
       theme: "dark",
     });
-    // try {
-    //   const { cid, bair, enderec, uf } = await axios.get(`https://h-apigateway.conectagov.estaleiro.serpro.gov.br/api-cep/v1/consulta/cep/${cep}`)
-    //   setCidade(cid)
-    //   setBairro(bair)
-    //   setEstado(uf)
-    //   setRua(enderec)
-    // } catch (error) {
-    //   toast.error((``), {
-    //     position: "top-right",
-    //     autoClose: 5000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true,
-    //     progress: undefined,
-    //     theme: "dark",
-    //   });
-    // }
+  }
+  }
+
+ /* const buscarCEP = async (cep) => {
+    try {
+      if (!cep)
+        toast.error(('CEP não fornecido'), {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
+      console.log(data)
+      setCidade(data.localidade)
+      setBairro(data.bairro)
+      setEstado(data.uf)
+      setRua(data.logradouro)
+    } catch (error) {
+      toast.error(('CEP digitado invalido'), {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      })
+    }
+  };*/
+
+
+const buscarCEP = async (cep) => {
+    try {
+
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
+
+      setRua(data.logradouro)
+      setBairro(data.bairro)
+      setCidade(data.localidade)
+      setEstado(data.uf)
+
+  
+
+    } catch (error) {
+        toast.error(('CEP digitado invalido'), {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        })
+      }
+  }
+
+  const CadastrarEndereco = async () => {
+
+    try {
+
+      setEndereco ( {
+
+        estado: estado,
+        cidade: cidade,
+        bairro: bairro,
+        rua: rua,
+        numero: num,
+        cep: cep,
+
+      })
+      
+      const resp = await axios.post('http://localhost:5000/endereco/cadastro', endereco)
+
+
+    } catch (err) {
+      toast.error(err.response.data.erro)
+    }
 
   }
 
-
+ 
   return (
     <>
       <main className='cabecalho'>
@@ -298,7 +360,7 @@ export default function Cabecalho() {
       <Modal
         isOpen={openLoginModal}
         closeTimeoutMS={500}
-        className={'modal'}
+        className={openCadastroModal ? 'modal' : 'modalll'}
         overlayClassName={'modal-overlay'}
         onRequestClose={() => setOpenLoginModal(false)}
       >
@@ -326,7 +388,7 @@ export default function Cabecalho() {
                 <ReCAPTCHA
                   sitekey="6LdHbGsoAAAAAEuxguADWAR5shW3Jy3ZNQHtVbOQ"
                   onChange={() => setCaptcha(true)}
-                /> 
+                />
                 <Components.Anchor href='#'>Esqueceu a senha?</Components.Anchor>
                 <Components.Button onClick={login}>Entrar</Components.Button>
               </Components.Form>
@@ -338,7 +400,7 @@ export default function Cabecalho() {
                 <Components.LeftOverlayPanel signinIn={signIn}>
                   <Components.Title>Bem-vindo(a)</Components.Title>
                   <Components.Paragraph>
-                    Para manter conectado com a gente, por favor, entre com sua conta
+                    Entre e aventuresse em nosso cardápio rico e inclusivo
                   </Components.Paragraph>
                   <Components.GhostButton onClick={() => toggle(true)}>
                     Entrar
@@ -348,7 +410,7 @@ export default function Cabecalho() {
                 <Components.RightOverlayPanel signinIn={signIn}>
                   <Components.Title>Olá Amigo!</Components.Title>
                   <Components.Paragraph>
-                    Entre e aventuresse em nosso cardápio rico e inclusivo
+                    Para manter conectado com a gente, por favor, entre com sua conta
                   </Components.Paragraph>
                   <Components.GhostButton onClick={() => toggle(false)}>
                     Entrar
@@ -375,13 +437,11 @@ export default function Cabecalho() {
                     type='text'
                     placeholder='CEP'
                     value={cep}
-                    onChange={(e) => setCep(e.target.value)}
-                    onKeyPress={(event) => {
-                      if (event.key === 'Enter') {
-                        infoCep();
-                      }
-                    }}
+                    onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
+                    onBlur={() => buscarCEP(cep)}
+                   
                   />
+
 
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
                   <Components.Input type='text' placeholder='Cidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />

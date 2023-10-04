@@ -157,10 +157,28 @@
 
         .direitaMeio{
             width: 70vw;
+            display: flex;
+            flex-wrap: wrap;
 
             & > div{
                 display: flex;
                 margin-top: 20px;
+            }
+
+            .not{
+                height: 50%;
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+               h1{
+                opacity: 0.8;
+                color: black;
+               }
+               img {
+                width: 23px;
+                margin-right: 12px;
+               }
             }
             
         }

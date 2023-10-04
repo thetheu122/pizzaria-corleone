@@ -17,11 +17,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function CardProduto(props) {
+
     const [openModalCart, setOpenModalCart] = useState(false)
     const [favorito, setFavorito] = useState(false)
 
     const navigation = useNavigate()
-
 
 
     return (
@@ -62,7 +62,7 @@ export default function CardProduto(props) {
                         <div className='circulo'>
                             <img alt='carrinho' src={Carrinho} onClick={() => setOpenModalCart(!openModalCart)} />
                         </div>
-                        <Link to='/informacao' className='mais-detalhes'>
+                        <Link  to ={`/informacao/${props.produto.id}`} className='mais-detalhes'>
                             <p>Mais Detalhes</p>
                             <img alt='seta' src={Seta} />
                         </Link>
