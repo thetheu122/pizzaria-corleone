@@ -130,6 +130,35 @@ h1 {
     font-family: lobster-two-regular;
 }
 
+.mmm{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.social-icon {
+        height: 38px;
+        width: 38px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0.45rem;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: .3s;
+
+        &:hover {
+            scale: 1.1;
+        }
+
+        > svg{
+            transition: .3s;
+
+            fill:#ffffff;
+        }
+}
+
 .container {
     background-color: #fff;
     display: flex;

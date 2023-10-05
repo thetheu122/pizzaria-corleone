@@ -4,17 +4,13 @@ import { con } from "../../conection.js";
 export async function inserirCliente(clientes) {
 
     const [existingCliente] = await con.query(
-        'SELECT * FROM tb_cliente WHERE ds_email = ? OR ds_telefone = ?',
-        [clientes.email, clientes.telefone]
+        'SELECT * FROM tb_cliente WHERE ds_email = ? OR ds_telefone = ? OR ds_cpf = ?',
+        [clientes.email, clientes.telefone, clientes.cpf]
     );
-    console.log(clientes) 
 
     if (existingCliente.length > 0) {
-        if (existingCliente[0].ds_telefone === clientes.telefone) {
-            throw new Error('Já existe cliente com esse telefone')
-        } else if (existingCliente[0].ds_email === clientes.email) {
-            throw new Error('Já existe um cliente com o mesmo email')
-        }
+        let respp = `122`
+        return respp
     }
 
     let comando = `

@@ -35,9 +35,10 @@ server.post('/cliente/cadastro', async (req, resp) => {
         }
     
         let respo = await inserirCliente(resposta)
-        console.log(respo)
-        if (respo === 'Já existe cliente com esse telefone' || respo.data === 'Já existe um cliente com o mesmo email') {
-            resp.status(400).send('Já existe cliente com essas credenciais');
+
+        if (respo === `122`) {
+            const mensErro = 'Já existe cliente com essas credenciais';
+            throw new Error(mensErro);
         } else {
             resp.status(200).send(respo);
         }
