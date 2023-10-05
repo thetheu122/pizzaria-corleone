@@ -237,7 +237,7 @@ export default function ListarProdutosAdm() {
                                                 <td className='deletar' ><img src={Deletar} onClick={() => {
                                                     apagarProduto(item.ID, item.idimagem, item.idrestricao);
                                                 }} /></td>
-                                                <td className="alterar" ><img src={Editar} onClick={() => {
+                                                <td className="alterar" ><img src={Editar}  onClick={() => {
                                                     console.log("ID do Produto:", item.ID);
                                                     console.log("ID da Restrição:", item.idrestricao);
                                                     console.log("ID da imagem:", item.idimagem);

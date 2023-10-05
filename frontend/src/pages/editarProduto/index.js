@@ -21,17 +21,22 @@ export default function EditarProduto() {
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState('');
+    const [idrestricao,setIdrestricao]=useState(0)
 
     const {id} = useParams();
+    const [rende,setRende]=useState([])
 
     const [idproduto, setIdproduto] = useState(id)
     
 
     useEffect(() => {
         teste()
-    }, [])
+        renderizar()
+        alterar()
+    }, [id])
 
-
+    
+   
     async function teste() {
      
    
@@ -45,6 +50,29 @@ export default function EditarProduto() {
             //const encontraridrestricao = encontarid.idrestricao
             console.log(objetoDesejado)
       }
+
+
+    async function renderizar (){
+
+       const resposta = await axios.get('http://localhost:5000/produto/listar/'+id)
+       setRende(resposta.data)
+       
+
+    }
+
+    function alterar (){
+        rende.map((item)=>{
+            setnome(item.nome)
+            setingrediente(item.ingredientes)
+            setpreco(item.preço)
+            setdescricao(item.descricao)
+            setIdrestricao(item.idrestricao)
+        })
+
+    }
+
+ 
+
       
 
     async function enviarimagem(id, imagem) {
@@ -69,17 +97,28 @@ async function alterarProduto() {
         }*/
         
 
-        const naotemid = 157
+    
 
 
         const alterarRestricao = {
             restricao: restricao
         }
-
-        const respRestricao = await axios.put(`/restricao/alterar/${naotemid}`, alterarRestricao)
-
         
+        let variavelnul = null
+        let variavelandfilne = undefined
 
+        if(idrestricao ==='' || idrestricao === variavelnul || idrestricao === variavelandfilne ){
+           let novarestricao ={
+            produto:id,
+            restricao:restricao
+           } 
+           const respo = await axios.post('http://localhost:5000/restricao',novarestricao)
+        }
+        else{
+        const respRestricao = await axios.put(`http://localhost:5000/restricao/alterar/${idrestricao}`, alterarRestricao)
+        }
+        
+  
        
 
         const produto = {
@@ -162,7 +201,12 @@ async function alterarProduto() {
                     <div className='dadosdoproduto'>
                         <div className='nome'>
                             <p>Nome:</p>
-                            <input type='text' placeholder='Escreva..' value={nome} onChange={e => setnome(e.target.value)} />
+                                <input
+                                 type='text'
+                                 placeholder='Escreva..'
+                                 value={nome}
+                                onChange={(e) => setnome(e.target.value)} 
+                                 />
                         </div>
 
 
@@ -239,7 +283,9 @@ async function alterarProduto() {
 
                         <div className='ingredientes'>
                             <h1>Ingredientes:</h1>
-                            <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
+
+                             <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
+        
                         </div>
 
                         <p className='linha'></p>
