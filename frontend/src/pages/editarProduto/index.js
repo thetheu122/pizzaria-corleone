@@ -39,7 +39,7 @@ export default function EditarProduto() {
           const iddesejado = idproduto;
 
             const encontrarid = respostaApi.data
-            const objetoDesejado = encontrarid.find(objeto => objeto.ID === iddesejado)
+            const objetoDesejado = encontrarid
 
             
             //const encontraridrestricao = encontarid.idrestricao
@@ -67,24 +67,33 @@ async function alterarProduto() {
         /*if (!imagem) {
                 throw new Error('escolha uma imagem')
         }*/
+        
+
+        const naotemid = 157
+
+
+        const alterarRestricao = {
+            restricao: restricao
+        }
+
+        const respRestricao = await axios.put(`/restricao/alterar/${naotemid}`, alterarRestricao)
 
         
-////WENDEL
+
        
 
-        const produtoCompleto = {
+        const produto = {
             nome:nome,
             tipo: tipo,
             ingredientes:ingredientes,
             preco:preco,
             descricao:descricao,
-            disponivel: disponivel,
-            restricao: restricao,
+            disponivel: disponivel
         }
 
-        alert(JSON.stringify(produtoCompleto));
+        alert(JSON.stringify(produto));
 
-        const resposta = await axios.put(`http://localhost:5000/produto/editar/campos/${idproduto}`, produtoCompleto)
+        const resposta = await axios.put(`http://localhost:5000/produto/editar/${idproduto}`, produto)
 
 
     if (resposta.status === 200) {
