@@ -67,7 +67,7 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 
     try {
         const { id } = req.params;
-        const { restricao } = req.body;
+        const  restricao  = req.body;
         
         const resposta = await atualizarRestricao(id , restricao );
         
