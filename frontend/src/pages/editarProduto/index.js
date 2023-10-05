@@ -33,7 +33,7 @@ export default function EditarProduto() {
         teste()
         renderizar()
         alterar()
-    }, [id])
+    }, [id,rende])
 
     
    
@@ -62,10 +62,6 @@ export default function EditarProduto() {
 
     function alterar (){
         rende.map((item)=>{
-            setnome(item.nome)
-            setingrediente(item.ingredientes)
-            setpreco(item.preço)
-            setdescricao(item.descricao)
             setIdrestricao(item.idrestricao)
         })
 
