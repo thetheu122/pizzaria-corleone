@@ -270,7 +270,7 @@ if(produto.tipo ===3){
 
  }
 
- export async function editarprodutocomleto ( produto , imagem , id ){
+ /*export async function editarprodutocomleto ( produto , imagem , id ){
 
   const comando = `
   UPDATE tb_produto
@@ -308,7 +308,7 @@ if(produto.tipo ===3){
   ])
 
   return resposta
-}
+}*/
 
 
 
