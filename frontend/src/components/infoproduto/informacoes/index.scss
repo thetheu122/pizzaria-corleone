@@ -20,7 +20,9 @@
     align-items: center;
 
    
-    color: white;
+    h1{
+        color: white;
+    }
    }
   
 .secao-01-voltar{
@@ -76,6 +78,16 @@
  
     width: 30vw !important;
 }
+.vizu{
+    width: 100%;
+    display: flex;
+    justify-content:center ;
+
+    h3{
+        opacity: 0.3;
+    }
+}
+
 
 .coracao{
     display: flex;
@@ -89,7 +101,7 @@
     border-radius: 100%;
 }
 
-.coracao >img {
+.coracao > svg {
     width: 20px;
 }
     

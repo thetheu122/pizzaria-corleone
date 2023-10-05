@@ -3,6 +3,9 @@ import '../../assets/config/fonts-config.scss'
 
 import Seta from '../../assets/images/icons/seta_icon.svg'
 import Lupa from '../../assets/images/icons/lupa.png'
+import carregando  from '../../assets/images/carregando.png'
+
+
 
 import Cabecalho from '../../components/user/cabecalho'
 import CardProduct from '../../components/user/cardProduct'
@@ -13,19 +16,30 @@ import axios from 'axios'
 
 export default function Cardapio() {
 
-    const[ produto , setProduto ] = useState([])
+    const [ produto , setProduto ] = useState([])
+    const [ pesquisa , setPesquisa ] = useState('')
+    const [ mostrar , setMostrar ] = useState(true)
 
 async function buscar (){
 
-let resp = await axios.get('http://localhost:5000/produto')
-setProduto(resp.data)
+let resp = await axios.get('http://localhost:5000/produto/'+ pesquisa)
+  if( resp.data=='' ){
+ setMostrar(false)
+}
+
+else{
+    setProduto(resp.data)
+    setMostrar(true)
+
+}
+ 
 }
 
 
 
 useEffect(()=>{
   buscar()  
-},[])
+},[pesquisa])
     return (
         <main className='cardapio'>
             <Cabecalho />
@@ -52,8 +66,8 @@ useEffect(()=>{
             <div className='meio'>
                 <div className='esquerda'>
                     <div className='filtro-nome'>
-                        <input placeholder='Digite e aperte enter...'></input>
-                        <img alt='lupa' src={Lupa} />
+                        <input  placeholder='Digite e aperte enter...' value={pesquisa} onChange={ (e) => setPesquisa ( e.target.value)}></input>
+                        <img alt='lupa' onClick={buscar}src={Lupa} />
                     </div>
 
                     <div className='ordenado'>
@@ -128,23 +142,27 @@ useEffect(()=>{
 
 
                 </div>
-
+ 
+                
                 <div className='direitaMeio'>
+                    {mostrar ? produto.map((item) => (
+                        <div>
+                        <CardProduto
+                            produto={{
+                            nome: item.nome,
+                            preco: item.preço,
+                            imagem: item.imagem,
+                            id: item.ID 
+                            }}
+                        />
+                        </div>
 
-                {produto.map(item => (
-                    <div>
-                    <CardProduto
-                        produto={{
-                        nome: item.nome,
-                        preco: item.preço,
-                        imagem: item.imagem,
-                        }}
-                    />
-                    </div>
-                    ))}
-
+                    )) :   <div className='not'>
+                                <h1> <img src={carregando}/>Produto não encontrdado</h1>
+                           </div>}
                     
                 </div>
+
 
 
             </div>

@@ -23,6 +23,8 @@ export default function EditarProduto() {
     const [imagem, setImagem] = useState('');
 
     const {id} = useParams();
+
+    const [idproduto, setIdproduto] = useState(id)
     
 
     useEffect(() => {
@@ -31,12 +33,19 @@ export default function EditarProduto() {
 
 
     async function teste() {
-        const r = await axios.get('http://localhost:5000/produto');
-        const ids = r.data[0].idrestricao
+     
+   
+          const respostaApi = await axios.get(`http://localhost:5000/produto`);
+          const iddesejado = idproduto;
 
+            const encontrarid = respostaApi.data
+            const objetoDesejado = encontrarid.find(objeto => objeto.ID === iddesejado)
 
-        console.log(ids)
-    }
+            
+            //const encontraridrestricao = encontarid.idrestricao
+            console.log(objetoDesejado)
+      }
+      
 
     async function enviarimagem(id, imagem) {
         const formData = new FormData();
@@ -60,54 +69,22 @@ async function alterarProduto() {
         }*/
 
         
-
+////WENDEL
        
 
-        const produto = {
+        const produtoCompleto = {
             nome:nome,
             tipo: tipo,
             ingredientes:ingredientes,
             preco:preco,
             descricao:descricao,
             disponivel: disponivel,
-            restricao: restricao
-            
+            restricao: restricao,
         }
-        const resposta = await axios.put(`http://localhost:5000/produto/editar/${id}`, produto)
 
+        alert(JSON.stringify(produtoCompleto));
 
-        
-        
-        
-  
-        
-
-
-            /*const restricaoId = ids.idrestricao;
-
-            const alergia = {
-                restricao: restricao
-            }
-
-            
-            const rAlergia = await axios.put(`http://localhost:5000/restricao/alterar/${restricaoId}`, alergia);
-
-            alert(JSON.stringify(rAlergia));
-
-            if (rAlergia.status === 200) {
-                alert("Produto e restrição alterados!");
-            } else {
-                alert("Erro ao alterar a restrição.");
-            }
-      
-
-        console.log('Produto:', produto);
-        console.log('Restrição:', alergia);
-*/
-
-
-        const img = await enviarimagem(id, imagem)
-        
+        const resposta = await axios.put(`http://localhost:5000/produto/editar/campos/${idproduto}`, produtoCompleto)
 
 
     if (resposta.status === 200) {

@@ -19,6 +19,7 @@ import CarrinhoIcon from '../../../assets/images/icons/shopping-cart_icon.svg';
 import Conta from '../../../assets/images/icons/conta.svg'
 import Carrinho from '../carrinho'
 import SetaEsquerda from '../../../assets/img/seta-preta 1.png';
+import Informacoes from '../../infoproduto/informacoes';
 
 
 export default function Cabecalho() {
@@ -56,6 +57,7 @@ export default function Cabecalho() {
   const [senhaLogin, setSenhaLogin] = useState('')
 
   const [idUsuario, setIdUsuario] = useState('');
+
 
   const inversao = () => {
     if (!nome) {

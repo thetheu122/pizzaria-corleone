@@ -41,7 +41,7 @@ export default function Cadastro() {
       const respCadastro = await axios.post('http://localhost:5000/produto', cadastrar);
       const productId = respCadastro.data.id;
 
-      alert(productId)
+      //alert(productId)
 
 
       const respImagem = await axios.post(`http://localhost:5000/produto/${productId}/capa`, formData);
@@ -131,13 +131,13 @@ export default function Cadastro() {
 
                     <div className='dadosdoproduto'>
                         <div className='nome'>
-                            <p>Nome:</p>
+                            <h1>Nome:</h1>
                             <input type='text' placeholder='Escreva..' value={nome} onChange={e => setnome(e.target.value)} />
                         </div>
 
 
 
-                        <p className='linha'> </p>
+                        <p className='linha'>. </p>
 
                         <div className='b-produto'>
                             <h1>Seu Produto é...</h1>

@@ -1,7 +1,9 @@
+
 CREATE DATABASE  db_corleone ;
 
 USE db_corleone;
 drop database db_corleone;
+
 
 
  
@@ -18,10 +20,10 @@ CREATE TABLE tb_produto (
 id_produto	   	      INT PRIMARY KEY AUTO_INCREMENT,
 ds_tipo_produto		  INT NOT NULL,
 ds_ingredientes       VARCHAR(500)  NOT NULL,     
-nm_produto            VARCHAR(200)  NOT NULL,
-vl_preco              VARCHAR(200)  NOT NULL,
-ds_descricao          VARCHAR(200)  NOT NULL,
-vl_preco_promocional  VARCHAR(200) ,
+nm_produto            VARCHAR(500)  NOT NULL,
+vl_preco              VARCHAR(500)  NOT NULL,
+ds_descricao          VARCHAR(500)  NOT NULL,
+vl_preco_promocional  VARCHAR(500) ,
 bt_disponivel         bool  NOT NULL,
 
 
@@ -30,15 +32,10 @@ FOREIGN KEY   (ds_tipo_produto) REFERENCES  tb_tipo_produto (id_tipo_produto)
 );
 
 
-CREATE  TABLE tb_comentario (
 
-id_comentario   INT PRIMARY KEY AUTO_INCREMENT,
-ds_comentario   VARCHAR(200) ,
-id_produto      INT, 
 
-FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 
-);
+
 
 CREATE TABLE tb_restricao (
 
@@ -120,6 +117,16 @@ FOREIGN  KEY (id_cartao)	REFERENCES tb_cartao(id_cartao)
 );
 
 
+CREATE  TABLE tb_comentario (
+
+id_comentario   INT PRIMARY KEY AUTO_INCREMENT,
+ds_comentario   VARCHAR(200) ,
+id_produto      INT, 
+id_cliente      INT,
+
+FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto),
+FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+);
 
 
 CREATE TABLE tb_pedido (
@@ -162,3 +169,4 @@ ds_email       VARCHAR (100) NOT NULL ,
 ds_senha       VARCHAR (100) NOT NULL ,
 ds_cnpj        VARCHAR (100) NOT NULL
 );
+

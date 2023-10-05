@@ -39,13 +39,13 @@ root.render(
         <Route path='/pagamento' element={<Pagamento/>}/>
         <Route path='/ativos' element={<Pedidosativos/>}/>
         <Route path='/cadastroproduto' element={<Cadastrarproduto/>}/>
-        <Route path='/informacao' element={<Informacoes/>}/>
+        <Route path='/informacao/:id' element={<Informacoes/>}/>
         <Route path='/compatalhos' element={<CompAtalhosAdm/>} />
         <Route path='/produtos' element={<ListarProdutosAdm/>} />
         <Route path='/pedido1' element={<ComprarPedido />} />
         <Route path='/pedido2' element={<EnderecoPedido/>} />
         <Route path='/pedido3' element={<Confirmacaopedidos/>} />
-        <Route path='/produto/alterar/:id' element={<EditarProduto/>} />
+        <Route path='/produto/alterar/id' element={<EditarProduto/>} />
 
       </Routes>
     </BrowserRouter>

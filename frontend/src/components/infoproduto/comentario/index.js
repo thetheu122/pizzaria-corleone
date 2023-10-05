@@ -11,7 +11,7 @@ export default function Comentarios(props){
           
                 <div className='comentarios-perfil'>
                         <img src={peril}/>
-                        <h4>{props.usuario?.nome}</h4>
+                        <h4>{props.usuario.nome}</h4>
                 </div>
                 
 
@@ -23,7 +23,7 @@ export default function Comentarios(props){
                     <img src={estrelabranca}/>
                 </div>
 
-                <p> {props.usuario?.Comentario}
+                <p> {props.usuario.comentario}
                 </p>
         </div>
     )
