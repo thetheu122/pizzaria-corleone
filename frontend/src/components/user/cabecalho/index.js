@@ -212,6 +212,7 @@ export default function Cabecalho() {
           progress: undefined,
           theme: "dark",
         });
+        setIsLogged(true)
       }
     } catch (err) {
       toast.error(
@@ -427,20 +428,14 @@ export default function Cabecalho() {
 
               <div className='informacoes'>
                 <div className='esquerdaFds'>
-                  <Components.Input
-                    type="text"
-                    placeholder="CEP"
+                <Components.Input
+                    type='text'
+                    placeholder='CEP'
                     value={cep}
-                    onChange={(e) => {
-                      const newCep = e.target.value.replace(/\D/g, '');
-                      if (newCep.length <= 8) {
-                        setCep(newCep);
-                        buscarCEP(newCep);
-                      }
-                    }}
+                    onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
+                    
                   />
-
-
+                    
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
                   <Components.Input type='text' placeholder='Cidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
                   <Components.Input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />
