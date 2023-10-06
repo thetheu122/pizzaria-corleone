@@ -39,7 +39,7 @@ export default function EditarProduto() {
           const iddesejado = idproduto;
 
             const encontrarid = respostaApi.data
-            const objetoDesejado = encontrarid
+            const objetoDesejado = encontrarid.find(objeto => objeto.ID === iddesejado)
 
             
             //const encontraridrestricao = encontarid.idrestricao
@@ -67,18 +67,14 @@ async function alterarProduto() {
         /*if (!imagem) {
                 throw new Error('escolha uma imagem')
         }*/
-        
 
-        const naotemid = 157
 
 
         const alterarRestricao = {
             restricao: restricao
         }
 
-        const respRestricao = await axios.put(`/restricao/alterar/${naotemid}`, alterarRestricao)
-
-        
+        const respRestricao = await axios.put(`/restricao/alterar/${id}`, )
 
        
 
