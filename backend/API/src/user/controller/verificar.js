@@ -5,9 +5,9 @@ const erro = []
 
        
 
-if (!comentario.id)
+if (!comentario.comentario)
    erro.push('É necessário preencher todos os campos')
-if(!comentario.cliente)
+if(!comentario.id)
 erro.push('É necessário preencher todos os campos')
 
 return erro
