@@ -230,52 +230,20 @@ export default function Cabecalho() {
     }
   };
 
-  /* const buscarCEP = async (cep) => {
-     try {
-       if (!cep)
-         toast.error(('CEP não fornecido'), {
-           position: "top-right",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "dark",
-         })
-       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-       const data = response.data;
-       console.log(data)
-       setCidade(data.localidade)
-       setBairro(data.bairro)
-       setEstado(data.uf)
-       setRua(data.logradouro)
-     } catch (error) {
-       toast.error(('CEP digitado invalido'), {
-         position: "top-right",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "dark",
-       })
-     }
-   };*/
-
 
   const buscarCEP = async (cep) => {
     try {
 
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = response.data;
+      if (cep.lengt === 8) {
 
-      setRua(data.logradouro)
-      setBairro(data.bairro)
-      setCidade(data.localidade)
-      setEstado(data.uf)
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = response.data;
 
+        setRua(data.logradouro)
+        setBairro(data.bairro)
+        setCidade(data.localidade)
+        setEstado(data.uf)
+      }
 
 
     } catch (error) {
@@ -460,12 +428,16 @@ export default function Cabecalho() {
               <div className='informacoes'>
                 <div className='esquerdaFds'>
                   <Components.Input
-                    type='text'
-                    placeholder='CEP'
+                    type="text"
+                    placeholder="CEP"
                     value={cep}
-                    onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
-                    onBlur={() => buscarCEP(cep)}
-
+                    onChange={(e) => {
+                      const newCep = e.target.value.replace(/\D/g, '');
+                      if (newCep.length <= 8) {
+                        setCep(newCep);
+                        buscarCEP(newCep);
+                      }
+                    }}
                   />
 
 
