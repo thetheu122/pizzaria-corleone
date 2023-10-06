@@ -58,6 +58,20 @@ export default function Cabecalho() {
 
   const [idUsuario, setIdUsuario] = useState('');
 
+  
+  useEffect(() => {
+    let usuario = localStorage.getItem('usuario-logado');
+    if (usuario != null) {
+      usuario = JSON.parse(usuario);
+
+      setIsLogged(true);
+      setIdUsuario(usuario.id);
+    }
+  }, [])
+
+
+//  localStorage.removeItem('usuario-logado');
+
 
   const inversao = () => {
     if (!nome) {
@@ -118,7 +132,7 @@ export default function Cabecalho() {
   const login = async () => {
     try {
       if (!captcha) {
-        toast.warn('', {
+        toast.warn('Clique no botão "Não sou um robô"', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
