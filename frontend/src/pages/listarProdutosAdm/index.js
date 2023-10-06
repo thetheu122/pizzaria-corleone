@@ -100,7 +100,7 @@ export default function ListarProdutosAdm() {
                         {
                             label: 'Sim',
                             onClick: async () => {
-                                if (!filtro && restricaoId !== null && imagemid !== null) {
+                                if (!filtro && imagemid !== null) {
                                     try {
                                         const respostaImagem = await axios.delete(`http://localhost:5000/imagem/deletar/${imagemid}`);
                                         const respostaRestricao = await axios.delete(`http://localhost:5000/restricao/${restricaoId}`);
@@ -112,7 +112,7 @@ export default function ListarProdutosAdm() {
                                     }
                                 }
 
-                                else if (filtro && restricaoId !== null && imagemid !== null) {
+                                else if (filtro && imagemid !== null) {
                                     try {
                                         const respostaImagem = await axios.delete(`http://localhost:5000/imagem/deletar/${imagemid}`);
                                         const respostaRestricao = await axios.delete(`http://localhost:5000/restricao/${restricaoId}`);
@@ -237,7 +237,7 @@ export default function ListarProdutosAdm() {
                                                 <td className='deletar' ><img src={Deletar} onClick={() => {
                                                     apagarProduto(item.ID, item.idimagem, item.idrestricao);
                                                 }} /></td>
-                                                <td className="alterar" ><img src={Editar} onClick={() => {
+                                                <td className="alterar" ><img src={Editar}  onClick={() => {
                                                     console.log("ID do Produto:", item.ID);
                                                     console.log("ID da Restrição:", item.idrestricao);
                                                     console.log("ID da imagem:", item.idimagem);

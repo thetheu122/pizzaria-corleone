@@ -22,16 +22,19 @@ endpoints.post ( '/restricao' , async (req,resp) =>{
         resp.status(400).send({err:'Preencha todos os campos'})
        }
        else{
-            const existe = await verificarrestricao(restricao)
-
-            if( existe  ){
-                resp.status(400).send({erro:'Restricao ja cadastrada'})
-            }
-            else{
                 const resposta = await inserirrestricao(restricao)
                 resp.send(resposta)
-            }
+            
        }
+
+      //  caso queira  bloquear uma  restricao igual a outra implemente no codigo  ///
+
+      //  const existe = await verificarrestricao(restricao)
+
+      //  if( existe  ){
+      //      resp.status(400).send({erro:'Restricao ja cadastrada'})
+      //  }
+    
     } 
     
     catch (err) {
@@ -67,10 +70,11 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
 
     try {
         const { id } = req.params;
-        const { restricao } = req.body;
+        const  restricao  = req.body;
         
-        const resposta = await atualizarRestricao(id , restricao );
+        const resposta = await atualizarRestricao(restricao,id );
         
+        console.log(id)
 
         if (resposta === 0) {
           res.status(404).send({message:"Restrição não encontrada"});

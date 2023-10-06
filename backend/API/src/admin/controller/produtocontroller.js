@@ -11,7 +11,6 @@ import {
   listarpornome,
   deletarImagem,
   listarporid,
-  editarprodutocomleto,
   listarportipo,
   listarPorRestricao
 } from '../repository/produtorepository.js';
@@ -136,7 +135,7 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
        resp.status(400).send({erro: verificar})
     }
         else{
-            const resposta = await editarproduto( produto , id ) 
+            const resposta = await editarproduto( produto , id)
             if( resposta === 0){
               resp.status(400).send({err: "produto não encontrado"})
             }
@@ -157,7 +156,7 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
 
 
-endpoints.put( '/produto/editar/campos/:idproduto' , upload.single('capa'), async  (req,resp)=>{
+/*endpoints.put( '/produto/editar/campos/:idproduto' , upload.single('capa'), async  (req,resp)=>{
 
   try {
     const {id} = req.params
@@ -181,7 +180,7 @@ endpoints.put( '/produto/editar/campos/:idproduto' , upload.single('capa'), asyn
   } catch (err) {
     resp.status(400).send({})
   }
-})
+})*/
 
 
 
@@ -228,10 +227,17 @@ endpoints.put( '/imagem/editar/:id' , async (req,resp) =>{
 
   try {
     const { id }  = req.params
-    const imagem = req.body.img_produto; 
+    const {imagem} = req.body
+
     const r = await alterarImagem(id, imagem)
 
-    resp.status(200).send('imagem alterada')
+    if(r === '') {
+      resp.status(400).send('imagem não foi alterada')
+    }
+
+    else {
+      resp.status(200).send('imagem atualizada')
+    }
   } catch (err) {
     resp.status(400).send({
       erro: err.message

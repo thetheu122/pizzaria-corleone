@@ -2,6 +2,7 @@
 .connt{
   display: flex; 
   flex-direction: row;
+  height: 100vh;
 
  
  
@@ -103,7 +104,7 @@
       overflow-x: scroll;
   
      //display: inline-block; 
-       height: 550px; 
+       height: 800px; 
       padding-right: 30px;
       vertical-align: baseline;
       margin-left: auto;
