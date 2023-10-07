@@ -3,11 +3,11 @@ import { con } from "../../conection.js";
 
 export async function inserircometario( comentario){
     const comando =
-     `INSERT INTO tb_comentario ( ds_comentario , id_produto, id_cliente)
-                         VALUES ( ?,?,?)
+     `INSERT INTO tb_comentario ( ds_comentario , id_produto, id_cliente , id_avaliacao)
+                         VALUES ( ?,?,?,?)
     ` 
 
-const [ resposta] = await con.query( comando , [comentario.comentario,comentario.id , comentario.cliente])
+const [ resposta] = await con.query( comando , [comentario.comentario,comentario.id , comentario.cliente,comentario.avaliacao])
 
 comentario.id = resposta.insertId
 return comentario
@@ -21,7 +21,8 @@ export  async function listarcomentario(id){
     tb_comentario.id_comentario AS ID,
     tb_comentario.ds_comentario AS Comentario,
     tb_produto.nm_produto AS produto,
-    tb_cliente.nm_cliente AS cliente
+    tb_cliente.nm_cliente AS cliente,
+    tb_comentario.id_avaliacao AS avaliacao
 FROM
     tb_comentario
 INNER JOIN

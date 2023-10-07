@@ -20,9 +20,55 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Informacoes(props) {
+export default  function Informacoes(props) {
+
+    const [estrela1,setEstrela1]=useState(true)
+    const [estrela2,setEstrela2]=useState(true)
+    const [estrela3,setEstrela3]=useState(true)
+    const [estrela4,setEstrela4]=useState(true)
+    const [estrela5,setEstrela5]=useState(true)
+
+
+    function alterar (){
+        setEstrela1(!estrela1)
+         
+    }
+    function alterar2 (){
+        setEstrela2(!estrela2)
+        if(estrela2)
+        setEstrela1(false)
+    }
+    function alterar3 (){
+
+        setEstrela3(!estrela3)
+         if(estrela3)
+         setEstrela1(false)
+         setEstrela2(false)
+    }
+    function alterar4 (){
+
+        setEstrela4(!estrela4)
+
+        if(estrela){
+            setEstrela1(false)
+            setEstrela2(false)
+            setEstrela3(false)
+        }
+    }
+    function alterar5 (){
+
+        setEstrela5(!estrela5)
+
+        if( estrela5 ){
+            setEstrela1(false)
+            setEstrela2(false)
+            setEstrela3(false)
+            setEstrela4(false)
+        }  
+    }
     const { id } = useParams();
     const idusuario = props
+
 
     function cadastro (){
         idusuario = 0 
@@ -73,14 +119,46 @@ useEffect(()=>{
         }
       
         if (erro.length === 0) {
+           let estrelas = 0  
+
+        if( estrela5 == false){
+             estrelas = 5
+        }
+        else{
+            if(estrela4 == false){
+                estrelas =4
+            }
+            else {
+                if(estrela3 == false){
+                    estrelas = 3
+                }
+                else{
+                    if(estrela2 == false){
+                        estrelas = 2
+                    }
+                    else{
+                        if(estrela1 == false){
+                            estrelas = 1
+                        }
+                        else{
+                            estrelas =  6
+                        }
+                    }
+                }
+            }
+        }
+           
           let comen = {
             comentario: digitado,
             id: id,
-            cliente: 1
-          };
+            cliente: 1,
+            avaliacao :estrelas
+          }
+
          if(digitado.length > 0){
           const resp = await axios.post('http://localhost:5000/comentario', comen);
           setDigitado('');
+          
          }
 
         } else {
@@ -164,17 +242,17 @@ useEffect(()=>{
                 <div className='secao-informacao-avaliacao-input'>
                     <input placeholder='Digite sua mensagem' value={digitado} onChange={ (e) => setDigitado ( e.target.value)}/>
                     <div>
-                        <img src={estrelabranca} alt="Estrela Branca" />
-                        <img src={estrelabranca} alt="Estrela Branca" />
-                        <img src={estrelabranca} alt="Estrela Branca" />
-                        <img src={estrelabranca} alt="Estrela Branca" />
-                        <img src={estrelabranca} alt="Estrela Branca" />
+                        <img src= {estrela1 ? estrelabranca  :estrela} alt="Estrela Branca" onClick={alterar}/>
+                        <img src= {estrela2 ? estrelabranca  :estrela} alt="Estrela Branca" onClick={alterar2}/>
+                        <img src= {estrela3 ? estrelabranca  :estrela} alt="Estrela Branca" onClick={alterar3} />
+                        <img src= {estrela4 ? estrelabranca  :estrela} alt="Estrela Branca" onClick={alterar4}/>
+                        <img src= {estrela5 ? estrelabranca  :estrela} alt="Estrela Branca" onClick={alterar5} />
                     </div>
                     <button onClick={inserircomentario}>Enviar</button>
                 </div>
                 <div className='secao-informacao-avaliacao-comentario'>
                     { vizu ?  comentarioo.map((item) => (
-                        <Comentarios usuario ={{nome :item.cliente , comentario:item.Comentario}}/>
+                        <Comentarios usuario ={{nome :item.cliente , comentario:item.Comentario , avaliacao:item.avaliacao}}/>
                         ))
                     
                      :  <div className='vizu'>

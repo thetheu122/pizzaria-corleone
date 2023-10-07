@@ -1,4 +1,23 @@
 
+-- // tabela avaliacao //
+INSERT INTO tb_avaliacao (ds_a
+valiacao)
+				  values ('1');
+INSERT INTO tb_avaliacao (ds_avaliacao)
+				  values ('2');
+INSERT INTO tb_avaliacao (ds_avaliacao)
+				  values ('3');
+INSERT INTO tb_avaliacao (ds_avaliacao)
+				  values ('4');
+INSERT INTO tb_avaliacao (ds_avaliacao)
+				  values ('5');
+INSERT INTO tb_avaliacao (ds_avaliacao)
+				  values ('6');                  
+                  
+select * from tb_avaliacao ;
+
+
+
 
 INSERT INTO  tb_associado (nm_nome,ds_email,ds_senha,ds_cnpj)
 					VALUES('1' , '1','1','1');
