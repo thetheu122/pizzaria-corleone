@@ -3,15 +3,20 @@ import '../../assets/config/fonts-config.scss'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
+import ImgSobre from '../../assets/img/sobreleanding.png';
+
 import Rodape from '../../components/user/rodape'
 import Cabecalho from '../../components/user/cabecalho'
 import Secao from '../../assets/images/pictures/ingredientes.png'
 
 import CompSobre from '../../components/compSobre'
+import { useState } from 'react';
 
 
 export default function Leading() {
     const navigate = useNavigate()
+
+    const [mostrarBotao, setMostrarBotao] = useState(true);
 
     return (
         <main className='leadingPage'>
@@ -116,7 +121,15 @@ export default function Leading() {
             </div>
             <img src={Secao} className='ingredientes' />
 
-            <CompSobre titulo='preparadas com dedicação' />
+            <CompSobre 
+            imagem={ImgSobre}
+            titulo="Nossas pizzas são"
+            subTitulo="preparadas com dedicação"
+            primeiroTexto="E o cuidado que só uma pizzaria legítima italiana pode oferecer. Desde a massa artesanal, amassada à mão, até o molho de tomate caseiro, cada etapa é executada com maestria para garantir uma experiência gastronômica única na sua vida."
+            segundoTexto="Além de nossas pizzas tradicionais, trazemos um toque de inovação, combinando ingredientes locais e inspirações brasileiras. Assim, criamos sabores exclusivos que agradam a todos os paladares. Nosso objetivo é encantar você com a fusão perfeita entre a tradição italiana e a criatividade brasileira."
+            butao="Mais sobre nós "
+            mostrarBotao={mostrarBotao}
+            />
 
             <button className='redirecionar' onClick={() => navigate('/cardapio')}>
                 Experimente aqui a <strong>Pizza</strong> digna de um <strong>Don</strong>

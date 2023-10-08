@@ -5,11 +5,12 @@ import Pedidos from '../../assets/images/pictures/pedidos.png'
 
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
+import storage from 'local-storage'
 
 
 export default function CompAtalhosAdm() {
 
-    const navigate = useNavigate
+    const navigate = useNavigate();
 
     async function irdashboard() {
         navigate('/')
@@ -25,6 +26,12 @@ export default function CompAtalhosAdm() {
 
     async function irpedido() {
         navigate('/')
+    }
+
+    function sairClick() {
+        storage.remove('adm-logado')
+        navigate('/associado')
+
     }
 
 
@@ -51,6 +58,11 @@ export default function CompAtalhosAdm() {
                 <div className="pedido">
                     <img id='pedido' src={Pedidos} />
                     <h2>Pedidos</h2>
+                </div>
+
+                <div onClick={sairClick} className="pedido" id='botaoPraFazerOvideo'>
+                    
+                    <h2>Sair</h2>
                 </div>
             </div>
         </div>

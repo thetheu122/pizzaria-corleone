@@ -87,7 +87,7 @@ export async function inserirProduto(produto) {
     tb_produto.vl_preco_promocional     as Preco_promocional,
       tb_produto.bt_disponivel          as disponivel,
       tb_imagem.id_imagem               as idimagem,
-      tb_imagem.img_produto             as imagem,
+      tb_imagem.img_produto                 as imagem,
       tb_restricao.id_restricao         as idrestricao,
     tb_restricao.ds_restricao           as restricao
   FROM
@@ -119,7 +119,7 @@ export async function inserirProduto(produto) {
     tb_produto.vl_preco               as preço,
     tb_produto.vl_preco_promocional   as preco_promocional,
       tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.img_produto             as imagem,
+      tb_imagem.img_produto                  as imagem,
       tb_restricao.id_restricao         as idrestricao,
     tb_restricao.ds_restricao         as restricao
   FROM
@@ -149,7 +149,8 @@ export async function inserirProduto(produto) {
     tb_produto.vl_preco               as preço,
     tb_produto.vl_preco_promocional   as preco_promocional,
       tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.img_produto             as imagem,
+      tb_imagem.id_imagem               as idimagem,
+      tb_imagem.img_produto                 as imagem,
       tb_restricao.id_restricao         as idrestricao,
     tb_restricao.ds_restricao         as restricao
   FROM
@@ -180,7 +181,7 @@ export async function inserirProduto(produto) {
     tb_produto.vl_preco               as preço,
     tb_produto.vl_preco_promocional   as Preco_promocional,
       tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.img_produto             as imagem,
+      tb_imagem.img_produto                 as imagem,
     tb_restricao.ds_restricao         as restricao
   FROM
       tb_produto
@@ -310,7 +311,17 @@ if(produto.tipo ===3){
   return resposta
 }*/
 
+export async function listarImagem() {
+  const comando = `
+    SELECT id_imagem 		as idimagem,
+      img_produto   	  as imagem
+	    FROM tb_imagem
+  `
 
+  const [resposta] = await con.query (comando)
+  return resposta;
+
+}
 
   
   export async function excluirProduto(id) {
@@ -323,7 +334,7 @@ if(produto.tipo ===3){
     return res.affectedRows;
   }
 
-  export async function imagem(imagem, id){
+  export async function Inseririmagem(imagem, id){
 
     const comando =
     `INSERT INTO tb_imagem (img_produto, id_produto)
@@ -336,17 +347,17 @@ if(produto.tipo ===3){
 }
 
 
-export async function alterarImagem(imagem, id){
+export async function alterarImagem(id, imagem){
 
   const comando =
   `UPDATE tb_imagem
-  SET img_produto = ?
-  WHERE id_imagem = ?
-  
+     SET img_produto      = ?
+   WHERE id_imagem        = ?
   `
-
+  
   const [ resposta ] = await con.query(comando, [imagem, id])
-  return resposta
+
+  return resposta.affectedRows
 }
 
 

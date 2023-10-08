@@ -1,9 +1,10 @@
 import './index.scss'
 import '../../assets/config/fonts-config.scss'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import storage from 'local-storage';
 
 export default function TelaAssociado() {
 
@@ -13,6 +14,12 @@ export default function TelaAssociado() {
   const [cnpj, setcpnj] = useState('')
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(storage('adm-logado')) {
+      navigate('/cadastroproduto')
+    }
+  }, [])
 
 
   async function entrar() {
@@ -27,9 +34,8 @@ export default function TelaAssociado() {
         cnpj: cnpj
       }
 
-      const response = await axios.put('http://localhost:5000/usuarioadm/login', associadoo);
-
-      console.log(response)
+      const response = await axios.put('http://localhost:5000/usuarioadm/login', associadoo)
+      storage('adm-logado', associadoo)
       if (response.status === 200) {
         toast.info("Login efetuado com sucesso");
         navigate('/cadastroproduto')

@@ -16,14 +16,14 @@ export default function EditarProduto() {
     const [nome, setnome] = useState('')
     const [tipo, settipo] = useState(0)
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState([])
+    const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState('');
     const [idrestricao,setIdrestricao]=useState(0)
     const [ idImagem, setIdImagem] = useState(0)
-    const [rendeImg, setRendeImg] = useState([])
+
 
 
 
@@ -36,8 +36,11 @@ export default function EditarProduto() {
     
 
     useEffect(() => {
+   
         renderizar()
         alterar()
+        alteraridImagem()
+
     }, [id,rende])
 
     
@@ -50,37 +53,24 @@ export default function EditarProduto() {
     }
 
 
+
     function alterar (){
         rende.map((item)=>{
             setIdrestricao(item.idrestricao)
-            /*setnome(item.nome)
-            settipo(item.tipo)
-            setingrediente(item.ingredientes)
-            setrestricao(item.restricao)
-            setpreco(item.preço)
-            setdescricao(item.descricao)
-            setDisponivel(item.disponivel)
-          */  
         })
+
 
     }
 
 
-    async function renderizarImagem (){
-
-        const resposta = await axios.get('http://localhost:5000/produto/listar/'+id)
-        setRendeImg(resposta.data)
-
-     }
-
-
-     function alterarImagem (){
-        
+    function alteraridImagem() {
         rende.map((item)=>{
-            setIdImagem(item.imagem)
+            setIdImagem(item.idimagem)
         })
-
+        
     }
+
+   
 
 
 
@@ -88,11 +78,11 @@ export default function EditarProduto() {
 
       
 
-    async function enviarimagem(id, imagem) {
+    async function enviarimagem(idproduto, imagem) {
         const formData = new FormData();
         formData.append('capa', imagem);
     
-        const r = await axios.put(`http://localhost:5000/imagem/editar/${id}`, formData , {
+        const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData , {
             headers: {
                 "Content-type": "multipart/form-data"
             },
@@ -105,27 +95,37 @@ async function alterarProduto() {
 
     try {
 
-        /*if (!imagem) {
+        if (!imagem) {
                 throw new Error('escolha uma imagem')
-        }*/
+        }
+        
+
+        //teste para ver se a imagem realmente é enviada a API
+        
+
+     
+        const formData = new FormData();
+        formData.append('capa', imagem);
+
+        const alterarImg = {
+            imagem: imagem
+        }
+        
+    
+        const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData ,  {
+            headers: {
+                "Content-type": "multipart/form-data"
+            },
+        })
+    
+
+        const restricaoAtualizada = restricao
+
         
 
 
-        const alterarImagem = {
-            imagem: imagem
-        }
-
-        const r = await axios.put(`http://localhost:5000/imagem/editar/${idImagem}`, alterarImagem)
-
-
-
-
-
-    
-
-
         const alterarRestricao = {
-            restricao: restricao
+            restricao: restricaoAtualizada
         }
         
         let variavelnul = null
@@ -133,8 +133,8 @@ async function alterarProduto() {
 
         if(idrestricao ==='' || idrestricao === variavelnul || idrestricao === variavelandfilne ){
            let novarestricao ={
-            produto:id,
-            restricao:restricao
+            produto:idproduto,
+            restricao:restricaoAtualizada
            } 
            const respo = await axios.post('http://localhost:5000/restricao',novarestricao)
         }

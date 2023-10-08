@@ -72,9 +72,11 @@ endpoints.put('/restricao/alterar/:id' , async (req,res)=>{
         const { id } = req.params;
         const  restricao  = req.body;
         
+        
         const resposta = await atualizarRestricao(restricao,id );
         
-        console.log(id)
+        console.log(restricao)
+     
 
         if (resposta === 0) {
           res.status(404).send({message:"Restrição não encontrada"});

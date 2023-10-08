@@ -20,6 +20,7 @@ import Conta from '../../../assets/images/icons/conta.svg'
 import Carrinho from '../carrinho'
 import SetaEsquerda from '../../../assets/img/seta-preta 1.png';
 import Informacoes from '../../infoproduto/informacoes';
+import storage from 'local-storage';
 
 
 export default function Cabecalho() {
@@ -60,13 +61,13 @@ export default function Cabecalho() {
 
   
   useEffect(() => {
-    let usuario = localStorage.getItem('usuario-logado');
+   /* let usuario = localStorage.getItem('usuario-logado');
     if (usuario != null) {
       usuario = JSON.parse(usuario);
 
       setIsLogged(true);
       setIdUsuario(usuario.id);
-    }
+    }*/
   }, [])
 
 
@@ -149,7 +150,9 @@ export default function Cabecalho() {
           email: emailLogin,
           senha: senhaLogin
         }
+
         let response = await axios.post(`http://localhost:5000/cliente/login`, logi)
+        //storage('usuario-logado', response.data)
         setIdUsuario(response.data.id)
         setIsLogged(true)
         setOpenLoginModal(false)

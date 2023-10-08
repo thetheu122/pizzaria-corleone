@@ -6,21 +6,23 @@ import {
   listarProdutos,
   editarproduto,
   excluirProduto,
-  imagem,
   alterarImagem,
   listarpornome,
   deletarImagem,
   listarporid,
   listarportipo,
-  listarPorRestricao
+  listarPorRestricao,
+  listarImagem,
+  Inseririmagem
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
 import { analise } from './analise.js';
-const upload = multer({ dest: 'storage/produto' });
+
 
 const endpoints = Router();
 
+const upload = multer({ dest: 'storage/produto' });
 
 
 endpoints.post('/produto', async (req, resp) => {
@@ -203,18 +205,37 @@ endpoints.put( '/produto/editar/:id' , async (req,resp) =>{
 
 
 
+
+
+  endpoints.get('/imagem', async (req, resp) => {
+    try {
+      const resposta = await listarImagem()
+
+      resp.send(resposta);
+    } catch (err) {
+      resp.status(400).send({
+        erro: err.message
+      })
+    }
+  })
+
+
 endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => {
   try {
     const { id } = req.params;
-    const image = req.file.path;
-    const resposta = await imagem(image, id);
+    const imagem = req.file.path;
+    console.log(id)
+    const resposta = await Inseririmagem(imagem, id);
+
+    
+
 
     if (resposta != 1) {
       console.log( 'imagem nao pode ser salva')
     }
    
 
-    resp.status(204).send();
+    resp.status(204).send('imagem cadastrada');
   } catch (err) {
     resp.status(400).send({
       erro: err.message
@@ -223,21 +244,19 @@ endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => 
 });
 
   
-endpoints.put( '/imagem/editar/:id' , async (req,resp) =>{
+endpoints.put('/produto/:id/imagem', upload.single('capa') , async (req,resp) =>{
 
   try {
-    const { id }  = req.params
-    const {imagem} = req.body
+    const { id }  = req.params;
+    const imagem = req.file.path;
 
     const r = await alterarImagem(id, imagem)
 
-    if(r === '') {
-      resp.status(400).send('imagem não foi alterada')
+    if(r != 1) {
+      throw new Error ('A imagem não pode ser alterada.')
     }
 
-    else {
-      resp.status(200).send('imagem atualizada')
-    }
+    resp.status(204).send('imagem cadastrada')
   } catch (err) {
     resp.status(400).send({
       erro: err.message

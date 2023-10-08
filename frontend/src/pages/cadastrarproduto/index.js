@@ -1,9 +1,10 @@
 import './index.scss'
 
 import axios from 'axios'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
-
+import { useNavigate } from 'react-router-dom';
+import storage from 'local-storage';
 
 
 export default function Cadastro() {
@@ -15,6 +16,15 @@ export default function Cadastro() {
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState();
+
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!storage('adm-logado')){
+            navigate('/associado')
+        }
+    }, [])
 
 
   

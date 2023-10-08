@@ -241,7 +241,7 @@ export default function ListarProdutosAdm() {
                                                     console.log("ID do Produto:", item.ID);
                                                     console.log("ID da Restrição:", item.idrestricao);
                                                     console.log("ID da imagem:", item.idimagem);
-                                                    entrarAlterar(item.ID, item.imagem, item.idrestricao)
+                                                    entrarAlterar(item.ID, item.idimagem, item.idrestricao)
                                                 }} /></td>
 
                                             </tr>
