@@ -20,9 +20,12 @@ export default function Cardapio() {
     const [ pesquisa , setPesquisa ] = useState('')
     const [ mostrar , setMostrar ] = useState(true)
 
+
+
+
 async function buscar (){
 
-let resp = await axios.get('http://localhost:5000/produto/'+ pesquisa)
+let resp = await axios.get('http://localhost:5000/produto/'+pesquisa)
   if( resp.data=='' ){
  setMostrar(false)
 
@@ -40,8 +43,10 @@ else{
 
 
 useEffect(()=>{
-  buscar()  
+  buscar()
+  
 },[pesquisa])
+
     return (
         <main className='cardapio'>
             <Cabecalho />
@@ -154,8 +159,10 @@ useEffect(()=>{
                             nome: item.nome,
                             preco: item.preço,
                             imagem: item.imagem,
-                            id: item.ID 
+                            id: item.ID
                             }}
+
+                            
                         />
                         </div>
 

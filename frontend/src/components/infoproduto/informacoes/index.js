@@ -28,7 +28,20 @@ export default  function Informacoes(props) {
     const [estrela4,setEstrela4]=useState(true)
     const [estrela5,setEstrela5]=useState(true)
 
+    const [produto, setProduto] = useState([]);
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [ comentarioo , setComentarioo ] = useState([])
+    const [ digitado , setDigitado ] = useState('')
+    const [ vizu, setVizu] = useState(true)
+    const [resultado,setResultado]=useState(0)
 
+
+    const { id } = useParams();
+
+    let idcliente = props
+
+
+ 
     function alterar (){
         setEstrela1(!estrela1)
          
@@ -66,20 +79,7 @@ export default  function Informacoes(props) {
             setEstrela4(false)
         }  
     }
-    const { id } = useParams();
-    const idusuario = props
 
-
-    function cadastro (){
-        idusuario = 0 
-        alert(idusuario)
-    }
-
-    const [produto, setProduto] = useState([]);
-    const [isModalOpen, setModalOpen] = useState(false);
-    const [ comentarioo , setComentarioo ] = useState([])
-    const [ digitado , setDigitado ] = useState('')
-    const [ vizu, setVizu] = useState(true)
 
 
     useEffect(() => {
@@ -90,81 +90,102 @@ export default  function Informacoes(props) {
         listar();
     }, [id]);
 
-useEffect(()=>{
-    comentario()
-}, [comentarioo , digitado])
 
-    async function comentario() {
+    useEffect(()=>{
+        comentario()
+    }, [comentarioo , digitado])
+
+        async function comentario() {
         
-        const respo = await axios.get('http://localhost:5000/listar/comentario/' + id);
-        if (respo.data=='') {
-            setVizu(false)
-        } 
-        else {
-            setComentarioo(respo.data);
-            setVizu(true);
+            const respo = await axios.get('http://localhost:5000/listar/comentario/'+id);
+            if (respo.data=='') {
+                setVizu(false)
+            } 
+            else {
+                setComentarioo(respo.data);
+                setVizu(true);
+            }
+
+              
         }
-    }
+        
+     
+ 
     
 
     async function inserircomentario() {
-        let erro = [];
-        const palavras = ['merda', 'porra', 'puta', 'carralho', 'crl', 'cu', 'tmnc', 'vaca','buceta','mama','arrombado','descraça'];
-      
-        for (let cont of palavras) {
-          if (digitado.includes(cont)) {
-            erro.push(cont);
-            break; 
-          }
-        }
-      
-        if (erro.length === 0) {
-           let estrelas = 0  
 
-        if( estrela5 == false){
-             estrelas = 5
-        }
-        else{
-            if(estrela4 == false){
-                estrelas =4
+      
+            let erro = [];
+            const palavras = ['merda', 'porra', 'puta', 'carralho', 'crl', 'cu', 'tmnc', 'vaca','buceta','mama','arrombado','descraça'];
+        
+            for (let cont of palavras) {
+            if (digitado.includes(cont)) {
+                erro.push(cont);
+                break; 
             }
-            else {
-                if(estrela3 == false){
-                    estrelas = 3
+            }
+        
+            if (erro.length === 0) {
+            let estrelas = 0  
+
+            if( estrela5 == false){
+                estrelas = 5
+            }
+            else{
+                if(estrela4 == false){
+                    estrelas =4
                 }
-                else{
-                    if(estrela2 == false){
-                        estrelas = 2
+                else {
+                    if(estrela3 == false){
+                        estrelas = 3
                     }
                     else{
-                        if(estrela1 == false){
-                            estrelas = 1
+                        if(estrela2 == false){
+                            estrelas = 2
                         }
                         else{
-                            estrelas =  6
+                            if(estrela1 == false){
+                                estrelas = 1
+                            }
+                            else{
+                                estrelas =  6
+                            }
                         }
                     }
                 }
             }
-        }
-           
-          let comen = {
-            comentario: digitado,
-            id: id,
-            cliente: 1,
-            avaliacao :estrelas
-          }
+            
+        
+            if(idcliente = 0){
+                Cabecalho(1)
+            }
+            else{
+            let comen = {
+                comentario:digitado,
+                id: id,
+                cliente: 1,
+                avaliacao :estrelas
+            }
+        
 
-         if(digitado.length > 0){
-          const resp = await axios.post('http://localhost:5000/comentario', comen);
-          setDigitado('');
-          
-         }
+            if(digitado.length > 0){
+                
+            const resp = await axios.post('http://localhost:5000/comentario',comen);
+            setDigitado('');
+            setEstrela1(true)
+            setEstrela2(true)
+            setEstrela3(true)
+            setEstrela4(true)
+            setEstrela5(true)
+            }}
 
-        } else {
-          toast.info("Não permitimos palavras ofensivas no nosso site");
-          setDigitado('')
-        }
+            }  else {
+            toast.info("Não permitimos palavras ofensivas no nosso site");
+            setDigitado('')
+            
+            } 
+
       }
       
         
@@ -215,7 +236,7 @@ useEffect(()=>{
                         </div>
                     </div>
                     <div>
-                        <h3>4.1</h3>
+                        <h3></h3>
                         <img src={estrela} alt="Estrela" />
                     </div>
                     <div>

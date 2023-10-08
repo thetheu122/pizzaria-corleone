@@ -160,9 +160,7 @@ export async function inserirProduto(produto) {
   left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
   where tb_produto.id_produto = ?
     `
-    
-  
-  
+     
     const [ resposta ] = await con.query( comando ,[id]);
     
     return  resposta;
@@ -195,6 +193,20 @@ export async function inserirProduto(produto) {
     return resposta
   }
 
+  export async function listarcomentarioid(id){
+    const comando = `
+ 
+
+    select tb_produto.id_produto     as id_produto,    
+    tb_produto.nm_produto     as produto,    
+      tb_comentario.id_avaliacao as avaliacao
+    from tb_produto
+    left JOIN tb_comentario ON tb_comentario.id_produto = tb_produto.id_produto
+    where tb_produto.id_produto = ?
+    `
+   const [resposta] = await con.query(comando,[id])
+   return resposta
+  }
 
 
   export async function listarportipo ( tipo ){
@@ -220,13 +232,41 @@ export async function inserirProduto(produto) {
     `
   
   const [ resposta ] = await con.query( comando , ["%"+tipo+"%"])
-  console.log(resposta)
   return resposta
   }
 
   
   
+export async function listarporcomentario(){
+const comando = `
+SELECT
+tb_produto.id_produto             as ID,
+  tb_produto.nm_produto             as nome, 
+tb_tipo_produto.ds_tipo_produto   as tipo,
+tb_produto.ds_ingredientes        as ingredientes,
+  tb_produto.ds_descricao           as descricao,
+tb_produto.vl_preco               as preço,
+tb_produto.vl_preco_promocional   as preco_promocional,
+  tb_produto.bt_disponivel          as disponivel,
+  tb_imagem.img_produto             as imagem,
+  tb_restricao.id_restricao         as idrestricao,
+tb_restricao.ds_restricao         as restricao,
+tb_comentario.ds_comentario       as comentario,
+ tb_comentario.id_avaliacao        as avaliacao
+FROM
+  tb_produto
+INNER JOIN
+    tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+left JOIN tb_comentario ON tb_comentario.id_produto = tb_produto.id_produto
+where tb_produto.id_produto = ?;
 
+`
+
+const [ resp ] = await con.query(comando)
+return  resp
+}
   
  export async function editarproduto ( produto , id ){
 

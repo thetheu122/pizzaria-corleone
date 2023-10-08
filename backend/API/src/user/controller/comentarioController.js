@@ -8,6 +8,8 @@ import {
         listarcomentario  }
  from "../repository/comentarioRepository.js";
 import { analise } from "./verificar.js";
+import {  media} from "../repository/media.js";
+
 
 
 
@@ -17,22 +19,17 @@ const endpoints = Router()
 endpoints.post( '/comentario' , async (req , resp ) =>{
 
     try {
-        const  comentario  = req.body;
+          const  comentario  = req.body;                             
+          const resposta = await inserircometario(comentario);
 
-        const verrificar = await analise(comentario)
-
-        if(verrificar.length > 0){
-          resp.status(350).send({erro:verrificar})
-        }
-        else {
-          const resposta = await inserircometario(comentario); 
+          console.log(comentario)
           resp.send(resposta);
-        }
+
+        
       } catch (err) {
         resp.status(400).send({ err: err.message });
       }
-      
-    
+
 
 })
 
@@ -45,7 +42,7 @@ endpoints.get( '/listar/comentario/:id' , async (req,resp) =>{
       
       const resposta = await listarcomentario(id)
       resp.send(resposta)
-  
+     
     } 
     
       catch (err) {
