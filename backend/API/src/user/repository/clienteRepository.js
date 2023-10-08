@@ -43,7 +43,8 @@ export async function loginCliente(email, senha) {
         `
         SELECT
         tb_cliente.id_cliente    AS id,
-        tb_cliente.ds_email      as email
+        tb_cliente.nm_cliente    AS nome,
+        tb_cliente.ds_email      AS email
         FROM tb_cliente
         WHERE ds_email = ?
         AND ds_senha = ?

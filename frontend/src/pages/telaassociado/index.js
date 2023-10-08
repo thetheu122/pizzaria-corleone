@@ -1,8 +1,9 @@
 import './index.scss'
 import '../../assets/config/fonts-config.scss'
 import { useState } from "react"
-import { Link } from 'react-router-dom';
-import  axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { toast } from 'react-toastify';
 
 export default function TelaAssociado() {
 
@@ -10,39 +11,41 @@ export default function TelaAssociado() {
   const [email, setemail] = useState('')
   const [senha, setsenha] = useState('')
   const [cnpj, setcpnj] = useState('')
-  const [associado, setassociado] = useState([])
 
-  
+  const navigate = useNavigate()
+
+
   async function entrar() {
-     
+
 
     try {
-  
+
       let associadoo = {
         nome: nome,
-        email:email,
-        senha:senha,
+        email: email,
+        senha: senha,
         cnpj: cnpj
       }
-      
+
       const response = await axios.put('http://localhost:5000/usuarioadm/login', associadoo);
-    
-  
+
+      console.log(response)
       if (response.status === 200) {
-        alert(response.data.message);
-       
+        toast.info("Login efetuado com sucesso");
+        navigate('/cadastroproduto')
+
       }
-    } 
-      catch (error) {
-        
+    }
+    catch (error) {
+
       if (error.response) {
-        alert( error.response.data.erro);
+        alert(error.response.data.erro);
       } else {
-        alert( error.message);
+        alert(error.message);
       }
     }
   }
-  
+
 
 
   return (
@@ -72,9 +75,7 @@ export default function TelaAssociado() {
         </div>
 
         <div className='final'>
-          <Link>
-               <button onClick={entrar}>Entrar</button>
-          </Link>
+          <button onClick={() => entrar()}>Entrar</button>
           <p>Ao criar uma conta, você concorda com nossos<br /> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
         </div>
 
@@ -86,13 +87,13 @@ export default function TelaAssociado() {
 
           <div className='bemvindo'>
             <h1>Bem-vindo<br /> <strong>Associado!</strong> </h1>
-           
+
             <p>Gerencie suas operações agora mesmo. </p>
-            
+
             <a href=''>Clicou errado?</a>
 
-            <Link to='/'style={{ textDecoration: 'none', outline: 'none' }}>
-            <button>Voltar</button>
+            <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
+              <button>Voltar</button>
             </Link>
           </div>
 

@@ -21,30 +21,71 @@ export default function EditarProduto() {
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
     const [imagem, setImagem] = useState('');
+    const [idrestricao,setIdrestricao]=useState(0)
+    const [ idImagem, setIdImagem] = useState(0)
+    const [rendeImg, setRendeImg] = useState([])
+
+
+
+
 
     const {id} = useParams();
+    const [rende,setRende]=useState([])
 
     const [idproduto, setIdproduto] = useState(id)
     
 
     useEffect(() => {
-        teste()
-    }, [])
+        renderizar()
+        alterar()
+    }, [id,rende])
+
+    
 
 
-    async function teste() {
-     
-   
-          const respostaApi = await axios.get(`http://localhost:5000/produto`);
-          const iddesejado = idproduto;
+    async function renderizar (){
 
-            const encontrarid = respostaApi.data
-            const objetoDesejado = encontrarid.find(objeto => objeto.ID === iddesejado)
+       const resposta = await axios.get('http://localhost:5000/produto/listar/'+id)
+       setRende(resposta.data)
+    }
 
-            
-            //const encontraridrestricao = encontarid.idrestricao
-            console.log(objetoDesejado)
-      }
+
+    function alterar (){
+        rende.map((item)=>{
+            setIdrestricao(item.idrestricao)
+            /*setnome(item.nome)
+            settipo(item.tipo)
+            setingrediente(item.ingredientes)
+            setrestricao(item.restricao)
+            setpreco(item.preço)
+            setdescricao(item.descricao)
+            setDisponivel(item.disponivel)
+          */  
+        })
+
+    }
+
+
+    async function renderizarImagem (){
+
+        const resposta = await axios.get('http://localhost:5000/produto/listar/'+id)
+        setRendeImg(resposta.data)
+
+     }
+
+
+     function alterarImagem (){
+        
+        rende.map((item)=>{
+            setIdImagem(item.imagem)
+        })
+
+    }
+
+
+
+ 
+
       
 
     async function enviarimagem(id, imagem) {
@@ -67,15 +108,43 @@ async function alterarProduto() {
         /*if (!imagem) {
                 throw new Error('escolha uma imagem')
         }*/
+        
 
+
+        const alterarImagem = {
+            imagem: imagem
+        }
+
+        const r = await axios.put(`http://localhost:5000/imagem/editar/${idImagem}`, alterarImagem)
+
+
+
+
+
+    
 
 
         const alterarRestricao = {
             restricao: restricao
         }
+        
+        let variavelnul = null
+        let variavelandfilne = undefined
 
-        const respRestricao = await axios.put(`/restricao/alterar/${id}`, )
+        if(idrestricao ==='' || idrestricao === variavelnul || idrestricao === variavelandfilne ){
+           let novarestricao ={
+            produto:id,
+            restricao:restricao
+           } 
+           const respo = await axios.post('http://localhost:5000/restricao',novarestricao)
+        }
+        else{
+        const respRestricao = await axios.put(`http://localhost:5000/restricao/alterar/${idrestricao}`, alterarRestricao)
+        }
+        
 
+
+  
        
 
         const produto = {
@@ -158,7 +227,12 @@ async function alterarProduto() {
                     <div className='dadosdoproduto'>
                         <div className='nome'>
                             <p>Nome:</p>
-                            <input type='text' placeholder='Escreva..' value={nome} onChange={e => setnome(e.target.value)} />
+                                <input
+                                 type='text'
+                                 placeholder='Escreva..'
+                                 value={nome}
+                                onChange={(e) => setnome(e.target.value)} 
+                                 />
                         </div>
 
 
@@ -235,7 +309,9 @@ async function alterarProduto() {
 
                         <div className='ingredientes'>
                             <h1>Ingredientes:</h1>
-                            <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
+
+                             <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
+        
                         </div>
 
                         <p className='linha'></p>
@@ -395,4 +471,3 @@ async function alterarProduto() {
     )
 
 }
-

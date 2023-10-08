@@ -8,7 +8,6 @@ import './assets/config/fonts-config.scss'
 
 import Leading from './pages/leading-page';
 import Cardapio from './pages/cardapio';
-import Login from './pages/login'
 import CompSobre from './components/compSobre'; 
 import SobreNos from './pages/sobrenos';
 import TelaAssociado from './pages/telaassociado';
@@ -34,7 +33,6 @@ root.render(
         <Route path='/sobrenos' element ={<SobreNos/>} />
         <Route path='/cardapio' element={<Cardapio />} />
         <Route path='/associado' element={<TelaAssociado/>} />
-        <Route path='/login' element={<Login />} />
         <Route path='/comp' element={<CompSobre />} />
         <Route path='/pagamento' element={<Pagamento/>}/>
         <Route path='/ativos' element={<Pedidosativos/>}/>

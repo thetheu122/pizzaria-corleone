@@ -58,6 +58,20 @@ export default function Cabecalho() {
 
   const [idUsuario, setIdUsuario] = useState('');
 
+  
+  useEffect(() => {
+    let usuario = localStorage.getItem('usuario-logado');
+    if (usuario != null) {
+      usuario = JSON.parse(usuario);
+
+      setIsLogged(true);
+      setIdUsuario(usuario.id);
+    }
+  }, [])
+
+
+//  localStorage.removeItem('usuario-logado');
+
 
   const inversao = () => {
     if (!nome) {
@@ -118,7 +132,7 @@ export default function Cabecalho() {
   const login = async () => {
     try {
       if (!captcha) {
-        toast.warn('', {
+        toast.warn('Clique no botão "Não sou um robô"', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -212,6 +226,7 @@ export default function Cabecalho() {
           progress: undefined,
           theme: "dark",
         });
+        setIsLogged(true)
       }
     } catch (err) {
       toast.error(
@@ -230,52 +245,20 @@ export default function Cabecalho() {
     }
   };
 
-  /* const buscarCEP = async (cep) => {
-     try {
-       if (!cep)
-         toast.error(('CEP não fornecido'), {
-           position: "top-right",
-           autoClose: 5000,
-           hideProgressBar: false,
-           closeOnClick: true,
-           pauseOnHover: true,
-           draggable: true,
-           progress: undefined,
-           theme: "dark",
-         })
-       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-       const data = response.data;
-       console.log(data)
-       setCidade(data.localidade)
-       setBairro(data.bairro)
-       setEstado(data.uf)
-       setRua(data.logradouro)
-     } catch (error) {
-       toast.error(('CEP digitado invalido'), {
-         position: "top-right",
-         autoClose: 5000,
-         hideProgressBar: false,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "dark",
-       })
-     }
-   };*/
-
 
   const buscarCEP = async (cep) => {
     try {
 
-      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-      const data = response.data;
+      if (cep.lengt === 8) {
 
-      setRua(data.logradouro)
-      setBairro(data.bairro)
-      setCidade(data.localidade)
-      setEstado(data.uf)
+        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = response.data;
 
+        setRua(data.logradouro)
+        setBairro(data.bairro)
+        setCidade(data.localidade)
+        setEstado(data.uf)
+      }
 
 
     } catch (error) {
@@ -459,16 +442,14 @@ export default function Cabecalho() {
 
               <div className='informacoes'>
                 <div className='esquerdaFds'>
-                  <Components.Input
+                <Components.Input
                     type='text'
                     placeholder='CEP'
                     value={cep}
                     onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
-                    onBlur={() => buscarCEP(cep)}
-
+                    
                   />
-
-
+                    
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
                   <Components.Input type='text' placeholder='Cidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
                   <Components.Input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />

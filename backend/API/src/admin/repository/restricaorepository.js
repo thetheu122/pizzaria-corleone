@@ -76,7 +76,7 @@ const [ resposta ] = await con.query( comando , ["%"+nome+"%"])
 return resposta
 }
 
-export async function atualizarRestricao(id, restricao) {
+export async function atualizarRestricao(restricao,id) {
     const comando = `
       UPDATE tb_restricao
       SET ds_restricao = ?
@@ -85,11 +85,10 @@ export async function atualizarRestricao(id, restricao) {
     
   
     const [resposta] = await con.query(comando, [
-      restricao,
+      ""+restricao+"",
       id
     ]);
 
-    
     return resposta.affectedRows;
   }
   
