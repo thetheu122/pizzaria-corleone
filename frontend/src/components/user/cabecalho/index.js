@@ -57,7 +57,9 @@ export default function Cabecalho() {
   const [emailLogin, setEmailLogin] = useState('')
   const [senhaLogin, setSenhaLogin] = useState('')
 
-  const [idUsuario, setIdUsuario] = useState('');
+  const [idUsuario, setIdUsuario] = useState(0);
+   
+
 
   
   useEffect(() => {
@@ -69,6 +71,8 @@ export default function Cabecalho() {
       setIdUsuario(usuario.id);
     }*/
   }, [])
+
+
 
 
 //  localStorage.removeItem('usuario-logado');
@@ -343,6 +347,7 @@ export default function Cabecalho() {
               : <p onClick={() => setOpenLoginModal(!openLoginModal)}>Fazer Login </p>
             }
           </div>
+       
         </div>
       </main>
       <Modal

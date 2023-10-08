@@ -47,6 +47,13 @@ FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 );
 
 
+      UPDATE tb_restricao
+      SET   ds_restricao ='carene'
+      WHERE id_restricao = 1;
+      
+
+
+drop table tb_restricao;
 
 CREATE TABLE tb_imagem (
 
@@ -123,10 +130,18 @@ id_comentario   INT PRIMARY KEY AUTO_INCREMENT,
 ds_comentario   VARCHAR(200) ,
 id_produto      INT, 
 id_cliente      INT,
+id_avaliacao    INT,
 
-FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto),
-FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+FOREIGN KEY (id_produto)   REFERENCES tb_produto(id_produto),
+FOREIGN KEY (id_cliente)   REFERENCES tb_cliente(id_cliente),
+FOREIGN KEY (id_avaliacao) REFERENCES tb_avaliacao (id_avaliacao)
 );
+
+CREATE TABLE tb_avaliacao(
+id_avaliacao   INT PRIMARY KEY AUTO_INCREMENT,
+ds_avaliacao   VARCHAR(200)
+);
+
 
 
 CREATE TABLE tb_pedido (

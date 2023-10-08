@@ -11,6 +11,7 @@ const [ resposta ] = await con.query( comando , [
     restricao.produto,
     restricao.restricao
 
+    
 ]);
 
 restricao.id = resposta.insertId

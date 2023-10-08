@@ -18,7 +18,7 @@ import {
 
 import multer from 'multer';
 import { analise } from './analise.js';
-
+const upload = multer({ dest: 'storage/produto' });
 
 const endpoints = Router();
 
@@ -44,6 +44,14 @@ endpoints.post('/produto', async (req, resp) => {
   }
   
 });
+
+
+endpoints.get ('/produto/comentario/:id' ,async (req,resp) =>{
+  const {id} = req.params
+  const res = await listarcomentario(id)
+
+  resp.send(res)
+})
 
 endpoints.get('/produto/:nome', async (req, resp) => {
   try {

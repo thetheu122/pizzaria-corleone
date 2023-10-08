@@ -5,13 +5,14 @@ import  cors     from 'cors'
 
 
 // import endpoints
-import tipo from './admin/controller/tipoprodutocontroller.js'
+import tipo       from './admin/controller/tipoprodutocontroller.js'
 import comentario from './user/controller/comentarioController.js'
-import endereco from './user/controller/enderecoController.js'
-import cliente from './user/controller/clienteController.js'
-import restricao from'./admin/controller/restricaocontroller.js'
-import produto   from './admin/controller/produtocontroller.js'
-import usuario   from './admin/controller/usuariocontroler.js'
+import endereco   from './user/controller/enderecoController.js'
+import cliente    from './user/controller/clienteController.js'
+import restricao  from'./admin/controller/restricaocontroller.js'
+import produto    from './admin/controller/produtocontroller.js'
+import usuario    from './admin/controller/usuariocontroler.js'
+import avaliacao  from './user/controller/avaliacao.js'
 
 
 const server = express()
@@ -28,6 +29,7 @@ server.use(cliente)
 server.use(restricao)
 server.use(produto)
 server.use(usuario)
+server.use(avaliacao)
 
 
 
