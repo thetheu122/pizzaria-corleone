@@ -3,22 +3,22 @@ import { con } from "../../conection.js";
 
 export async function inserirProduto(produto) {
     const comando = `
-      INSERT INTO tb_produto ( 
-        nm_produto ,
-        ds_tipo_produto , 
-        ds_ingredientes,
-        vl_preco ,    
-        ds_descricao , 
-        vl_preco_promocional , 
-        bt_disponivel   
+    INSERT INTO tb_produto (
+      ds_tipo_produto	,
+       nm_produto , 
+       ds_ingredientes  , 
+       vl_preco , 
+       ds_descricao , 
+       vl_preco_promocional , 
+       bt_disponivel) 
       VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
   
-         console.log(produto)
+         
   
     const [res] = await con.query(comando,[
+      produto.tipo,
         produto.nome, 
-        produto.tipo,
         produto.ingredientes,
         produto.preco,
         produto.descricao,
@@ -50,7 +50,7 @@ export async function inserirProduto(produto) {
     SELECT
 	  tb_produto.id_produto             as ID,
     tb_produto.nm_produto             as Nome,  
-    tb_tipo_produto.ds_tipo_produto   as Classificação ,
+    tb_tipo_produto.ds_tipo_produto   as tipo ,
 	  tb_produto.vl_preco               as Preço,
 	  tb_produto.vl_preco_promocional   as Preço_promocional,
     tb_produto.ds_ingredientes        as ingredientes,

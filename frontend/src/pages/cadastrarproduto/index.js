@@ -9,7 +9,7 @@ import storage from 'local-storage';
 
 export default function Cadastro() {
     const [nome, setnome] = useState('')
-    const [tipoproduto, settipoproduto] = useState('')
+    const [tipoproduto, settipoproduto] = useState(0)
     const [ingredientes, setingrediente] = useState('')
     const [restricao, setrestricao] = useState('')
     const [preco, setpreco] = useState('')
@@ -20,13 +20,13 @@ export default function Cadastro() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    /*useEffect(() => {
         if(!storage('adm-logado')){
             navigate('/associado')
         }
     }, [])
 
-
+*/
   
   async function cadastrarProduto() {
     const formData = new FormData();
@@ -36,8 +36,8 @@ export default function Cadastro() {
      
        const cadastrar = {
         tipo: tipoproduto,
-        ingredientes: ingredientes,
         nome: nome,
+        ingredientes: ingredientes,
         preco: preco,
         descricao: descricao,
         disponivel: disponivel,
@@ -166,8 +166,8 @@ export default function Cadastro() {
                                         className="tay"
                                         type="checkbox"
                                         value="Bebida"
-                                        checked={tipoproduto === 'Bebida'}
-                                        onChange={(e) => selecionarTipo(e, 'Bebida')}
+                                        checked={tipoproduto === 1}
+                                        onChange={(e) => selecionarTipo(e, 1)}
                                     />
                                     <label className='nomeproduto'>Bebida</label>
                                 </div>
@@ -177,8 +177,8 @@ export default function Cadastro() {
                                         className="tay"
                                         type="checkbox"
                                         value="Sobremesa"
-                                        checked={tipoproduto === 'Sobremesa'}
-                                        onChange={(e) => selecionarTipo(e, 'Sobremesa')}
+                                        checked={tipoproduto === 2}
+                                        onChange={(e) => selecionarTipo(e, 2)}
                                     />
                                     <label className='nomeproduto'>Sobremesa</label>
                                 </div>
@@ -188,8 +188,8 @@ export default function Cadastro() {
                                         className="tay"
                                         type="checkbox"
                                         value="Salgado"
-                                        checked={tipoproduto === 'Salgado'}
-                                        onChange={(e) => selecionarTipo(e, 'Salgado')}
+                                        checked={tipoproduto === 3}
+                                        onChange={(e) => selecionarTipo(e, 3)}
                                     />
                                     <label className='nomeproduto'>Salgado</label>
                                 </div>
