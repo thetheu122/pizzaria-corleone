@@ -43,7 +43,9 @@ export default function EditarProduto() {
 
     }, [id,rende])
 
-    
+    useEffect(() =>{
+
+    }, [])
 
 
     async function renderizar (){
@@ -52,6 +54,8 @@ export default function EditarProduto() {
        setRende(resposta.data)
     }
 
+
+ 
 
 
     function alterar (){
@@ -110,16 +114,32 @@ async function alterarProduto() {
         const alterarImg = {
             imagem: imagem
         }
+
+        const imagemTorV = await axios.get('http://localhost:5000/produto/listar/'+idproduto)
+        const result = imagemTorV.imagem
+
         
-    
-        const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData ,  {
+        if(!result) {
+            const r = await axios.post(`http://localhost:5000/produto/${idproduto}/capa`, formData , {
+                headers: {
+                    "Content-type": "multipart/form-data"
+                },
+            })
+        }
+
+        else {
+                    const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData ,  {
             headers: {
                 "Content-type": "multipart/form-data"
             },
         })
+        }
+        
     
 
-        const restricaoAtualizada = restricao
+    
+
+        const restricaoAtualizada = restricao[0,1,2,3]
 
         
 

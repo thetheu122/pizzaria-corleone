@@ -87,7 +87,7 @@ export async function inserirProduto(produto) {
     tb_produto.vl_preco_promocional     as Preco_promocional,
       tb_produto.bt_disponivel          as disponivel,
       tb_imagem.id_imagem               as idimagem,
-      tb_imagem.img_produto                 as imagem,
+      tb_imagem.img_produto             as imagem,
       tb_restricao.id_restricao         as idrestricao,
     tb_restricao.ds_restricao           as restricao
   FROM

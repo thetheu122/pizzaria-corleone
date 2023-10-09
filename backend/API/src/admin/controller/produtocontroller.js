@@ -228,7 +228,6 @@ endpoints.post('/produto/:id/capa', upload.single('capa'), async (req, resp) => 
   try {
     const { id } = req.params;
     const imagem = req.file.path;
-    console.log(id)
     const resposta = await Inseririmagem(imagem, id);
 
     
@@ -256,6 +255,8 @@ endpoints.put('/produto/:id/imagem', upload.single('capa') , async (req,resp) =>
 
     const r = await alterarImagem(id, imagem)
 
+
+    
     if(r != 1) {
       throw new Error ('A imagem não pode ser alterada.')
     }

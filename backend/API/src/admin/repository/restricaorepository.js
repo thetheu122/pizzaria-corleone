@@ -84,12 +84,7 @@ export async function atualizarRestricao(restricao,id) {
       WHERE id_restricao = ?;
     `;
     
-  
-    const [resposta] = await con.query(comando, [
-      ""+restricao+"",
-      id
-    ]);
-
+    const [resposta] = await con.query(comando, [restricao,id]);
     return resposta.affectedRows;
   }
   
