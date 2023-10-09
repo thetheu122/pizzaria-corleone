@@ -26,7 +26,7 @@ const tipo = [
 
   const erros = []
      
- /* const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco']
+ const campos = ['nome', 'tipo' , 'ingredientes', 'descricao', 'preco']
   for ( const validar of campos){
 
     if(!produto[validar])
@@ -39,7 +39,7 @@ const tipo = [
      erros.push('Produto ja cadastrado')
     }
   }
-*/
+
   return erros
 
 }
