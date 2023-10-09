@@ -22,7 +22,7 @@ const upload = multer({ dest: 'storage/produto' });
 
 const endpoints = Router();
 
-const upload = multer({ dest: 'storage/produto' });
+
 
 
 endpoints.post('/produto', async (req, resp) => {
