@@ -131,14 +131,20 @@ export default function Cadastro() {
                 <div className='contt'>
 
 
-                    <div className='img'>
+                    
+                <div className='img'>
                         <div className='ti-h1' onClick={escolherImagem}>
-                            {!imagem && <h1>Adicionar uma imagem +</h1>}
+                            {!imagem && (
+                                <>
+                                    <h1>Adicionar uma imagem</h1>
+                                    <h2>+</h2>
+                                </>
+                            )}
                             {imagem && <img className='imagem-capa' src={mostrarImagem()} alt='' />}
                             <input type="file" id='imagemCapa' accept="image/*" onChange={e => setImagem(e.target.files[0])} />
+
                         </div>
                     </div>
-
                     <div className='dadosdoproduto'>
                         <div className='nome'>
                             <h1>Nome:</h1>
@@ -147,7 +153,7 @@ export default function Cadastro() {
 
 
 
-                        <p className='linha'>. </p>
+                        <p className='linha'></p>
 
                         <div className='b-produto'>
                             <h1>Seu Produto é...</h1>
@@ -290,7 +296,6 @@ export default function Cadastro() {
                 </div>
             </div>
         </div>
-
 
 
     )
