@@ -19,27 +19,70 @@ export default function Cardapio() {
     const [ produto , setProduto ] = useState([])
     const [ pesquisa , setPesquisa ] = useState('')
     const [ mostrar , setMostrar ] = useState(true)
-
-
-
+    const [ vegano , setVgeano ] = useState(false)
+    const [ vegetariano , setVegetariano ] = useState(false)
+    const [ intoleranteaovo , setIntoleranteaovo ] = useState(false)
+    const [ intoleranteagluten , setIntoleranteaGluten ] = useState(false)
+    const [ intolerantealactose , setIntolerantealactose ] = useState(false)
+    const [restricao , setRestricao] = useState([])
+   
 
 async function buscar (){
 
-let resp = await axios.get('http://localhost:5000/produto/'+pesquisa)
-  if( resp.data=='' ){
- setMostrar(false)
+    let resp = await axios.get('http://localhost:5000/produto/'+pesquisa)
+    if( resp.data=='' ){
+    setMostrar(false)
 
-}
+    }
 
 
-else{
-    setProduto(resp.data)
-    setMostrar(true)
+    else{
+        setProduto(resp.data)
+        setMostrar(true)
 
-}
+    }
  
 }
 
+async function buscarestricoes(){
+    if(vegano === true){restricao.push('vegano')}
+    if (vegetariano === true){restricao.push('vegetariano')}
+    if(intoleranteagluten === true){restricao.push('intolerante a gluten')}
+    if(intolerantealactose === true){restricao.push('intolerante a lactose')}
+    if(intoleranteaovo===true){restricao.push('intolerante a ovo')}
+     
+    
+    if( restricao.length > 1){
+        let respo = await axios.get('http://localhost:5000/produto/restricoes?restricao='+restricao[0]+'&restricao2='+restricao[1])
+    
+        if( respo.data=='' )
+        setMostrar(false)
+    
+        else
+        setProduto(respo.data)
+        setMostrar(true)
+
+    }
+
+    else{
+    let restricao = ''
+    let response = await axios.get('http://localhost:5000/produto/restricoes/'+restricao[0])
+    
+
+        if( response.data=='' )
+            setMostrar(false)
+        
+        else
+        setProduto(response.data)
+        setMostrar(true)
+    }
+
+    setRestricao([])
+
+}
+ useEffect(()=>{
+    buscarestricoes()
+ },[vegano,vegetariano,intoleranteagluten,intoleranteaovo,intolerantealactose])
 
 
 useEffect(()=>{
@@ -89,7 +132,7 @@ useEffect(()=>{
 
                     <div className='restricoes'>
                         <div className='restricoesFiltro'>
-                            <input  type='radio' />
+                            <input  type='radio' value={vegano} onClick={()=> setVgeano(!vegano)} checked={vegano} />
                             <p>Vegano</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -97,7 +140,7 @@ useEffect(()=>{
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' />
+                            <input type='radio' value={vegetariano} onClick={() =>setVegetariano (!vegetariano)} checked={vegetariano}/>
                             <p>Vegetariana</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -105,7 +148,7 @@ useEffect(()=>{
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' />
+                            <input type='radio' value={intoleranteaovo} onClick={()=> setIntoleranteaovo(!intoleranteaovo)} checked={intoleranteaovo} />
                             <p>Intolerante a Ovo</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -113,33 +156,22 @@ useEffect(()=>{
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' />
-                            <p>Intolerante a Glúten</p>
+                            <input type='radio'  value={intoleranteagluten} onClick={()=> setIntoleranteaGluten(!intoleranteagluten)} checked={intoleranteagluten}/>
+                            <p>Intolerante a Glúten </p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' />
+                            <input type='radio' value={intolerantealactose} onClick={()=> setIntolerantealactose(!intolerantealactose)} checked={intolerantealactose} />
                             <p>Intolerante a Lactose</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
                             <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
                         </svg>
 
-                        <div className='restricoesFiltro'>
-                            <input type='radio' />
-                            <p>Vinho</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
-                            <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
-                        </svg>
-
-                        <div className='restricoesFiltro'>
-                            <input type='radio' />
-                            <p>Sobremesa</p>
-                        </div>
+                 
                     </div>
 
                     <h1>Compre Novamente</h1>

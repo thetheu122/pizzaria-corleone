@@ -76,6 +76,19 @@ endpoints.get('/produto/restricoes/:restricao', async (req,resp) => {
     })
   }
 })
+endpoints.get('/produto/restricoes', async (req,resp) => {
+  try {
+    const {restricao,restricao2} = req.query
+    
+    const resposta = await listarPorRestricao(restricao,restricao2)
+
+    resp.send(resposta)
+  } catch (err) {
+    resp.status(400).send({
+      erro: err.message
+    })
+  }
+})
 
 endpoints.get('/produto/tipos/:tipo', async (req , resp) => {
   try {
