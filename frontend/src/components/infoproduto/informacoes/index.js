@@ -116,7 +116,7 @@ export default function Informacoes(props) {
 
 
     async function inserircomentario() {
-
+        await setCadastroAtv(false)
         try {
 
             let erro = [];
