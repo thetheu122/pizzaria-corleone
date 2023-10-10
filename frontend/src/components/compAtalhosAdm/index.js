@@ -60,10 +60,12 @@ export default function CompAtalhosAdm() {
                     <h2>Pedidos</h2>
                 </div>
 
-                <div onClick={sairClick} className="pedido" id='botaoPraFazerOvideo'>
-                    
-                    <h2>Sair</h2>
-                </div>
+
+            </div>
+
+            <div>
+                <img src='' />
+                <h2>Sair</h2>
             </div>
         </div>
     )
