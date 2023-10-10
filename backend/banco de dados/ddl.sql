@@ -143,6 +143,14 @@ ds_avaliacao   VARCHAR(200)
 );
 
 
+CREATE TABLE tb_media (
+  id_media INT PRIMARY KEY AUTO_INCREMENT,
+  ds_media VARCHAR(100),
+  id_produto INT,
+  FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
+);
+
+
 
 CREATE TABLE tb_pedido (
 
