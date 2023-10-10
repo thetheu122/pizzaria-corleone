@@ -23,7 +23,7 @@ import Informacoes from '../../infoproduto/informacoes';
 import storage from 'local-storage';
 
 
-export default function Cabecalho() {
+export default function Cabecalho(props) {
   const [isLogged, setIsLogged] = useState(false)
   const [sideBar, setSideBar] = useState(false)
 
@@ -63,19 +63,25 @@ export default function Cabecalho() {
 
   
   useEffect(() => {
-   /* let usuario = localStorage.getItem('usuario-logado');
+   let usuario = localStorage.getItem('usuario-logado');
     if (usuario != null) {
       usuario = JSON.parse(usuario);
 
       setIsLogged(true);
       setIdUsuario(usuario.id);
-    }*/
+    }
   }, [])
 
+  useEffect(() => {
+    if(props.cadastro == true){
+      setOpenLoginModal(true)
+    }
+  },[props.cadastro])
 
 
 
-//  localStorage.removeItem('usuario-logado');
+
+  //localStorage.removeItem('usuario-logado');
 
 
   const inversao = () => {
@@ -156,7 +162,7 @@ export default function Cabecalho() {
         }
 
         let response = await axios.post(`http://localhost:5000/cliente/login`, logi)
-        //storage('usuario-logado', response.data)
+        storage('usuario-logado', response.data)
         setIdUsuario(response.data.id)
         setIsLogged(true)
         setOpenLoginModal(false)
@@ -205,9 +211,6 @@ export default function Cabecalho() {
 
       let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
 
-      console.log(responseCl)
-
-
       if (responseCl.status !== 200) {
         toast.error(
           responseCl.data ? responseCl.data.erro : 'Erro desconhecido',
@@ -234,6 +237,13 @@ export default function Cabecalho() {
           theme: "dark",
         });
         setIsLogged(true)
+        setOpenLoginModal(false)
+        let local = {
+          id: responseCl.data.id,
+          nome: responseCl.data.cliente,
+          email: responseCl.data.email
+        }
+        storage('usuario-logado', local)
       }
     } catch (err) {
       toast.error(
@@ -256,8 +266,6 @@ export default function Cabecalho() {
   const buscarCEP = async (cep) => {
     try {
 
-      if (cep.lengt === 8) {
-
         const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
         const data = response.data;
 
@@ -265,8 +273,6 @@ export default function Cabecalho() {
         setBairro(data.bairro)
         setCidade(data.localidade)
         setEstado(data.uf)
-      }
-
 
     } catch (error) {
       toast.error(('CEP digitado invalido'), {
@@ -455,7 +461,7 @@ export default function Cabecalho() {
                     placeholder='CEP'
                     value={cep}
                     onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
-                    
+                    onBlur={() => buscarCEP(cep)}
                   />
                     
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
