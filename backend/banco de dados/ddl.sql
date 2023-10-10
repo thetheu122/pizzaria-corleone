@@ -2,17 +2,16 @@
 CREATE DATABASE  db_corleone ;
 
 USE db_corleone;
-drop database db_corleone;
 
 
 
- 
 
 CREATE TABLE tb_tipo_produto (
 
 id_tipo_produto         INT PRIMARY KEY AUTO_INCREMENT,
 ds_tipo_produto         VARCHAR(100)
 );
+
 
 
 CREATE TABLE tb_produto (
@@ -34,9 +33,6 @@ FOREIGN KEY   (ds_tipo_produto) REFERENCES  tb_tipo_produto (id_tipo_produto)
 
 
 
-
-
-
 CREATE TABLE tb_restricao (
 
 id_restricao       INT PRIMARY KEY AUTO_INCREMENT,
@@ -47,13 +43,6 @@ FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 );
 
 
-      UPDATE tb_restricao
-      SET   ds_restricao ='carene'
-      WHERE id_restricao = 1;
-      
-
-
-drop table tb_restricao;
 
 CREATE TABLE tb_imagem (
 
@@ -124,6 +113,13 @@ FOREIGN  KEY (id_cartao)	REFERENCES tb_cartao(id_cartao)
 );
 
 
+CREATE TABLE tb_avaliacao(
+id_avaliacao   INT PRIMARY KEY AUTO_INCREMENT,
+ds_avaliacao   VARCHAR(200)
+);
+
+
+
 CREATE  TABLE tb_comentario (
 
 id_comentario   INT PRIMARY KEY AUTO_INCREMENT,
@@ -137,10 +133,7 @@ FOREIGN KEY (id_cliente)   REFERENCES tb_cliente(id_cliente),
 FOREIGN KEY (id_avaliacao) REFERENCES tb_avaliacao (id_avaliacao)
 );
 
-CREATE TABLE tb_avaliacao(
-id_avaliacao   INT PRIMARY KEY AUTO_INCREMENT,
-ds_avaliacao   VARCHAR(200)
-);
+
 
 
 CREATE TABLE tb_media (
@@ -169,7 +162,6 @@ FOREIGN  KEY ( id_tipo_pagamento) 	REFERENCES tb_tp_pagamento ( id_cartao )
 
 
 
-
 CREATE TABLE tb_pedido_produto (
 
 id_pedido_produto   INT PRIMARY KEY AUTO_INCREMENT,
@@ -192,4 +184,3 @@ ds_email       VARCHAR (100) NOT NULL ,
 ds_senha       VARCHAR (100) NOT NULL ,
 ds_cnpj        VARCHAR (100) NOT NULL
 );
-
