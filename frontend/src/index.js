@@ -21,6 +21,7 @@ import ComprarPedido from './pages/comprarPedido';
 import EnderecoPedido from './pages/enderecopedido';
 import Confirmacaopedidos from './pages/confirmacaopedidos';
 import EditarProduto from './pages/editarProduto';
+import ListarPedido from './pages/listarPedido';
 
 
 
@@ -44,6 +45,7 @@ root.render(
         <Route path='/pedido2' element={<EnderecoPedido/>} />
         <Route path='/pedido3' element={<Confirmacaopedidos/>} />
         <Route path='/produto/alterar/:id' element={<EditarProduto/>} />
+        <Route path='/listar' element={<ListarPedido/>} />
 
       </Routes>
     </BrowserRouter>
