@@ -29,7 +29,7 @@ export default function EditarProduto() {
 
 
 
-    const {id} = useParams();
+    const {id} = useParams()
     const [rende,setRende]=useState([])
 
     const [idproduto, setIdproduto] = useState(id)
@@ -71,7 +71,6 @@ export default function EditarProduto() {
         rende.map((item)=>{
             setIdImagem(item.idimagem)
         })
-        
     }
 
    
