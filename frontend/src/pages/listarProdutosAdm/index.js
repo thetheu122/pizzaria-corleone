@@ -192,11 +192,11 @@ export default function ListarProdutosAdm() {
 
             <section className="container-produtos">
 
-                <div className="cabecalho">
+                <div className="cabecalho-listar">
                     <h2>Produtos</h2>
                 </div>
 
-                <div className="sub-titulo">
+                <div className="sub-titulo-listar">
                     <h1>Lista de Produtos</h1>
                 </div>
 
@@ -208,11 +208,7 @@ export default function ListarProdutosAdm() {
                             <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} />
                         </div>
 
-                        <div className="paginas">
-                            <p>1 - 30 de 66 pedidos</p>
-                            <img src={Setaesquerda} />
-                            <img src={SetaDireita} />
-                        </div>
+                        
 
                         <div className="produtos-listados">
 
@@ -343,6 +339,8 @@ export default function ListarProdutosAdm() {
                                 />
                                 <p>Sobremesa</p>
                             </div>
+
+                            <div className="linha-produtos"></div>
 
                             <button onClick={buscar}> BUSCAR</button>
                         </div>

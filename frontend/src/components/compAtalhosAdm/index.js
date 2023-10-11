@@ -2,6 +2,7 @@ import Dashboard from '../../assets/images/pictures/dashboard.png'
 import Produtos from '../../assets/images/pictures/produtos.png'
 import Vendas from '../../assets/images/pictures/vendas.png'
 import Pedidos from '../../assets/images/pictures/pedidos.png'
+import Sair from '../../assets/img/sair.png'
 
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
@@ -31,7 +32,6 @@ export default function CompAtalhosAdm() {
     function sairClick() {
         storage.remove('adm-logado')
         navigate('/associado')
-
     }
 
 
@@ -63,8 +63,8 @@ export default function CompAtalhosAdm() {
 
             </div>
 
-            <div>
-                <img src='' />
+            <div  onClick={sairClick} className='sair'>
+                <img src={Sair} />
                 <h2>Sair</h2>
             </div>
         </div>

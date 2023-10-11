@@ -11,6 +11,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+            
         }
     
         .cabecalho-mais {
@@ -19,6 +20,8 @@
             justify-content: flex-start;
             padding: 15px;
             font-size: 11px;
+            margin-top: 10px;
+            box-shadow: 0 5px 5px -5px #000;
         }
     
         .cabecalho-mais h2 {
@@ -45,7 +48,15 @@
         .sub-titulo-mais div {
             display: flex;
             align-items: center;
+            cursor: pointer;
+
+            img{
+                height: 12px;
+                margin-right: 5px;
+                margin-top:2px;
+            }
         }
+
 
         .sub-titulo-mais p {
             font-size: 16px;
@@ -76,6 +87,10 @@
             height: 10%;
             align-items: center;
             margin-right: 15px; 
+        }
+
+        .buscar-mais div {
+            cursor: pointer;
         }
 
         .buscar-mais input {

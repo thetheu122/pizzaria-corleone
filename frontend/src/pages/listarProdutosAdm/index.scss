@@ -12,30 +12,34 @@
         width: 100%;
     }
 
-    .cabecalho {
+    .cabecalho-listar {
         background-color: #eefaff;
         display: flex;
         justify-content: flex-start;
         padding: 15px;
-        font-size: 11px;
+        font-size: 14px;
+        margin-top: 10px;
+        box-shadow: 0 5px 5px -5px #000;
     }
 
-    .cabecalho h2 {
+    .cabecalho-listar h2 {
         font-weight: 500;
     }
 
-    .sub-titulo {
-        margin: 50px 25px 10px 0px;
+    .sub-titulo-listar {
         border-radius: 15px;
         display: flex;
-        font-size: 14px;
+        font-size: 16px;
         padding: 15px 25px;
         background-color: #fff;
         justify-content: flex-start;
+        margin-top: 10px;
+        width: 95%;
     }
 
-    .sub-titulo h1 {
+    .sub-titulo-listar h1 {
         font-weight: 600;
+        //font-family: none;
     }
 
 
@@ -136,6 +140,7 @@
 
     .tabela-listados{
         flex-direction: column;
+        margin-top: 25px;
     }
 
     .produtos-listados img {
@@ -295,7 +300,7 @@
         background-color: #0D3E53;
         padding: 15px;
         border-radius: 5px;
-        width: 50%;
+        width: 75%;
     }
 
     .bloco-filtro div {
@@ -312,6 +317,18 @@
         font-size: 20px;
         color: #fff;
     }
+
+    .bloco-filtro button {
+        width: 40%;
+        align-self: center;
+        background-color: #00796B;
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+
+        margin-top: 10px;
+        padding: 10px 25px;
+    }
     
     .tipo {
         padding: 25px 10px;
@@ -324,6 +341,7 @@
         height: 1px;
         width: 100%;
     }
+
 
 
 

@@ -1,8 +1,10 @@
 
 import CompAtalhosAdm from '../../components/compAtalhosAdm'
 import Lupa from '../../assets/images/pictures/lupa 1.png'
+import SetaEsquerda from '../../assets/img/seta-esquerda.png'
 import { useState } from 'react'
 import './index.scss'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -11,6 +13,13 @@ export default function MaisDetalhes() {
 
     const[idProduto, setIdProduto] = useState("")
     const[ filtro, setFiltro] = useState('')
+
+
+    const navigate = useNavigate();
+
+    function Voltar() {
+        navigate('/')
+    }
 
     return (
         <div className='pagina-mais-detalhes'>
@@ -23,8 +32,8 @@ export default function MaisDetalhes() {
                 <div className="sub-titulo-mais">
                     <h1>Lista de Produtos</h1>
 
-                    <div>
-                        <img src="" />
+                    <div onClick={Voltar}>
+                        <img src={SetaEsquerda} />
                         <p>voltar</p>
                     </div>
                 </div>

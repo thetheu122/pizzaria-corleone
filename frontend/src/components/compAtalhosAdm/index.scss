@@ -3,7 +3,7 @@
     flex-direction: column;
     background-color: #0D3E53;
    
-
+    justify-content: space-between;
 
 
     .container-atalhos {
@@ -16,8 +16,9 @@
         display: flex;
         flex-direction: row;
         color: #fff;
-        align-items: center;
+        align-items: center; 
         padding: 15px;
+        cursor: pointer;
     }
 
     .container-atalhos > div:hover {
@@ -45,6 +46,26 @@
         width: 18px;
     }
 
+
+    .sair{
+        font-size: 10px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    .sair:hover {
+        background: #58889C;
+        transition: 0.3s;
+    }
+
+    .sair img {
+        height: 18px;
+        margin-right: 10px;
+    }
 
     
 }
