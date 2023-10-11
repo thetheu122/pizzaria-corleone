@@ -76,9 +76,6 @@ export default function Cardapio() {
             let resp = await axios.get('http://localhost:5000/produto/' + pesquisa)
             if (resp.data == '') {
                 setMostrar(false)
-
-
-
             }
 
 
@@ -112,8 +109,6 @@ export default function Cardapio() {
                 setMostrar(false)
 
             else
-
-
                 setMostrar(true)
         }
 
