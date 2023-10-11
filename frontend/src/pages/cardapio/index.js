@@ -24,71 +24,86 @@ export default function Cardapio() {
     const [ intoleranteaovo , setIntoleranteaovo ] = useState(false)
     const [ intoleranteagluten , setIntoleranteaGluten ] = useState(false)
     const [ intolerantealactose , setIntolerantealactose ] = useState(false)
-    const [restricao , setRestricao] = useState([])
    
 
 async function buscar (){
 
+    let restricao = []
+    
+    if(vegano === true){restricao.push('vegana')}
+    else{const novoVetor = restricao.filter(elemento => !elemento.includes('vegano')) ; restricao = novoVetor}
+
+    if (vegetariano === true){restricao.push('vegetariano')}
+    else{const novoVetor = restricao.filter(elemento => !elemento.includes('vegetariano')) ; restricao = novoVetor}
+
+
+    if(intoleranteagluten === true){restricao.push('intolerante a gluten')}
+    else{const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a glutem')) ; restricao = novoVetor}
+
+
+    if(intolerantealactose === true){restricao.push('intolerante a lactose')}
+    else{const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a lactose')) ; restricao = novoVetor}
+
+
+    if(intoleranteaovo===true){restricao.push('intolerante a ovo')}
+    else{const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a ovo')) ; restricao = novoVetor}
+    
+    
+    if( restricao ==='' || restricao.length ==0){
+  
     let resp = await axios.get('http://localhost:5000/produto/'+pesquisa)
     if( resp.data=='' ){
     setMostrar(false)
 
-    }
+    
 
+    }
+    
 
     else{
         setProduto(resp.data)
         setMostrar(true)
 
     }
- 
 }
 
-async function buscarestricoes(){
-    if(vegano === true){restricao.push('vegano')}
-    if (vegetariano === true){restricao.push('vegetariano')}
-    if(intoleranteagluten === true){restricao.push('intolerante a gluten')}
-    if(intolerantealactose === true){restricao.push('intolerante a lactose')}
-    if(intoleranteaovo===true){restricao.push('intolerante a ovo')}
-     
     
     if( restricao.length > 1){
+     
         let respo = await axios.get('http://localhost:5000/produto/restricoes?restricao='+restricao[0]+'&restricao2='+restricao[1])
-    
+        setProduto(respo.data)
         if( respo.data=='' )
         setMostrar(false)
     
         else
-        setProduto(respo.data)
         setMostrar(true)
 
     }
-
-    else{
-    let restricao = ''
-    let response = await axios.get('http://localhost:5000/produto/restricoes/'+restricao[0])
     
+
+    if(restricao.length ===1){
+       
+    let response = await axios.get('http://localhost:5000/produto/restricoes/'+restricao[0])
+    await setProduto(...[response.data])
 
         if( response.data=='' )
             setMostrar(false)
         
         else
-        setProduto(response.data)
+       
+    
         setMostrar(true)
     }
 
-    setRestricao([])
-
+ 
 }
- useEffect(()=>{
-    buscarestricoes()
- },[vegano,vegetariano,intoleranteagluten,intoleranteaovo,intolerantealactose])
+
 
 
 useEffect(()=>{
   buscar()
   
-},[pesquisa])
+},[pesquisa,vegano,vegetariano,intoleranteagluten,intoleranteaovo,intolerantealactose])
 
     return (
         <main className='cardapio'>
