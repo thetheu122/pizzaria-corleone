@@ -25,6 +25,19 @@ export default function Cardapio() {
     const [intoleranteagluten, setIntoleranteaGluten] = useState(false)
     const [intolerantealactose, setIntolerantealactose] = useState(false)
 
+    //paginação
+    const [paginaAtual, setPaginaAtual] = useState(1)
+    const [itensPorPagina, setItensPorPagina] = useState(6)
+    const [pages, setPages] = useState([])
+
+    useEffect(() => {
+        setPages([])
+        let novoArray = []
+        for (let cont = 1; cont <= Math.ceil(produto.length / itensPorPagina); cont++) {
+            novoArray.push(cont);
+        }
+        setPages([...novoArray])
+    }, [produto])
 
     async function buscar() {
 
@@ -34,7 +47,7 @@ export default function Cardapio() {
             restricao.push('vegana')
         }
         else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('vegano')); 
+            const novoVetor = restricao.filter(elemento => !elemento.includes('vegano'));
             restricao = novoVetor
         }
 
@@ -42,7 +55,7 @@ export default function Cardapio() {
             restricao.push('vegetariano')
         }
         else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('vegetariano')); 
+            const novoVetor = restricao.filter(elemento => !elemento.includes('vegetariano'));
             restricao = novoVetor
         }
 
@@ -50,7 +63,7 @@ export default function Cardapio() {
             restricao.push('intolerante a gluten')
         }
         else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a glutem')); 
+            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a glutem'));
             restricao = novoVetor
         }
 
@@ -58,16 +71,16 @@ export default function Cardapio() {
             restricao.push('intolerante a lactose')
         }
         else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a lactose')); 
+            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a lactose'));
             restricao = novoVetor
         }
 
-        if (intoleranteaovo === true) { 
-            restricao.push('intolerante a ovo') 
+        if (intoleranteaovo === true) {
+            restricao.push('intolerante a ovo')
         }
-        else { 
-            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a ovo')); 
-            restricao = novoVetor 
+        else {
+            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a ovo'));
+            restricao = novoVetor
         }
 
 
@@ -82,7 +95,6 @@ export default function Cardapio() {
             else {
                 setProduto(resp.data)
                 setMostrar(true)
-
             }
         }
 
@@ -115,6 +127,10 @@ export default function Cardapio() {
 
     }
 
+    const ultimoCartao = paginaAtual * itensPorPagina
+    const primeiroCartao = ultimoCartao - itensPorPagina
+    const cartoesAtuais = produto.slice(primeiroCartao, ultimoCartao)
+
 
 
     useEffect(() => {
@@ -122,6 +138,23 @@ export default function Cardapio() {
 
     }, [pesquisa, vegano, vegetariano, intoleranteagluten, intoleranteaovo, intolerantealactose])
 
+    const altPag = (num) => {
+        if(num == 'ant'){
+            setPaginaAtual(paginaAtual - 1)
+            window.scrollTo({
+                top: 400,
+                behavior: 'smooth',
+              })
+        }
+        else if(num == 'pro'){
+            setPaginaAtual(paginaAtual + 1)
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        else{
+            setPaginaAtual(num)
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
     return (
         <main className='cardapio'>
             <Cabecalho />
@@ -199,9 +232,7 @@ export default function Cardapio() {
                             <input type='radio' value={intolerantealactose} onClick={() => setIntolerantealactose(!intolerantealactose)} checked={intolerantealactose} />
                             <p>Intolerante a Lactose</p>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
-                            <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
-                        </svg>
+
 
 
                     </div>
@@ -215,43 +246,73 @@ export default function Cardapio() {
                 </div>
 
 
-                <div className='direitaMeio'>
-                    {mostrar ? produto.map((item) => (
-                        <div>
-                            <CardProduto
-                                produto={{
-                                    nome: item.nome,
-                                    preco: item.preço,
-                                    imagem: item.imagem,
-                                    id: item.ID
-                                }}
+                <div className='direitinha'>
+                    <div className='direitaMeio'>
+                        {mostrar ? cartoesAtuais.map((item) => (
+                            <div>
+                                <CardProduto
+                                    produto={{
+                                        nome: item.nome,
+                                        preco: item.preço,
+                                        imagem: item.imagem,
+                                        id: item.ID
+                                    }}
 
 
-                            />
-                        </div>
+                                />
+                            </div>
 
-                    )) : <div className='not'>
-                        <h1> <img src={carregando} />Produto não encontrdado</h1>
-                    </div>}
+                        )) : <div className='not'>
+                            <h1> <img src={carregando} />Produto não encontrdado</h1>
+                        </div>}
 
-                </div>
+                    </div>
 
+                    <div className='pagination'>
+                        {mostrar ? (
+                            <div className='paginacao'>
+                                {paginaAtual > 1 ? (
+                                    <button className='proximo' onClick={() => altPag('ant')}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#53220D" stroke-width="2" stroke-linecap="round" transform="rotate(180, 12.5, 9.5)" />
+                                        </svg>
+                                        <p>Anterior</p>
+                                    </button>
+                                ) : (
+                                    <button className='negado'>
+                                        <p>Anterior</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#8d8d8d" stroke-width="2" stroke-linecap="round" transform="rotate(180, 12.5, 9.5)" />
+                                        </svg>
+                                    </button>
+                                )}
 
+                                <div className='bolotas'>
+                                    {pages.map(item => (
+                                        <div className={item === paginaAtual ? 'marrom' : 'circulo'} key={item} onClick={() => altPag(item)}>
+                                            {item}
+                                        </div>
+                                    ))}
+                                </div>
 
-            </div>
-
-            <div className='paginacao'>
-                <div className='bolotas'>
-                    <div className='circulo'>1</div>
-                    <div className='circulo'>2</div>
-                    <div className='circulo'>3</div>
-                </div>
-
-                <div className='proximo'>
-                    <p>Proximo</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
-                        <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#830D23" stroke-width="2" stroke-linecap="round" />
-                    </svg>
+                                {paginaAtual < pages.length ? (
+                                    <button className='proximo' onClick={() => altPag('pro')}>
+                                        <p>Próximo</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#53220D" stroke-width="2" stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+                                ): (
+                                    <button className='negado'>
+                                        <p>Próximo</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#8d8d8d" stroke-width="2" stroke-linecap="round" />
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
+                        ) : null}
+                    </div>
                 </div>
             </div>
             <Rodape />

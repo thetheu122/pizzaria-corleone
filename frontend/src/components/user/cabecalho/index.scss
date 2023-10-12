@@ -190,7 +190,7 @@ h1 {
     padding: 0px 35px;
 
     h1 {
-        color: #53220D;
+        color:#53220D;
         font-size: 32px;
         padding: 20px 0px;
         margin-top: 10px;
@@ -365,7 +365,7 @@ h1 {
 
 }
 
-@media(max-height:1280px){
+@media(min-height:1280px){
     .modalll{
         top: 20%;
     }
