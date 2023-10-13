@@ -44,7 +44,7 @@ export default function Cardapio() {
         let restricao = []
 
         if (vegano === true) {
-            restricao.push('vegana')
+            restricao.push('vegano')
         }
         else {
             const novoVetor = restricao.filter(elemento => !elemento.includes('vegano'));
@@ -60,7 +60,7 @@ export default function Cardapio() {
         }
 
         if (intoleranteagluten === true) {
-            restricao.push('intolerante a gluten')
+            restricao.push('gluten')
         }
         else {
             const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a glutem'));
@@ -68,7 +68,7 @@ export default function Cardapio() {
         }
 
         if (intolerantealactose === true) {
-            restricao.push('intolerante a lactose')
+            restricao.push('lactose')
         }
         else {
             const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a lactose'));
@@ -76,7 +76,7 @@ export default function Cardapio() {
         }
 
         if (intoleranteaovo === true) {
-            restricao.push('intolerante a ovo')
+            restricao.push('ovo')
         }
         else {
             const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a ovo'));
