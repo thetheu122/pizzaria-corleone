@@ -22,6 +22,7 @@ import EnderecoPedido from './pages/enderecopedido';
 import Confirmacaopedidos from './pages/confirmacaopedidos';
 import EditarProduto from './pages/editarProduto';
 import MaisDetalhes from './pages/maisDetalhes';
+import Dashboard from './pages/dashboard';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -45,6 +46,7 @@ root.render(
         <Route path='/pedido3' element={<Confirmacaopedidos/>} />
         <Route path='/produto/alterar/:id' element={<EditarProduto/>} />
         <Route path='/detalhes' element={<MaisDetalhes/>} />
+        <Route path='/dashboard' element={<Dashboard/>} />
 
       </Routes>
     </BrowserRouter>
