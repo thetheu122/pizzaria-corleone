@@ -115,6 +115,8 @@
                 margin: 0px;
                 margin-right: 5px;
                 white-space: nowrap;
+
+                
             }
 
             div {
@@ -152,6 +154,13 @@
 
                 &:hover {
                     cursor: pointer;
+                    background-color: #FFC857;
+                    transition: .6s;
+                    color: #53220D;
+
+                    img {
+                        filter: none;
+                    }
                 }
             }
 
@@ -168,6 +177,10 @@
 
                 img {
                     margin-top: 3px;
+                }
+
+                &:hover {
+                    cursor: pointer;
                 }
             }
         }

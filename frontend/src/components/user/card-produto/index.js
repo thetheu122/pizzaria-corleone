@@ -54,7 +54,7 @@ export default function CardProduto(props) {
 
                 <div className='precoNome'>
                     <h3>{props.produto.nome}</h3>
-                    <p>{props.produto.preco}</p>
+                    <p>R${props.produto.preco}</p>
                 </div>
 
                 <div className='baixo'>

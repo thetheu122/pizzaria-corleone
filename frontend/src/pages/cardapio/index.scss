@@ -1,3 +1,13 @@
+@keyframes loading {
+    0%{
+        transform: rotate(0deg);
+    }
+
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
 .cardapio {
     overflow-x: hidden;
 
@@ -180,6 +190,8 @@
                 img {
                     width: 23px;
                     margin-right: 12px;
+
+                    animation: loading 1s infinite;
                 }
             }
 
@@ -244,8 +256,7 @@
             transition: .6s;
 
             &:hover {
-                background-color: #FFC857;
-                scale: 1.08;
+                scale: 1.07;
                 cursor: pointer;
 
                 svg {
