@@ -112,35 +112,35 @@ export default function Informacoes(props) {
       }
        
 
-    async  function media (estrelas){
-     let qtd = 0 
+//     async  function media (estrelas){
+//      let qtd = 0 
 
-        comentarioo.map((item)=>{
-           qtd += item.avaliacao
-           console.log(item.avaliacao)
-        })
+//   [      comentarioo.map((item)=>{
+//            qtd += item.avaliacao
+//         })]
 
-     let total = qtd + estrelas
-     let avl = comentarioo.length +1
+//      let total = qtd + estrelas
+//      let avl = comentarioo.length +1
 
-     const media = total /avl
+//      const media = total /avl .toFixed(1)
 
-     let valor = {
-        id : id,
-        media: media 
-    }
+//      let valor = {
+//         id : id,
+//         media: media 
+//     }
 
-     if(comentarioo.length > 0  ){
-        const resp = await axios.put('http://localhost:5000/media/'+id , media)
-      
-     }
-     else{
-        const resp = await axios.post('http://localhost:5000/media',valor)
-        toast.error(resp.data.error)
-     }
+//      if(comentarioo.length > 0  ){
+//         const resp = await axios.put('http://localhost:5000/media/'+id ,media.toFixed(1))
+//         console.log('id:' +id +'mdia:' + media)
+//         toast.error(resp.data.err)
+//      }
+//      else{
+//         const resp = await axios.post('http://localhost:5000/media',valor)
+//         toast.error(resp.data.error)
+//      }
     
      
-    }
+//     }
 
 
 
@@ -201,8 +201,8 @@ export default function Informacoes(props) {
                     avaliacao: estrelas
                 }
 
-                media(estrelas)
-
+       
+                //  media(estrela)
 
                 if (digitado.length > 0 ) {
                     if( estrelas === 0 || estrelas === 6){

@@ -15,16 +15,15 @@ return media;
 }
 
 
-export async function alteraramedia(media, id) {
-    const comando = `
-      UPDATE tb_media
-      SET ds_media = ?
-      WHERE id_produto = ?
-    `;
-  
-    const [resposta] = await con.query(comando, [media.media, id]);
-    return resposta.affectedRows;
-  }
+export async function alterarmedia(media,id){
+const comando = `
+UPDATE tb_media
+SET ds_media = ?
+WHERE id_produto = ?
+`
+const [ resposta ] = await con.query(comando,[media.media,id])
+return resposta
+}
   
 
 
