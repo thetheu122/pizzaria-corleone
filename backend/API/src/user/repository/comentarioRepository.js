@@ -33,7 +33,7 @@ INNER JOIN
 	`
 
 const [ resposta ]  = await con.query( comando,[id] )
-return resposta
+return  resposta
 
 
 

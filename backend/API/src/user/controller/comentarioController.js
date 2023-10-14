@@ -7,8 +7,7 @@ import {
         inserircometario, 
         listarcomentario  }
  from "../repository/comentarioRepository.js";
-import { analise } from "./verificar.js";
-import {  media} from "../repository/media.js";
+
 
 
 
