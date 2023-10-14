@@ -110,7 +110,38 @@ export default function Informacoes(props) {
     function ttt(novoValor) {
         setCadastroAtv(novoValor);
       }
+       
+
+    async  function media (estrelas){
+     let qtd = 0 
+
+        comentarioo.map((item)=>{
+           qtd += item.avaliacao
+           console.log(item.avaliacao)
+        })
+
+     let total = qtd + estrelas
+     let avl = comentarioo.length +1
+
+     const media = total /avl
+
+     let valor = {
+        id : id,
+        media: media 
+    }
+
+     if(comentarioo.length > 0  ){
+        const resp = await axios.put('http://localhost:5000/media/'+id , media)
       
+     }
+     else{
+        const resp = await axios.post('http://localhost:5000/media',valor)
+        toast.error(resp.data.error)
+     }
+    
+     
+    }
+
 
 
 
@@ -170,16 +201,24 @@ export default function Informacoes(props) {
                     avaliacao: estrelas
                 }
 
+                media(estrelas)
 
-                if (digitado.length > 0) {
 
-                    const resp = await axios.post('http://localhost:5000/comentario', comen);
-                    setDigitado('');
-                    setEstrela1(true)
-                    setEstrela2(true)
-                    setEstrela3(true)
-                    setEstrela4(true)
-                    setEstrela5(true)
+                if (digitado.length > 0 ) {
+                    if( estrelas === 0 || estrelas === 6){
+                        toast.error('É necessario avaliar o comentario ')
+                    }
+                    else{
+                        const resp = await axios.post('http://localhost:5000/comentario', comen);
+                        setDigitado('');
+                        setEstrela1(true)
+                        setEstrela2(true)
+                        setEstrela3(true)
+                        setEstrela4(true)
+                        setEstrela5(true)
+                    }
+
+             
                 }
 
             } else {
@@ -246,6 +285,9 @@ export default function Informacoes(props) {
                         </div>
                     </div>
                     <div>
+                        {produto.map((item)=>(
+                            <h2>{item.media}</h2>
+                        ))}
                         <h3></h3>
                         <img src={estrela} alt="Estrela" />
                     </div>
