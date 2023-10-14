@@ -39,7 +39,7 @@ const tipo = [
      erros.push('Produto ja cadastrado')
     }
   }
-
+  
   return erros
 
 }

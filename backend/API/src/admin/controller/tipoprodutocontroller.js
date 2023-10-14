@@ -10,7 +10,7 @@ endpoints.post( '/tipo' , async (req , resp) =>{
       const  {tipo} = req.body
 
       if( !tipo){
-       resp.status(400).send({erro:' é necessario prencher todos os campos'})
+       resp.status(400).send({erro:'é necessario prencher todos os campos'})
       }
       
       else{

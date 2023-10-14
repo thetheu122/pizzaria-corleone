@@ -14,6 +14,9 @@ tipo.tipo
 ])
 
 tipo.id = resposta.insertId
+
+
+
 return tipo
 }
 
@@ -57,6 +60,8 @@ export async function alterartipo(id , tipo){
 	   id,
 	   tipo.tipo
 	])
+
+
 	return resposta.affectedRows
 
 }

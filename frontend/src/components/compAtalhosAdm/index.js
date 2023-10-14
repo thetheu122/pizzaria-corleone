@@ -14,7 +14,7 @@ export default function CompAtalhosAdm() {
     const navigate = useNavigate();
 
     async function irdashboard() {
-        navigate('/')
+        navigate('/dashboard')
     }
 
     async function irprodutos() {
@@ -40,7 +40,7 @@ export default function CompAtalhosAdm() {
     return(
         <div className="pagina-comp-atalhos">
             <div className="container-atalhos">
-                <div className="dashboard">
+                <div onClick={irdashboard} className="dashboard">
                     <img src={Dashboard} />
                     <h2>Dashboard</h2>
                 </div>
