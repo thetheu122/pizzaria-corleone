@@ -2,7 +2,7 @@ import '../../assets/config/fonts-config.scss'
 import './App.scss';
 import fundo6 from '../../images/fundo6.jpg'
 
-import Restaurante from '../../assets/img/restaurante comp.png'
+import RestauranteComp from '../../assets/img/restaurante comp.png'
 import restaurante from '../../images/restaurante.png'
 import pizza from '../../images/fundo.png'
 import Cabecalho from '../../components/user/cabecalho';
@@ -60,7 +60,7 @@ export default function SobreNos() {
 
       <div className='comp'>
         <CompSobre  
-        imagem={restaurante}
+        imagem={RestauranteComp}
         titulo="A Corleone Pizzaria"
         subTitulo="O Sabor Autêntico da Itália!"
         primeiroTexto="Quando você escolhe a Corleone Pizzaria, não está apenas saboreando uma pizza excepcional, mas também fazendo parte de nossa história. Somos uma empresa comprometida em proporcionar momentos memoráveis, reunindo famílias e amigos em torno da mesa, celebrando a vida e compartilhando risadas."

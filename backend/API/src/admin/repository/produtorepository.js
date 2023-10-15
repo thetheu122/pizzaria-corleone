@@ -1,4 +1,4 @@
-
+ 
 import { con } from "../../conection.js";
 
 export async function inserirProduto(produto) {
@@ -34,7 +34,7 @@ export async function inserirProduto(produto) {
    }
 
   if(produto.tipo ===2){
-     produto.tipo = "sobremesa"
+     produto.tipo = "Sobremesa"
   }
 
   if(produto.tipo ===3){
@@ -327,12 +327,12 @@ return  resp
         id
   ])
 
-  if( produto.tipo === 1){
+if( produto.tipo === 1){
       produto.tipo = "Bebida"
 }
 
 if(produto.tipo ===2){
-  produto.tipo = "sobremesa"
+  produto.tipo = "Sobremesa"
 }
 
 if(produto.tipo ===3){
