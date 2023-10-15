@@ -33,7 +33,8 @@ END AS valor,
 tb_cliente.nm_cliente AS cliente,
 tb_favorito.id_cliente,
 tb_produto.nm_produto as produto,
-tb_favorito.id_produto,
+tb_produto.vl_preco   as preco,
+tb_produto.id_produto,
 ds_favorito,
 id_favorito
 FROM tb_favorito
@@ -64,7 +65,8 @@ END AS valor,
 tb_cliente.nm_cliente AS cliente,
 tb_favorito.id_cliente,
 tb_produto.nm_produto as produto,
-tb_favorito.id_produto,
+tb_produto.vl_preco   as preco,
+tb_produto.id_produto,
 ds_favorito,
 id_favorito
 FROM tb_favorito

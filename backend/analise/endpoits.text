@@ -48,6 +48,7 @@
         
         enviar uma variavel de objeto com o id da restricao e novo status da restrição (true ou false).
         
+        
     endpoit de verificação :
 
         verbo : GET
@@ -62,10 +63,67 @@
         enviar os ids do produto e do cliente por uma variavel de objeto , verificando se o cliente ja cadastrou 
         uma determinada pizza , possibilitando o insert , caso o usuario ja tenha a pizza cadastrada muda 
         para update e altera o valor do favorito  
-
-     
-
+  
 
 
+/// }
 
+
+
+/// endpoits carrinho {
+
+inserir itens no carrinho :
+
+    verbo : POST
+    url ('http://localhost:5000/corleone/usuario/carrinho')
+
+           {
+                "produto":2,
+                "cliente":6,
+                "disponivel":true,
+                "qtd":2
+            }
+
+    enviar as informações atraves de uma variavel de objeto com as informações , caso ja nao tenha inserido este produto
+    no carrinho uma vez
+
+
+alterar itens do carrinho
+
+    verbo : PUT
+    url ('http://localhost:5000/corleone/usuario/carrinho/editar')
+
+        {
+            "disponivel":true,
+            "qtd":2,
+            "idcarrinho":1
+        }
+    enviar as informações atraves de uma variavel de objeto com as informações desejadas . se esse cliente nunca tiver inserido 
+    esse produto no carrinho voçê tem que inserir
+
+
+listar todos os itens da tabela carrinho:
+
+    verbo : GET 
+    url ('http://localhost:5000/corleone/usuario/carrinho/listar')
+
+
+lista todos os itens do carrinho de um usuario que ele adcionou:
+
+    verbo : GET
+    url('http://localhost:5000/corleone/usuario/carrinho/listar' + idcliente)
+
+
+verifica se um cliente ja adcionou o produto no carrinho :
+
+    verbo : GET
+    url('http://localhost:5000/corleone/usuario/carrinho/verificar')
+
+        {  
+        "produto":3,
+        "cliente":5
+        } 
+
+      enviar os id do produto e o  do cliente por uma variavel de objeto , para verificar se o usuario ja adcionou 
+      esse produto no carrinho, se ele ja adcionou entao voce altera o produto para false ou true 
 /// }

@@ -185,6 +185,8 @@ ds_senha       VARCHAR (100) NOT NULL ,
 ds_cnpj        VARCHAR (100) NOT NULL
 );
 
+
+
 CREATE TABLE tb_favorito (
 id_favorito   INT  PRIMARY KEY AUTO_INCREMENT,
 id_cliente    INT  ,
@@ -193,4 +195,18 @@ ds_favorito   boolean ,
 
 FOREIGN  KEY (id_cliente) REFERENCES tb_cliente(id_cliente),
 FOREIGN  KEY (id_produto) REFERENCES tb_produto(id_produto )
+);
+
+
+
+
+CREATE TABLE tb_carrinho(
+id_carrinho    INT PRIMARY KEY AUTO_INCREMENT,
+id_produto     INT NOT NULL,
+id_cliente     INT NOT NULL,
+ds_carrinho    boolean NOT NULL,
+ds_qtd         INT ,
+
+FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto),
+FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
 );
