@@ -93,14 +93,12 @@ endpoints.get('/produto/restricoes', async (req,resp) => {
 endpoints.get('/produto/tipos/:tipo', async (req , resp) => {
   try {
     const {tipo} = req.params
-    
     const resposta = await listarportipo(tipo)
+    resp.send(resposta)
 
     if(resposta.length == 0) {
       resp.status(404).send('tipo não encontrado')
     }
-  
-    resp.send(resposta)
   } catch (err) {
     resp.status(400).send({
       erro: err.message
