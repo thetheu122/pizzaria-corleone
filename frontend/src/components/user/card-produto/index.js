@@ -68,7 +68,7 @@ export default function CardProduto(props) {
                         </Link>
                     </div>
                     <div className='pretin'>
-                        <p>4.9</p>
+                        <p>{props.produto.media !== null ? props.produto.media : 0}</p>
                         <img alt='estrela' src={Star} />
                     </div>
                 </div>

@@ -21,7 +21,6 @@ endpoints.post( '/comentario' , async (req , resp ) =>{
           const  comentario  = req.body;                             
           const resposta = await inserircometario(comentario);
 
-          console.log(comentario)
           resp.send(resposta);
 
         

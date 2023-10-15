@@ -8,7 +8,7 @@ endpoints.post ( '/media' , async (req,resp) =>{
     try {
         const media = req.body
         const resposta = await inserirmedia(media)
-        console.log(media)
+    
 
         resp.send(resposta)
 
@@ -21,6 +21,7 @@ endpoints.put('/media/:id', async (req, resp) => {
     try {
         const { id } = req.params;
         const media = req.body;
+      
         const resposta = await alterarmedia(media,id);
         
             resp.send(resposta)

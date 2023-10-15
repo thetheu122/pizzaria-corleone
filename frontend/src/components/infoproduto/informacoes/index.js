@@ -87,7 +87,7 @@ export default function Informacoes(props) {
         }
      
         listar();
-    }, [id]);
+    }, [id,digitado]);
 
 
     useEffect(() => {
@@ -115,7 +115,7 @@ export default function Informacoes(props) {
       
        
       async function media(estrelas){
-        
+
         try {
             let qtd = 0;
     
@@ -126,24 +126,24 @@ export default function Informacoes(props) {
             let total = qtd + estrelas;
             let avl = comentarioo.length +1;
     
-            const media = (total / avl).toFixed(1);
-    
+            let media ={media :(total / avl).toFixed(1)} 
+            
        
     
-            if (comentarioo.length === 0) {
-               
+            if (comentarioo.length > 0) {
+                const resp = await axios.put('http://localhost:5000/media/' + id, media)
+                toast.error(resp.data.err)
+                console.log('1media:' +media.media)
+            } 
+            else {
                 const valor = {
                     id: id,
-                    media: media,
+                    media: media.media,
                 };
     
                 const resp = await axios.post('http://localhost:5000/media', valor);
                 toast.error(resp.data.error);
-
-            } else {
-
-                const resp = await axios.put('http://localhost:5000/media/' + id, media)
-                toast.error(resp.data.err)
+                console.log('2media:' +media)
 
             }
 
@@ -294,9 +294,9 @@ export default function Informacoes(props) {
                         </div>
                     </div>
                     <div>
-                        {produto.map((item)=>(
-                            <h2>{item.media}</h2>
-                        ))}
+                    {produto.map((item) => (
+                    <h2>{item.media !== null ? item.media : 0}</h2>
+                    ))}
                         <h3></h3>
                         <img src={estrela} alt="Estrela" />
                     </div>
