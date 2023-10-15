@@ -148,7 +148,7 @@ insert into  tb_restricao (id_produto,ds_restricao)
 
 insert into  tb_restricao (id_produto,ds_restricao)
                      values (6,'ovo'); 
-                     
+
  insert into  tb_restricao (id_produto,ds_restricao)
                      values (7,'gluten');                     
 

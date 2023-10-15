@@ -1,0 +1,120 @@
+import { Router } from "express";
+import { alteraritens, itenscarrinho, listarcarrinho, listarcarrinhoid, verificarcarrinho } from "../repository/carrinho.js";
+
+
+
+const endpoints = Router()
+
+const verificar =( (req,resp,itens) =>{
+    if(!itens.produto){
+        resp.status(400).send({erro:'É necessario preencher todos os campos .Campo "produto" vazio'})
+    }
+    else if(!itens.cliente){
+        resp.status(400).send({erro:'É necessario preencher todos os campos .Campo "cliente" vazio'})
+    }
+    else if(!itens.disponivel){
+        resp.status(400).send({erro:'É necessario preencher todos os campos .Campo ""disponivel" vazio'})
+    }
+    else if(!itens.qtd){
+        resp.status(400).send({erro:'É necessario preencher todos os campos .Campo "qtd" vazio'})
+    }
+    else{
+        return true
+    }
+    return false
+} )
+
+endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
+    try {
+        const itens = req.body
+
+        if( verificar(req,resp,itens)){
+            const resposta = await itenscarrinho(itens)
+            resp.send(resposta)
+        }
+    
+    } catch (err) {
+        resp.status(400).send({erro:err.message})
+    }
+})
+
+
+endpoints.put('/corleone/usuario/carrinho/editar' , async (req,resp) =>{
+    try {
+       
+        const erro = []
+        const itens = req.body
+        const resposta = await alteraritens(itens)
+        
+        if(!itens.disponivel){
+            erro.push('É necessario preencher todos os campos .Campo "disponivel" vazio')
+        }
+
+        else if(!itens.qtd){
+            erro.push('É necessario preencher todos os campos .Campo "qtd" vazio')
+        }
+        else if(!itens.idcarrinho){
+            erro.push('É necessario preencher todos os campos .Campo "IDcarrinho" vazio')
+        }
+
+        if (erro.length > 0) {
+            resp.status(400).send({ erro });
+        }
+        
+        else{
+
+            if(resposta === true ){
+                resp.status(200).send({message:'item alterado com sucesso '})
+            }
+
+            else{
+                resp.status(400).send({erro:'ocorreu um erro'})
+            }
+         }
+
+    }   catch (err) {
+        resp.status(400).send({erro:err.message})
+    }
+
+})
+
+endpoints.get('/corleone/usuario/carrinho/listar' , async (req,resp) =>{
+    try {
+      const resposta = await listarcarrinho()
+      resp.send(resposta)  
+
+    } catch (err) {
+        resp.status(400).send({erro:err.message})
+    }
+})
+
+endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
+    try {
+      const {id} = req.params
+      const resposta = await listarcarrinhoid(id)
+      resp.send(resposta)  
+
+    } catch (err) {
+        resp.status(400).send({erro:err.message})
+    }
+})
+
+
+endpoints.get('/corleone/usuario/carrinho/verificar' , async (req,resp) =>{
+    try {
+      const id = req.body
+      const resposta = await verificarcarrinho(id)
+
+      if (resposta == '') {
+        resp.status(200).send({ message: 'Esse usuário não possui esta pizza cadastrada no carrinho' });
+      }
+       else {
+        resp.send(resposta);
+      }
+  
+    } catch (err) {
+        resp.status(400).send({erro:err.message})
+    }
+})
+
+export default endpoints
