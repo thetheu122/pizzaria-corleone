@@ -2,10 +2,17 @@ import { useState } from 'react'
 
 import './index.scss'
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListarPedido() {
 
     const [buscarid, setBuscarid] = useState('')
+
+    const navigate = useNavigate()
+
+    function MaisDetalhes() {
+        navigate('/detalhes')
+    }
 
     return (
 
@@ -75,7 +82,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className='preto'>mais detalhes...</td>
+                                <td  className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
 
 
@@ -89,7 +96,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className='preto'>mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -103,7 +110,7 @@ export default function ListarPedido() {
                                 <td>Pizza</td>
                                 <td>01/08/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className='preto'>mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
                             </tr >
 
                             <tr className="cada-pedido">
@@ -113,7 +120,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className='preto'>mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -125,7 +132,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -137,7 +144,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className='preto'>mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -149,7 +156,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -161,7 +168,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className=' preto'>mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -173,7 +180,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -185,7 +192,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td onClick={MaisDetalhes} className="vermelho">mais detalhes...</td>
 
                                 
                             </tr>
@@ -197,7 +204,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -209,7 +216,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -221,7 +228,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -233,7 +240,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -245,7 +252,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -257,7 +264,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -269,7 +276,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -281,7 +288,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>
@@ -293,7 +300,7 @@ export default function ListarPedido() {
                                 <td>Calzone</td>
                                 <td>30/07/2023</td>
                                 <td className='status-entregue'></td>
-                                <td className="vermelho">mais detalhes...</td>
+                                <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
 
                                 
                             </tr>

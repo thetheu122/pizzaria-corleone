@@ -69,6 +69,7 @@ export default function ListarProdutosAdm() {
         setProdutos(resposta.data)
     }
 
+    
 
 
 
@@ -82,7 +83,7 @@ export default function ListarProdutosAdm() {
         try {
             const r = await axios.get('http://localhost:5000/produto');
 
-            // Encontre o produto correto com base no ID
+            
             const produto = r.data.find(item => item.ID === id);
             console.log(produto)
 
@@ -147,10 +148,10 @@ export default function ListarProdutosAdm() {
     const handleCheckboxChangerestriction = (value) => {
         
         if (restricoes.includes(value)) {
-            // Se a restrição já estiver no array, remova-a
+            
             setRestricoes(restricoes.filter((item) => item !== value));
         } else {
-            // Caso contrário, adicione-a ao array
+            
             setRestricoes([...restricoes, value]);
         }
     };
@@ -158,16 +159,16 @@ export default function ListarProdutosAdm() {
     const handleCheckboxChangetype = (value) => {
         
         if (tipos.includes(value)) {
-            // Se a restrição já estiver no array, remova-a
+            
             setTipos(tipos.filter((item) => item !== value));
         } else {
-            // Caso contrário, adicione-a ao array
+            
             setTipos([...tipos, value]);
         }
     };
 
     function buscar() {
-        if (tipos == 'vinho' || tipos == 'sobremesa') {
+        if (tipos == '1' || tipos == '2') {
             buscarPorTipo();
         } 
 
@@ -322,9 +323,9 @@ export default function ListarProdutosAdm() {
                             <div className="tipo">
                                 <input
                                     type="checkbox"
-                                    value="vinho"
-                                    checked={tipos.includes("vinho")}
-                                    onChange={() => handleCheckboxChangetype("vinho")}
+                                    value="1"
+                                    checked={tipos.includes("1")}
+                                    onChange={() => handleCheckboxChangetype("1")}
                                 />
                                 <p>Vinho</p>
                             </div>
@@ -333,9 +334,9 @@ export default function ListarProdutosAdm() {
                             <div className="tipo">
                                 <input
                                     type="checkbox"
-                                    value="sobremesa"
-                                    checked={tipos.includes("sobremesa")}
-                                    onChange={() => handleCheckboxChangetype("sobremesa")}
+                                    value="2"
+                                    checked={tipos.includes("2")}
+                                    onChange={() => handleCheckboxChangetype("2")}
                                 />
                                 <p>Sobremesa</p>
                             </div>

@@ -7,10 +7,74 @@ import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
 import { useParams } from 'react-router-dom';
 
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
 
 
+/*
 
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
 
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*//*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
 
 export default function EditarProduto() {
     const [nome, setnome] = useState('')
@@ -20,7 +84,7 @@ export default function EditarProduto() {
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
-    const [imagem, setImagem] = useState('');
+    const [imagem, setImagem] = useState(null);
     const [idrestricao, setIdrestricao] = useState(0)
     const [idImagem, setIdImagem] = useState(0)
 
@@ -37,13 +101,13 @@ export default function EditarProduto() {
 
 
     const { id } = useParams()
-    const [rende, setRende] = useState([])
+   // const [rende, setRende] = useState([])
 
     const [idproduto, setIdproduto] = useState(id)
 
 
 
-
+console.log(imagem)
 
 
     useEffect(() => {
@@ -52,6 +116,7 @@ export default function EditarProduto() {
         }
         alterar()
         alteraridImagem()
+        
         
     }, [])
 
@@ -254,12 +319,10 @@ export default function EditarProduto() {
 
 
 
+
     async function BuscarImagem(imagem) {
-
-
+        console.log(`${api.getUri()}/${imagem}`)
         return `${api.getUri()}/${imagem}`
-
-
     }
 
 
@@ -272,12 +335,13 @@ export default function EditarProduto() {
 
 
     function mostrarImagem() {
-        if (typeof (imagem) == 'object') {
+        if (imagem && typeof imagem === 'object') {
             return URL.createObjectURL(imagem);
         } else {
             return BuscarImagem(imagem);
         }
     }
+    
 
     return (
         <div className='connt'>
@@ -301,7 +365,7 @@ export default function EditarProduto() {
 
 
                             {imagem &&
-                                <img src={mostrarImagem()} alt='' />
+                                <img src={mostrarImagem()} alt='IMAGEM DO PRODUTO' />
                             }
 
 
