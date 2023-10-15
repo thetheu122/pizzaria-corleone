@@ -26,7 +26,7 @@ export default function CompAtalhosAdm() {
     }
 
     async function irpedido() {
-        navigate('/')
+        navigate('/listapedido')
     }
 
     function sairClick() {
@@ -55,7 +55,7 @@ export default function CompAtalhosAdm() {
                     <h2>Vendas</h2>
                 </div>
 
-                <div className="pedido">
+                <div onClick={irpedido} className="pedido">
                     <img id='pedido' src={Pedidos} />
                     <h2>Pedidos</h2>
                 </div>
