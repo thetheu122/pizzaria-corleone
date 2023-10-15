@@ -184,3 +184,13 @@ ds_email       VARCHAR (100) NOT NULL ,
 ds_senha       VARCHAR (100) NOT NULL ,
 ds_cnpj        VARCHAR (100) NOT NULL
 );
+
+CREATE TABLE tb_favorito (
+id_favorito   INT  PRIMARY KEY AUTO_INCREMENT,
+id_cliente    INT  ,
+id_produto    INT  ,
+ds_favorito   boolean ,
+
+FOREIGN  KEY (id_cliente) REFERENCES tb_cliente(id_cliente),
+FOREIGN  KEY (id_produto) REFERENCES tb_produto(id_produto )
+);

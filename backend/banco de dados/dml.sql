@@ -427,3 +427,60 @@ and   tb_imagem.id_imagem = 1;
 
 DELETE FROM tb_produto
 WHERE   id_produto = 1;
+
+
+/// tabela favorito
+
+insert into tb_favorito(id_cliente , id_produto , ds_favorito)
+	 values (7,8,true);
+
+
+
+SELECT  
+CASE 
+    WHEN ds_favorito = 0 THEN 'false' 
+    WHEN ds_favorito = 1 THEN 'Favorito'
+    ELSE 'valor inválido'
+END AS valor, 
+
+
+tb_cliente.nm_cliente AS cliente,
+tb_favorito.id_cliente,
+tb_produto.nm_produto as produto,
+tb_favorito.id_produto,
+ds_favorito,
+id_favorito
+FROM tb_favorito
+
+LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
+where tb_produto.id_produto = 8
+and   tb_cliente.id_cliente = 7;
+
+
+
+
+
+
+SELECT 
+CASE 
+    WHEN ds_favorito = 0 THEN 'false' 
+    WHEN ds_favorito = 1 THEN 'Favorito'
+    ELSE 'valor inválido'
+END AS valor, 
+
+
+tb_cliente.nm_cliente AS cliente,
+tb_favorito.id_cliente,
+tb_produto.nm_produto as produto,
+tb_favorito.id_produto,
+ds_favorito,
+id_favorito
+FROM tb_favorito
+
+LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto;
+
+update  tb_favorito 
+set     ds_favorito = true
+where   id_favorito = 4;
