@@ -85,6 +85,7 @@ export default function Informacoes(props) {
             const response = await axios.get('http://localhost:5000/produto/listar/' + id);
             setProduto(response.data);
         }
+     
         listar();
     }, [id]);
 
@@ -110,39 +111,47 @@ export default function Informacoes(props) {
     function ttt(novoValor) {
         setCadastroAtv(novoValor);
       }
+
+      
        
-
-//     async  function media (estrelas){
-//      let qtd = 0 
-
-//   [      comentarioo.map((item)=>{
-//            qtd += item.avaliacao
-//         })]
-
-//      let total = qtd + estrelas
-//      let avl = comentarioo.length +1
-
-//      const media = total /avl .toFixed(1)
-
-//      let valor = {
-//         id : id,
-//         media: media 
-//     }
-
-//      if(comentarioo.length > 0  ){
-//         const resp = await axios.put('http://localhost:5000/media/'+id ,media.toFixed(1))
-//         console.log('id:' +id +'mdia:' + media)
-//         toast.error(resp.data.err)
-//      }
-//      else{
-//         const resp = await axios.post('http://localhost:5000/media',valor)
-//         toast.error(resp.data.error)
-//      }
+      async function media(estrelas){
+        
+        try {
+            let qtd = 0;
     
-     
-//     }
+            if (comentarioo.length > 0) {
+                qtd = comentarioo.reduce((total, item) => total + item.avaliacao, 0);
+            }
+    
+            let total = qtd + estrelas;
+            let avl = comentarioo.length +1;
+    
+            const media = (total / avl).toFixed(1);
+    
+       
+    
+            if (comentarioo.length === 0) {
+               
+                const valor = {
+                    id: id,
+                    media: media,
+                };
+    
+                const resp = await axios.post('http://localhost:5000/media', valor);
+                toast.error(resp.data.error);
 
+            } else {
 
+                const resp = await axios.put('http://localhost:5000/media/' + id, media)
+                toast.error(resp.data.err)
+
+            }
+
+        }  catch (error) {
+            console.error(error);
+        }
+    }
+    
 
 
 
@@ -202,7 +211,7 @@ export default function Informacoes(props) {
                 }
 
        
-                //  media(estrela)
+                media(estrelas)
 
                 if (digitado.length > 0 ) {
                     if( estrelas === 0 || estrelas === 6){
