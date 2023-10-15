@@ -23,6 +23,7 @@ import Confirmacaopedidos from './pages/confirmacaopedidos';
 import EditarProduto from './pages/editarProduto';
 import MaisDetalhes from './pages/maisDetalhes';
 import Dashboard from './pages/dashboard';
+import ListarPedido from './pages/listarPedido';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -47,6 +48,7 @@ root.render(
         <Route path='/produto/alterar/:id' element={<EditarProduto/>} />
         <Route path='/detalhes' element={<MaisDetalhes/>} />
         <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/listapedido' element={<ListarPedido/>} />
 
       </Routes>
     </BrowserRouter>
