@@ -45,7 +45,7 @@ export default function Dashboard() {
                 <div className='conteudo-dashboard'>
                     <h2>Dashboard</h2>
                     <p>últimas vendas realizadas no dia</p>
-                    <table>
+                    <table className='tabela-dashboard'>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -99,6 +99,85 @@ export default function Dashboard() {
                                     <td>--</td>
                                 </tr>
 
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
+
+                                <td className='comp-linha'></td>
+                                <tr className='cada-valor'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$150,00</td>
+                                    <td>R$26,55</td>
+                                    <td>DINHEIRO</td>
+                                    <td>--</td>
+                                </tr>
                                 <td className='comp-linha'></td>
                                 <tr className='cada-valor'>
                                     <td>6</td>

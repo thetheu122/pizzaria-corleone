@@ -14,6 +14,9 @@ tipo.tipo
 ])
 
 tipo.id = resposta.insertId
+
+
+
 return tipo
 }
 
@@ -23,7 +26,7 @@ export  async function listartipo(){
 	const comando = `
 	
 	SELECT  id_tipo_produto  as ID,
-		    ds_tipo_produto  as Classificação
+		    ds_tipo_produto  as tipo
     FROM    tb_tipo_produto
 	`
 
@@ -37,7 +40,7 @@ export  async function verificar(verificar){
 	const comando = `
 	
 	SELECT  id_tipo_produto  as ID,
-		    ds_tipo_produto  as Classificação
+		    ds_tipo_produto  as tipo
     FROM    tb_tipo_produto
 	WHERE ds_tipo_produto like? 
 	`
@@ -57,6 +60,8 @@ export async function alterartipo(id , tipo){
 	   id,
 	   tipo.tipo
 	])
+
+
 	return resposta.affectedRows
 
 }

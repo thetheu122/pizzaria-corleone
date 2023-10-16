@@ -7,10 +7,74 @@ import CompAtalhosAdm from '../../components/compAtalhosAdm';
 
 import { useParams } from 'react-router-dom';
 
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
 
 
+/*
 
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
 
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*//*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
+/*
+
+TA ALTERANDO TODOS OS TIPOSSSSSSSSSSSSSSSSSSSSS
+
+*/
 
 export default function EditarProduto() {
     const [nome, setnome] = useState('')
@@ -20,187 +84,246 @@ export default function EditarProduto() {
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
-    const [imagem, setImagem] = useState('');
-    const [idrestricao,setIdrestricao]=useState(0)
-    const [ idImagem, setIdImagem] = useState(0)
+    const [imagem, setImagem] = useState(null);
+    const [idrestricao, setIdrestricao] = useState(0)
+    const [idImagem, setIdImagem] = useState(0)
 
 
 
 
 
 
-    const {id} = useParams()
-    const [rende,setRende]=useState([])
+
+    const api = axios.create({
+        baseURL: 'http://localhost:5000'
+    })
+
+
+
+    const { id } = useParams()
+   // const [rende, setRende] = useState([])
 
     const [idproduto, setIdproduto] = useState(id)
-    
+
+
+
+console.log(imagem)
+
 
     useEffect(() => {
-   
-        renderizar()
+        if (id) {
+            MostrarInfo();
+        }
         alterar()
         alteraridImagem()
-
-    }, [id,rende])
-
-    useEffect(() =>{
-
+        
+        
     }, [])
 
+    useEffect(() => {
+        carregarRestricao()
+        carregarTipo()
+    })
 
-    async function renderizar (){
 
-       const resposta = await axios.get('http://localhost:5000/produto/listar/'+id)
-       setRende(resposta.data)
+    console.log(idrestricao)
+    console.log(idImagem)
+
+
+    async function MostrarInfo() {
+        const r = await axios.get(`http://localhost:5000/produto/listar/${id}`)
+        const resp = r.data[0]
+        setnome(resp.nome)
+        settipo(resp.tipo)
+        setingrediente(resp.ingredientes)
+        setrestricao(resp.restricao)
+        setpreco(resp.preço)
+        setdescricao(resp.descricao)
+        setDisponivel(resp.disponivel)
+        setImagem(resp.imagem)
+
+    }
+
+    function carregarRestricao() {
+        const checkboxes = document.querySelectorAll('.tay2');
+
+        checkboxes.forEach((checkbox) => {
+            const value = checkbox.value;
+            if(restricao) {
+                if (restricao.includes(value)) {
+                    checkbox.checked = true;
+                } else {
+                    checkbox.checked = false;
+                }
+
+            } else {
+                checkbox.checkbox= false
+            }
+
+        });
+    }
+
+    function carregarTipo() {
+        const checkboxes = document.querySelectorAll('.tay');
+    
+        checkboxes.forEach((checkbox) => {
+            const value = checkbox.value;
+            if (tipo === value) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
+    }
+    
+
+
+
+
+
+
+    async function alterar() {
+        const resposta = await axios.get('http://localhost:5000/produto/listar/' + id)
+        const r = resposta.data[0]
+        const resp = r.idrestricao
+        setIdrestricao(resp)
+
     }
 
 
- 
-
-
-    function alterar (){
-        rende.map((item)=>{
-            setIdrestricao(item.idrestricao)
-        })
-
-
+    async function alteraridImagem() {
+        const resposta = await axios.get('http://localhost:5000/produto/listar/' + id)
+        const r = resposta.data[0]
+        const resp = r.idimagem
+        setIdImagem(resp)
     }
 
 
-    function alteraridImagem() {
-        rende.map((item)=>{
-            setIdImagem(item.idimagem)
-        })
-    }
-
-   
-
-
-
- 
-
+    /*  async function enviarimagem(idproduto, imagem) {
+          const formData = new FormData();
+          formData.append('capa', imagem);
       
-
-    async function enviarimagem(idproduto, imagem) {
-        const formData = new FormData();
-        formData.append('capa', imagem);
-    
-        const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData , {
-            headers: {
-                "Content-type": "multipart/form-data"
-            },
-        })
-    }
+          const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData , {
+              headers: {
+                  "Content-type": "multipart/form-data"
+              },
+          })
+      }*/
 
 
 
-async function alterarProduto() {
+    async function alterarProduto() {
 
-    try {
+        try {
 
-        if (!imagem) {
+            if (!imagem) {
                 throw new Error('escolha uma imagem')
+            }
+
+
+
+            const formData = new FormData();
+            formData.append('capa', imagem);
+
+            const alterarImg = {
+                imagem: imagem
+            }
+
+            const imagemTorV = await axios.get('http://localhost:5000/produto/listar/' + idproduto)
+            const result = imagemTorV.data[0]
+            const r = result.imagem
+
+
+            if (!r) {
+                const r = await axios.post(`http://localhost:5000/produto/${idproduto}/capa`, formData, {
+                    headers: {
+                        "Content-type": "multipart/form-data"
+                    },
+                })
+            }
+
+            else {
+                const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData, {
+                    headers: {
+                        "Content-type": "multipart/form-data"
+                    },
+                })
+            }
+
+
+
+
+
+            const restricaoAtualizada = restricao
+
+            alert(restricaoAtualizada)
+
+
+
+
+            const alterarRestricao = {
+                restricao: restricaoAtualizada
+            }
+
+            let variavelnul = null
+            let variavelandfilne = undefined
+
+            if (idrestricao === '' || idrestricao === variavelnul || idrestricao === variavelandfilne) {
+                let novarestricao = {
+                    produto: idproduto,
+                    restricao: restricaoAtualizada
+                }
+                const respo = await axios.post('http://localhost:5000/restricao', novarestricao)
+            }
+            else {
+                const respRestricao = await axios.put(`http://localhost:5000/restricao/alterar/${idrestricao}`, alterarRestricao)
+            }
+
+
+
+
+
+
+            const produto = {
+                nome: nome,
+                tipo: tipo,
+                ingredientes: ingredientes,
+                preco: preco,
+                descricao: descricao,
+                disponivel: disponivel
+            }
+
+            alert(JSON.stringify(produto));
+
+            const resposta = await axios.put(`http://localhost:5000/produto/editar/${idproduto}`, produto)
+
+
+            if (resposta.status === 200) {
+                alert("Produto alterado!");
+            }
+
+
+        } catch (err) {
+            if (err.response) {
+                console.log('Erro de resposta:', err.response.data);
+                alert(`Erro na tentativa de alterar o produto: ${JSON.stringify(err.response.data)}`);
+            } else {
+                console.log('Erro não tratado:', err.message);
+                alert(`Erro na tentativa de alterar o produto: ${err.message}`);
+            }
         }
-        
 
-        //teste para ver se a imagem realmente é enviada a API
-        
-
-     
-        const formData = new FormData();
-        formData.append('capa', imagem);
-
-        const alterarImg = {
-            imagem: imagem
-        }
-
-        const imagemTorV = await axios.get('http://localhost:5000/produto/listar/'+idproduto)
-        const result = imagemTorV.imagem
-
-        
-        if(!result) {
-            const r = await axios.post(`http://localhost:5000/produto/${idproduto}/capa`, formData , {
-                headers: {
-                    "Content-type": "multipart/form-data"
-                },
-            })
-        }
-
-        else {
-                    const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData ,  {
-            headers: {
-                "Content-type": "multipart/form-data"
-            },
-        })
-        }
-        
-    
-
-    
-
-        const restricaoAtualizada = restricao[0,1,2,3]
-
-        
-
-
-        const alterarRestricao = {
-            restricao: restricaoAtualizada
-        }
-        
-        let variavelnul = null
-        let variavelandfilne = undefined
-
-        if(idrestricao ==='' || idrestricao === variavelnul || idrestricao === variavelandfilne ){
-           let novarestricao ={
-            produto:idproduto,
-            restricao:restricaoAtualizada
-           } 
-           const respo = await axios.post('http://localhost:5000/restricao',novarestricao)
-        }
-        else{
-        const respRestricao = await axios.put(`http://localhost:5000/restricao/alterar/${idrestricao}`, alterarRestricao)
-        }
-        
-
-
-  
-       
-
-        const produto = {
-            nome:nome,
-            tipo: tipo,
-            ingredientes:ingredientes,
-            preco:preco,
-            descricao:descricao,
-            disponivel: disponivel
-        }
-
-        alert(JSON.stringify(produto));
-
-        const resposta = await axios.put(`http://localhost:5000/produto/editar/${idproduto}`, produto)
-
-
-    if (resposta.status === 200) {
-        alert("Produto alterado!");
     }
 
-        
-    } catch (err) {
-        if (err.response) {
-            console.log('Erro de resposta:', err.response.data);
-            alert(`Erro na tentativa de alterar o produto: ${JSON.stringify(err.response.data)}`);
-        } else {
-            console.log('Erro não tratado:', err.message);
-            alert(`Erro na tentativa de alterar o produto: ${err.message}`);
-        }
+
+
+
+
+
+    async function BuscarImagem(imagem) {
+        console.log(`${api.getUri()}/${imagem}`)
+        return `${api.getUri()}/${imagem}`
     }
-
-}
-
-
-
-
-
 
 
 
@@ -210,12 +333,15 @@ async function alterarProduto() {
     }
 
 
+
     function mostrarImagem() {
-        if (imagem) {
+        if (imagem && typeof imagem === 'object') {
             return URL.createObjectURL(imagem);
+        } else {
+            return BuscarImagem(imagem);
         }
-        return ''
     }
+    
 
     return (
         <div className='connt'>
@@ -236,9 +362,15 @@ async function alterarProduto() {
                     <div className='img' onClick={escolherImagem}>
                         <div className='ti-h1'>
 
-                            <img src={mostrarImagem()} alt='IMAGEM DO PRODUTO' />
-                 
-                        <input type="file" id='imagemcapa' accept="image/*"  onChange={e => setImagem(e.target.files[0])} />
+
+
+                            {imagem &&
+                                <img src={mostrarImagem()} alt='IMAGEM DO PRODUTO' />
+                            }
+
+
+
+                            <input type="file" id='imagemcapa' onChange={e => setImagem(e.target.files[0])} />
 
                         </div>
                     </div>
@@ -246,12 +378,13 @@ async function alterarProduto() {
                     <div className='dadosdoproduto'>
                         <div className='nome'>
                             <p>Nome:</p>
-                                <input
-                                 type='text'
-                                 placeholder='Escreva..'
-                                 value={nome}
-                                onChange={(e) => setnome(e.target.value)} 
-                                 />
+                            <input
+                                type='text'
+                                placeholder='Escreva..'
+                                value={nome}
+                                onChange={(e) => setnome(e.target.value)}
+
+                            />
                         </div>
 
 
@@ -263,21 +396,22 @@ async function alterarProduto() {
 
 
 
-
                             <div className='prod'>
 
                                 <div className='in'>
                                     <input
                                         className="tay"
                                         type="checkbox"
-                                        value="Vinho"
+                                        value="1"
                                         onChange={(e) => {
+
                                             if (e.target.checked) {
                                                 settipo('Bebida');
                                             } else {
                                                 settipo('');
                                             }
                                         }}
+
                                     />
                                     <p className='nomeproduto'>Bebida</p>
                                 </div>
@@ -288,7 +422,7 @@ async function alterarProduto() {
                                     <input
                                         className="tay"
                                         type="checkbox"
-                                        value="Sobremesa"
+                                        value="2"
                                         onChange={(e) => {
                                             if (e.target.checked) {
                                                 settipo('Sobremesa');
@@ -296,6 +430,9 @@ async function alterarProduto() {
                                                 settipo('');
                                             }
                                         }}
+
+
+
                                     />
                                     <p className='nomeproduto'>Sobremesa</p>
                                 </div>
@@ -307,7 +444,7 @@ async function alterarProduto() {
                                     <input
                                         className="tay"
                                         type="checkbox"
-                                        value="Salgado"
+                                        value="3"
                                         onChange={(e) => {
                                             if (e.target.checked) {
                                                 settipo('Salgado');
@@ -329,8 +466,8 @@ async function alterarProduto() {
                         <div className='ingredientes'>
                             <h1>Ingredientes:</h1>
 
-                             <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
-        
+                            <input type='text' placeholder='Escreva..' value={ingredientes} onChange={e => setingrediente(e.target.value)} />
+
                         </div>
 
                         <p className='linha'></p>
@@ -340,117 +477,54 @@ async function alterarProduto() {
                             <div className='pref-prod'>
 
                                 <div className='in'>
-                                    <input
+                                <input
                                         className="tay2"
                                         type="checkbox"
                                         value="Glúten"
                                         onChange={(e) => {
                                             const value = e.target.value;
-                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
-                                            if (restricao.includes(value)) {
-                                                // Se já existir, remova-a
-                                                setrestricao(restricao.filter(item => item !== value));
+
+                                            if (Array.isArray(restricao) ) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
                                             } else {
-                                                // Caso contrário, adicione-a
-                                                setrestricao([...restricao, value]);
+                                                setrestricao([value]);
                                             }
                                         }}
-                                        checked={restricao.includes('Glúten')} // Verifique se a restrição está marcada
+                                        checked={Array.isArray(restricao) && restricao.includes('Glúten')}
                                     />
                                     <p className='nomeproduto'>Glúten</p>
                                 </div>
 
                                 <div className='in'>
-                                    <input
+                                <input
                                         className="tay2"
                                         type="checkbox"
                                         value="Ovo"
                                         onChange={(e) => {
                                             const value = e.target.value;
-                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
-                                            if (restricao.includes(value)) {
-                                                // Se já existir, remova-a
-                                                setrestricao(restricao.filter(item => item !== value));
+
+                                            if (Array.isArray(restricao) ) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
                                             } else {
-                                                // Caso contrário, adicione-a
-                                                setrestricao([...restricao, value]);
+                                                setrestricao([value]);
                                             }
                                         }}
-                                        checked={restricao.includes('Ovo')} // Verifique se a restrição está marcada
+                                        checked={Array.isArray(restricao) && restricao.includes('Ovo')}
                                     />
                                     <p className='nomeproduto'>Ovo</p>
                                 </div>
-
-                                <div className='in'>
-                                    <input
-                                        className="tay2"
-                                        type="checkbox"
-                                        value="Leite e seus derivados"
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
-                                            if (restricao.includes(value)) {
-                                                // Se já existir, remova-a
-                                                setrestricao(restricao.filter(item => item !== value))
-                                            } else {
-                                                // Caso contrário, adicione-a
-                                                setrestricao([...restricao, value])
-                                            }
-                                        }}
-                                        checked={restricao.includes('Leite e seus derivados')} // Verifique se a restrição está marcada
-                                    />
-                                    <p className='nomeproduto'>Leite e seus derivados</p>
-                                </div>
-
-                            </div>
-
+                                    
+                             </div>
 
                         </div>
-
-                 <div className='pref-prod'>
-                 <div className='in'>
-                                    <input
-                                        className="tay2"
-                                        type="checkbox"
-                                        value="Vegetariano"
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
-                                            if (restricao.includes(value)) {
-                                                // Se já existir, remova-a
-                                                setrestricao(restricao.filter(item => item !== value));
-                                            } else {
-                                                // Caso contrário, adicione-a
-                                                setrestricao([...restricao, value]);
-                                            }
-                                        }}
-                                        checked={restricao.includes('Vegetariano')}
-                                    />
-                                    <p className='nomeproduto'>Vegetariano</p>
-                                </div>
-
-                                <div className='in'>
-                                    <input
-                                        className="tay2"
-                                        type="checkbox"
-                                        value="Vegano"
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-                                            // Verifique se a restrição já existe no array antes de adicioná-la ou removê-la
-                                            if (restricao.includes(value)) {
-                                                // Se já existir, remova-a
-                                                setrestricao(restricao.filter(item => item !== value));
-                                            } else {
-                                                // Caso contrário, adicione-a
-                                                setrestricao([...restricao, value]);
-                                            }
-                                        }}
-                                        checked={restricao.includes('Vegano')}
-                                    />
-                                    <p className='nomeproduto'>Vegano</p>
-                                </div>
-
-                            </div>
 
 
                         <p className='linha'></p>
@@ -469,18 +543,18 @@ async function alterarProduto() {
                         <div className='disponivel'>
                             <h1>Disponível:</h1>
                             <input
-                         type='checkbox'
-                               checked={disponivel}
-                              onChange={() => setDisponivel(!disponivel)} 
-                                 />
-                           </div>
+                                type='checkbox'
+                                checked={disponivel}
+                                onChange={() => setDisponivel(!disponivel)}
+                            />
+                        </div>
 
                         <div className='fin-botao'>
                             <button onClick={alterarProduto}>Finalizar Cadastro</button>
                         </div>
 
                     </div>
-                   
+
                 </div>
             </div>
         </div>
@@ -490,3 +564,92 @@ async function alterarProduto() {
     )
 
 }
+
+/*function carregarRestricao() {
+        const checkboxes = document.querySelectorAll('.tay2');
+
+        checkboxes.forEach((checkbox) => {
+            const value = checkbox.value;
+            if (restricao.includes(value)) {
+                console.log(restricao.includes(value))
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        });
+    }
+
+                                    <div className='in'>
+                                <input
+                                        className="tay2"
+                                        type="checkbox"
+                                        value="Leite e seus derivados"
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+
+                                            if (Array.isArray(restricao)) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
+                                            } else {
+                                                setrestricao([value]);
+                                            }
+                                        }}
+                                        checked={Array.isArray(restricao) && restricao.includes('Leite e seus derivados')}
+                                    />
+                                    <p className='nomeproduto'>Leite e seus derivados</p>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div className='pref-prod'>
+                            <div className='in'>
+                            <input
+                                        className="tay2"
+                                        type="checkbox"
+                                        value="Vegetariano"
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+
+                                            if (Array.isArray(restricao)) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
+                                            } else {
+                                                setrestricao([value]);
+                                            }
+                                        }}
+                                        checked={Array.isArray(restricao) && restricao.includes('Vegetariano')}
+                                    />
+                                <p className='nomeproduto'>Vegetariano</p>
+                            </div>
+
+                            <div className='in'>
+                            <input
+                                        className="tay2"
+                                        type="checkbox"
+                                        value="Vegano"
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+
+                                            if (Array.isArray(restricao)) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
+                                            } else {
+                                                setrestricao([value]);
+                                            }
+                                        }}
+                                        checked={Array.isArray(restricao) && restricao.includes('Vegano')}
+                                    />
+                                <p className='nomeproduto'>Vegano</p>
+                            </div>*/

@@ -7,8 +7,7 @@ import {
         inserircometario, 
         listarcomentario  }
  from "../repository/comentarioRepository.js";
-import { analise } from "./verificar.js";
-import {  media} from "../repository/media.js";
+
 
 
 
@@ -22,7 +21,6 @@ endpoints.post( '/comentario' , async (req , resp ) =>{
           const  comentario  = req.body;                             
           const resposta = await inserircometario(comentario);
 
-          console.log(comentario)
           resp.send(resposta);
 
         

@@ -15,6 +15,29 @@
     from tb_produto
     left JOIN tb_comentario ON tb_comentario.id_produto = tb_produto.id_produto
     where tb_produto.id_produto = 1;
+    
+
+     SELECT
+    tb_produto.id_produto             as ID,
+      tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.ds_tipo_produto   as tipo,
+    tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as descricao,
+    tb_produto.vl_preco               as preço,
+    tb_produto.vl_preco_promocional   as preco_promocional,
+      tb_produto.bt_disponivel          as disponivel,
+      tb_imagem.id_imagem               as idimagem,
+      tb_imagem.img_produto                 as imagem,
+      tb_restricao.id_restricao         as idrestricao,
+    tb_restricao.ds_restricao         as restricao,
+     tb_media.ds_media                   as media 
+  FROM
+      tb_produto
+  INNER JOIN
+        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+   left join tb_media ON   tb_media.id_produto = tb_produto.id_produto;
 
 
 -- // tabela avaliacao //
@@ -404,3 +427,147 @@ and   tb_imagem.id_imagem = 1;
 
 DELETE FROM tb_produto
 WHERE   id_produto = 1;
+
+
+/// tabela favorito
+
+insert into tb_favorito(id_cliente , id_produto , ds_favorito)
+	 values (7,8,true);
+
+
+
+SELECT  
+CASE 
+    WHEN ds_favorito = 0 THEN 'false' 
+    WHEN ds_favorito = 1 THEN 'Favorito'
+    ELSE 'valor inválido'
+END AS valor, 
+
+
+tb_cliente.nm_cliente AS cliente,
+tb_favorito.id_cliente,
+tb_produto.nm_produto as produto,
+tb_favorito.id_produto,
+ds_favorito,
+id_favorito
+FROM tb_favorito
+
+LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
+where tb_produto.id_produto = 8
+and   tb_cliente.id_cliente = 7;
+
+
+
+
+
+
+SELECT 
+CASE 
+    WHEN ds_favorito = 0 THEN 'false' 
+    WHEN ds_favorito = 1 THEN 'Favorito'
+    ELSE 'valor inválido'
+END AS valor, 
+
+
+tb_cliente.nm_cliente AS cliente,
+tb_favorito.id_cliente,
+tb_produto.nm_produto as produto,
+tb_favorito.id_produto,
+ds_favorito,
+id_favorito
+FROM tb_favorito
+
+LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto;
+
+update  tb_favorito 
+set     ds_favorito = true
+where   id_favorito = 4;
+
+
+-- tabela carrinho
+
+-- todos os produtos
+
+insert tb_carrinho (id_produto , id_cliente,ds_carrinho,ds_qtd)
+			values (3,4,true,1);
+select 
+case 
+when  ds_carrinho = 0 then 'indisponível'
+when  ds_carrinho = 1 then 'disponivel'
+end   as carrinho ,
+id_carrinho , 
+tb_produto.nm_produto as produto,
+tb_produto.vl_preco   as preco,
+tb_carrinho.ds_qtd as quantidade ,
+tb_produto.id_produto,
+tb_cliente.nm_cliente as cliente,
+tb_cliente.id_cliente 
+from tb_carrinho
+LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto;
+
+
+-- produtos disponiveis no carrinho 
+
+select 
+case 
+when  ds_carrinho = 0 then 'indisponível'
+when  ds_carrinho = 1 then 'disponivel'
+end   as carrinho ,
+id_carrinho , 
+tb_produto.nm_produto as produto,
+tb_produto.vl_preco   as preco,
+tb_carrinho.ds_qtd as quantidade ,
+tb_produto.id_produto,
+tb_cliente.nm_cliente as cliente,
+tb_cliente.id_cliente 
+from tb_carrinho
+LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
+where tb_carrinho.ds_carrinho = 1;
+
+update tb_carrinho
+set    ds_carrinho   = true,
+       ds_qtd = 1
+where  id_carrinho   = 1 ;
+
+
+
+
+select 
+case 
+when  ds_carrinho = 0 then 'indisponível'
+when  ds_carrinho = 1 then 'disponivel'
+end   as carrinho ,
+id_carrinho , 
+tb_produto.nm_produto as produto,
+tb_produto.vl_preco   as preco,
+tb_carrinho.ds_qtd as quantidade ,
+tb_produto.id_produto,
+tb_cliente.nm_cliente as cliente,
+tb_cliente.id_cliente 
+from tb_carrinho
+LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
+where tb_cliente.id_cliente = 4
+
+
+select 
+case 
+when  ds_carrinho = 0 then 'indisponível'
+when  ds_carrinho = 1 then 'disponivel'
+end   as carrinho ,
+id_carrinho , 
+tb_produto.nm_produto as produto,
+tb_produto.vl_preco   as preco,
+tb_carrinho.ds_qtd as quantidade ,
+tb_produto.id_produto,
+tb_cliente.nm_cliente as cliente,
+tb_cliente.id_cliente 
+from tb_carrinho
+LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
+where tb_cliente.id_cliente = 4
+and   tb_produto.id_produto =3;

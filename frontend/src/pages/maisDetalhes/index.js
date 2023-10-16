@@ -18,12 +18,15 @@ export default function MaisDetalhes() {
 
 
     useEffect(() => {
-        console.log(id)
+        
+        PegarInfoPoduto()
     }, [])
 
     async function PegarInfoPoduto() {
-        const r = await axios.get(`http://localhost:5000/produto/listar/${idProduto}`)
-        setDetalhes(r.data)
+        const r = await axios.get(`http://localhost:5000/produto`)
+        const resp = r.data[0]
+        console.log(resp)
+        //setDetalhes(r.data)
     }
 
     async function PegarInfoCliente() {
@@ -53,29 +56,7 @@ export default function MaisDetalhes() {
         navigate('/')
     }
 
-    /*<tbody>
-                        {detalhes.map(item => 
-                            <tr>
-                            <td className="comp-linha"></td>
-                                <td>{item.}</td>
-                    
-                                <td>wendel</td>
-                                <td className="comp-linha"></td>
-                                <td>wendel</td>
-                                <td className="comp-linha"></td>
-                                <td>wendel</td>
-                                <td className="comp-linha"></td>
-                                <td>wendel</td>
-                                <td className="comp-linha"></td>
-                                <td>wendel</td>
-                                <td className="comp-linha"></td>
-                                <td>wendel</td>
-                                <td className="comp-linha"></td>
-                                <td>wendel</td>
-                            </tr>
-                            )}
-                            
-                        </tbody>*/
+
 
     return (
         <div className='pagina-mais-detalhes'>
@@ -129,6 +110,31 @@ export default function MaisDetalhes() {
                                 <th>Telefone</th>
                             </tr>
                         </thead>
+
+                        
+                        <tbody>
+                        
+                            <tr>
+                            <td className="comp-linha"></td>
+                                <td>#157</td>
+                                <td className="comp-linha"></td>
+                                <td>carlos Ribeiro</td>
+                                <td className="comp-linha"></td>
+                                <td>Dinheiro</td>
+                                <td className="comp-linha"></td>
+                                <td>Pizza de murango, cantinho do vale, sorvete de murango</td>
+                                <td className="comp-linha"></td>
+                                <td>11/09/2001</td>
+                                <td className="comp-linha"></td>
+                                <td>169,00</td>
+                                <td className="comp-linha"></td>
+                                <td>Rua Serra de Bragança - Vila Gomes Cardim - São Paulo</td>
+                                <td className="comp-linha"></td>
+                                <td>(11) 4002-8922</td>
+                            </tr>
+                            
+                            
+                        </tbody>
 
                         
                     </table>

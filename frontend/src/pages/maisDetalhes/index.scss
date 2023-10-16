@@ -113,6 +113,14 @@
         .tabela-mais-detalhes {
             display: flex;
             margin-top: 20px;
+
+            tbody {
+                width: 100%;
+            }
+
+            tbody tr td {
+                padding-left: 50px;
+            }
         }
 
         .tabela-mais-detalhes thead tr {
@@ -140,6 +148,7 @@
         }
 
         .tabela-mais-detalhes tbody td {
+            
             padding: 10px 0px 10px 0px; 
         }
 

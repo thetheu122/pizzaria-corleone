@@ -85,8 +85,9 @@ export default function Informacoes(props) {
             const response = await axios.get('http://localhost:5000/produto/listar/' + id);
             setProduto(response.data);
         }
+     
         listar();
-    }, [id]);
+    }, [id,digitado]);
 
 
     useEffect(() => {
@@ -110,8 +111,47 @@ export default function Informacoes(props) {
     function ttt(novoValor) {
         setCadastroAtv(novoValor);
       }
-      
 
+      
+       
+      async function media(estrelas){
+
+        try {
+            let qtd = 0;
+    
+            if (comentarioo.length > 0) {
+                qtd = comentarioo.reduce((total, item) => total + item.avaliacao, 0);
+            }
+    
+            let total = qtd + estrelas;
+            let avl = comentarioo.length +1;
+    
+            let media ={media :(total / avl).toFixed(1)} 
+            
+       
+    
+            if (comentarioo.length > 0) {
+                const resp = await axios.put('http://localhost:5000/media/' + id, media)
+                toast.error(resp.data.err)
+                console.log('1media:' +media.media)
+            } 
+            else {
+                const valor = {
+                    id: id,
+                    media: media.media,
+                };
+    
+                const resp = await axios.post('http://localhost:5000/media', valor);
+                toast.error(resp.data.error);
+                console.log('2media:' +media)
+
+            }
+
+        }  catch (error) {
+            console.error(error);
+        }
+    }
+    
 
 
 
@@ -170,16 +210,24 @@ export default function Informacoes(props) {
                     avaliacao: estrelas
                 }
 
+       
+                media(estrelas)
 
-                if (digitado.length > 0) {
+                if (digitado.length > 0 ) {
+                    if( estrelas === 0 || estrelas === 6){
+                        toast.error('É necessario avaliar o comentario ')
+                    }
+                    else{
+                        const resp = await axios.post('http://localhost:5000/comentario', comen);
+                        setDigitado('');
+                        setEstrela1(true)
+                        setEstrela2(true)
+                        setEstrela3(true)
+                        setEstrela4(true)
+                        setEstrela5(true)
+                    }
 
-                    const resp = await axios.post('http://localhost:5000/comentario', comen);
-                    setDigitado('');
-                    setEstrela1(true)
-                    setEstrela2(true)
-                    setEstrela3(true)
-                    setEstrela4(true)
-                    setEstrela5(true)
+             
                 }
 
             } else {
@@ -246,6 +294,9 @@ export default function Informacoes(props) {
                         </div>
                     </div>
                     <div>
+                    {produto.map((item) => (
+                    <h2>{item.media !== null ? item.media : 0}</h2>
+                    ))}
                         <h3></h3>
                         <img src={estrela} alt="Estrela" />
                     </div>

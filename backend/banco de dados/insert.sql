@@ -130,7 +130,27 @@ VALUES (
   true
 );
 
-           
+
+insert into  tb_restricao (id_produto,ds_restricao)
+                     values (1,'lactose'); 
+                     
+insert into  tb_restricao (id_produto,ds_restricao)
+                     values (2,'vegano'); 
+                     
+insert into  tb_restricao (id_produto,ds_restricao)
+                     values (3,'vegetariano'); 
+                     
+insert into  tb_restricao (id_produto,ds_restricao)
+                     values (4,'vegano'); 
+
+insert into  tb_restricao (id_produto,ds_restricao)
+                     values (5, 'gluten'); 
+
+insert into  tb_restricao (id_produto,ds_restricao)
+                     values (6,'ovo'); 
+
+ insert into  tb_restricao (id_produto,ds_restricao)
+                     values (7,'gluten');                     
 
 
         -- \\ inserts de outras tabelas (nao obrigatorios) // --
