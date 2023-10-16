@@ -58,17 +58,25 @@ export async function loginCliente(email, senha) {
 export async function infoCLiente(id) {
     let comando =
         `
-        SELECT  
-            id_endereco     as endereco, 
-            id_cartao       as cartao, 
-            nm_cliente      as cliente, 
-            ds_email        as email, 
-            ds_telefone     as telefone, 
-            ds_senha        as senha, 
-            ds_cpf          as cpf, 
-            ds_nascimento   as dtnascimento 
-        FROM tb_cliente
-        WHERE id_cliente = ?;
+        SELECT
+            c.id_endereco as endereco,
+            c.id_cartao         as cartao,
+            c.nm_cliente        as cliente,
+            c.ds_email          as email,
+            c.ds_telefone       as telefone,
+            c.ds_senha          as senha,
+            c.ds_cpf            as cpf,
+            c.ds_nacimento     as dtnascimento,
+            e.ds_estado         as estado,
+            e.ds_cidade         as cidade,
+            e.ds_bairro         as bairro,
+            e.ds_rua            as rua,
+            e.ds_numero         as numero,
+            e.ds_cep            as cep
+            FROM tb_cliente c
+      INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+           WHERE c.id_cliente = ?;
+
 
     `
 

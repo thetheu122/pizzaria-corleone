@@ -1,22 +1,19 @@
 import './index.scss'
 
 import Cardhistorico from '../cardhistorico'
-import Barralateral from '../barralateral'
-export default function Historico (){
+export default function Historico() {
 
-    return(
+    return (
+        <div className='fundo'>
+            <h1>Historico de compras : </h1>
 
-        <div className='historico'>
-          <Barralateral/>
-         <div className='fundo'>
-          <h1>Historico de compras : </h1>
-             
-             <Cardhistorico/>
-             <Cardhistorico/>
-             <Cardhistorico/>
-
-            
-        </div> 
+            <div className='cartoesHistorico'>
+                <Cardhistorico />
+                <Cardhistorico />
+                <Cardhistorico />
+                <Cardhistorico />
+                <Cardhistorico />
+            </div>
         </div>
     )
 }

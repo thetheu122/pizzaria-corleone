@@ -1,36 +1,43 @@
-.historico{
-
-    background-image:url('../assets//images/Rectangle\ 67.png') ;
-    background-size: 100%;
-   
-
-     width: 100%;
-     min-width: 1420px;
-
-     height: auto;
-     min-height: 800px;
-    
-     display: flex;
-     justify-content: center;
-     align-items: center;
-
-
- .fundo{
-    display: flex;
+.fundo {
+   display: flex;
    flex-direction: column;
-   align-items: center;
-
+   justify-content: space-evenly;
    background-color: white;
-   width: 550px;
+   width: 700px;
    height: auto;
    min-height: 610px;
-
-   border-radius: 10px;
-   margin-left: 10px;
- }
- .fundo h1{
-    color: #53220D;
- }
+   border-radius: 0px 15px 15px 0px;
 
 
+   h1 {
+      color: #53220D;
+      font-size: 3rem;
+      margin-top: 20px;
+      text-align: center;
+   }
+
+   .cartoesHistorico {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      height: 420px;
+      overflow: scroll;
+      scrollbar-width: thin;
+      scrollbar-color: gray transparent;
+      padding: 15px 0px;
+
+      &::-webkit-scrollbar {
+         width: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+         background: gray;
+         border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+         background: transparent;
+      }
+   }
 }

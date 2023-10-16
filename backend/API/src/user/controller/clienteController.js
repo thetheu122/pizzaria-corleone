@@ -75,7 +75,7 @@ server.post('/cliente/login', async (req, resp) => {
 
 server.get('/cliente/info', async (req, resp) => {
     try {
-        let id = req.query.id;
+        let {id} = req.query;
 
         let respo = await infoCLiente(id)
 

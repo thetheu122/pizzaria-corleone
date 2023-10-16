@@ -1,73 +1,105 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './index.scss'
+import '../../../assets/config/fonts-config.scss'
 
-import  estreladupla from '../assets/images/image 52.png'
-import  carrinho     from '../assets/images/vista-lateral-vazia-do-carrinho-de-compras (1).png'  
-import  perfil       from '../assets/images/icone-cadastro 1.png'
-import  sair         from '../assets/images/image 51.png'
-import  voltar       from '../assets/images/seta-esquerda.png'
+import { confirmAlert } from 'react-confirm-alert';
 
 
-export default function Barralateral(){
+import Coracao from '../../../assets/images/icons/coracao_icon.svg'
+import CarrinhoIcon from '../../../assets/images/icons/shopping-cart_icon.svg';
+import Conta from '../../../assets/images/icons/conta.svg'
+import Voltar from '../../../assets/img/seta-esquerda.png'
+import Sair from '../../../assets/images/pictures/exitdoor_87195.svg'
+import PedidosAtivos from '../../../assets/images/icons/box.svg'
+import { useEffect, useState } from 'react';
 
-    return(
+export default function Barralateral(props) {
+    
+
+    useEffect(() => {
+        let usuario = localStorage.getItem('usuario-logado');
+        usuario = JSON.parse(usuario);
+        setNome(usuario.nome)
+        setId(usuario.id)
+        setEmail(usuario.email)
+    }, [])
+
+    //INFOS DO USUÁRIO
+    const [nome, setNome] = useState('')
+    const [email, setEmail] = useState('')
+    const [id, setId] = useState(0)
+
+    const navigate = useNavigate()
+
+    const showConfirmationDialog = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => (
+                <div className="custom-confirm-dialog">
+                    <h1>Sair da conta</h1>
+                    <p>Você deixará de ter acesso aos nossos serviços e só voltará a ter caso faça login novamente. Você tem certeza de que deseja fazer isso?</p>
+                    <div>
+                        <button onClick={() => {
+                            localStorage.removeItem('usuario-logado');
+                            navigate('/')
+                            onClose();
+                        }}>Sim</button>
+                        <button onClick={() => {
+                            onClose();
+                        }}>Não</button>
+                    </div>
+                </div>
+            ),
+        });
+    };
+
+    const controladorExibicao = (l) => {
+        props.controlador(l)
+        console.log(l)
+    }
+
+
+    return (
         <div className='barra-lateral'>
+            <div className='fundo'>
+                <div className='barra-lateral-secao-01'>
+                    <div className='barra-lateral-voltar' onClick={() => navigate(-1)} >
+                        <img src={Voltar} />
+                        Voltar
+                    </div>
+                    <div className=' barra-lateral-secao-01-circulo'>   </div>
 
-               <div className='fundo'>
-                    
-                    
-                     <div className='barra-lateral-secao-01'>
-                            <div className='barra-lateral-voltar'>
-                                <img src={voltar}/> 
-                                <Link className='link-barra-lateral'>Voltar</Link>
-                            </div>
-                     <div className=' barra-lateral-secao-01-circulo'>   </div>
- 
-                                <h3>John</h3>
-                              <p>John.silva@gmail.com</p>
-                        
-                        </div>
+                    <h3>{nome}</h3>
+                    <p>{email}</p>
 
-                      
-                        <p>Painel</p>
-                     
-                     <div className='barra-lateral-links'>
-                            <div className='pedidos-ativos'>
-                                 
-                                <Link  className='link-barra-lateral'> Pedidos ativos </Link>
-                            </div>
+                </div>
 
-                            <div>
-                                <img src={estreladupla}/>
-                                <Link to='/favoritos' className='link-barra-lateral'> Favoritos </Link>
-                            </div>
+                <div className='barra-lateral-links'>
+                    <div className='pedidos-ativos' onClick={() => controladorExibicao('p')}>
+                        <img src={PedidosAtivos} />
+                        Pedidos ativos
+                    </div>
 
-                            <div>
-                                <img src={carrinho}/>
-                                <Link to='/historico' className='link-barra-lateral'> Historico de compras  </Link>
-                            </div>
+                    <div>
+                        <img src={Coracao} onClick={() => controladorExibicao('f')} />
+                        Favoritos
+                    </div>
 
-                            <div>
-                                <img src={perfil}/>
-                                <Link  className='link-barra-lateral'> Detalhes da conta   </Link>
-                            </div>
+                    <div onClick={() => controladorExibicao('h')}>
+                        <img src={CarrinhoIcon} />
+                        Historico de compras
+                    </div>
 
-                            <div>
-                                <img src={sair}/>
-                                <Link className='link-barra-lateral'>  Sair  </Link>
-                            </div>
-                     </div>
+                    <div onClick={() => controladorExibicao('d')}>
+                        <img src={Conta} />
+                        Detalhes da conta
+                    </div>
 
-
-
-
-               
-             </div>
-
-
-           
-
-
+                    <div onClick={showConfirmationDialog}>
+                        <img src={Sair} />
+                        Sair
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,0 +1,173 @@
+.minhaConta {
+    background-color: white;
+    width: 700px;
+    height: 610px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 0px 15px 15px 0px;
+
+    padding: 10px;
+
+    .logoCorleone {
+        width: 208px;
+        height: 48px;
+        align-self: flex-end;
+        margin: 20px 5px 0px 0px;
+    }
+
+    >h1 {
+        align-self: flex-start;
+        color: #53220D;
+        font-size: 40px;
+        font-weight: 400;
+        margin-top: 5px;
+        margin-left: 10px;
+    }
+
+    .baixoMinhaConta {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 15px;
+
+        input {
+            border-radius: 7px;
+            border: 2px solid #D9D9D9;
+
+            width: 313.577px;
+            height: 50.973px;
+
+            color: #A59A9A;
+            font-family: lato-regular;
+            font-size: 15px;
+
+            outline: none;
+
+            margin-bottom: 5px;
+
+            padding-left: 5px;
+
+        }
+
+        p {
+            color: #8B8585;
+            font-family: lato-regular;
+            font-size: 17px;
+            font-style: normal;
+            font-weight: 400;
+            margin: 10px 0px 15px 0px;
+
+            text-align: left;
+        }
+
+        .cpfzin {
+            margin-top: 45px;
+        }
+
+        .esquerdaMinhaConta {
+            display: flex;
+            flex-direction: column;
+
+
+            .senhaTelefone {
+                display: flex;
+
+                input:nth-child(1) {
+                    width: 133.391px;
+                    height: 51px;
+                    margin-right: 5px;
+                }
+
+                input:nth-child(2) {
+                    width: 175.391px;
+                    height: 51px;
+                }
+            }
+
+            .dataNascimento {
+                display: flex;
+                gap: 5.9px;
+
+                input {
+                    width: 100px;
+                }
+            }
+        }
+
+        .metadinha {
+            display: flex;
+            gap: 10px;
+
+            input:nth-child(1) {
+                width: 80px;
+            }
+
+            input {
+                width: 225px;
+            }
+        }
+
+        .direitaMinhaConta {
+            margin-left: 15px;
+        }
+
+    }
+
+    .duplada {
+        display: flex;
+        gap: 10px;
+        justify-content: end;
+        padding-right: 25px;
+    }
+
+    .butaumm {
+        border-radius: 30px;
+        border: 2px solid #53220D;
+        width: 204px;
+        height: 48px;
+
+        color: #53220D;
+        text-align: center;
+        font-family: lato-regular;
+        font-weight: 400;
+        font-size: 17px;
+
+        margin: 5px 0px 0px 0px;
+
+        align-self: flex-end;
+
+        cursor: pointer;
+
+        &:hover {
+            transition: .3s;
+            scale: 1.05;
+        }
+
+    }
+
+    .butaum {
+        border-radius: 30px;
+        border: 2px solid #53220D;
+        width: 114px;
+        height: 48px;
+
+        color: #53220D;
+        text-align: center;
+        font-family: lato-regular;
+        font-weight: 400;
+        font-size: 17px;
+
+        margin: 5px 0px 0px 0px;
+
+        align-self: flex-end;
+
+        cursor: pointer;
+
+        &:hover {
+            transition: .3s;
+            scale: 1.05;
+        }
+    }
+}

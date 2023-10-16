@@ -80,10 +80,6 @@ export default function Cabecalho(props) {
 
 
 
-
-  //localStorage.removeItem('usuario-logado');
-
-
   const inversao = () => {
     if (!nome) {
       toast.warn('Digite o seu nome', {
@@ -349,7 +345,7 @@ export default function Cabecalho(props) {
           <div className='minha-conta'>
             <img alt='minha-conta' src={Conta} />
             {isLogged ?
-              <p>Minha Conta</p>
+              <p onClick={() => navigate('/minhaconta')}>Minha Conta</p>
               : <p onClick={() => setOpenLoginModal(!openLoginModal)}>Fazer Login </p>
             }
           </div>
