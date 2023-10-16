@@ -23,11 +23,14 @@ export default function CardProduto(props) {
 
     const navigation = useNavigate()
 
+    const teste = 'http://localhost:5000/' + props.produto.imagem
 
     return (
         <main className='card-produto'>
             <img alt='linha' src={LinhaAmarela} className='linha1' />
             <div className='produto'>
+
+                {/*<img className='img' src={teste}/>*/}
 
                 <div className='circulo' onClick={() => setFavorito(!favorito)}>
                     {favorito ? <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,6 +75,8 @@ export default function CardProduto(props) {
                         <img alt='estrela' src={Star} />
                     </div>
                 </div>
+
+
             </div>
 
             <Modal

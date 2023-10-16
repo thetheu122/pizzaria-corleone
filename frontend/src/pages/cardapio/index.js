@@ -39,6 +39,8 @@ export default function Cardapio() {
         setPages([...novoArray])
     }, [produto])
 
+    console.log(produto)
+
     async function buscar() {
 
         let restricao = []
@@ -264,7 +266,7 @@ export default function Cardapio() {
                             </div>
 
                         )) : <div className='not'>
-                            <h1> <img src={carregando} />Produto não encontrdado</h1>
+                            <h1> <img src={carregando} />Produto não encontrado</h1>
                         </div>}
 
                     </div>
