@@ -53,7 +53,7 @@ export default function MaisDetalhes() {
     const navigate = useNavigate();
 
     function Voltar() {
-        navigate('/')
+        navigate('/listapedido')
     }
 
 
@@ -92,21 +92,21 @@ export default function MaisDetalhes() {
                     <table className='tabela-mais-detalhes'>
                         <thead>
                             <tr>
-                            <th className="comp-linha"></th>
+                            <th className="comp-linha-detalhes"></th>
                                 <th>ID</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Nome</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Pagamento</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Produto</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Data</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Total</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Endereço</th>
-                                <th className="comp-linha"></th>
+                                <th className="comp-linha-detalhes"></th>
                                 <th>Telefone</th>
                             </tr>
                         </thead>
@@ -115,21 +115,21 @@ export default function MaisDetalhes() {
                         <tbody>
                         
                             <tr>
-                            <td className="comp-linha"></td>
+                            <td className="comp-linha-detalhes"></td>
                                 <td>#157</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>carlos Ribeiro</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>Dinheiro</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>Pizza de murango, cantinho do vale, sorvete de murango</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>11/09/2001</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>169,00</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>Rua Serra de Bragança - Vila Gomes Cardim - São Paulo</td>
-                                <td className="comp-linha"></td>
+                                <td className="comp-linha-detalhes"></td>
                                 <td>(11) 4002-8922</td>
                             </tr>
                             
