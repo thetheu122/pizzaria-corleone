@@ -1,9 +1,9 @@
 @keyframes loading {
-    0%{
+    0% {
         transform: rotate(0deg);
     }
 
-    100%{
+    100% {
         transform: rotate(360deg);
     }
 }
@@ -14,17 +14,59 @@
 
     .cima {
         width: auto !important;
-        height: 213px;
-        background-image: url('../../assets/img/Rectangle 26.png') !important;
-        background-size: cover;
-        background-repeat: no-repeat;
+        height: 223px;
         display: flex;
-        flex-direction: column;
-        justify-content: end;
-        align-items: center;
-        padding-bottom: 30px;
 
-        h1 {
+        > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            width: 0px;
+            flex-grow: 1;
+            object-fit: cover;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: .5s ease;
+            opacity: 1;
+
+            h1 {
+                opacity: 0;
+                color: #FFF;
+                font-size: 50px;
+            }
+
+            &:hover {
+                width: 200px;
+                opacity: 1.2;
+
+
+                h1{
+                    opacity: 1;
+                    transition: .5s ease;
+                }
+            }
+        }
+
+        .fbebida {
+            background-image: url(../../assets/images/pictures/bebe.png);
+
+        }
+
+        .fpizza {
+            background-image: url(../../assets/images/pictures/fundo-margherita.png);
+        }
+
+        .fsobremesas {
+            background-image: url(../../assets/images/pictures/soso.png);
+        }
+
+        .fvegetariana {
+            background-image: url(../../assets/images/pictures/opop.png);
+        }
+
+
+        /*h1 {
             color: #FFF;
             font-family: lobster-two-regular;
             font-size: 35px;
@@ -47,7 +89,7 @@
                 line-height: normal;
                 text-transform: capitalize;
             }
-        }
+        }*/
 
 
     }
@@ -221,7 +263,7 @@
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.8);
             border: 1px solid #53220D;
-            color:#53220D;
+            color: #53220D;
             font-family: lobster-two-regular;
             font-size: 20px;
             font-style: normal;
@@ -246,7 +288,7 @@
             height: 46px;
             border-radius: 30px;
             border: #53220D 1px solid;
-            color:#53220D;
+            color: #53220D;
             font-family: lobster-two-regular;
             font-size: 20px;
             font-style: normal;
@@ -274,8 +316,8 @@
             height: 46px;
             border-radius: 30px;
             border: 1px solid #8d8d8d;
-            background-color:  #c3c3c3;
-            color:#a2a2a2;
+            background-color: #c3c3c3;
+            color: #a2a2a2;
             font-family: lobster-two-regular;
             font-size: 20px;
             font-style: normal;
@@ -292,21 +334,21 @@
         width: 100%;
     }
 
-    .marrom{
+    .marrom {
         display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid black;
-            color: #ffffff;
-            background-color: #53220D;
-            font-family: lobster-two-regular;
-            font-size: 20px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
+        justify-content: center;
+        align-items: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px solid black;
+        color: #ffffff;
+        background-color: #53220D;
+        font-family: lobster-two-regular;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
     }
 }
