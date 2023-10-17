@@ -25,6 +25,7 @@ import MaisDetalhes from './pages/maisDetalhes';
 import Dashboard from './pages/dashboard';
 import ListarPedido from './pages/listarPedido';
 import MinhaConta from './pages/perfil';
+import ClienteAdm from './pages/clienteAdm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -50,6 +51,7 @@ root.render(
         <Route path='/dashboard' element={<Dashboard/>} />
         <Route path='/listapedido' element={<ListarPedido/>} />
         <Route path='/minhaconta' element={<MinhaConta/>} />
+        <Route path='/cliente' element={<ClienteAdm/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -56,6 +56,7 @@ export default function Dashboard() {
                                 <th>Pagamento</th>
                             </tr>
                         </thead>
+                        <tr className='cada-valor'></tr>
 
                         <tbody>
                             <tr className='conteudo-tabela'>
