@@ -51,9 +51,7 @@ export default function ListarPedido() {
                         <h2 className='data'>Data: 30/07/2023</h2>
                     </div>
 
-                    <div className='quantidade'>
-                        <p>1 - 30 de 66 pedidos  </p>
-                    </div>
+                   
 
                     <div className="linha-pedido"></div>
 

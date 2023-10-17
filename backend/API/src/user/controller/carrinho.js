@@ -15,9 +15,6 @@ const verificar =( (req,resp,itens) =>{
     else if(!itens.disponivel){
         resp.status(400).send({erro:'É necessario preencher todos os campos .Campo ""disponivel" vazio'})
     }
-    else if(!itens.qtd){
-        resp.status(400).send({erro:'É necessario preencher todos os campos .Campo "qtd" vazio'})
-    }
     else{
         return true
     }
@@ -27,10 +24,12 @@ const verificar =( (req,resp,itens) =>{
 endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
     try {
         const itens = req.body
-
+       
         if( verificar(req,resp,itens)){
             const resposta = await itenscarrinho(itens)
+            console.log('aa')
             resp.send(resposta)
+           
         }
     
     } catch (err) {
@@ -44,13 +43,12 @@ endpoints.put('/corleone/usuario/carrinho/editar' , async (req,resp) =>{
        
         const erro = []
         const itens = req.body
+        console.log('put:' + itens.idcarrinho)
         const resposta = await alteraritens(itens)
         
-        if(!itens.disponivel){
-            erro.push('É necessario preencher todos os campos .Campo "disponivel" vazio')
-        }
+     
 
-        else if(!itens.qtd){
+        if(!itens.qtd){
             erro.push('É necessario preencher todos os campos .Campo "qtd" vazio')
         }
         else if(!itens.idcarrinho){
@@ -63,13 +61,11 @@ endpoints.put('/corleone/usuario/carrinho/editar' , async (req,resp) =>{
         
         else{
 
-            if(resposta === true ){
-                resp.status(200).send({message:'item alterado com sucesso '})
-            }
+            
+            resp.status(200).send({message:'item alterado com sucesso '})
+            
 
-            else{
-                resp.status(400).send({erro:'ocorreu um erro'})
-            }
+           
          }
 
     }   catch (err) {
@@ -106,7 +102,7 @@ endpoints.get('/corleone/usuario/carrinho/verificar' , async (req,resp) =>{
       const resposta = await verificarcarrinho(id)
 
       if (resposta == '') {
-        resp.status(200).send({ message: 'Esse usuário não possui esta pizza cadastrada no carrinho' });
+        resp.send(resposta);
       }
        else {
         resp.send(resposta);

@@ -15,11 +15,62 @@ import { useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 export default function CardProduto(props) {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const [favorito, setFavorito] = useState(false)
+    const id = props.produto.id
+   
+
+async function carrinho (){
+ 
+    
+
+  let user ={
+    "produto":id,
+    "cliente":1    
+  }
+
+  let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar' ,user )
+  const resposta = r.data
+
+  
+  if( r.data == ''){
+    let user = {
+        "produto":id,
+        "cliente":1,
+        "disponivel":true,
+        "qtd":1
+       }
+       let resposne =axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+  setOpenModalCart(false)
+  }
+
+  else{
+    if(resposta.carrinho == 'disponivel'){
+        let user  = {
+            "disponivel":true,
+            "qtd": + 1,
+            "idcarrinho":resposta.idcarrinho
+        }
+        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        setOpenModalCart(false)
+    }
+    else{
+        let user  = {
+            "disponivel":true,
+            "qtd":1,
+            "idcarrinho":resposta.idcarrinho
+        }
+        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        setOpenModalCart(false)
+        console.log(resposta.carrinho)
+     }
+  }
+}
+    
 
     const navigation = useNavigate()
 
@@ -92,8 +143,9 @@ export default function CardProduto(props) {
                     <path d="M2.00049 13.1351L14.3901 1.47317" stroke="black" stroke-width="2" stroke-linecap="round" />
                 </svg>
                 <div className='opcoes'>
-                    <h1>Pizza Margherita</h1>
-                    <h2>R$ 72,00</h2>
+                    
+                    <h1>{props.produto.nome}</h1>
+                    <h2>{props.produto.preco}</h2>
                     <div className='localPartida'>
                         <div className='ruaAvaliacao'>
                             <img className='iconezin' src={Loja} />
@@ -157,7 +209,7 @@ export default function CardProduto(props) {
                         </div>
                     </div>
 
-                    <img src={Add} className='butaumzin' />
+                    <img  src={Add} onClick={carrinho} className='butaumzin' />
                 </div>
             </Modal>
         </main>
