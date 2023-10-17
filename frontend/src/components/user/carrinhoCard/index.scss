@@ -5,7 +5,9 @@
     border-radius: 10px;
     margin-top: 20px;
     margin-right: 40px;
-
+&:hover .svg{
+    display: block;
+}
     p{
         font-family: lato-regular;
     }
@@ -37,6 +39,10 @@ font-style: normal;
 font-weight: 700;
             width: calc(100% - 25px);
         }
+        svg{
+            display: none;
+            margin: 5px;
+        }
 
         .circulo{
             border: 1px solid #000;
@@ -54,6 +60,7 @@ font-weight: 700;
                 height: 17px;
                 width: 17px;
             }
+            
         }
     }
 

@@ -6,6 +6,8 @@ import Add from '../../../assets/images/pictures/add-cart.png'
 
 export default function Modal({ onClose }) {
 
+
+    
     return (
         <main className='sugestoes'>
             <div className='imagem-produto' />
