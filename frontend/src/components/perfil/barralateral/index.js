@@ -4,7 +4,6 @@ import '../../../assets/config/fonts-config.scss'
 
 import { confirmAlert } from 'react-confirm-alert';
 
-
 import Coracao from '../../../assets/images/icons/coracao_icon.svg'
 import CarrinhoIcon from '../../../assets/images/icons/shopping-cart_icon.svg';
 import Conta from '../../../assets/images/icons/conta.svg'
@@ -15,19 +14,16 @@ import { useEffect, useState } from 'react';
 
 export default function Barralateral(props) {
     
+    
 
     useEffect(() => {
         let usuario = localStorage.getItem('usuario-logado');
         usuario = JSON.parse(usuario);
-        setNome(usuario.nome)
-        setId(usuario.id)
-        setEmail(usuario.email)
+        setUser(usuario)
     }, [])
 
-    //INFOS DO USUÁRIO
-    const [nome, setNome] = useState('')
-    const [email, setEmail] = useState('')
-    const [id, setId] = useState(0)
+    //INFOS DO USUÁRIO -- nome, email, id
+    const [user, setUser] = useState({})
 
     const navigate = useNavigate()
 
@@ -68,8 +64,8 @@ export default function Barralateral(props) {
                     </div>
                     <div className=' barra-lateral-secao-01-circulo'>   </div>
 
-                    <h3>{nome}</h3>
-                    <p>{email}</p>
+                    <h3>{user.nome}</h3>
+                    <p>{user.email}</p>
 
                 </div>
 
