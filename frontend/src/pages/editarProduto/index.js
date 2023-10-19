@@ -13,7 +13,7 @@ export default function EditarProduto() {
     const [nome, setnome] = useState('')
     const [tipo, settipo] = useState(0)
     const [ingredientes, setingrediente] = useState('')
-    const [restricao, setrestricao] = useState('')
+    const [restricao, setrestricao] = useState([])
     const [preco, setpreco] = useState(0)
     const [descricao, setdescricao] = useState('')
     const [disponivel, setDisponivel] = useState(false);
@@ -115,6 +115,8 @@ console.log(imagem)
 
 
 
+
+
     async function alterar() {
         const resposta = await axios.get('http://localhost:5000/produto/listar/' + id)
         const r = resposta.data[0]
@@ -187,7 +189,7 @@ console.log(imagem)
 
 
 
-            const restricaoAtualizada = restricao
+            const restricaoAtualizada = restricao[0,1,2]
 
             alert(restricaoAtualizada)
 

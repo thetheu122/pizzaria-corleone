@@ -189,6 +189,7 @@
         justify-content: center;
         align-items: center;
         padding: 10px 0px;
+        
     }
 
     .produtos-listados tbody tr {
@@ -199,16 +200,15 @@
         color: #909090;
         display: flex;
         flex-direction: column;
-        
+        border-bottom: 1px solid #777676;
     }
 
     
 
-    .comp-linha {
-        background-color: #626262;
-        height: 1px;
-        width: 100%;
-    }
+   /* .comp-linha-listar {
+        height: 0.5px;
+        background-color: #c4c4c4;
+    }*/ 
 
     .titulos {
         background-color: #fff !important;
@@ -241,12 +241,7 @@
 
     }
 
-    .comp-linha {
-        background-color: #626262;
-        height: 1px;
-        width: 100%;
 
-    }
     .comp-produtos {
         display: flex;
         flex-direction: row;

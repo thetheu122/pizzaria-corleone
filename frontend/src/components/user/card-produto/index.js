@@ -16,21 +16,29 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import Cabecalho from '../cabecalho'
+
+import { toast } from 'react-toastify'
 
 export default function CardProduto(props) {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const [favorito, setFavorito] = useState(false)
     const id = props.produto.id
-   
+    const [cadastroAtv, setCadastroAtv] = useState(false)
+    function ttt(novoValor) {
+        setCadastroAtv(novoValor);
+      }
 
 async function carrinho (){
- 
-    
-
+    setCadastroAtv(false)
+ try {
+   
+    let usuario = localStorage.getItem('usuario-logado');
+    usuario = JSON.parse(usuario);
   let user ={
     "produto":id,
-    "cliente":1    
+    "cliente":usuario   
   }
 
   let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar' ,user )
@@ -38,9 +46,12 @@ async function carrinho (){
 
   
   if( r.data == ''){
+    
+    let usuario = localStorage.getItem('usuario-logado');
+    usuario = JSON.parse(usuario);
     let user = {
         "produto":id,
-        "cliente":1,
+        "cliente":usuario,
         "disponivel":true,
         "qtd":1
        }
@@ -68,7 +79,15 @@ async function carrinho (){
         setOpenModalCart(false)
         console.log(resposta.carrinho)
      }
-  }
+  } 
+ } catch (error) {
+    if (!localStorage.getItem('usuario-logado')) {
+        setCadastroAtv(true)
+        toast.error('Impossivel comentar, favor se cadastrar ou realizar login no nosso site')
+        
+    }
+ }
+
 }
     
 
@@ -78,6 +97,7 @@ async function carrinho (){
 
     return (
         <main className='card-produto'>
+
             <img alt='linha' src={LinhaAmarela} className='linha1' />
             <div className='produto'>
 

@@ -9,9 +9,7 @@ const verificar =( (req,resp,itens) =>{
     if(!itens.produto){
         resp.status(400).send({erro:'É necessario preencher todos os campos .Campo "produto" vazio'})
     }
-    else if(!itens.cliente){
-        resp.status(400).send({erro:'É necessario preencher todos os campos .Campo "cliente" vazio'})
-    }
+
     else if(!itens.disponivel){
         resp.status(400).send({erro:'É necessario preencher todos os campos .Campo ""disponivel" vazio'})
     }
@@ -27,7 +25,7 @@ endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
        
         if( verificar(req,resp,itens)){
             const resposta = await itenscarrinho(itens)
-            console.log('aa')
+
             resp.send(resposta)
            
         }
