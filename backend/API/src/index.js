@@ -23,7 +23,7 @@ import comentario from './user/controller/comentarioController.js'
 import endereco   from './user/controller/enderecoController.js'
 import cliente    from './user/controller/clienteController.js'
 import carrinho   from './user/controller/carrinho.js'
-
+import cartao from './user/controller/pagamentoController.js'
 // }
 
 
@@ -45,6 +45,7 @@ server.use(avaliacao)
 server.use(media)
 server.use(favoritos)
 server.use(carrinho)
+server.use(cartao)
 
 server.listen ( process.env.PORT , ()=>{
     console.log(` A API esta online na porta ${process.env.PORT}`)

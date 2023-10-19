@@ -17,7 +17,23 @@
         height: 223px;
         display: flex;
 
-        > div {
+        &:hover>div:not(:hover) {
+            opacity: .6;
+        }
+
+        >div:hover {
+            width: 200px;
+            opacity: 2.8;
+            cursor: pointer;
+
+
+            h1 {
+                opacity: 1;
+                transition: .5s ease;
+            }
+        }
+
+        >div {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,17 +50,6 @@
                 opacity: 0;
                 color: #FFF;
                 font-size: 50px;
-            }
-
-            &:hover {
-                width: 200px;
-                opacity: 1.2;
-
-
-                h1{
-                    opacity: 1;
-                    transition: .5s ease;
-                }
             }
         }
 
