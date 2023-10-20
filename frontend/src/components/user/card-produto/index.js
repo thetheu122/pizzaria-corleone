@@ -38,7 +38,7 @@ async function carrinho (){
     usuario = JSON.parse(usuario);
   let user ={
     "produto":id,
-    "cliente":usuario   
+    "cliente":1 
   }
 
   let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar' ,user )
@@ -51,7 +51,7 @@ async function carrinho (){
     usuario = JSON.parse(usuario);
     let user = {
         "produto":id,
-        "cliente":usuario,
+        "cliente":1,
         "disponivel":true,
         "qtd":1
        }
