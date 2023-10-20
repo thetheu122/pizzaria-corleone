@@ -193,12 +193,12 @@ export default function ListarProdutosAdm() {
             const { ID } = produto;
 
             if (categoriasVistas[ID]) {
-                // Já vimos esta categoria antes, então o produto é repetido
+                
                 if (!produtosRepetidos[ID]) {
                     produtosRepetidos[ID] = ID;
                   }
             } else {
-                // Esta é a primeira vez que vemos esta categoria, registramos ela
+                
                 categoriasVistas[ID] = true;
             }
         });
