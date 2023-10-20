@@ -84,3 +84,48 @@ export async function infoCLiente(id) {
 
     return resposta[0];
 };
+
+export async function editarInfoClient(newInfos, id) {
+
+    let comando =
+        `
+    UPDATE tb_cliente c
+        INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+        SET
+            c.id_cartao = null,
+            c.nm_cliente = ?,
+            c.ds_email = ?,
+            c.ds_telefone = ?,
+            c.ds_senha = ?,
+            c.ds_cpf = ?,
+            c.ds_nacimento = ?,
+            e.ds_estado = ?,
+            e.ds_cidade = ?,
+            e.ds_bairro = ?,
+            e.ds_rua = ?,
+            e.ds_numero = ?,
+            e.ds_cep = ?
+        WHERE c.id_cliente = ?;
+    `
+
+    const [resposta] = await con.query(comando, [newInfos.nome, newInfos.email, newInfos.telefone, newInfos.senha, newInfos.cpf, newInfos.nascimento, newInfos.estado, newInfos.cidade, newInfos.bairro, newInfos.rua, newInfos.numero, newInfos.cep, id ])
+
+    return resposta
+    console.log(resposta)
+}
+
+export function validarDados(dados) {
+    for (const campo in dados) {
+      if (!dados[campo]) {
+        throw new Error(`Campo "${campo}" está vazio.`);
+      }
+
+      if (campo === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados[campo])) {
+        throw new Error('E-mail possui um formato inválido.');
+      }
+
+      if (campo === 'cpf' && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(dados[campo])) {
+        throw new Error('CPF possui um formato inválido.');
+      }
+    }
+  }

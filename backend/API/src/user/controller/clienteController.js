@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { infoCLiente, inserirCliente, loginCliente } from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, loginCliente, validarDados } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -88,6 +88,22 @@ server.get('/cliente/info', async (req, resp) => {
         resp.status(404).send(err.message)
     }
 });
+
+server.put('/cliente/alterar', async (req, resp) => {
+    try {
+      const newInfos = req.body;
+      const { id } = req.query;
+
+      validarDados(newInfos)
+  
+      const respo = await editarInfoClient(newInfos, id);
+  
+      resp.status(200).send(respo);
+    } catch (err) {
+      resp.status(404).send(err.message);
+    }
+  });
+  
 
 
 

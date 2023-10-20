@@ -4,6 +4,12 @@
     display: flex;
     flex-direction: row;
     background-color: #D9D9D9;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
 
 
     .container-produtos {
@@ -13,32 +19,45 @@
     }
 
     .cabecalho-listar {
-        background-color: #eefaff;
+        background-color: #F7FCFE;
         display: flex;
         justify-content: flex-start;
         padding: 15px;
+        height: 8%;
+        align-items: center;
         font-size: 14px;
-        margin-top: 10px;
-        box-shadow: 0 5px 5px -5px #000;
+       // box-shadow: 0 5px 5px -5px #000;
     }
 
     .cabecalho-listar h2 {
-        font-weight: 500;
+        font-size: 23px;
+        font-family: lato-regular;
+        font-weight: 580;
+        color: black;
+        padding-left: 5px;
     }
 
     .sub-titulo-listar {
-        border-radius: 15px;
+        //border-radius: 15px;
         display: flex;
         font-size: 16px;
         padding: 15px 25px;
         background-color: #fff;
         justify-content: flex-start;
-        margin-top: 10px;
-        width: 95%;
+        //margin-top: 10px;
+        width: 100%;
+       
+   
+ 
+        
     }
 
     .sub-titulo-listar h1 {
-        font-weight: 600;
+        padding-left: 8px;
+        font-size: 17px;
+        font-family: lato-regular;
+        color: #777676;
+        font-weight: 450;
         //font-family: none;
     }
 
@@ -54,17 +73,17 @@
         display: flex;
         flex-direction: column;
         padding: 15px 10px;
-        border: 1px solid #000;
+       // border: 1px solid #000;
         border-radius: 15px;
         width: 60%;
     }
 
     .buscar {
         display: flex;
-        border: 1px solid #000;
-        width: 420px;
+        border: #A59A9A 1px solid;
+        width: 335px;
         padding: 5px 10px;
-        border-radius: 55px;
+        border-radius: 7px;
         height: 45px;
         align-items: center;
     }
@@ -80,6 +99,9 @@
         height: 100%;
         outline: none;
         border: none;
+      
+           
+        
     }
 
 
@@ -155,6 +177,9 @@
     }
 
     .produtos-listados th {
+        padding: 10px;
+        
+        color: #777676;
         width: 25%;
     }
 
@@ -164,6 +189,7 @@
         justify-content: center;
         align-items: center;
         padding: 10px 0px;
+        
     }
 
     .produtos-listados tbody tr {
@@ -171,18 +197,18 @@
         justify-content: space-around;
     }
     .cada-produto{
+        color: #909090;
         display: flex;
         flex-direction: column;
-        
+        border-bottom: 1px solid #777676;
     }
 
     
 
-    .comp-linha {
-        background-color: #626262;
-        height: 2px;
-        width: 100%;
-    }
+   /* .comp-linha-listar {
+        height: 0.5px;
+        background-color: #c4c4c4;
+    }*/ 
 
     .titulos {
         background-color: #fff !important;
@@ -215,12 +241,7 @@
 
     }
 
-    .comp-linha {
-        background-color: #626262;
-        height: 1px;
-        width: 100%;
 
-    }
     .comp-produtos {
         display: flex;
         flex-direction: row;

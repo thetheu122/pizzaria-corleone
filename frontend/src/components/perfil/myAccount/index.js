@@ -3,6 +3,8 @@ import Logo from '../../../assets/images/logo.svg'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+import { confirmAlert } from 'react-confirm-alert';
+
 import Aberto from '../../../assets/images/pictures/olho-aberto.svg'
 import Fechado from '../../../assets/images/pictures/olho-fechado.svg'
 import { toast } from 'react-toastify'
@@ -23,6 +25,7 @@ export default function MyAccount() {
     const [uf, setUf] = useState('')
     const [cidade, setCidade] = useState('')
     const [bairro, setBairro] = useState('')
+    const [rua, setRua] = useState('')
     const [num, setNum] = useState('')
     const [cep, setCep] = useState('')
 
@@ -45,6 +48,7 @@ export default function MyAccount() {
                 setBairro(response.bairro)
                 setCep(response.cep)
                 setCidade(response.cidade)
+                setRua(response.rua)
 
                 const nomeCompleto = response.cliente;
                 const partesNome = nomeCompleto.split(' ');
@@ -73,6 +77,8 @@ export default function MyAccount() {
                 setSenha(response.senha)
                 setTelefone(response.telefone)
 
+                setEdt(false)
+
             } catch (error) {
                 console.error('Erro na requisição:', error);
             }
@@ -83,15 +89,94 @@ export default function MyAccount() {
 
     const alterarUser = async () => {
         try {
-            
+            let nomeCompleto = nome + sobrenome
+            let dtnascimento = `${dia}/${mes}/${ano}`
 
+            let newInfos = {
+                nome: nomeCompleto,
+                email: email,
+                telefone: telefone,
+                senha: senha,
+                cpf: cpf,
+                nascimento: dtnascimento,
+                estado:uf,
+                cidade:cidade,
+                bairro:bairro,
+                rua:rua,
+                numero:num,
+                cep:cep
+            }
+            const data = JSON.parse(localStorage.getItem('usuario-logado'));
 
+            let response = await axios.put(`http://localhost:5000/cliente/alterar?id=${data.id}`,newInfos )
+
+            data.nome = nomeCompleto
+            data.email = email
+            localStorage.setItem('usuario-logado', JSON.stringify(data));
+            window.location.reload();
+
+            setEdt(!edt)
         } catch (error) {
-            toast.error(error)
-            console.log(error)
+            toast.error(error.message)
         }
     };
 
+    
+    const formatCep = (value) => {
+        const numericValue = value.replace(/\D/g, '');
+
+        let cepFormated = numericValue.replace(/(\d{5})(\d{3})/, '$1-$2');
+        setCep(cepFormated)
+    };
+
+    const formatTelefone = (value) => {
+        const numericValue = value.replace(/\D/g, '');
+
+        if (numericValue.length <= 10) {
+            let n = numericValue.replace(
+                /(\d{2})(\d{4})(\d{4})/,
+                '$1 $2-$3');
+            setTelefone(n)
+
+        } else {
+            let m = numericValue.replace(
+                /(\d{2})(\d{5})(\d{4})/,
+                '($1) $2-$3'
+            );
+            setTelefone(m)
+        }
+    };
+
+    const formatCpf = (value) => {
+        const numericValue = value.replace(/\D/g, '');
+
+        const formattedCpf = numericValue.replace(
+            /(\d{3})(\d{3})(\d{3})(\d{2})/,
+            '$1.$2.$3-$4'
+        );
+
+        setCpf(formattedCpf)
+    };
+
+    const showConfirmationDialog = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => (
+                <div className="custom-confirm-dialog">
+                    <h1>Alteração de Dados</h1>
+                    <p>Ao selecionar "Sim", você confirmar as alterações feitas nos campos.</p>
+                    <div>
+                        <button onClick={() => {
+                            alterarUser()
+                            onClose();
+                        }}>Sim</button>
+                        <button onClick={() => {
+                            onClose();
+                        }}>Não</button>
+                    </div>
+                </div>
+            ),
+        });
+    };
 
     return (
         <div className="minhaConta">
@@ -106,10 +191,10 @@ export default function MyAccount() {
                     <div className='senhaTelefone'>
                         <div className='senha'>
                             <input className='in' disabled={!edt} placeholder='Senha' type={showPassword ? 'text' : 'password'} value={senha} onChange={(e) => setSenha(e.target.value)} />
-                            {showPassword ? <img src={Aberto} style={{ cursor: 'pointer' }} onClick={() => setShowPassword(false)}/> : <img src={Fechado} style={{ cursor: 'pointer' }} onClick={() => setShowPassword(true)}/>}
+                            {showPassword ? <img src={Aberto} style={{ cursor: 'pointer' }} onClick={() => setShowPassword(false)} /> : <img src={Fechado} style={{ cursor: 'pointer' }} onClick={() => setShowPassword(true)} />}
                         </div>
 
-                        <input placeholder='Telefone' value={telefone} disabled={!edt} onChange={(e) => setTelefone(e.target.value)} />
+                        <input placeholder='Telefone' value={telefone} disabled={!edt} onChange={(e) => formatTelefone(e.target.value)} />
                     </div>
 
                     <p>Dados Pessoais</p>
@@ -123,22 +208,27 @@ export default function MyAccount() {
                 </div>
 
                 <div className='direitaMinhaConta'>
-                    <input className='cpfzin' placeholder='CPF' value={cpf} disabled={!edt} onChange={(e => setCpf(e.target.value))} />
+                    <input className='cpfzin' placeholder='CPF' value={cpf} disabled={!edt} onChange={(e => formatCpf(e.target.value))} />
 
                     <p>Logradouro</p>
-                    <input placeholder='UF' value={uf} disabled={!edt} onChange={(e => setUf(e.target.value))} />
-                    <input placeholder='Cidade' value={cidade} disabled={!edt} onChange={(e => setCidade(e.target.value))} />
+                    <div className='metadinha'>
+                        <input placeholder='UF' value={uf} disabled={!edt} onChange={(e => setUf(e.target.value))} />
+                        <input placeholder='Cidade' value={cidade} disabled={!edt} onChange={(e => setCidade(e.target.value))} />
+                    </div>
                     <input placeholder='Bairro' value={bairro} disabled={!edt} onChange={(e => setBairro(e.target.value))} />
+                    <input placeholder='Rua' value={rua} disabled={!edt} onChange={(e => setRua(e.target.value))} />
                     <div className='metadinha'>
                         <input placeholder='Num.' value={num} disabled={!edt} onChange={(e => setNum(e.target.value))} />
-                        <input placeholder='CEP' value={cep} disabled={!edt} onChange={(e => setCep(e.target.value))} />
+                        <input placeholder='CEP' value={cep} disabled={!edt} onChange={(e => formatCep(e.target.value))} />
                     </div>
 
                 </div>
 
             </div>
             <div className='duplada'>
-                <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
+                {edt ?
+                    <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
+                    : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>}
                 <button className='butaumm'>Método de Pagamento</button>
             </div>
         </div>

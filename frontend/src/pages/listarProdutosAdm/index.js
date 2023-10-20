@@ -15,6 +15,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import './index.scss'
 
+
 export default function ListarProdutosAdm() {
 
     const [filtro, setFiltro] = useState('');
@@ -31,7 +32,7 @@ export default function ListarProdutosAdm() {
     }
 
     useEffect(() => {
-        NaoRepetir();
+        Listando();
 
 
     }, [])
@@ -249,6 +250,13 @@ export default function ListarProdutosAdm() {
       
 
 
+    async function NaoRepetirProdutos(id){
+        const r = await axios.get(`http://localhost:5000/produto`)
+        
+        console.log(r.data)
+    }
+ 
+
 
     return (
         <div className="pagina-alterar-produtos">
@@ -288,10 +296,10 @@ export default function ListarProdutosAdm() {
                                 </thead>
                                 <tbody>
 
-
+                                
                                     {produtos.map(item =>
                                         <tr className="cada-produto">
-                                            <td className="comp-linha"></td>
+                                            
                                             <tr className="lista-produto">
                                                 <td>#{item.ID}</td>
                                                 <td>{item.nome}</td>
