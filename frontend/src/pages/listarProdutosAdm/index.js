@@ -234,7 +234,7 @@ export default function ListarProdutosAdm() {
           } else {
             categoriasVistas[categoria] = true;
           }
-        });
+        })
       
         produtos.forEach((produto) => {
           const { nome, categoria } = produto;
@@ -332,10 +332,7 @@ export default function ListarProdutosAdm() {
                     <div className="filtros-produtos">
                         <div className="ordernar">
                             <h2>Ordernar por:</h2>
-                            <div>
-                                <input type="search" placeholder="Mais Vendidas" />
-                                <img src={Setaprabaixo} />
-                            </div>
+                           
                         </div>
 
                         <div className="bloco-filtro">

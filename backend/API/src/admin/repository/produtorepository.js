@@ -79,6 +79,7 @@ export async function inserirProduto(produto) {
     SELECT
     tb_produto.id_produto             as ID,
       tb_produto.nm_produto             as nome, 
+      tb_tipo_produto.id_tipo_produto   as idtipo, 
     tb_tipo_produto.ds_tipo_produto   as tipo,
     tb_produto.ds_ingredientes        as ingredientes,
       tb_produto.ds_descricao           as descricao,
@@ -143,7 +144,8 @@ export async function inserirProduto(produto) {
     const comando = `
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as nome, 
+      tb_produto.nm_produto             as nome,
+      tb_tipo_produto.id_tipo_produto   as idtipo, 
     tb_tipo_produto.ds_tipo_produto   as tipo,
     tb_produto.ds_ingredientes        as ingredientes,
       tb_produto.ds_descricao           as descricao,

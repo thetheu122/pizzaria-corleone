@@ -20,7 +20,7 @@ export default function EditarProduto() {
     const [imagem, setImagem] = useState(null);
     const [idrestricao, setIdrestricao] = useState(0)
     const [idImagem, setIdImagem] = useState(0)
-
+    const [idTipo, setIdTipo] = useState(0)
 
 
 
@@ -49,6 +49,7 @@ console.log(imagem)
         }
         alterar()
         alteraridImagem()
+        alterarTipo();
         
         
     }, [])
@@ -114,9 +115,6 @@ console.log(imagem)
 
 
 
-
-
-
     async function alterar() {
         const resposta = await axios.get('http://localhost:5000/produto/listar/' + id)
         const r = resposta.data[0]
@@ -134,16 +132,13 @@ console.log(imagem)
     }
 
 
-    /*  async function enviarimagem(idproduto, imagem) {
-          const formData = new FormData();
-          formData.append('capa', imagem);
-      
-          const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData , {
-              headers: {
-                  "Content-type": "multipart/form-data"
-              },
-          })
-      }*/
+    async function alterarTipo() {
+        const resposta = await axios.get(`http://localhost:5000/produto/listar/${id}`)
+        const r = resposta.data[0]
+        const resp = r.idtipo
+        setIdTipo(resp)
+    }
+
 
 
 
@@ -191,7 +186,7 @@ console.log(imagem)
 
             const restricaoAtualizada = restricao[0,1,2]
 
-            alert(restricaoAtualizada)
+            //alert(restricaoAtualizada)
 
 
 
