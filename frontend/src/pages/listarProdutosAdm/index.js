@@ -15,6 +15,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import './index.scss'
 
+
 export default function ListarProdutosAdm() {
 
     const [filtro, setFiltro] = useState('');
@@ -47,6 +48,7 @@ export default function ListarProdutosAdm() {
     //PROJETO FINALIZADOOOOOOOOOOOOOOOOOOOOOOOO
 
 
+    //BUSCAR OU LISTAR OS PRODUTOS
     async function buscarProdutos() {
         const resposta = await axios.get('http://localhost:5000/produto/' + filtro)
         setProdutos(resposta.data)
@@ -54,10 +56,9 @@ export default function ListarProdutosAdm() {
 
     async function Listando() {
         const r = await axios.get('http://localhost:5000/produto')
+        console.log(r.data)
         setProdutos(r.data)
     }
-
-    
 
     async function buscarPorTipo() {
         const resposta = await axios.get(`http://localhost:5000/produto/tipos/${tipos}`)
@@ -69,21 +70,15 @@ export default function ListarProdutosAdm() {
         setProdutos(resposta.data)
     }
 
-    
 
 
 
-
-
-
-
-
-
+    //DELETAR UM PRODUTO
     async function apagarProduto(id) {
         try {
             const r = await axios.get('http://localhost:5000/produto');
 
-            
+
             const produto = r.data.find(item => item.ID === id);
             console.log(produto)
 
@@ -144,25 +139,25 @@ export default function ListarProdutosAdm() {
 
 
 
-
+    //FILTRAR OS PRODUTOS CLICANDO NO CHECKBOX
     const handleCheckboxChangerestriction = (value) => {
-        
+
         if (restricoes.includes(value)) {
-            
+
             setRestricoes(restricoes.filter((item) => item !== value));
         } else {
-            
+
             setRestricoes([...restricoes, value]);
         }
     };
 
     const handleCheckboxChangetype = (value) => {
-        
+
         if (tipos.includes(value)) {
-            
+
             setTipos(tipos.filter((item) => item !== value));
         } else {
-            
+
             setTipos([...tipos, value]);
         }
     };
@@ -170,20 +165,97 @@ export default function ListarProdutosAdm() {
     function buscar() {
         if (tipos == '1' || tipos == '2') {
             buscarPorTipo();
-        } 
+        }
 
         else if (!restricoes && !tipos) {
             Listando();
         }
 
-        else{
+        else {
             buscarPorRestricao();
         }
-
-
-   
     }
 
+
+
+    //NÃO REPETIR PRODUTOS
+
+    async function NaoRepetir() {
+        const r = await axios.get(`http://localhost:5000/produto`)
+        const resp = r.data
+
+
+        const categoriasVistas = {};
+        const produtosRepetidos = {};
+        const produtosUnicos = [];
+
+        resp.forEach((produto) => {
+            const { ID } = produto;
+
+            if (categoriasVistas[ID]) {
+                
+                if (!produtosRepetidos[ID]) {
+                    produtosRepetidos[ID] = ID;
+                  }
+            } else {
+                
+                categoriasVistas[ID] = true;
+            }
+        });
+
+
+        produtos.forEach((produto) => {
+            const { ID } = produto;
+            if (!produtosRepetidos[ID] || produtosRepetidos[ID] === ID) {
+              produtosUnicos.push(produto);
+            }
+          });
+
+          console.log(produtosUnicos)
+        
+          return produtosUnicos;
+
+        
+
+    }
+
+    function mostrarProdutosUnicos(produtos) {
+        const categoriasVistas = {};
+        const produtosRepetidos = {};
+        const produtosUnicos = [];
+      
+        produtos.forEach((produto) => {
+          const { nome, categoria } = produto;
+      
+          if (categoriasVistas[categoria]) {
+            if (!produtosRepetidos[categoria]) {
+              produtosRepetidos[categoria] = nome;
+            }
+          } else {
+            categoriasVistas[categoria] = true;
+          }
+        });
+      
+        produtos.forEach((produto) => {
+          const { nome, categoria } = produto;
+          if (!produtosRepetidos[categoria] || produtosRepetidos[categoria] === nome) {
+            produtosUnicos.push(produto);
+          }
+        });
+      
+        return produtosUnicos;
+      }
+      
+      
+      
+
+
+    async function NaoRepetirProdutos(id){
+        const r = await axios.get(`http://localhost:5000/produto`)
+        
+        console.log(r.data)
+    }
+ 
 
 
     return (
@@ -209,7 +281,7 @@ export default function ListarProdutosAdm() {
                             <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} />
                         </div>
 
-                        
+
 
                         <div className="produtos-listados">
 
@@ -224,17 +296,17 @@ export default function ListarProdutosAdm() {
                                 </thead>
                                 <tbody>
 
-
+                                
                                     {produtos.map(item =>
                                         <tr className="cada-produto">
-                                            <td className="comp-linha"></td>
+                                            
                                             <tr className="lista-produto">
                                                 <td>#{item.ID}</td>
                                                 <td>{item.nome}</td>
                                                 <td className='deletar' ><img src={Deletar} onClick={() => {
                                                     apagarProduto(item.ID, item.idimagem, item.idrestricao);
                                                 }} /></td>
-                                                <td className="alterar" ><img src={Editar}  onClick={() => {
+                                                <td className="alterar" ><img src={Editar} onClick={() => {
                                                     console.log("ID do Produto:", item.ID);
                                                     console.log("ID da Restrição:", item.idrestricao);
                                                     console.log("ID da imagem:", item.idimagem);
