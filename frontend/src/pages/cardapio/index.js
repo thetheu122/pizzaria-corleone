@@ -17,13 +17,24 @@ import axios from 'axios'
 export default function Cardapio() {
 
     const [produto, setProduto] = useState([])
-    const [pesquisa, setPesquisa] = useState('')
+
     const [mostrar, setMostrar] = useState(true)
-    const [vegano, setVgeano] = useState(false)
-    const [vegetariano, setVegetariano] = useState(false)
-    const [intoleranteaovo, setIntoleranteaovo] = useState(false)
-    const [intoleranteagluten, setIntoleranteaGluten] = useState(false)
-    const [intolerantealactose, setIntolerantealactose] = useState(false)
+
+    //CONTROLADOR FILTRO LATERAL
+    const [qtdAtv, setQtdAtv] = useState(0)
+    const [vegano, setVegano] = useState(false)
+    const [intoleranteOvo, setIntoleranteOvo] = useState(false)
+    const [intoleranteGluten, setIntoleranteGluten] = useState(false)
+    const [intoleranteLactose, setIntoleranteLactose] = useState(false)
+
+    //FILTRO PESQUISA NOME
+    const [pesquisa, setPesquisa] = useState('')
+
+    //CONTROLADOR FILTRO SUPERIOR
+    const [pizzasAtv, setPizzasAtv] = useState(true)
+    const [bebidasAtv, setBebidasAtv] = useState(false)
+    const [sobremesaAtv, setSobremesaAtv] = useState(false)
+    const [vegetarianaAtv, setVegetarianasAtv] = useState(false)
 
     //paginação
     const [paginaAtual, setPaginaAtual] = useState(1)
@@ -39,106 +50,91 @@ export default function Cardapio() {
         setPages([...novoArray])
     }, [produto])
 
-    console.log(produto)
+    useEffect(() => {
+        buscar()
 
-    async function buscar() {
-
-        let restricao = []
-
-        if (vegano === true) {
-            restricao.push('vegano')
-        }
-        else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('vegano'));
-            restricao = novoVetor
-        }
-
-        if (vegetariano === true) {
-            restricao.push('vegetariano')
-        }
-        else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('vegetariano'));
-            restricao = novoVetor
-        }
-
-        if (intoleranteagluten === true) {
-            restricao.push('gluten')
-        }
-        else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a glutem'));
-            restricao = novoVetor
-        }
-
-        if (intolerantealactose === true) {
-            restricao.push('lactose')
-        }
-        else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a lactose'));
-            restricao = novoVetor
-        }
-
-        if (intoleranteaovo === true) {
-            restricao.push('ovo')
-        }
-        else {
-            const novoVetor = restricao.filter(elemento => !elemento.includes('intolerante a ovo'));
-            restricao = novoVetor
-        }
-
-
-        if (restricao === '' || restricao.length == 0) {
-
-            let resp = await axios.get('http://localhost:5000/produto/' + pesquisa)
-            if (resp.data == '') {
-                setMostrar(false)
-            }
-
-
-            else {
-                setProduto(resp.data)
-                setMostrar(true)
-            }
-        }
-
-
-        if (restricao.length > 1) {
-
-            let respo = await axios.get('http://localhost:5000/produto/restricoes?restricao=' + restricao[0] + '&restricao2=' + restricao[1])
-            setProduto(respo.data)
-            if (respo.data == '')
-                setMostrar(false)
-
-            else
-                setMostrar(true)
-
-        }
-
-
-        if (restricao.length === 1) {
-
-            let response = await axios.get('http://localhost:5000/produto/restricoes/' + restricao[0])
-            await setProduto(...[response.data])
-
-            if (response.data == '')
-                setMostrar(false)
-
-            else
-                setMostrar(true)
-        }
-
-
-    }
+    }, [pesquisa, vegano, intoleranteGluten, intoleranteOvo, intoleranteLactose, pizzasAtv, sobremesaAtv, bebidasAtv, vegetarianaAtv])
 
     const ultimoCartao = paginaAtual * itensPorPagina
     const primeiroCartao = ultimoCartao - itensPorPagina
     const cartoesAtuais = produto.slice(primeiroCartao, ultimoCartao)
 
+    function controladorFiltroSuperior(value) {
+        if (value === 'p') {
+            setPizzasAtv(true)
+            setBebidasAtv(false)
+            setSobremesaAtv(false)
+            setVegetarianasAtv(false)
+        }
+        else if (value === 'b') {
+            setPizzasAtv(false)
+            setBebidasAtv(true)
+            setSobremesaAtv(false)
+            setVegetarianasAtv(false)
+        }
+        else if (value === 's') {
+            setPizzasAtv(false)
+            setBebidasAtv(false)
+            setSobremesaAtv(true)
+            setVegetarianasAtv(false)
+        }
+        else if (value === 'v') {
+            setPizzasAtv(false)
+            setBebidasAtv(false)
+            setSobremesaAtv(false)
+            setVegetarianasAtv(true)
+        }
+    }
 
 
-    useEffect(() => {
-        buscar()
+    async function buscar() {
+        let tipoComida = ''
 
-    }, [pesquisa, vegano, vegetariano, intoleranteagluten, intoleranteaovo, intolerantealactose])
+        if (pizzasAtv) {
+            tipoComida = 'salgado'
+        }
+        else if (vegetarianaAtv) {
+            tipoComida = 'vegetariano'
+        }
+        else if (bebidasAtv) {
+            tipoComida = 'bebida'
+        }
+        else if (sobremesaAtv) {
+            tipoComida = 'sobremesa'
+        }
+
+        const restricoesAtivas = [];
+
+        if (vegano)
+            restricoesAtivas.push('vegano');
+        if (intoleranteOvo)
+            restricoesAtivas.push('ovo');
+        if (intoleranteGluten)
+            restricoesAtivas.push('gluten');
+        if (intoleranteLactose)
+            restricoesAtivas.push('leite');
+
+        let restricao_1 = restricoesAtivas[0]
+        let restricao_2 = restricoesAtivas[1]
+        let restricao_3 = restricoesAtivas[2]
+
+        let dados = {
+            tp: tipoComida,
+            restricao_1: restricao_1 ? restricao_1 : '',
+            restricao_2: restricao_2 ? restricao_2 : '',
+            restricao_3: restricao_3 ? restricao_3 : '',
+            nm: pesquisa ? pesquisa : '',
+            orderby: null
+        }
+
+        console.log(dados)
+
+        let response = await axios.get('http://localhost:5000/produto/consulta/cardapio', dados)
+
+        response = response.data
+
+        setProduto(response)
+    }
 
     const altPag = (num) => {
         if (num == 'ant') {
@@ -157,20 +153,40 @@ export default function Cardapio() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
+
+    const sideFilter = (value) => {
+        if (value === 'v') {
+            vegano ? setQtdAtv(qtdAtv - 1) : setQtdAtv(qtdAtv + 1)
+            setVegano(!vegano)
+        }
+        else if (value === 'l') {
+            intoleranteLactose ? setQtdAtv(qtdAtv - 1) : setQtdAtv(qtdAtv + 1)
+            setIntoleranteLactose(!intoleranteLactose)
+        }
+        else if (value === 'o') {
+            intoleranteOvo ? setQtdAtv(qtdAtv - 1) : setQtdAtv(qtdAtv + 1)
+            setIntoleranteOvo(!intoleranteOvo)
+        }
+        else if (value === 'g') {
+            intoleranteGluten ? setQtdAtv(qtdAtv - 1) : setQtdAtv(qtdAtv + 1)
+            setIntoleranteGluten(!intoleranteGluten)
+        }
+    }
+
     return (
         <main className='cardapio'>
             <Cabecalho />
             <div className='cima'>
-                <div className='fpizza'>
+                <div className={`fpizza ${pizzasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('p')}>
                     <h1>Pizzas</h1>
                 </div>
-                <div className='fsobremesas'>
+                <div className={`fsobremesas ${sobremesaAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('s')}>
                     <h1>Sobremesas</h1>
                 </div>
-                <div className='fbebida'>
+                <div className={`fbebida ${bebidasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('b')}>
                     <h1>Bebidas</h1>
                 </div>
-                <div className='fvegetariana'>
+                <div className={`fvegetariana ${vegetarianaAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('v')}>
                     <h1>Vegetarianas</h1>
                 </div>
             </div>
@@ -195,7 +211,7 @@ export default function Cardapio() {
 
                     <div className='restricoes'>
                         <div className='restricoesFiltro'>
-                            <input type='radio' value={vegano} onClick={() => setVgeano(!vegano)} checked={vegano} />
+                            <input type='radio' value={vegano} onClick={() => sideFilter('v')} disabled={qtdAtv === 3 && !vegano} checked={vegano} />
                             <p>Vegano</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -203,15 +219,7 @@ export default function Cardapio() {
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' value={vegetariano} onClick={() => setVegetariano(!vegetariano)} checked={vegetariano} />
-                            <p>Vegetariana</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
-                            <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
-                        </svg>
-
-                        <div className='restricoesFiltro'>
-                            <input type='radio' value={intoleranteaovo} onClick={() => setIntoleranteaovo(!intoleranteaovo)} checked={intoleranteaovo} />
+                            <input type='radio' value={intoleranteOvo} onClick={() => sideFilter('o')} disabled={qtdAtv === 3 && !intoleranteOvo} checked={intoleranteOvo} />
                             <p>Intolerante a Ovo</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -219,7 +227,7 @@ export default function Cardapio() {
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' value={intoleranteagluten} onClick={() => setIntoleranteaGluten(!intoleranteagluten)} checked={intoleranteagluten} />
+                            <input type='radio' value={intoleranteGluten} onClick={() => sideFilter('g')} disabled={qtdAtv === 3 && !intoleranteGluten} checked={intoleranteGluten} />
                             <p>Intolerante a Glúten </p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -227,7 +235,7 @@ export default function Cardapio() {
                         </svg>
 
                         <div className='restricoesFiltro'>
-                            <input type='radio' value={intolerantealactose} onClick={() => setIntolerantealactose(!intolerantealactose)} checked={intolerantealactose} />
+                            <input type='radio' value={intoleranteLactose} onClick={() => sideFilter('l')} disabled={qtdAtv === 3 && !intoleranteLactose} checked={intoleranteLactose} />
                             <p>Intolerante a Lactose</p>
                         </div>
 

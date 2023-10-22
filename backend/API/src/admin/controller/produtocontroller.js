@@ -125,6 +125,7 @@ endpoints.get('/produto/listar/:id', async (req, resp) => {
 endpoints.get('/produto', async (req, resp) => {
   try {
     const restricao = req.params;
+    const tipoComida =  req.body
     const produtos = await listarProdutos(restricao);
     resp.send(produtos);
 

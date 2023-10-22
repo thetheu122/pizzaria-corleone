@@ -24,6 +24,7 @@ import endereco   from './user/controller/enderecoController.js'
 import cliente    from './user/controller/clienteController.js'
 import carrinho   from './user/controller/carrinho.js'
 import cartao from './user/controller/pagamentoController.js'
+import produtoUs from './user/controller/produtoController.js'
 // }
 
 
@@ -46,7 +47,8 @@ server.use(media)
 server.use(favoritos)
 server.use(carrinho)
 server.use(cartao)
+server.use(produtoUs)
 
-server.listen ( process.env.PORT , ()=>{
+server.listen ( process.env.PORT , () =>{
     console.log(` A API esta online na porta ${process.env.PORT}`)
 })

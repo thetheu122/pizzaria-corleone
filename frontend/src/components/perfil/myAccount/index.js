@@ -7,7 +7,7 @@ import { confirmAlert } from 'react-confirm-alert';
 
 import Aberto from '../../../assets/images/pictures/olho-aberto.svg'
 import Fechado from '../../../assets/images/pictures/olho-fechado.svg'
-import { toast } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 
 export default function MyAccount() {
 
@@ -89,7 +89,11 @@ export default function MyAccount() {
 
     const alterarUser = async () => {
         try {
-            let nomeCompleto = nome + sobrenome
+            if (!nome || !sobrenome) {
+                throw new Error(`Campo de nome e/ou sobrenome vazio`);
+            }
+            
+            let nomeCompleto = `${nome} ${sobrenome}`
             let dtnascimento = `${dia}/${mes}/${ano}`
 
             let newInfos = {
@@ -99,16 +103,16 @@ export default function MyAccount() {
                 senha: senha,
                 cpf: cpf,
                 nascimento: dtnascimento,
-                estado:uf,
-                cidade:cidade,
-                bairro:bairro,
-                rua:rua,
-                numero:num,
-                cep:cep
+                estado: uf,
+                cidade: cidade,
+                bairro: bairro,
+                rua: rua,
+                numero: num,
+                cep: cep
             }
             const data = JSON.parse(localStorage.getItem('usuario-logado'));
 
-            let response = await axios.put(`http://localhost:5000/cliente/alterar?id=${data.id}`,newInfos )
+            let response = await axios.put(`http://localhost:5000/cliente/alterar?id=${data.id}`, newInfos)
 
             data.nome = nomeCompleto
             data.email = email
@@ -121,7 +125,7 @@ export default function MyAccount() {
         }
     };
 
-    
+
     const formatCep = (value) => {
         const numericValue = value.replace(/\D/g, '');
 
@@ -231,6 +235,7 @@ export default function MyAccount() {
                     : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>}
                 <button className='butaumm'>Método de Pagamento</button>
             </div>
+            <ToastContainer/>
         </div>
     )
 };

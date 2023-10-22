@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import Barralateral from '../../components/perfil/barralateral'
 import Historico from '../../components/perfil/historico'
 import MyAccount from '../../components/perfil/myAccount'
+import PagFavorito from '../../components/perfil/pagFavorito'
 
 export default function MinhaConta() {
   // CONTROLADORES MENU DIRETA
   const [pedidosAtv, setPedidosAtv] = useState(false)
-  const [favorito, setFavorito] = useState(false)
+  const [favorito, setFavorito] = useState(true)
   const [historico, setHistorico] = useState(false)
-  const [detalheConta, setDeltalheConta] = useState(true)
+  const [detalheConta, setDeltalheConta] = useState(false)
 
   const navigate = useNavigate()
 
@@ -45,7 +46,8 @@ export default function MinhaConta() {
 
       {historico ? 
       <Historico/> : detalheConta ?
-      <MyAccount/> : null}
+      <MyAccount/> : favorito ?
+      <PagFavorito/> : null}
     </div>
   )
 }

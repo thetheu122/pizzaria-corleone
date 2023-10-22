@@ -50,7 +50,6 @@ export default function Barralateral(props) {
 
     const controladorExibicao = (l) => {
         props.controlador(l)
-        console.log(l)
     }
 
 
@@ -75,8 +74,8 @@ export default function Barralateral(props) {
                         Pedidos ativos
                     </div>
 
-                    <div>
-                        <img src={Coracao} onClick={() => controladorExibicao('f')} />
+                    <div onClick={() => controladorExibicao('f')}>
+                        <img src={Coracao}  />
                         Favoritos
                     </div>
 
