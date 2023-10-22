@@ -571,3 +571,46 @@ LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
 LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
 where tb_cliente.id_cliente = 4
 and   tb_produto.id_produto =3;
+
+
+
+
+SELECT
+    tb_produto_produto.nm_produto AS produto,
+    tb_produto_img_produto.img_produto AS img_produto,
+    tb_produto_produto.vl_preco AS preco,
+    tb_produto_produto.id_produto AS produto_id,
+    tb_produto_sugestao.id_produto AS id_pizza_sugestao,
+    tb_produto_sugestao.nm_produto AS sugestao_produto,
+    tb_produto_sugestao.vl_preco AS sugestao_preco,
+    tb_produto_img_sugestao.img_produto AS img_produto_sugestao,
+    tb_produto_produto.ds_tipo_produto AS tipo,
+    tb_sugestao.id_sugestao
+FROM tb_sugestao
+INNER JOIN tb_produto AS tb_produto_sugestao ON tb_sugestao.id_produto = tb_produto_sugestao.id_produto
+LEFT JOIN tb_produto AS tb_produto_produto ON tb_sugestao.ds_sugestao = tb_produto_produto.id_produto
+LEFT JOIN tb_imagem AS tb_produto_img_produto ON tb_produto_produto.id_produto = tb_produto_img_produto.id_produto
+LEFT JOIN tb_imagem AS tb_produto_img_sugestao ON tb_sugestao.id_produto = tb_produto_img_sugestao.id_produto
+WHERE tb_produto_sugestao.ds_tipo_produto = 3
+AND tb_produto_produto.id_produto = 1;
+
+
+
+
+
+SELECT
+    tb_produto_produto.nm_produto AS produto,
+    tb_produto_produto.vl_preco AS preco,
+    tb_produto_produto.id_produto AS produto_id,
+    tb_produto_sugestao.id_produto AS id_pizza_sugestao,
+    tb_produto_sugestao.nm_produto AS sugestao_produto,
+    tb_produto_sugestao.vl_preco AS sugestao_preco,
+    tb_produto_img.img_produto,
+    tb_produto_produto.ds_tipo_produto as tipo,
+    tb_sugestao.id_sugestao
+FROM tb_sugestao
+LEFT JOIN tb_produto   AS tb_produto_sugestao ON tb_sugestao.id_produto   = tb_produto_sugestao.id_produto
+LEFT JOIN tb_produto   AS tb_produto_produto  ON tb_sugestao.ds_sugestao  = tb_produto_produto.id_produto
+LEFT JOIN tb_imagem    AS tb_produto_img      ON tb_sugestao.id_produto   = tb_produto_img.id_produto
+where tb_produto_produto.ds_tipo_produto = 1
+and   tb_produto_produto.id_produto      = 1;

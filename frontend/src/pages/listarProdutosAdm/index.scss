@@ -281,42 +281,22 @@
     .ordernar {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        //align-items: center;
+        //justify-content: center;
+        text-align: left;
     }
 
     .ordernar h2 {
         font-size: 17px;
         font-weight: 500;
-        padding-right: 10px;
+       margin-top: 20px;
+        //padding-right: 10px;
         color: #6d6d6d;
+        text-align: left;
        
     }
 
-    .ordernar div {
-        display: flex;
-        flex-direction: row;
-        height: 40px;
-        border-radius: 50px;
-        border: 1px #000 solid;
-        align-items: center;
-        background-color: #fff;
-      
-        padding: 0px 10px;
-    }
-
-    .ordernar input {
-        height: 100%;
-        width: 120px;
-        border: none;
-        outline: none;
-        border-radius: 30px;
-    }
-
-    .ordernar img {
-        height: 20px;
-        width: 20px;
-    }
+   
     
     .bloco-filtro {
         margin-top: 25px;
@@ -332,6 +312,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        font-family: lato-regular;
     }
 
     .bloco-filtro input {
@@ -341,6 +322,8 @@
     .bloco-filtro p {
         font-size: 20px;
         color: #fff;
+        font-family: lato-regular;
+        font-size: 18px;
     }
 
     .bloco-filtro button {

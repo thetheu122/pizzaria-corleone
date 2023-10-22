@@ -14,7 +14,7 @@ export default function Carrinho({ onClose }) {
   useEffect(() => {
     async function listar() {
       
-        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+1);
+        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+4);
         setListarr(response.data)
         if(listarr.length < 1){
           setMostrar(true)

@@ -127,3 +127,15 @@ verifica se um cliente ja adcionou o produto no carrinho :
       enviar os id do produto e o  do cliente por uma variavel de objeto , para verificar se o usuario ja adcionou 
       esse produto no carrinho, se ele ja adcionou entao voce altera o produto para false ou true 
 /// }
+
+
+
+
+/// endpoits sugestao {
+
+   listar as sugestoes da pizza (pelo id da pizza)
+
+   verbo: GET
+   url(http://localhost:5000/corleone/sugestao/pizza/2)
+
+}

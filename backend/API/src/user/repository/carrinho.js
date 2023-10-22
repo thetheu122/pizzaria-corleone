@@ -9,16 +9,19 @@ id_cliente,
 ds_carrinho,
 ds_qtd)
 values ( ? ,? , ? , ? )
-`
+`;
+
 const [ resposta ] = await con.query(comando,[
 itens.produto,
 itens.cliente,
 itens.disponivel,
 itens.qtd
-])
+]);
 itens.id = resposta.insertId
 
 return itens
+
+
 }
 
 export async function alteraritens (itens) {

@@ -20,21 +20,30 @@ export default function Vendas() {
                 </div>
 
                 <div className='conteudo-produtos-vendas'>
-                    <div className="filtros-vendas">
-                        <div className="buscar-mais-vendas">
-                            <div><img src={Lupa} /></div>
-                            <input type="text" placeholder="Busque por ID " value={filtro} onChange={e => setFiltro(e.target.value)} />
+        
+                        <div className='conteudo-input'>
+                        <div className="input-container">
+                            <input
+                                type='text'
+                                placeholder='Busque por id ou nome do cliente'
+                                value={filtro}
+                                onChange={e => setFiltro(e.target.value)}
+                            />
+                            <div className="input-image"></div>
                         </div>
 
                         <div className="parte-dois-filtros">
                             <img src={Filtro} />
-                            <h2>Filtro</h2>
+                            <h2>Todos os filtro</h2>
                         </div>
-                    </div>
+                        </div>
+                    
 
-                    <h4>$ Vendas</h4>
+                    <h4 className='vendas'>$ Vendas</h4>
 
-                    <table>
+                     
+
+                    <table className='tabela-vendas'>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -47,9 +56,10 @@ export default function Vendas() {
                             </tr>
                         </thead>
 
+                        <tr className='linha-separadora'></tr>
+
                         <tbody>
-                        <tr className='conteudo-tabela-vendas'>
-                                <td className='comp-linha'></td>
+                       
                                 <tr className='cada-valor-vendas'>
                                     <td>6</td>
                                     <td>R$123,45</td>
@@ -60,7 +70,87 @@ export default function Vendas() {
                                     <td><img src={Deletar}/></td>
                                 </tr>
 
-                                <td className='comp-linha'></td>
+                               
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
+                                <tr className='cada-valor-vendas'>
+                                    <td>6</td>
+                                    <td>R$123,45</td>
+                                    <td>R$123,45</td>
+                                    <td>--</td>
+                                    <td>CARTÃO</td>
+                                    <td>DÉBITO</td>
+                                    <td><img src={Deletar}/></td>
+                                </tr>
+
                                 <tr className='cada-valor-vendas'>
                                     <td>6</td>
                                     <td>R$123,45</td>
@@ -72,13 +162,15 @@ export default function Vendas() {
                                 </tr>
 
                                 
-                            </tr>
+                           
                         </tbody>
                     </table>
+                    </div>
                 
 
                 </div>
             </div>
-        </div>
+      
+       
     )
 }
