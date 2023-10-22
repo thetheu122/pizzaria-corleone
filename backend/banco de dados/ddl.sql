@@ -210,3 +210,13 @@ ds_qtd         INT ,
 FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto),
 FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
 );
+
+
+
+CREATE TABLE tb_sugestao (
+  id_sugestao     int primary key auto_increment ,
+  id_produto      INT,
+  ds_sugestao     int,
+  FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto),
+  FOREIGN KEY (ds_sugestao) REFERENCES tb_produto(id_produto)
+);

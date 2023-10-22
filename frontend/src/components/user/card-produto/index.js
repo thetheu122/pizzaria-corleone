@@ -19,44 +19,77 @@ import axios from 'axios'
 import Cabecalho from '../cabecalho'
 
 import { toast } from 'react-toastify'
+import { useEffect } from 'react'
 
 export default function CardProduto(props) {
 
     const [openModalCart, setOpenModalCart] = useState(false)
     const [favorito, setFavorito] = useState(false)
-    const id = props.produto.id
     const [cadastroAtv, setCadastroAtv] = useState(false)
+    const [sugestoes, setSugestoes ] = useState([])
+    const [sugestoesBe, setSugestoesBe ] = useState([])
+    const [sugestoesSo, setSugestoesSo ] = useState([])
+
+    const id   = props.produto.id
+    const tipo = props.produto.tipo
+
+
+
     function ttt(novoValor) {
         setCadastroAtv(novoValor);
       }
 
+useEffect(()=>{
+listarsugestao()
+},[id])
+
+async function listarsugestao(){
+
+    try {
+
+            const response = await axios.get('http://localhost:5000/corleone/sugestao/pizza/'+id) 
+            setSugestoes(response.data);
+
+            const resp = await axios.get('http://localhost:5000/corleone/sugestao/bebida/'+id)
+            setSugestoesBe(resp.data);
+
+            const resposta = await axios.get('http://localhost:5000/corleone/sugestao/sobremesa/'+id)
+            setSugestoesSo(resposta.data)
+
+    } catch (err) {
+        toast.error(err.response.data.error)
+    }
+
+}
+
+
+
 async function carrinho (){
-    setCadastroAtv(false)
+
  try {
-   
     let usuario = localStorage.getItem('usuario-logado');
-    usuario = JSON.parse(usuario);
+    usuario = JSON.parse(usuario)
+
   let user ={
     "produto":id,
-    "cliente":1 
+    "cliente":usuario.id
   }
 
-  let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar' ,user )
+  let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar',user )
   const resposta = r.data
 
   
-  if( r.data == ''){
+  if( resposta == ''){
     
-    let usuario = localStorage.getItem('usuario-logado');
-    usuario = JSON.parse(usuario);
     let user = {
         "produto":id,
-        "cliente":1,
+        "cliente":usuario.id,
         "disponivel":true,
         "qtd":1
        }
-       let resposne =axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
-  setOpenModalCart(false)
+       let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+       console.log(resposne.data.erro)
+       setOpenModalCart(false)
   }
 
   else{
@@ -66,7 +99,7 @@ async function carrinho (){
             "qtd": + 1,
             "idcarrinho":resposta.idcarrinho
         }
-        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
         setOpenModalCart(false)
     }
     else{
@@ -75,17 +108,20 @@ async function carrinho (){
             "qtd":1,
             "idcarrinho":resposta.idcarrinho
         }
-        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
         setOpenModalCart(false)
         console.log(resposta.carrinho)
      }
   } 
- } catch (error) {
+ } catch (erro) {
     if (!localStorage.getItem('usuario-logado')) {
-        setCadastroAtv(true)
-        toast.error('Impossivel comentar, favor se cadastrar ou realizar login no nosso site')
-        
+        toast.error('Impossivel inserir ao carrinho, favor se cadastrar ou realizar login no nosso site')     
     }
+    else{
+        toast.error(erro.message)
+
+    }
+    
  }
 
 }
@@ -179,55 +215,67 @@ async function carrinho (){
                         </div>
                     </div>
 
+                    
+                    {sugestoes.length > 0 &&
+                    <>
+                    
                     <div className='opcoesExtra'>
-                        <div className='esquerdista'>
-                            <h2>Escolha um Vinho</h2>
-                            <p>Escolha uma opção</p>
+                            <div className='esquerdista'>
+                                <h2>Escolha um Vinho</h2>
+                                <p>Escolha uma opção</p>
+                            </div>
+                            <div className='direitaOpcional'>
+                                <p>OPCIONAL</p>
+                            </div>
                         </div>
-                        <div className='direitaOpcional'>
-                            <p>OPCIONAL</p>
-                        </div>
-                    </div>
 
-                    <div className='deLadinho'>
-                        <div>
-                            <input type='radio' />
-                            <p>Vinho Bom</p>
-                        </div>
-                        <div>
-                            <input type='radio' />
-                            <p>Vinho Bom</p>
-                        </div>
-                        <div>
-                            <input type='radio' />
-                            <p>Vinho Bom</p>
-                        </div>
-                    </div>
 
-                    <div className='opcoesExtra'>
-                        <div className='esquerdista'>
-                            <h2>Escolha uma Sobremesa</h2>
-                            <p>Escolha uma opção</p>
-                        </div>
-                        <div className='direitaOpcional'>
-                            <p>OPCIONAL</p>
-                        </div>
-                    </div>
+                      <div className='deLadinho'>
+                      
+                      {sugestoes.map((item) => (
+                         <div>
+                             <input type='radio'/>
+                             <p>{item.sugestao_produto}</p>
+                         </div>
+                         ))}
+ 
+                     </div>
+                    
+                    </>
+                        
+                    }
+                  
 
-                    <div className='deLadinho'>
-                        <div>
-                            <input type='radio' />
-                            <p>Sobremesa boa</p>
-                        </div>
-                        <div>
-                            <input type='radio' />
-                            <p>Sobremesa boa</p>
-                        </div>
-                        <div>
-                            <input type='radio' />
-                            <p>Sobremesa boa</p>
-                        </div>
-                    </div>
+                    {sugestoesSo.length > 0 &&
+
+                    <>
+                          <div className='opcoesExtra'>
+                                <div className='esquerdista'>
+                                    <h2>Escolha uma Sobremesa</h2>
+                                    <p>Escolha uma opção</p>
+                                </div>
+                                <div className='direitaOpcional'>
+                                    <p>OPCIONAL</p>
+                                </div>
+                            </div>
+
+                      <div className='deLadinho'>
+                        {sugestoesSo.map((item) => (
+                            <div>
+                                <input type='radio' />
+                                <p>{item.sugestao_produto}</p>
+                            </div>
+
+                            ))}
+                         </div>
+                    
+                     </>  
+         
+                    }
+
+                   
+
+               
 
                     <img  src={Add} onClick={carrinho} className='butaumzin' />
                 </div>

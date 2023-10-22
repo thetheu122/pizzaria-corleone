@@ -12,6 +12,7 @@ import tipo       from './admin/controller/tipoprodutocontroller.js'
 import restricao  from'./admin/controller/restricaocontroller.js'
 import produto    from './admin/controller/produtocontroller.js'
 import usuario    from './admin/controller/usuariocontroler.js'
+import sugestao   from './admin/controller/sugestao.js'
 //  }
  
 
@@ -46,6 +47,8 @@ server.use(media)
 server.use(favoritos)
 server.use(carrinho)
 server.use(cartao)
+server.use(sugestao)
+
 
 server.listen ( process.env.PORT , ()=>{
     console.log(` A API esta online na porta ${process.env.PORT}`)

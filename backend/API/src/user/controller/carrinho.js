@@ -21,17 +21,16 @@ const verificar =( (req,resp,itens) =>{
 
 endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
     try {
-        const itens = req.body
-       
+           const itens = req.body
         if( verificar(req,resp,itens)){
-            const resposta = await itenscarrinho(itens)
-
-            resp.send(resposta)
+            const enviar = await itenscarrinho(itens)
+            
+            resp.send(enviar)
            
         }
     
     } catch (err) {
-        resp.status(400).send({erro:err.message})
+        resp.status(600).send({erro:err.message})
     }
 })
 

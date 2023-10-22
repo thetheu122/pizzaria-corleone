@@ -254,7 +254,8 @@ export default function Cardapio() {
                                         preco: item.preço,
                                         imagem: item.imagem,
                                         id: item.ID,
-                                        media: item.media
+                                        media: item.media,
+                                        tipo: item.tipo
                                     }}
 
 
