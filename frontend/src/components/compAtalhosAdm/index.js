@@ -32,28 +32,6 @@ useEffect(()=> {
         setPopUp(false)
     }
 
-
-    async function irdashboard() {
-        navigate('/dashboard')
-    }
-
-    async function listaProdutos() {
-        navigate('/produtos')
-    }
-
-    async function cadastraProdutos() {
-        navigate('/cadastroproduto')
-    }
-
-
-    async function irvendas() {
-        navigate('/')
-    }
-
-    async function irpedido() {
-        navigate('/listapedido')
-    }
-
     function sairClick() {
         storage.remove('adm-logado')
         navigate('/associado')
@@ -87,7 +65,7 @@ useEffect(()=> {
                     )}  
                 </div>
 
-                <div className="venda">
+                <div onClick={() => {navigate('/vendas')}} className="venda">
                     <img src={Vendas} />
                     <h2>Vendas</h2>
                 </div>

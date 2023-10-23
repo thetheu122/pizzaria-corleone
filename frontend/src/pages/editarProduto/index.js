@@ -4,9 +4,8 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import storage, { set } from 'local-storage';
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
-
-
-
+import { toast, ToastContainer}  from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { useParams } from 'react-router-dom';
 
 
@@ -24,7 +23,21 @@ export default function EditarProduto() {
     const [idImagem, setIdImagem] = useState(0)
     const [idTipo, setIdTipo] = useState(0)
 
-    
+    function toastConfirmar(){
+        toast.dark('Produto Cadastrado')
+    }
+
+    function notifySuccess() {
+        toast.success('Produto editado com sucesso!', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+    }
+
 
 
 
@@ -144,6 +157,8 @@ console.log(imagem)
 
 
 
+
+
     async function alterarProduto() {
 
         try {
@@ -235,7 +250,7 @@ console.log(imagem)
 
 
             if (resposta.status === 200) {
-                alert("Produto alterado!");
+                notifySuccess();
             }
 
 
@@ -281,7 +296,7 @@ console.log(imagem)
 
     return (
         <div className='connt'>
-            
+            <ToastContainer />
 
             <CompAtalhosAdm />
 
