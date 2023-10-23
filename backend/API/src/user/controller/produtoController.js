@@ -5,43 +5,31 @@ let endpoint = Router()
 
 endpoint.get('/produto/consulta/cardapio', async (req, resp) => {
     try {
-        let dados = req.body
+        let { tp, restricao_1, restricao_2, restricao_3, nm, orderby } = req.query
 
-        if(dados.restricao_1 === '' || dados.restricao_1 === undefined)
-            dados.restricao_1 = '%'
-        if(dados.restricao_2 === '' || dados.restricao_2 === undefined)
-            dados.restricao_2 = '%'
-        if(dados.restricao_3 === '' || dados.restricao_3 === undefined)
-            dados.restricao_3 = '%'
+        if(restricao_1 === '' || restricao_1 === undefined)
+            restricao_1 = '%'
+        if(restricao_2 === '' || restricao_2 === undefined)
+            restricao_2 = '%'
+        if(restricao_3 === '' || restricao_3 === undefined)
+            restricao_3 = '%'
 
-        if(!dados.nm)
-            dados.nm = '%'
-        else if(dados.nm !== '')
-            dados.nm = '%' + dados.nm + '%' 
+        if(!nm)
+            nm = '%'
+        else if(nm !== '')
+            nm = '%' + nm + '%' 
 
-        if(dados.tp === '')
-            dados.tp = '%'
-        if(dados.orderby === '')
-            dados.orderby = 'null'
+        if(tp === '')
+            tp = '%'
+        if(orderby === '')
+            orderby = 'null'
 
-        
-            console.log(dados)
-    
-        let response = await ListarCardapio(dados)
-    
+        let response = await ListarCardapio(tp, restricao_1, restricao_2, restricao_3, nm, orderby)
+
         resp.status(200).send(response)
         
-        // {
-        //     "restricao_1":"ovo",
-        //     "restricao_2":"",
-        //     "restricao_3":"",	
-        //     "nm":"",
-        //     "tp":"salgado",
-        //     "orderby":"null"
-        // }
-        
     } catch (error) {
-        resp.status(400).send(error.message) 
+        resp.status(400).send(error.message)  
     }
 })
 

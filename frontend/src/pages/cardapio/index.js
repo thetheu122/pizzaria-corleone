@@ -30,6 +30,9 @@ export default function Cardapio() {
     //FILTRO PESQUISA NOME
     const [pesquisa, setPesquisa] = useState('')
 
+    //ORDENAR POR
+    const [orderBy, setOrderBy] = useState(null)
+
     //CONTROLADOR FILTRO SUPERIOR
     const [pizzasAtv, setPizzasAtv] = useState(true)
     const [bebidasAtv, setBebidasAtv] = useState(false)
@@ -52,8 +55,16 @@ export default function Cardapio() {
 
     useEffect(() => {
         buscar()
+    }, [pesquisa, vegano, intoleranteGluten, intoleranteOvo, intoleranteLactose, pizzasAtv, sobremesaAtv, bebidasAtv, vegetarianaAtv, orderBy])
 
-    }, [pesquisa, vegano, intoleranteGluten, intoleranteOvo, intoleranteLactose, pizzasAtv, sobremesaAtv, bebidasAtv, vegetarianaAtv])
+    useEffect(() => {
+        if (produto.length > 0) {
+            setMostrar(true)
+        }
+        else if (produto.length == 0) {
+            setMostrar(false)
+        }
+    }, [produto])
 
     const ultimoCartao = paginaAtual * itensPorPagina
     const primeiroCartao = ultimoCartao - itensPorPagina
@@ -88,19 +99,20 @@ export default function Cardapio() {
 
 
     async function buscar() {
-        let tipoComida = ''
+        console.log(orderBy)
+        let tipoComida = '';
 
         if (pizzasAtv) {
-            tipoComida = 'salgado'
+            tipoComida = 'salgado';
         }
         else if (vegetarianaAtv) {
-            tipoComida = 'vegetariano'
+            tipoComida = 'vegetariano';
         }
         else if (bebidasAtv) {
-            tipoComida = 'bebida'
+            tipoComida = 'bebida';
         }
         else if (sobremesaAtv) {
-            tipoComida = 'sobremesa'
+            tipoComida = 'sobremesa';
         }
 
         const restricoesAtivas = [];
@@ -118,18 +130,12 @@ export default function Cardapio() {
         let restricao_2 = restricoesAtivas[1]
         let restricao_3 = restricoesAtivas[2]
 
-        let dados = {
-            tp: tipoComida,
-            restricao_1: restricao_1 ? restricao_1 : '',
-            restricao_2: restricao_2 ? restricao_2 : '',
-            restricao_3: restricao_3 ? restricao_3 : '',
-            nm: pesquisa ? pesquisa : '',
-            orderby: null
-        }
+        restricao_1 = restricao_1 ? restricao_1 : '%'
+        restricao_2 = restricao_2 ? restricao_2 : '%'
+        restricao_3 = restricao_3 ? restricao_3 : '%'
 
-        console.log(dados)
-
-        let response = await axios.get('http://localhost:5000/produto/consulta/cardapio', dados)
+        // Execute a chamada à API
+        let response = await axios.get(`http://localhost:5000/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&restricao_3=${restricao_3}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`)
 
         response = response.data
 
@@ -202,9 +208,10 @@ export default function Cardapio() {
                     <div className='ordenado'>
                         <p>Ordenar por: </p>
                         <div>
-                            <select>
-                                <option>Mais vendidas</option>
-                                <option>Novidades</option>
+                            <select onChange={(e) => setOrderBy(e.target.value)}>
+                                <option value='null'>Nenhum parâmetro</option>
+                                <option value="m.ds_media DESC">Melhores avaliações</option>
+                                <option value="novidades">Novidades</option>
                             </select>
                         </div>
                     </div>
