@@ -58,16 +58,33 @@ export default function SobreNos() {
       </div>
 
 
-      <div className='comp'>
-        <CompSobre  
-        imagem={RestauranteComp}
-        titulo="A Corleone Pizzaria"
-        subTitulo="O Sabor Autêntico da Itália!"
-        primeiroTexto="Quando você escolhe a Corleone Pizzaria, não está apenas saboreando uma pizza excepcional, mas também fazendo parte de nossa história. Somos uma empresa comprometida em proporcionar momentos memoráveis, reunindo famílias e amigos em torno da mesa, celebrando a vida e compartilhando risadas."
-        segundoTexto="Convidamos você a se juntar a nós nesta jornada gastronômica única. Deixe-nos transportar você para a Itália, mesmo que esteja a milhares de quilômetros de distância. Descubra a magia da culinária italiana, com um toque especial do Brasil, na Corleone Pizzaria."
-        />
-        
-      </div>
+      <div className="comp-sobre-nos">
+            <div className="containerrr">
+                <div className='sub-container'>
+                    <div className="titulo">
+                        <h1>A Corleone Pizzaria</h1>
+                    </div>
+
+                    <div className="conteudo-sobre-nos">
+                        <div className="esquerda-sobre-nos">
+
+                            <img src={RestauranteComp} alt="imagem" />
+                        </div>
+
+                        <div className="direita-sobre-nos">
+                            <div><h1>O Sabor Autêntico da Itália!</h1></div>
+                            <p>Quando você escolhe a Corleone Pizzaria, não está apenas saboreando uma pizza excepcional, mas também fazendo parte de nossa história. Somos uma empresa comprometida em proporcionar momentos memoráveis, reunindo famílias e amigos em torno da mesa, celebrando a vida e compartilhando risadas.</p>
+                            <span>Convidamos você a se juntar a nós nesta jornada gastronômica única. Deixe-nos transportar você para a Itália, mesmo que esteja a milhares de quilômetros de distância. Descubra a magia da culinária italiana, com um toque especial do Brasil, na Corleone Pizzaria.</span>                                                                     
+                        </div>
+                    </div>
+                </div>
+            
+                
+            </div>
+        </div>
+
+
+
 
       <Rodape />
 

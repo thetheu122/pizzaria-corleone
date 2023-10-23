@@ -2,8 +2,8 @@
 import './index.scss';
 import Margherita from '../../assets/images/pictures/margherita.png';
 import MargheritaBurrata from '../../assets/images/pictures/margherita c burrata.png';
-import Lixeira from '../../assets/images/pictures/lixeira.png';
-import Mais from '../../assets/images/pictures/mais.png';
+import Lixeira from '../../assets/img/lixeira.png';
+import Mais from '../../assets/img/mais.png';
 import Fechar from '../../assets/images/pictures/x.png';
 
 
@@ -15,7 +15,7 @@ export default function PedidoAndamento1() {
                     <div className="pedido-1">
                         <div className='esquerda-pedido'><img src={Margherita} /></div>
                         <div className='direita-pedido'>
-                            <div className='kitar'><p>.</p><img src={Fechar} /></div>
+                            <div className='kitar'></div>
                             <h1>Pizza Margherita</h1>
                             <p><span>Ingredientes: </span>Tomate, queijo, mozzarela, molho de tomate e <a>manjericao</a></p>
                             <div className='conteudo-pedido'>
@@ -34,7 +34,7 @@ export default function PedidoAndamento1() {
                     <div className="pedido-2">
                         <div className='esquerda-pedido'><img src={MargheritaBurrata} /></div>
                         <div className='direita-pedido'>
-                            <div className='kitar'><p>.</p><img src={Fechar} /></div>
+                            <div className='kitar'></div>
                             <h1>Pizza Margherita c/ Burrata</h1>
                             <p><span>Ingredientes: </span>Ingredientes :Molho de tomate, queijo mozzarella, tomate fatiado, manjericão fresco e uma generosa porção de <a>burrata cremosa.</a></p>
                             <div className='conteudo-pedido'>

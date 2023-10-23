@@ -4,6 +4,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import storage, { set } from 'local-storage';
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/react-toastify.css'
+
 
 import { useParams } from 'react-router-dom';
 
@@ -22,7 +25,7 @@ export default function EditarProduto() {
     const [idImagem, setIdImagem] = useState(0)
     const [idTipo, setIdTipo] = useState(0)
 
-
+    const notify = () => toast("Produto Alterado!");
 
 
 
@@ -205,6 +208,10 @@ console.log(imagem)
                 }
                 const respo = await axios.post('http://localhost:5000/restricao', novarestricao)
             }
+
+            else if (restricao.length > 1) {
+                alert('Apenas uma restrição pode ser cadastrada')
+            }
             else {
                 const respRestricao = await axios.put(`http://localhost:5000/restricao/alterar/${idrestricao}`, alterarRestricao)
             }
@@ -275,6 +282,7 @@ console.log(imagem)
 
     return (
         <div className='connt'>
+            <ToastContainer />
 
             <CompAtalhosAdm />
 
@@ -451,7 +459,82 @@ console.log(imagem)
                                     />
                                     <p className='nomeproduto'>Ovo</p>
                                 </div>
+
+
+                                <div className='in'>
+                                <input
+                                        className="tay2"
+                                        type="checkbox"
+                                        value="Leite e seus derivados"
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+
+                                            if (Array.isArray(restricao) ) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
+                                            } else {
+                                                setrestricao([value]);
+                                            }
+                                        }}
+                                        checked={Array.isArray(restricao) && restricao.includes('Leite e seus derivados')}
+                                    />
+                                    <p className='nomeproduto'>Leite e seus derivados</p>
+                                </div>
+
                                     
+                             </div>
+
+
+                             <div className='pref-prod'>
+                             <div className='in'>
+                                <input
+                                        className="tay2"
+                                        type="checkbox"
+                                        value="Vegetariano"
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+
+                                            if (Array.isArray(restricao) ) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
+                                            } else {
+                                                setrestricao([value]);
+                                            }
+                                        }}
+                                        checked={Array.isArray(restricao) && restricao.includes('Vegetariano')}
+                                    />
+                                    <p className='nomeproduto'>Vegetariano</p>
+                                </div>
+
+
+                                <div className='in'>
+                                <input
+                                        className="tay2"
+                                        type="checkbox"
+                                        value="Vegano"
+                                        onChange={(e) => {
+                                            const value = e.target.value;
+
+                                            if (Array.isArray(restricao) ) {
+                                                if (restricao.includes(value)) {
+                                                    setrestricao(restricao.filter(item => item !== value));
+                                                } else {
+                                                    setrestricao([...restricao, value]);
+                                                }
+                                            } else {
+                                                setrestricao([value]);
+                                            }
+                                        }}
+                                        checked={Array.isArray(restricao) && restricao.includes('Vegano')}
+                                    />
+                                    <p className='nomeproduto'>Vegano</p>
+                                </div>
                              </div>
 
                         </div>

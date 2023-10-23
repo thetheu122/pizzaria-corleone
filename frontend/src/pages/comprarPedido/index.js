@@ -1,14 +1,18 @@
 
+import { useState } from 'react';
 import CompPedido from '../../components/compPedido'
 import PedidoAndamento1 from '../../components/pedidoAndamento1'
 import './index.scss'
 
 export default function ComprarPedido() {
+
+    const [mostrar1, setMostrar1] = useState(true)
+
     return (
         <div className="pagina-comprar-pedido">
             <div className="container-comprar">
                 <div className='andamento'>
-                    <CompPedido />
+                    <CompPedido mostrar1={mostrar1}/>
                 </div>
                 <div className='pedidos-feitos'>
                     <PedidoAndamento1 />

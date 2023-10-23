@@ -121,15 +121,37 @@ export default function Leading() {
             </div>
             <img src={Secao} className='ingredientes' />
 
-            <CompSobre 
-            imagem={ImgSobre}
-            titulo="Nossas pizzas são"
-            subTitulo="preparadas com dedicação"
-            primeiroTexto="E o cuidado que só uma pizzaria legítima italiana pode oferecer. Desde a massa artesanal, amassada à mão, até o molho de tomate caseiro, cada etapa é executada com maestria para garantir uma experiência gastronômica única na sua vida."
-            segundoTexto="Além de nossas pizzas tradicionais, trazemos um toque de inovação, combinando ingredientes locais e inspirações brasileiras. Assim, criamos sabores exclusivos que agradam a todos os paladares. Nosso objetivo é encantar você com a fusão perfeita entre a tradição italiana e a criatividade brasileira."
-            butao="Mais sobre nós "
-            mostrarBotao={mostrarBotao}
-            />
+
+        <div className="comp-sobre-nos">
+            <div className="containerrr">
+                <div className='sub-container'>
+                    <div className="titulo">
+                        <h1>Nossas pizzas são</h1>
+                    </div>
+
+                    <div className="conteudo-sobre-nos">
+                        <div className="esquerda-sobre-nos">
+
+                            <img src={ImgSobre} alt="imagem" />
+                        </div>
+
+                        <div className="direita-sobre-nos">
+                            <div><h1>preparadas com dedicação</h1></div>
+                            <p>E o cuidado que só uma pizzaria legítima italiana pode oferecer. Desde a massa artesanal, amassada à mão, até o molho de tomate caseiro, cada etapa é executada com maestria para garantir uma experiência gastronômica única na sua vida.</p>
+                            <span>Além de nossas pizzas tradicionais, trazemos um toque de inovação, combinando ingredientes locais e inspirações brasileiras. Assim, criamos sabores exclusivos que agradam a todos os paladares. Nosso objetivo é encantar você com a fusão perfeita entre a tradição italiana e a criatividade brasileira."</span>
+                                <Link to="/sobrenos" className=' butao'>
+                                <a>Mais sobre nós</a>
+                                </Link>                                                                       
+                        </div>
+                    </div>
+                </div>
+            
+                
+            </div>
+        </div>
+
+
+            
 
             <button className='redirecionar' onClick={() => navigate('/cardapio')}>
                 Experimente aqui a <strong>Pizza</strong> digna de um <strong>Don</strong>

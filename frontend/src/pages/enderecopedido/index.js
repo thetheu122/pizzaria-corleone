@@ -1,13 +1,18 @@
 
+import { useState } from 'react';
 import CompPedido from '../../components/compPedido'
 import './index.scss'
 
 export default function EnderecoPedido() {
+
+    const [mostrar1, setMostrar1] = useState(true)
+    const [mostrar2, setMostrar2] = useState(true)
+
     return (
         <div className="pagina-endereco">
             <div className="container-endereco">
                 <div className='andamento-endereco'>
-                    <CompPedido />
+                    <CompPedido mostrar1={mostrar1} mostrar2={mostrar2}/>
                 </div>
 
                 <div className='conteudo-endereco'>

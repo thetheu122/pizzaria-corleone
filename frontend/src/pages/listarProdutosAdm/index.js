@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import React from "react"
 // isntalar --> npm i react-confirm-alert --save       
 //para parar o erro
 
@@ -37,6 +38,13 @@ export default function ListarProdutosAdm() {
 
     }, [])
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); 
+            buscarProdutos(); 
+          }
+      }
+
 
 
 
@@ -45,7 +53,7 @@ export default function ListarProdutosAdm() {
 
     //alteração no banco de dados, coloquei ON DELETE CASCADE na tabela restricao
     //alteracoes no backend. alteraçoes no restricao e adicionados algumas coisas no produto
-    //PROJETO FINALIZADOOOOOOOOOOOOOOOOOOOOOOOO
+    
 
 
     //BUSCAR OU LISTAR OS PRODUTOS
@@ -248,13 +256,6 @@ export default function ListarProdutosAdm() {
       
       
       
-
-
-    async function NaoRepetirProdutos(id){
-        const r = await axios.get(`http://localhost:5000/produto`)
-        
-        console.log(r.data)
-    }
  
 
 
@@ -278,7 +279,7 @@ export default function ListarProdutosAdm() {
                     <div className="produtos">
                         <div className="buscar">
                             <div onClick={buscarProdutos}><img src={Lupa} /></div>
-                            <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} />
+                            <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} onKeyDown={handleKeyPress} />
                         </div>
 
 

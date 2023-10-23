@@ -3,23 +3,48 @@ import Produtos from '../../assets/images/pictures/produtos.png'
 import Vendas from '../../assets/images/pictures/vendas.png'
 import Pedidos from '../../assets/images/pictures/pedidos.png'
 import Sair from '../../assets/img/sair.png'
+import Setapracima from '../../assets/img/seta-pra-cima.png'
+import Lista from '../../assets/img/lista-de-controle.png'
+import Adicionar from '../../assets/img/adicionar.png'
+
+
+
 
 import './index.scss'
 import { useNavigate } from 'react-router-dom'
 import storage from 'local-storage'
+import { useEffect, useState } from 'react'
 
 
 export default function CompAtalhosAdm() {
 
     const navigate = useNavigate();
+    const [popUp, setPopUp] = useState(false)
+
+useEffect(()=> {
+ console.log(popUp)   
+})
+    function abrirPopup() {
+        setPopUp(true)
+    }
+
+    function fecharPopUp() {
+        setPopUp(false)
+    }
+
 
     async function irdashboard() {
         navigate('/dashboard')
     }
 
-    async function irprodutos() {
+    async function listaProdutos() {
         navigate('/produtos')
     }
+
+    async function cadastraProdutos() {
+        navigate('/cadastroproduto')
+    }
+
 
     async function irvendas() {
         navigate('/')
@@ -37,17 +62,29 @@ export default function CompAtalhosAdm() {
 
 
 
-    return(
+    return (
         <div className="pagina-comp-atalhos">
             <div className="container-atalhos">
-                <div onClick={irdashboard} className="dashboard">
+                <div onClick={() => {navigate('/dashboard')}} className="dashboard">
                     <img src={Dashboard} />
                     <h2>Dashboard</h2>
                 </div>
 
-                <div onClick={irprodutos} className="produto">
-                    <img src={Produtos} />
-                    <h2>Produtos</h2>
+                <div className="produto-atalhos">
+                    <div><img  onClick={abrirPopup}src={Produtos} />
+                    <h2 onClick={abrirPopup}>Produtos</h2>
+                    </div>
+                    
+                    {popUp && (
+                        <div className='pop-up-atalhos'>   
+                                <h3 onClick={() => {navigate('/produtos')}}>Listar Produtos</h3>
+
+                                <h4 onClick={() => {navigate('/cadastroproduto')}}>Cadastrar</h4>
+                                <img onClick={fecharPopUp} src={Setapracima}/>
+                                
+                        </div>
+
+                    )}  
                 </div>
 
                 <div className="venda">
@@ -55,7 +92,7 @@ export default function CompAtalhosAdm() {
                     <h2>Vendas</h2>
                 </div>
 
-                <div onClick={irpedido} className="pedido">
+                <div onClick={() => {navigate('/listapedido')}} className="pedido">
                     <img id='pedido' src={Pedidos} />
                     <h2>Pedidos</h2>
                 </div>
@@ -63,7 +100,7 @@ export default function CompAtalhosAdm() {
 
             </div>
 
-            <div  onClick={sairClick} className='sair'>
+            <div onClick={sairClick} className='sair'>
                 <img src={Sair} />
                 <h2>Sair</h2>
             </div>
