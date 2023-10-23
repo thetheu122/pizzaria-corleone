@@ -4,8 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import storage, { set } from 'local-storage';
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
-import {ToastContainer, toast} from 'react-toastify'
-import 'react-toastify/dist/react-toastify.css'
+
 
 
 import { useParams } from 'react-router-dom';
@@ -25,7 +24,7 @@ export default function EditarProduto() {
     const [idImagem, setIdImagem] = useState(0)
     const [idTipo, setIdTipo] = useState(0)
 
-    const notify = () => toast("Produto Alterado!");
+    
 
 
 
@@ -282,7 +281,7 @@ console.log(imagem)
 
     return (
         <div className='connt'>
-            <ToastContainer />
+            
 
             <CompAtalhosAdm />
 
