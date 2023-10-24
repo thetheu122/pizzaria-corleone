@@ -26,6 +26,7 @@
         height: 8%;
         align-items: center;
         font-size: 14px;
+        
        // box-shadow: 0 5px 5px -5px #000;
     }
 
@@ -46,6 +47,7 @@
         justify-content: flex-start;
         //margin-top: 10px;
         width: 100%;
+        margin-bottom: 20px;
        
    
  
@@ -139,11 +141,30 @@
 
 
         // white-space: nowrap;
-         overflow-x:hidden;
+       
         //display: inline-block; 
-         height: 550px; 
+        height: 500px;
          margin-right: 20px;
+       
     }
+
+    .produtos-listados {
+        overflow: auto;
+        height: 600px; 
+        margin-right: 20px;
+      }
+      
+      /* Estilizando a barra de rolagem */
+      .produtos-listados::-webkit-scrollbar {
+        width: 8px;
+        height: 100%;
+      }
+      
+      .produtos-listados::-webkit-scrollbar-thumb {
+        background-color: #0D3E53;
+        border-radius: 8px;
+       
+      }
 
     .produtos-listados thead {
         height: 100% !important;
