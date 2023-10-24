@@ -27,11 +27,10 @@ import ListarPedido from './pages/listarPedido';
 import MinhaConta from './pages/perfil';
 import ClienteAdm from './pages/clienteAdm';
 import Vendas from './pages/vendas';
-<<<<<<< HEAD
+
 import Finalizarcadastrado from './pages/finalisarcompra';
-=======
 import ClienteDetalhe from './pages/clienteDetalhes';
->>>>>>> 8fed0b1bc22e13e0e7b56a99d19fdaa0bf8b7f1f
+
 
 
 
@@ -61,11 +60,8 @@ root.render(
         <Route path='/minhaconta' element={<MinhaConta/>} />
         <Route path='/cliente' element={<ClienteAdm/>} />
         <Route path='/vendas' element={<Vendas/>}/>
-<<<<<<< HEAD
         <Route path ='/corleone/usuario/compra' element={<Finalizarcadastrado/>}/>
-=======
-        <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
->>>>>>> 8fed0b1bc22e13e0e7b56a99d19fdaa0bf8b7f1f
+       <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
