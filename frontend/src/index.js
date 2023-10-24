@@ -27,6 +27,7 @@ import ListarPedido from './pages/listarPedido';
 import MinhaConta from './pages/perfil';
 import ClienteAdm from './pages/clienteAdm';
 import Vendas from './pages/vendas';
+import ClienteDetalhe from './pages/clienteDetalhes';
 
 
 
@@ -56,6 +57,7 @@ root.render(
         <Route path='/minhaconta' element={<MinhaConta/>} />
         <Route path='/cliente' element={<ClienteAdm/>} />
         <Route path='/vendas' element={<Vendas/>}/>
+        <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

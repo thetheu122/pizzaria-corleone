@@ -63,11 +63,12 @@ export default function MaisDetalhes() {
             <CompAtalhosAdm />
             <div className='container-mais'>
                 <div className='cabecalho-mais'>
-                    <h2>Produtos</h2>
+                    <h2>Pedidos</h2>
+                    
                 </div>
 
                 <div className="sub-titulo-mais">
-                    <h1>Lista de Produtos</h1>
+                    <h1>Mais detalhes</h1>
 
                     <div onClick={Voltar}>
                         <img src={SetaEsquerda} />
@@ -92,7 +93,7 @@ export default function MaisDetalhes() {
                     <table className='tabela-mais-detalhes'>
                         <thead>
                             <tr>
-                            <th className="comp-linha-detalhes"></th>
+                            <th className="compe-linha-detalhes"></th>
                                 <th>ID</th>
                                 <th className="comp-linha-detalhes"></th>
                                 <th>Nome</th>
@@ -115,7 +116,7 @@ export default function MaisDetalhes() {
                         <tbody>
                         
                             <tr>
-                            <td className="comp-linha-detalhes"></td>
+                            <td className="compe-linha-detalhes"></td>
                                 <td>#157</td>
                                 <td className="comp-linha-detalhes"></td>
                                 <td>carlos Ribeiro</td>

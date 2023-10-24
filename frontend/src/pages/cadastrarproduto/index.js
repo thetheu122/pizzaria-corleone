@@ -124,7 +124,7 @@ export default function Cadastro() {
             <div className='cont' >
 
 
-                <div className='tit' >
+                <div className='tito' >
                     <h1>Cadastro de produtos</h1>
                 </div>
 
