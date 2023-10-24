@@ -11,7 +11,7 @@ import Star from '../../../assets/images/icons/star_icon.svg'
 import Loja from '../../../assets/images/icons/loja-localizacao.png'
 import Add from '../../../assets/images/pictures/add-cart.png'
 
-import { useNavigate } from 'react-router-dom'
+import { useFetcher, useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -29,7 +29,9 @@ export default function CardProduto(props) {
     const [sugestoes, setSugestoes ] = useState([])
     const [sugestoesBe, setSugestoesBe ] = useState([])
     const [sugestoesSo, setSugestoesSo ] = useState([])
-
+     
+    const [ nome , setNome] = useState('')
+    const [ idc , setIdc] = useState()
     const id   = props.produto.id
     const tipo = props.produto.tipo
 
@@ -62,17 +64,20 @@ async function listarsugestao(){
 
 }
 
-
+useEffect(()=>{
+    let usuario = localStorage.getItem('usuario-logado');
+    usuario = JSON.parse(usuario)
+    setIdc(usuario.id)
+},[])
 
 async function carrinho (){
 
  try {
-    let usuario = localStorage.getItem('usuario-logado');
-    usuario = JSON.parse(usuario)
+
 
   let user ={
-    "produto":id,
-    "cliente":usuario.id
+    "produto": id,
+    "cliente": idc
   }
 
   let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar',user )
@@ -83,7 +88,7 @@ async function carrinho (){
     
     let user = {
         "produto":id,
-        "cliente":usuario.id,
+        "cliente": idc,
         "disponivel":true,
         "qtd":1
        }
