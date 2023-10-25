@@ -1,227 +1,374 @@
+.informacoes {
 
-.informacoes{
-    
     display: flex;
     flex-direction: column;
     align-items: center;
- 
+
+    font-family: lato-regular;
+
+    .informacoes-titulo {
+        background-image: url('../../../assets/img/Rectangle 26.png');
+        width: 100%;
+        height: 200px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
 
-    .informacoes-titulo{
-    background-image:url('../../../assets/img/Rectangle 26.png');
-    width: 100%;
-    height: 150px;
+        h1 {
+            color: white;
+            margin-top: 40px;
+            font-size: 3rem;
+        }
+    }
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .secao-01-voltar {
+        display: flex;
+        align-items: center;
+        align-self: flex-start;
+        margin: 10px 0px 10px 20px;
+    }
 
-   
-    h1{
+    .secao-01-voltar>img {
+        margin: 5px;
+        width: 12px;
+    }
+
+    .link {
+        text-decoration: none;
+        color: black;
+
+    }
+
+    .secao-01-pizza-descricao>img {
+        box-shadow: 2px 1px 2px 1px rgb(129, 129, 129);
+        border-radius: 10px;
+        border: 0.5px solid #830D23;
+    }
+
+    .secao-01-pizza {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+
+        width: auto;
+        max-width: 1000px;
+        margin-bottom: 30px;
+
+    }
+
+    .secao-01-parte-lateral {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20px;
+    }
+
+    .secao-01-parte-lateral>div {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 12px;
+
+        
+    }
+
+    .secao-01-parte-lateral-pizza {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+
+        width: 30vw !important;
+    }
+
+    .vizu {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        h3 {
+            opacity: 0.3;
+        }
+    }
+
+
+    .coracao {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 29px;
+        height: 29px;
+
+        border: 1px solid black;
+        border-radius: 100%;
+    }
+
+    .coracao>svg {
+        width: 20px;
+        margin-top: 1px;
+        margin-left: 1px;
+    }
+
+    .button-01 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        gap: 3px;
+
+        width: 200px;
+        height: 40px;
+
+        background-color: #53220D;
         color: white;
+
+        border-radius: 7px;
+        cursor: pointer;
+        transition: .6s;
+
+        &:hover {
+            scale: 1.05;
+            background-color: #FFC857;
+
+            img,
+            p {
+                filter: invert(100%);
+            }
+        }
+
     }
-   }
-  
-.secao-01-voltar{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
-}
 
-.secao-01-voltar > img {
-    margin: 5px;
-    width: 12px;
-}
- .link {    
-   text-decoration: none;
-   color: black;
-       
- }
-.secao-01-pizza-descricao >img {
-    box-shadow: 2px 1px 2px 1px rgb(129, 129, 129);
-    border-radius: 10px;
-    border: 0.5px solid #830D23;
-}
-.secao-01-pizza{
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  
 
-    width: auto;
-    max-width: 1000px;
-    margin-bottom: 30px;
+    .button-02 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-}
+        gap: 3px;
 
-.secao-01-parte-lateral{
-      
-    margin-left: 20px;
-}
-.secao-01-parte-lateral > div {
- 
-   display: flex;
-   flex-direction: row;
-   margin-bottom: 12px;
-}
+        width: 200px;
+        height: 40px;
 
-.secao-01-parte-lateral-pizza{
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
- 
-    width: 30vw !important;
-}
-.vizu{
-    width: 100%;
-    display: flex;
-    justify-content:center ;
+        background-color: #FFC857;
+        color: rgb(0, 0, 0);
 
-    h3{
-        opacity: 0.3;
+        border-radius: 7px;
+        cursor: pointer;
+        transition: .4s;
+
+        &:hover {
+            scale: 1.05;
+            background-color: #53220D;
+
+            img,
+            p {
+                filter: invert(100%);
+            }
+        }
     }
-}
 
 
-.coracao{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .button-01>img,
+    .button-02>img {
+        width: 15px;
+    }
 
-    width: 29px;
-    height: 29px;
+    .secao-01-ingredientes>h3 {
+        color: #53220D;
+        margin-right: 10px;
+    }
 
-    border: 1px solid black;
-    border-radius: 100%;
-}
+    .secao-01-ingredientes {
+        display: flex;
+        border-left: 1px solid #53220D;
+    }
 
-.coracao > svg {
-    width: 20px;
-}
-    
-.button-01{
-    display: flex;
-    flex-direction: row;
-    justify-content:start;
-    align-items: center;
+    .secao-01-pizza-descricao>img {
+        margin-bottom: 25px;
+    }
 
-    width: 200px !important;
-    height: 30px !important;
+    .secao-informacao-avaliacao {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-    background-color: #830D23;
-    color: white;
+        width: 97%;
+        max-width: 1300px;
+        margin-bottom: 20px;
+    }
 
-    border-radius: 7px;
-    margin-right: 10px;
-   cursor: pointer;
-}
+    .secao-informacao-avaliacao>div {
+
+        padding: 10px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+
+    .secao-informacao-avaliacao-comentario {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-left: 20px;
+    }
+
+    .secao-informacao-avaliacao-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 650px;
+    }
+
+    .secao-informacao-avaliacao-input>div>img {
+        margin-left: 7px;
+        width: 24px;
+    }
+
+    .secao-informacao-avaliacao div>button {
+
+        width: 110px;
+        height: 40px;
+
+        margin: 10px;
+        margin-right: 35px !important;
+        padding: 5px;
+
+        background-color: #830D23;
+        color: white;
 
 
+        border: none;
+        border-radius: 5px;
 
-.button-02{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
+        cursor: pointer;
+    }
 
-    width: 200px !important;
-    height: 30px !important;
+    .secao-informacao-avaliacao>div>input {
 
-    background-color: #FFC857;
-    color:black ;
+        width: 270px;
+        height: 40px;
 
-    border-radius: 7px;
-    cursor: pointer;
-}
+        border-radius: 5px;
+        margin-left: 25px;
 
+        outline: none;
 
-.button-01 >img , .button-02 >img{
-    margin: 6px;
-    width: 15px;
-} 
+        border: none;
+        box-shadow: 1px 1px 3px 1px #87868D;
+        border: 1px solid rgb(121, 121, 121);
+    }
 
-.secao-01-ingredientes > h3 {
-    color: #53220D;
-    margin-right: 10px;
-}
+    .secao-01-superior {
+        display: flex;
+        width: 100%;
+    }
 
-.secao-01-ingredientes{
-    display: flex;
-    border-left:1px solid #53220D;
-}
+    .secao-01-inferior {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-.secao-01-pizza-descricao > img{
-    margin-bottom: 25px;
-}
+        margin-top: 20px;
 
-.secao-informacao-avaliacao{
-    display: flex;
-    flex-direction: column;
-   align-items: center;
+        width: 100%;
 
-   width: 97% ;
-   max-width: 1300px;
-   margin-bottom: 20px;
-}
+        font-size: 1.3rem;
 
-.secao-informacao-avaliacao > div {
-   
-    padding: 10px;
-    margin-top: 20px;
-    margin-bottom: 50px;
-}
-.secao-informacao-avaliacao-comentario{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-left: 20px;
-}
-.secao-informacao-avaliacao-input{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 650px;
-}
+        .lineDivisor {
+            width: 1px;
+            height: 50px;
+            background-color: #53220D;
+        }
 
-.secao-informacao-avaliacao-input > div > img {
-    margin-left: 7px;
-    width: 24px;
-}
-.secao-informacao-avaliacao div > button{
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            width: 47%;
+            display: flex;
+            padding: 8px 0px;
 
-   width: 110px;
-   height: 40px;
-   
-   margin: 10px;
-   margin-right: 35px !important;
-   padding: 5px;
+            .foco{
+                color: #53220D;
+                font-weight: bolder;
+                font-size: 1.1rem;
+            }
+        }
 
-   background-color: #830D23;
-   color:white;
-  
+    }
 
-   border: none;
-   border-radius: 5px;
-}
+    .estrela {
+        display: flex;
+        align-items: center;
+        gap: 2px;
 
-.secao-informacao-avaliacao > div > input{
+        img {
+            height: 25px;
+            width: 25px;
+        }
+    }
 
-    width: 270px;
-    height: 40px;
-    
-    border-radius: 5px;
-    margin-left: 25px;
-      
-   outline: none;
+    .space{
+        gap: 10px;
 
-    border: none;
-    box-shadow: 1px 1px 3px 1px #87868D;
-    border: 1px solid rgb(121, 121, 121);
-}
+        &:hover>div:not(:hover) {
+            opacity: 0.6;
+
+            .button-01 {
+                scale: 1.05;
+                background-color: #FFC857;
+
+                img,
+                p {
+                    filter: invert(80%);
+                }
+            }
+
+            .button-02 {
+                scale: 1.05;
+                background-color: #53220D;
+
+                img,
+                p {
+                    filter: invert(100%);
+                }
+            }
+        }
+
+        >div:hover {
+            >div:hover {
+                .button-01 {
+                    &:hover {
+                        scale: 1.05;
+                        background-color: #FFC857;
+
+                        img,
+                        p {
+                            filter: invert(80%);
+                        }
+                    }
+
+                }
+
+                .button-02 {
+                    &:hover {
+                        scale: 1.05;
+                        background-color: #53220D;
+
+                        img,
+                        p {
+                            filter: invert(100%);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }
