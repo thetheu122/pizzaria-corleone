@@ -2,6 +2,8 @@ import './index.scss'
 
 import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
+import ImgAleatria from '../../assets/images/pictures/pizza-marguerita.png'
+import Coracao from '../../assets/img/coracao 2.png'
 import { useState } from "react"
 
 
@@ -28,11 +30,11 @@ export default function Carrinhodecompras() {
             <CompAtalhosAdm/>
             <div className="container-carrinho">
                 <div className='cabecalho-carrinho'>
-                    <h1>Pedidos</h1>
+                    <h1>Clientes</h1>
                 </div>
 
                 <div className='subtitulo-carrinho'>
-                    <h1>Rastreamento de Pedidos</h1>
+                    <h1>Carrinho de Compras</h1>
                 </div>
 
 
@@ -43,10 +45,14 @@ export default function Carrinhodecompras() {
                             <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
                         </div>
 
+                        <h5>Carrinho de Compras</h5>
+
+                        <div className='linha-carrinho'></div>
+
                         <table className='tabela-carrinho'>
                             <thead>
                                 <tr>
-                                    <th>img</th>
+                                    <th>imagem</th>
                                     <th>produto</th>
                                     <th>Removido</th>
                                     <th>adicionado</th>
@@ -56,10 +62,63 @@ export default function Carrinhodecompras() {
 
                             <tbody>
                                 <tr className="cada-linha">
-                                    <td>..<img src="" /></td>
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Pizza marguerita</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
                                     <td>Calzone</td>
-                                    <td>..<div></div></td>
-                                    <td>..<div></div></td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Pizza cannabis</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Prosciutto</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Calzone</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Calzone</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Calzone</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>
+                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Calzone</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
+                                </tr>                                <tr className="cada-linha">
+                                    <td><img src={ImgAleatria} /></td>
+                                    <td>Calzone</td>
+                                    <td ><div className='removido'></div></td>
+                                    <td ><div className='adicionado'></div></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,7 +129,7 @@ export default function Carrinhodecompras() {
                         <div className="parte-1">
                             <h1>Ordenar por:</h1>
                             <div>
-                                <img src="" />
+                                <img src={Coracao} />
                                 <p>Favoritos</p>
                             </div>
                         </div>

@@ -6,6 +6,7 @@ import Sair from '../../assets/img/sair.png'
 import Setapracima from '../../assets/img/seta-pra-cima.png'
 import Lista from '../../assets/img/lista-de-controle.png'
 import Adicionar from '../../assets/img/adicionar.png'
+import Clientes from '../../assets/img/cliente.png'
 
 
 
@@ -73,6 +74,11 @@ useEffect(()=> {
                 <div onClick={() => {navigate('/listapedido')}} className="pedido">
                     <img id='pedido' src={Pedidos} />
                     <h2>Pedidos</h2>
+                </div>
+
+                <div className='clientes'>
+                    <img id='clientes' src={Clientes} />
+                    <h2>ajeitar</h2>
                 </div>
 
 
