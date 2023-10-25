@@ -304,8 +304,8 @@ console.log(imagem)
             <div className='cont' >
 
 
-                <div className='tit' >
-                    <h1>Cadastro de produtos</h1>
+                <div className='tito' >
+                    <h1>Editar Produto</h1>
                 </div>
 
                 <div className='contt'>

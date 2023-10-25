@@ -28,6 +28,10 @@ import MinhaConta from './pages/perfil';
 import ClienteAdm from './pages/clienteAdm';
 import Vendas from './pages/vendas';
 
+import Finalizarcadastrado from './pages/finalisarcompra';
+import ClienteDetalhe from './pages/clienteDetalhes';
+
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -56,6 +60,8 @@ root.render(
         <Route path='/minhaconta' element={<MinhaConta/>} />
         <Route path='/cliente' element={<ClienteAdm/>} />
         <Route path='/vendas' element={<Vendas/>}/>
+        <Route path ='/corleone/usuario/compra' element={<Finalizarcadastrado/>}/>
+       <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
