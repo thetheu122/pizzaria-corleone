@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import './index.scss'
+import '../../../assets/config/fonts-config.scss'
 
 import Pizza from '../../../assets/img/descricao.png';
 import comida from '../../../assets/img/document 1.png'
@@ -30,7 +31,11 @@ export default function Informacoes(props) {
 
     const [produto, setProduto] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
+
+    // comentario do produto
     const [comentarioo, setComentarioo] = useState([])
+    const [qtdComentario, setQtdComentario] = useState(6)
+
     const [digitado, setDigitado] = useState('')
     const [vizu, setVizu] = useState(true)
     const [resultado, setResultado] = useState(0)
@@ -85,9 +90,9 @@ export default function Informacoes(props) {
             const response = await axios.get('http://localhost:5000/produto/listar/' + id);
             setProduto(response.data);
         }
-     
+
         listar();
-    }, [id,digitado]);
+    }, [id, digitado]);
 
 
     useEffect(() => {
@@ -110,53 +115,53 @@ export default function Informacoes(props) {
 
     function ttt(novoValor) {
         setCadastroAtv(novoValor);
-      }
+    }
 
-      
-       
-      async function media(estrelas){
+
+
+    async function media(estrelas) {
 
         try {
             let qtd = 0;
-    
+
             if (comentarioo.length > 0) {
                 qtd = comentarioo.reduce((total, item) => total + item.avaliacao, 0);
             }
-    
+
             let total = qtd + estrelas;
-            let avl = comentarioo.length +1;
-    
-            let media ={media :(total / avl).toFixed(1)} 
-            
-       
-    
+            let avl = comentarioo.length + 1;
+
+            let media = { media: (total / avl).toFixed(1) }
+
+
+
             if (comentarioo.length > 0) {
                 const resp = await axios.put('http://localhost:5000/media/' + id, media)
                 toast.error(resp.data.err)
-                console.log('1media:' +media.media)
-            } 
+                console.log('1media:' + media.media)
+            }
             else {
                 const valor = {
                     id: id,
                     media: media.media,
                 };
-    
+
                 const resp = await axios.post('http://localhost:5000/media', valor);
                 toast.error(resp.data.error);
-                console.log('2media:' +media)
+                console.log('2media:' + media)
 
             }
 
-        }  catch (error) {
+        } catch (error) {
             console.error(error);
         }
     }
-    
+
 
 
 
     async function inserircomentario() {
-         setCadastroAtv(false)
+        setCadastroAtv(false)
         try {
 
             let erro = [];
@@ -201,7 +206,7 @@ export default function Informacoes(props) {
 
                 let usuario = localStorage.getItem('usuario-logado');
                 usuario = JSON.parse(usuario);
-            
+
 
                 let comen = {
                     comentario: digitado,
@@ -210,14 +215,14 @@ export default function Informacoes(props) {
                     avaliacao: estrelas
                 }
 
-       
+
                 media(estrelas)
 
-                if (digitado.length > 0 ) {
-                    if( estrelas === 0 || estrelas === 6){
+                if (digitado.length > 0) {
+                    if (estrelas === 0 || estrelas === 6) {
                         toast.error('É necessario avaliar o comentario ')
                     }
-                    else{
+                    else {
                         const resp = await axios.post('http://localhost:5000/comentario', comen);
                         setDigitado('');
                         setEstrela1(true)
@@ -227,7 +232,7 @@ export default function Informacoes(props) {
                         setEstrela5(true)
                     }
 
-             
+
                 }
 
             } else {
@@ -239,7 +244,7 @@ export default function Informacoes(props) {
             if (!localStorage.getItem('usuario-logado')) {
                 setCadastroAtv(true)
                 toast.error('Impossivel comentar, favor se cadastrar ou realizar login no nosso site')
-                
+
             }
         }
 
@@ -248,15 +253,12 @@ export default function Informacoes(props) {
 
 
 
-
-
-
     return (
         <div className='informacoes'>
             <Cabecalho cadastro={cadastroAtv} funcao={ttt} />
             <div className='informacoes-titulo'>
                 {produto.map((item) => (
-                    <h1>Pizza {item.nome}</h1>
+                    <h1>{item.nome}</h1>
                 ))}
             </div>
             <div className='secao-01-voltar'>
@@ -265,59 +267,69 @@ export default function Informacoes(props) {
             </div>
 
             <div className='secao-01-pizza'>
-                <div className='secao-01-pizza-descricao'>
+                <div className='secao-01-superior'>
 
                     <img src={Pizza} alt="Pizza" />
-                    <div className='secao-01-ingredientes'>
+
+                    <div className='secao-01-parte-lateral'>
+                        <div className='secao-01-parte-lateral-pizza'>
+
+                            {produto.map((item) => (
+                                <h1> {item.nome}</h1>
+                            ))}
+                            {produto.map((item) => (
+                                <h2> {item.preço}</h2>
+                            ))}
+
+                            <div className='estrela'>
+                                {produto.map((item) => (
+                                    <h2>{item.media !== null ? item.media : 0}</h2>
+                                ))}
+                                <img src={estrela} alt="Estrela" />
+                            </div>
+
+                            <div className='coracao'>
+                                <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <mask id="path-1-inside-1_22_170" fill="white">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.4239 1.72615C0.401344 3.7487 0.401343 7.02791 2.4239 9.05047L3.1963 9.82287L3.19503 9.82415L10.5194 17.1485L18.5761 9.09172C20.5987 7.06916 20.5987 3.78995 18.5761 1.76739C16.5536 -0.255162 13.2743 -0.255163 11.2518 1.76739L10.5206 2.49855L9.74822 1.72614C7.72567 -0.296411 4.44646 -0.29641 2.4239 1.72615Z" />
+                                    </mask>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.4239 1.72615C0.401344 3.7487 0.401343 7.02791 2.4239 9.05047L3.1963 9.82287L3.19503 9.82415L10.5194 17.1485L18.5761 9.09172C20.5987 7.06916 20.5987 3.78995 18.5761 1.76739C16.5536 -0.255162 13.2743 -0.255163 11.2518 1.76739L10.5206 2.49855L9.74822 1.72614C7.72567 -0.296411 4.44646 -0.29641 2.4239 1.72615Z" fill="white" />
+                                    <path d="M2.4239 9.05047L1.71679 9.75758L1.71679 9.75758L2.4239 9.05047ZM2.4239 1.72615L1.71679 1.01904L2.4239 1.72615ZM3.1963 9.82287L3.90341 10.53L4.61052 9.82287L3.90341 9.11577L3.1963 9.82287ZM3.19503 9.82415L2.48792 9.11704L1.78081 9.82415L2.48792 10.5313L3.19503 9.82415ZM10.5194 17.1485L9.81224 17.8556L10.5194 18.5627L11.2265 17.8556L10.5194 17.1485ZM18.5761 9.09172L17.869 8.38461L17.869 8.38461L18.5761 9.09172ZM18.5761 1.76739L19.2832 1.06029L19.2832 1.06029L18.5761 1.76739ZM11.2518 1.76739L10.5447 1.06029L10.5447 1.06029L11.2518 1.76739ZM10.5206 2.49855L9.81352 3.20566L10.5206 3.91276L11.2277 3.20566L10.5206 2.49855ZM9.74822 1.72614L9.04112 2.43325L9.04112 2.43325L9.74822 1.72614ZM3.13101 8.34336C1.49897 6.71133 1.49897 4.06528 3.13101 2.43325L1.71679 1.01904C-0.696287 3.43212 -0.696288 7.3445 1.71679 9.75758L3.13101 8.34336ZM3.90341 9.11577L3.13101 8.34336L1.71679 9.75758L2.4892 10.53L3.90341 9.11577ZM3.90213 10.5313L3.90341 10.53L2.4892 9.11577L2.48792 9.11704L3.90213 10.5313ZM11.2265 16.4414L3.90213 9.11704L2.48792 10.5313L9.81224 17.8556L11.2265 16.4414ZM17.869 8.38461L9.81224 16.4414L11.2265 17.8556L19.2832 9.79882L17.869 8.38461ZM17.869 2.4745C19.501 4.10653 19.501 6.75258 17.869 8.38461L19.2832 9.79882C21.6963 7.38574 21.6963 3.47337 19.2832 1.06029L17.869 2.4745ZM11.9589 2.4745C13.5909 0.842468 16.237 0.842468 17.869 2.4745L19.2832 1.06029C16.8701 -1.35279 12.9578 -1.35279 10.5447 1.06029L11.9589 2.4745ZM11.2277 3.20566L11.9589 2.4745L10.5447 1.06029L9.81352 1.79144L11.2277 3.20566ZM9.04112 2.43325L9.81352 3.20566L11.2277 1.79144L10.4553 1.01904L9.04112 2.43325ZM3.13101 2.43325C4.76304 0.801221 7.40908 0.80122 9.04112 2.43325L10.4553 1.01904C8.04225 -1.39404 4.12987 -1.39404 1.71679 1.01904L3.13101 2.43325Z" fill="black" mask="url(#path-1-inside-1_22_170)" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div className='space'>
+                            <div className='button-01' onClick={() => setModalOpen(!isModalOpen)}>
+                                <img src={carrinho} alt="Carrinho" />
+                                <p>Adicione ao carrinho</p>
+                            </div>
+                            <div className='button-02' href=".secao-informacao-avaliacao-comentario">
+                                <img src={duplaestrela} alt="Dupla Estrela" />
+                                <p>Avalie nosso serviço</p>
+                            </div>
+                        </div>
+                        <h4>Você talvez gostaria</h4>
+                        <Recomendacoes recomendacao={{ nome: "calloni", imagem: comida }} />
+                    </div>
+                </div>
+
+                <div className='secao-01-inferior'>
+                    <div>
+                        <p className='foco'>Descrição</p>
                         {produto.map((item) => (
-                            <p>Pizza {item.ingredientes}</p>
+                            <p>{item.descricao}</p>
+                        ))}
+                    </div>
+                    <div className='lineDivisor' />
+                    <div>
+                        <p className='foco'>Ingredientes</p>
+                        {produto.map((item) => (
+                            <p>{item.ingredientes}</p>
                         ))}
                     </div>
                 </div>
-                <div className='secao-01-parte-lateral'>
-                    <div className='secao-01-parte-lateral-pizza'>
 
-                        {produto.map((item) => (
-                            <h1> {item.nome}</h1>
-                        ))}
-                        {produto.map((item) => (
-                            <h2> {item.preço}</h2>
-                        ))}
-                        <div className='coracao'>
-                            <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <mask id="path-1-inside-1_22_170" fill="white">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.4239 1.72615C0.401344 3.7487 0.401343 7.02791 2.4239 9.05047L3.1963 9.82287L3.19503 9.82415L10.5194 17.1485L18.5761 9.09172C20.5987 7.06916 20.5987 3.78995 18.5761 1.76739C16.5536 -0.255162 13.2743 -0.255163 11.2518 1.76739L10.5206 2.49855L9.74822 1.72614C7.72567 -0.296411 4.44646 -0.29641 2.4239 1.72615Z" />
-                                </mask>
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.4239 1.72615C0.401344 3.7487 0.401343 7.02791 2.4239 9.05047L3.1963 9.82287L3.19503 9.82415L10.5194 17.1485L18.5761 9.09172C20.5987 7.06916 20.5987 3.78995 18.5761 1.76739C16.5536 -0.255162 13.2743 -0.255163 11.2518 1.76739L10.5206 2.49855L9.74822 1.72614C7.72567 -0.296411 4.44646 -0.29641 2.4239 1.72615Z" fill="white" />
-                                <path d="M2.4239 9.05047L1.71679 9.75758L1.71679 9.75758L2.4239 9.05047ZM2.4239 1.72615L1.71679 1.01904L2.4239 1.72615ZM3.1963 9.82287L3.90341 10.53L4.61052 9.82287L3.90341 9.11577L3.1963 9.82287ZM3.19503 9.82415L2.48792 9.11704L1.78081 9.82415L2.48792 10.5313L3.19503 9.82415ZM10.5194 17.1485L9.81224 17.8556L10.5194 18.5627L11.2265 17.8556L10.5194 17.1485ZM18.5761 9.09172L17.869 8.38461L17.869 8.38461L18.5761 9.09172ZM18.5761 1.76739L19.2832 1.06029L19.2832 1.06029L18.5761 1.76739ZM11.2518 1.76739L10.5447 1.06029L10.5447 1.06029L11.2518 1.76739ZM10.5206 2.49855L9.81352 3.20566L10.5206 3.91276L11.2277 3.20566L10.5206 2.49855ZM9.74822 1.72614L9.04112 2.43325L9.04112 2.43325L9.74822 1.72614ZM3.13101 8.34336C1.49897 6.71133 1.49897 4.06528 3.13101 2.43325L1.71679 1.01904C-0.696287 3.43212 -0.696288 7.3445 1.71679 9.75758L3.13101 8.34336ZM3.90341 9.11577L3.13101 8.34336L1.71679 9.75758L2.4892 10.53L3.90341 9.11577ZM3.90213 10.5313L3.90341 10.53L2.4892 9.11577L2.48792 9.11704L3.90213 10.5313ZM11.2265 16.4414L3.90213 9.11704L2.48792 10.5313L9.81224 17.8556L11.2265 16.4414ZM17.869 8.38461L9.81224 16.4414L11.2265 17.8556L19.2832 9.79882L17.869 8.38461ZM17.869 2.4745C19.501 4.10653 19.501 6.75258 17.869 8.38461L19.2832 9.79882C21.6963 7.38574 21.6963 3.47337 19.2832 1.06029L17.869 2.4745ZM11.9589 2.4745C13.5909 0.842468 16.237 0.842468 17.869 2.4745L19.2832 1.06029C16.8701 -1.35279 12.9578 -1.35279 10.5447 1.06029L11.9589 2.4745ZM11.2277 3.20566L11.9589 2.4745L10.5447 1.06029L9.81352 1.79144L11.2277 3.20566ZM9.04112 2.43325L9.81352 3.20566L11.2277 1.79144L10.4553 1.01904L9.04112 2.43325ZM3.13101 2.43325C4.76304 0.801221 7.40908 0.80122 9.04112 2.43325L10.4553 1.01904C8.04225 -1.39404 4.12987 -1.39404 1.71679 1.01904L3.13101 2.43325Z" fill="black" mask="url(#path-1-inside-1_22_170)" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div>
-                    {produto.map((item) => (
-                    <h2>{item.media !== null ? item.media : 0}</h2>
-                    ))}
-                        <h3></h3>
-                        <img src={estrela} alt="Estrela" />
-                    </div>
-                    <div>
-                        <div className='button-01' onClick={() => setModalOpen(!isModalOpen)}>
-                            <img src={carrinho} alt="Carrinho" />
-                            <p>Adicione ao carrinho</p>
-                        </div>
-                        <div className='button-02'>
-                            <img src={duplaestrela} alt="Dupla Estrela" />
-                            <p>Avalie nosso serviço</p>
-                        </div>
-                    </div>
-                    <h4>Você talvez gostaria</h4>
-                    <Recomendacoes recomendacao={{ nome: "calloni", imagem: comida }} />
-
-                    {produto.map((item) => (
-                        <p>Pizza {item.descricao}</p>
-                    ))}
-
-                </div>
             </div>
             <div className='secao-informacao-avaliacao'>
                 <h1>Avaliações</h1>
@@ -333,20 +345,23 @@ export default function Informacoes(props) {
                     <button onClick={inserircomentario}>Enviar</button>
                 </div>
                 <div className='secao-informacao-avaliacao-comentario'>
-                    {vizu ? comentarioo.map((item) => (
-                        <Comentarios usuario={{ nome: item.cliente, comentario: item.Comentario, avaliacao: item.avaliacao }} />
-                    ))
-
-                        : <div className='vizu'>
-                            <h3> Este produto não possui nenhum comentario. Seja o primeiro a  comentar...</h3>
+                    {vizu ? (
+                        <>
+                            {comentarioo
+                                .filter((item, index) => index < qtdComentario)
+                                .map((item) => (
+                                    <Comentarios usuario={{ nome: item.cliente, comentario: item.Comentario, avaliacao: item.avaliacao }} />
+                                ))}
+                            {comentarioo.length >= qtdComentario ? <button onClick={() => setQtdComentario(qtdComentario + 6)}>Ver Mais</button> : null}
+                        </>
+                    ) : (
+                        <div className='vizu'>
+                            <h3>Este produto não possui nenhum comentário. Seja o primeiro a comentar...</h3>
                         </div>
-
-                    }
-
-
-
+                    )}
                 </div>
             </div>
+
             {isModalOpen && <Modal onClose={() => setModalOpen(false)} />}
         </div>
     )
