@@ -1,9 +1,12 @@
 import Cabecalho from '../../components/user/cabecalho'
 import './index.scss'
 import ProdutoCompra from '../../components/user/produtocompra'
+import { useState } from 'react'
 
 export default function Finalizarcadastrado(){
     
+const [ label , setLabel] = useState( false)
+
     return(
         
         <div>
@@ -38,7 +41,7 @@ export default function Finalizarcadastrado(){
                     </div>   
                 </div> 
 
-                <div>
+                <div className='ld-esquerdo-fl'>
                     <h4>
                         Subtotal   
                     </h4>
@@ -47,21 +50,29 @@ export default function Finalizarcadastrado(){
                         R$ 480 
                     </h4> 
 
-                    <p> Frete a calcular</p>
                 </div> 
 
-                <div>
+                <div  className='ld-esquerdo-fl'>
+                <p> Frete </p>   <p>a calcular</p>
+                </div>
+
+                <div className='ld-esquerdo-fl'>
                         <h3>Total   </h3>
                         <h3>R$ 480</h3>
                 </div>
 
                 <button> Comprar </button>
                 <div>
-                    <div>
-                       <input /> 
+                    <div className='butao'>
+                        {label == true && 
+                        <label>Cupom</label>
+                        }
+                       <input placeholder='Cupom' value onChange={()=>setLabel(true)}/> 
                     </div>
-                    <button>Aplicar</button>
+                  
                 </div>
+
+                <button className='claro'>Aplicar</button>
             </div>
             </div>
 
