@@ -28,7 +28,7 @@ import MinhaConta from './pages/perfil';
 import ClienteAdm from './pages/clienteAdm';
 import Vendas from './pages/vendas';
 import ClienteDetalhe from './pages/clienteDetalhes';
-
+import Carrinhodecompras from './pages/carrinhodecompras';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -58,6 +58,7 @@ root.render(
         <Route path='/cliente' element={<ClienteAdm/>} />
         <Route path='/vendas' element={<Vendas/>}/>
         <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
+        <Route path='/ADM/carrinho' element={<Carrinhodecompras/>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
