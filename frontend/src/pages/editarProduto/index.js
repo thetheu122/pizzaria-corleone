@@ -65,6 +65,7 @@ console.log(imagem)
         alterar()
         alteraridImagem()
         alterarTipo();
+        mostraImg();
         
         
     }, [])
@@ -74,9 +75,15 @@ console.log(imagem)
         carregarTipo()
     })
 
+    async function mostraImg() {
+        const r = await axios.get(`http://localhost:5000/produto/listar/${id}`)
+        const resp = r.data[0]
+        const resposta = resp.imagem
+        console.log(resp)
+    }
 
-    console.log(idrestricao)
-    console.log(idImagem)
+
+
 
 
     async function MostrarInfo() {
