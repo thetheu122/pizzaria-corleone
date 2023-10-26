@@ -13,7 +13,7 @@ const [cupom, setCupom] = useState('')
         <div>
             
             <div> <Cabecalho/></div>
-            <div className='body' onClick={()=>{ label == true && setLabel(false)}} >
+            <div className='body'  >
 
 
 
@@ -65,13 +65,13 @@ const [cupom, setCupom] = useState('')
                 <button> Comprar </button>
                 <div>
                     <div className='butao'>
-                        { label == true && 
+                        { cupom.length  > 0 && 
                         <label>Cupom</label>
                         }
                        <input placeholder='Cupom' 
                         value={cupom}
                         onChange={ (e) => { setCupom ( e.target.value) ;}}
-                        onClick={()=> { setLabel(true) ; setCupom('') }  } /> 
+                        onClick={()=> { setLabel(true) }  } /> 
                     </div>
                   
                 </div>

@@ -32,7 +32,7 @@
     margin-right: 60px;
     padding-left: 10px;
 
-    height: 440px;
+    height: 450px;
     width: 550px;
 
     border-radius: 20px;
@@ -97,24 +97,26 @@ button{
   display: flex;
   flex-direction: column;
   
+  margin-bottom: 5px;
   outline: none;
   border: 1px solid rgb(226, 226, 226);
 
-  height: 30px;
+  height:45px !important;
 
   input{
-    height: 90%;
+    height: 80%;
 
     outline: none;
     border: none;
 
     font-size: 14px;
-    margin-left: 7px;
+    margin-left: 10px;
+    text-transform: uppercase;
   }
   label{
     margin-left: 12px;
-    font-size: 11px;
-    margin-bottom: 10px;
+    font-size: 13px;
+    margin-bottom: 4px;
   }
 
 }
