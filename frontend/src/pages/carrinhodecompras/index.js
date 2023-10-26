@@ -5,12 +5,14 @@ import Lupa from '../../assets/images/pictures/lupa 1.png'
 import ImgAleatria from '../../assets/images/pictures/pizza-marguerita.png'
 import Coracao from '../../assets/img/coracao 2.png'
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 
 export default function Carrinhodecompras() {
+    const navigate=useNavigate()
 
     const[filtro, setFiltro] = useState('')
 
@@ -128,7 +130,7 @@ export default function Carrinhodecompras() {
                     <div className="parte-filtros-carrinho">
                         <div className="parte-1">
                             <h1>Ordenar por:</h1>
-                            <div>
+                            <div onClick={()=>navigate('/favoritos')}>
                                 <img src={Coracao} />
                                 <p>Favoritos</p>
                             </div>

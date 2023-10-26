@@ -33,6 +33,7 @@ import ClienteDetalhe from './pages/clienteDetalhes';
 import Carrinhodecompras from './pages/carrinhodecompras';
 
 
+import Favoritos from './pages/favoritosAdm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -64,6 +65,7 @@ root.render(
         <Route path ='/corleone/usuario/compra' element={<Finalizarcadastrado/>}/>
        <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
 
+       <Route path='/favoritos' element={<Favoritos/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
