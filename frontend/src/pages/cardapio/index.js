@@ -13,10 +13,13 @@ import CardProduto from '../../components/user/card-produto'
 import Rodape from '../../components/user/rodape'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export default function Cardapio() {
 
     const [produto, setProduto] = useState([])
+
+    const [cadastroAtv, setCadastroAtv] = useState(false)
 
     const [mostrar, setMostrar] = useState(true)
 
@@ -44,6 +47,9 @@ export default function Cardapio() {
     const [itensPorPagina, setItensPorPagina] = useState(6)
     const [pages, setPages] = useState([])
 
+    //USER id
+    const [idUsuario, setIdUsuario] = useState(0);
+
     useEffect(() => {
         setPages([])
         let novoArray = []
@@ -65,6 +71,15 @@ export default function Cardapio() {
             setMostrar(false)
         }
     }, [produto])
+
+    useEffect(() => {
+        let usuario = localStorage.getItem('usuario-logado');
+        if (usuario != null) {
+            usuario = JSON.parse(usuario);
+
+            setIdUsuario(usuario.id);
+        }
+    }, [])
 
     const ultimoCartao = paginaAtual * itensPorPagina
     const primeiroCartao = ultimoCartao - itensPorPagina
@@ -179,9 +194,24 @@ export default function Cardapio() {
         }
     }
 
+    const favorito = async () => {
+        try {
+            
+        } catch (err) {
+            if (idUsuario == 0) {
+                setCadastroAtv(true)
+                toast.error('Impossivel favoritar produto, favor se cadastrar ou realizar login no nosso site');
+            }
+        }
+    }
+
+    function ttt(novoValor) {
+        setCadastroAtv(novoValor);
+    }
+
     return (
         <main className='cardapio'>
-            <Cabecalho />
+            <Cabecalho cadastro={cadastroAtv} funcao={ttt}/>
             <div className='cima'>
                 <div className={`fpizza ${pizzasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('p')}>
                     <h1>Pizzas</h1>

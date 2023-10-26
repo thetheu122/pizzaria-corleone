@@ -200,7 +200,6 @@ h1 {
     p {
         font-size: 16px;
         color: #8B8585;
-        margin: -10px 0px;
     }
 }
 
@@ -212,8 +211,6 @@ h1 {
 
 .informacoes p {
     font-size: 16px;
-    color: #8B8585;
-    padding: 8px 0px;
 }
 
 .direitaFin {
@@ -294,7 +291,6 @@ h1 {
 
 
 .data-nascimento {
-    margin-top: -30px;
     >input {
         gap: 15px;
         border: none;
@@ -363,13 +359,14 @@ h1 {
         }
     }
 
+    .nmDataNascimento{
+        margin-bottom: 20px;
+    }
+
 }
 
-@media(min-height:1280px){
+@media(max-height:1280px){
     .modalll{
         top: 20%;
-    }
-    .data-nascimento {
-        margin-top: 30px;
     }
 }

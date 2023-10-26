@@ -30,7 +30,7 @@ import Vendas from './pages/vendas';
 
 import Finalizarcadastrado from './pages/finalisarcompra';
 import ClienteDetalhe from './pages/clienteDetalhes';
-
+import Carrinhodecompras from './pages/carrinhodecompras';
 
 
 
@@ -60,8 +60,10 @@ root.render(
         <Route path='/minhaconta' element={<MinhaConta/>} />
         <Route path='/cliente' element={<ClienteAdm/>} />
         <Route path='/vendas' element={<Vendas/>}/>
+        <Route path='/ADM/carrinho' element={<Carrinhodecompras/>} />
         <Route path ='/corleone/usuario/compra' element={<Finalizarcadastrado/>}/>
        <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

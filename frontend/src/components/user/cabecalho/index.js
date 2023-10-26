@@ -468,7 +468,7 @@ export default function Cabecalho(props) {
                 </div>
 
                 <div className='direitaFin'>
-                  <p>Data de Nascimento</p>
+                  <p className='nmDataNascimento'>Data de Nascimento</p>
                   <div className='data-nascimento'>
                     <input id='diminuicao' className='separacao' type='text' placeholder='Dia' value={dia} onChange={(e) => setDia(e.target.value)} />
                     <input id='diminuicao' className='separacao' type='text' placeholder='Mês' value={mes} onChange={(e) => setMes(e.target.value)} />
