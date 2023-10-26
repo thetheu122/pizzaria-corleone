@@ -6,13 +6,14 @@ import { useState } from 'react'
 export default function Finalizarcadastrado(){
     
 const [ label , setLabel] = useState( false)
+const [cupom, setCupom] = useState('')
 
     return(
         
         <div>
             
             <div> <Cabecalho/></div>
-            <div className='body'>
+            <div className='body' onClick={()=>{ label == true && setLabel(false)}} >
 
 
 
@@ -64,10 +65,13 @@ const [ label , setLabel] = useState( false)
                 <button> Comprar </button>
                 <div>
                     <div className='butao'>
-                        {label == true && 
+                        { label == true && 
                         <label>Cupom</label>
                         }
-                       <input placeholder='Cupom' value onChange={()=>setLabel(true)}/> 
+                       <input placeholder='Cupom' 
+                        value={cupom}
+                        onChange={ (e) => { setCupom ( e.target.value) ;}}
+                        onClick={()=> { setLabel(true) ; setCupom('') }  } /> 
                     </div>
                   
                 </div>

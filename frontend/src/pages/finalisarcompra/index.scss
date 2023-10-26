@@ -96,8 +96,26 @@ button{
 .butao{
   display: flex;
   flex-direction: column;
+  
   outline: none;
+  border: 1px solid rgb(226, 226, 226);
 
+  height: 30px;
+
+  input{
+    height: 90%;
+
+    outline: none;
+    border: none;
+
+    font-size: 14px;
+    margin-left: 7px;
+  }
+  label{
+    margin-left: 12px;
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
 
 }
 
