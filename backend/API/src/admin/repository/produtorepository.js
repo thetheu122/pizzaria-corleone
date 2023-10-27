@@ -425,11 +425,12 @@ export async function alterarImagem(id, imagem){
   const comando =
   `UPDATE tb_imagem
      SET img_produto      = ?
-   WHERE id_imagem        = ?
+   WHERE id_produto        = ?
   `
   
   const [ resposta ] = await con.query(comando, [imagem, id])
-
+  console.log({imagem, id})
+  console.log(resposta.affectedRows);
   return resposta.affectedRows
 }
 

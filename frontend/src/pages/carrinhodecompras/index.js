@@ -4,8 +4,10 @@ import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
 import ImgAleatria from '../../assets/images/pictures/pizza-marguerita.png'
 import Coracao from '../../assets/img/coracao 2.png'
+
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
+
 
 
 
@@ -47,9 +49,7 @@ export default function Carrinhodecompras() {
                             <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
                         </div>
 
-                        <h5>Carrinho de Compras</h5>
-
-                        <div className='linha-carrinho'></div>
+                 
 
                         <table className='tabela-carrinho'>
                             <thead>
