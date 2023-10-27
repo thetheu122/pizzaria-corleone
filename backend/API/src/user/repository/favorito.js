@@ -63,12 +63,12 @@ END AS valor,
 
 
 tb_cliente.nm_cliente AS cliente,
-tb_favorito.id_cliente,
+tb_favorito.id_cliente      as idcliente,
 tb_produto.nm_produto as produto,
 tb_produto.vl_preco   as preco,
-tb_produto.id_produto,
-ds_favorito,
-id_favorito
+tb_produto.id_produto as idproduto,
+ds_favorito           as favorito,
+id_favorito           as idfavorito
 FROM tb_favorito
 
 LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
