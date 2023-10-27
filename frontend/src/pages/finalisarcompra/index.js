@@ -12,22 +12,33 @@ const [cupom, setCupom] = useState('')
         
         <div>
             
-            <div> <Cabecalho/></div>
+            <div className='cab'> <Cabecalho/></div>
             <div className='body'  >
 
 
 
             <div> 
-                   <div>
+                   <div className='mae-comp'>
                       <h2> Meu Carrinho</h2>
-                      <ProdutoCompra/>
+                      <ProdutoCompra />
+
+                      <h2> Sugestões </h2>
+                      
                    </div>
 
-                   <div></div>
                  
             </div>
+           
 
+
+
+           
             <div className='ld-esquerdo'>
+
+                <div>
+
+                    
+                </div>
                     
                  <h2>Resumo do Pedido </h2>
 
@@ -43,42 +54,42 @@ const [cupom, setCupom] = useState('')
                 </div> 
 
                 <div className='ld-esquerdo-fl'>
-                    <h4>
-                        Subtotal   
-                    </h4>
+                       <h4>
+                            Subtotal   
+                        </h4>
 
-                    <h4> 
-                        R$ 480 
-                    </h4> 
+                        <h4> 
+                            R$ 480 
+                        </h4> 
 
                 </div> 
 
                 <div  className='ld-esquerdo-fl'>
-                <p> Frete </p>   <p>a calcular</p>
+                     <p> Frete </p>   <p>a calcular</p>
                 </div>
 
                 <div className='ld-esquerdo-fl'>
-                        <h3>Total   </h3>
-                        <h3>R$ 480</h3>
-                </div>
-
-                <button> Comprar </button>
-                <div>
-                    <div className='butao'>
-                        { cupom.length  > 0 && 
-                        <label>Cupom</label>
-                        }
-                       <input placeholder='Cupom' 
-                        value={cupom}
-                        onChange={ (e) => { setCupom ( e.target.value) ;}}
-                        onClick={()=> { setLabel(true) }  } /> 
+                            <h3>Total   </h3>
+                            <h3>R$ 480</h3>
                     </div>
-                  
-                </div>
 
-                <button className='claro'>Aplicar</button>
-            </div>
-            </div>
+                    <button> Comprar </button>
+                    <div>
+                        <div className='butao'>
+                            { cupom.length  > 0 && 
+                            <label>Cupom</label>
+                            }
+                        <input placeholder='Cupom' 
+                            value={cupom}
+                            onChange={ (e) => { setCupom ( e.target.value) ;}}
+                            onClick={()=> { setLabel(true) }  } /> 
+                        </div>
+                    
+                    </div>
+
+                    <button className='claro'>Aplicar</button>
+                 </div>
+             </div>
 
               
 
