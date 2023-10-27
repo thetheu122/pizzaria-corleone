@@ -73,34 +73,29 @@ export default function CardProduto(props) {
 
     useEffect(() => {
         async function fetchData() {
-          try {
-            let dados = {
-              produto: id,
-              cliente: usuario.id,
-            };
-      
-            let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?id=${JSON.stringify(dados)}`, { params: dados });
-      
-            console.log(response)
-            if (response.data.length === 0) {
-              setFavorito(false);
-              console.log('oi')
-            } else {
-              setFavorito(true);
-              setIdFav(response.data.id)
-              console.log('io')
+            try {
+                let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
+
+                console.log(response.data[0].valor)
+                if (response.data[0].valor === 'false') {
+                    setFavorito(false);
+                } else {
+                    setFavorito(true);
+                    setIdFav(response.data[0].id_produto)
+                }
+            } catch (err) {
             }
-          } catch (err) {
-            console.error(err);
-          }
         }
-      
+
         let usuario = localStorage.getItem('usuario-logado');
         usuario = JSON.parse(usuario);
-      
-        fetchData();
-      
-      }, [id, idc]); 
+
+        if (usuario.id) {
+            fetchData();
+            setIdc(usuario.id)
+        }
+
+    }, [id, idc]);
 
     async function carrinho() {
 
@@ -175,20 +170,27 @@ export default function CardProduto(props) {
             usuario = JSON.parse(usuario);
 
             if (!favorito) {
-
                 let dados = {
                     cliente: idc,
                     produto: id,
                     favorito: true
                 }
-
+                console.log(dados)
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
-
+                console.log(response)
                 setFavorito(true)
-                //se for false vai para add favorito
             }
             else {
+                let dados = {
+                    favorito: false,
+                    id:idFav
+                }
 
+                console.log(dados)
+
+                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+                console.log(response)
+                setFavorito(false)
             }
 
         } catch (err) {
