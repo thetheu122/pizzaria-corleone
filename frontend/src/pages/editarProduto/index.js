@@ -73,7 +73,7 @@ console.log(imagem)
     useEffect(() => {
         carregarRestricao()
         carregarTipo()
-    })
+    },[])
 
     async function mostraImg() {
         const r = await axios.get(`http://localhost:5000/produto/listar/${id}`)
@@ -118,6 +118,7 @@ console.log(imagem)
 
         });
     }
+
 
     function carregarTipo() {
         const checkboxes = document.querySelectorAll('.tay');
@@ -183,6 +184,8 @@ console.log(imagem)
                 imagem: imagem
             }
 
+           // alert(idproduto);
+
             const imagemTorV = await axios.get('http://localhost:5000/produto/listar/' + idproduto)
             const result = imagemTorV.data[0]
             const r = result.imagem
@@ -197,14 +200,15 @@ console.log(imagem)
             }
 
             else {
-                const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData, {
+                const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData, {
                     headers: {
                         "Content-type": "multipart/form-data"
                     },
                 })
             }
 
-
+/*
+*/  
 
 
 
@@ -260,7 +264,6 @@ console.log(imagem)
                 notifySuccess();
             }
 
-
         } catch (err) {
             if (err.response) {
                 console.log('Erro de resposta:', err.response.data);
@@ -278,8 +281,8 @@ console.log(imagem)
 
 
 
-    async function BuscarImagem(imagem) {
-        console.log(`${api.getUri()}/${imagem}`)
+    function BuscarImagem(imagem) {
+        //alert(`${api.getUri()}/${imagem}`)
         return `${api.getUri()}/${imagem}`
     }
 

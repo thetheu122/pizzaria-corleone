@@ -269,9 +269,9 @@ endpoints.put('/produto/:id/imagem', upload.single('capa') , async (req,resp) =>
 
 
     
-    if(r != 1) {
-      throw new Error ('A imagem não pode ser alterada.')
-    }
+    // if(r != 1) {
+    //   throw new Error ('A imagem não pode ser alterada.')
+    // }
 
     resp.status(204).send('imagem cadastrada')
   } catch (err) {

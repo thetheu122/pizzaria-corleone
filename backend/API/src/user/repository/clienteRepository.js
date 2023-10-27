@@ -85,6 +85,61 @@ export async function infoCLiente(id) {
     return resposta[0];
 };
 
+export async function listarCliente() {
+    let comando =
+        `
+    SELECT
+    c.id_endereco       as endereco,
+    c.id_cartao         as cartao,
+    c.nm_cliente        as cliente,
+    c.ds_email          as email,
+    c.ds_telefone       as telefone,
+    c.ds_senha          as senha,
+    c.ds_cpf            as cpf,
+    c.ds_nacimento      as nascimento,
+    e.ds_estado         as estado,
+    e.ds_cidade         as cidade,
+    e.ds_bairro         as bairro,
+    e.ds_rua            as rua,
+    e.ds_numero         as numero,
+    e.ds_cep            as cep
+    FROM tb_cliente c
+INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+   `
+
+   const[resposta]= await con.query(comando)
+   return resposta
+}
+
+
+export async function listarNome(nome) {
+    let comando =
+        `
+    SELECT
+    c.id_endereco       as endereco,
+    c.id_cartao         as cartao,
+    c.nm_cliente        as cliente,
+    c.ds_email          as email,
+    c.ds_telefone       as telefone,
+    c.ds_senha          as senha,
+    c.ds_cpf            as cpf,
+    c.ds_nacimento      as nascimento,
+    e.ds_estado         as estado,
+    e.ds_cidade         as cidade,
+    e.ds_bairro         as bairro,
+    e.ds_rua            as rua,
+    e.ds_numero         as numero,
+    e.ds_cep            as cep
+    FROM tb_cliente c
+INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+WHERE nm_cliente like ?
+   `
+
+   const[resposta]= await con.query(comando, [`%${nome}%`])
+   return resposta
+}
+
+
 export async function editarInfoClient(newInfos, id) {
 
     let comando =
@@ -108,7 +163,7 @@ export async function editarInfoClient(newInfos, id) {
         WHERE c.id_cliente = ?;
     `
 
-    const [resposta] = await con.query(comando, [newInfos.nome, newInfos.email, newInfos.telefone, newInfos.senha, newInfos.cpf, newInfos.nascimento, newInfos.estado, newInfos.cidade, newInfos.bairro, newInfos.rua, newInfos.numero, newInfos.cep, id ])
+    const [resposta] = await con.query(comando, [newInfos.nome, newInfos.email, newInfos.telefone, newInfos.senha, newInfos.cpf, newInfos.nascimento, newInfos.estado, newInfos.cidade, newInfos.bairro, newInfos.rua, newInfos.numero, newInfos.cep, id])
 
     return resposta
     console.log(resposta)
@@ -116,16 +171,16 @@ export async function editarInfoClient(newInfos, id) {
 
 export function validarDados(dados) {
     for (const campo in dados) {
-      if (!dados[campo]) {
-        throw new Error(`Campo "${campo}" está vazio.`);
-      }
+        if (!dados[campo]) {
+            throw new Error(`Campo "${campo}" está vazio.`);
+        }
 
-      if (campo === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados[campo])) {
-        throw new Error('E-mail possui um formato inválido.');
-      }
+        if (campo === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados[campo])) {
+            throw new Error('E-mail possui um formato inválido.');
+        }
 
-      if (campo === 'cpf' && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(dados[campo])) {
-        throw new Error('CPF possui um formato inválido.');
-      }
+        if (campo === 'cpf' && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(dados[campo])) {
+            throw new Error('CPF possui um formato inválido.');
+        }
     }
-  }
+}

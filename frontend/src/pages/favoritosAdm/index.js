@@ -3,6 +3,7 @@ import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
 import ImgAleatria from '../../assets/images/pictures/pizza-marguerita.png'
 import Coracao from '../../assets/img/coracao 2.png'
+import Carrinho from '../../assets/img/carrinho.png'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -167,7 +168,7 @@ const[favorito, Setfavorito]=useState()
                         <div className="parte-favorito">
                             <h1>Ordenar por:</h1>
                             <div onClick={()=> navigate('/ADM/carrinho')}>
-                              
+                                <img src={Carrinho}/>
                                 <p>Carrinho</p>
                             </div>
                         </div>

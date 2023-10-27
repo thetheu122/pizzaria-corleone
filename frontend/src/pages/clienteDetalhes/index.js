@@ -1,40 +1,74 @@
 import './index.scss'
 import CompAtalhosAdm from '../../components/compAtalhosAdm';
 import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
-export default function ClienteDetalhe(){
 
-  const[buscarcliente, setBuscarcliente]=useState()
-    return(
+export default function ClienteDetalhe() {
+
+    const [buscarcliente, setBuscarcliente] = useState('')
+    const [cliente, setCliente] = useState([])
+
+
+    useEffect(() => {
+       
+        if(buscarcliente.length > 0  ){
+            listarPorNome()
+        }else{
+            Listarcliente();
+        }
+        
+
+    }, [buscarcliente])
+
+    async function Listarcliente() {
+        const r = await axios.get('http://localhost:5000/clientes')
+        setCliente(r.data)
+
+    }
+    
+    
+
+        async function listarPorNome() {
+        const r = await axios.get(`http://localhost:5000/clientes/nome/${buscarcliente}`)
+        setCliente(r.data)
+
+    }
+
+
+
+    return (
         <div className='connttainer' >
-              <CompAtalhosAdm />
+            <CompAtalhosAdm />
 
-              <div className='subbcontainer'>
+            <div className='subbcontainer'>
 
-             <div className='tiitulo'>
-                <h1>Clientes</h1>
-             </div>
+                <div className='tiitulo'>
+                    <h1>Clientes</h1>
+                </div>
 
-             <div className='subbtitulo'>
-                <h1>Lista de clientes</h1>
-             </div>
+                <div className='subbtitulo'>
+                    <h1>Lista de clientes</h1>
+                </div>
 
-               
 
-               <div className='tabela-cliente'>
 
-               <div className="input-container">
-                            <input
-                                type='text'
-                                placeholder='Busque por id ou nome do cliente'
-                                value={buscarcliente}
-                                onChange={e => setBuscarcliente(e.target.value)}
-                            />
-                            <div className="input-image"></div>
-                        </div>
-              
+                <div className='tabela-cliente'>
 
-               <table className="tabela-clienteAdm">
+                    <div className="input-container">
+                        <input
+                        
+                            type='text'
+                            placeholder='Busque por id ou nome do cliente'
+                            value={buscarcliente}
+                            onChange={e => setBuscarcliente(e.target.value)}
+                        />
+                        <div className="input-image"></div>
+                    </div>
+
+
+                    <table className="tabela-clienteAdm">
                         <thead >
                             <tr>
                                 <th>ID</th>
@@ -48,221 +82,37 @@ export default function ClienteDetalhe(){
 
                         <tr className='linha-separadora'></tr>
 
-                     <tbody>
+                        <tbody>
 
-                     <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
+                            {cliente.map(item =>
 
 
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
+                                <tr className="linha-separadora">
+                                    <td>#{item.endereco}</td>
+                                    <td>{item.cliente}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.telefone}</td>
+                                    <td>{item.nascimento}</td>
+                                    <td >{item.cep}</td>
 
-                            </tr>
+                                </tr>
+                            )
 
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>#4020</td>
-                                <td>Amanda</td>
-                                <td>Amanda@gmail.com.br</td>
-                                <td>9058-48784</td>
-                                <td>30/07/2005</td>
-                                <td >0485-210</td>
-
-                            </tr>
+                            }
 
 
-                     </tbody>
+
+                        </tbody>
 
 
-                </table>
+                    </table>
 
                 </div>
 
 
 
 
-              </div>
+            </div>
 
 
         </div>
