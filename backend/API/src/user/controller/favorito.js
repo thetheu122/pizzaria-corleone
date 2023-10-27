@@ -107,8 +107,12 @@ endpoits.put('/corleone/produtos/alterar/favoritos', async (req, resp) => {
 endpoits.get('/corleone/produtos/favoritos/verificar', async (req, resp) => {
   try {
 
-    const id = req.body
+    const {id} = req.query
+    JSON.parse(id)
+    console.log(id)
     const resposta = await verificafavorito(id)
+
+    console.log(resposta)
 
     if (resposta === '') {
       resp.status(200).send({ message: 'Esse usuário não possui esta pizza cadastrada como favorita' });

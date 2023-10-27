@@ -119,5 +119,6 @@ and   tb_cliente.id_cliente = ?
 `;
 
 const [ resposta ] = await con.query(comando,[id.produto,id.cliente])
+console.log(resposta)
 return resposta
 }
