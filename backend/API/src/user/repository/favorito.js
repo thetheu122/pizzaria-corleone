@@ -31,12 +31,12 @@ END AS valor,
 
 
 tb_cliente.nm_cliente AS cliente,
-tb_favorito.id_cliente,
+tb_favorito.id_cliente      as idcliente,
 tb_produto.nm_produto as produto,
 tb_produto.vl_preco   as preco,
-tb_produto.id_produto,
-ds_favorito,
-id_favorito
+tb_produto.id_produto as idproduto,
+ds_favorito           as favorito,
+id_favorito           as idfavorito
 FROM tb_favorito
 
 LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
@@ -61,24 +61,47 @@ CASE
     ELSE 'valor inválido'
 END AS valor, 
 
-
-tb_cliente.nm_cliente AS cliente,
-tb_favorito.id_cliente      as idcliente,
-tb_produto.nm_produto as produto,
-tb_produto.vl_preco   as preco,
-tb_produto.id_produto as idproduto,
-ds_favorito           as favorito,
-id_favorito           as idfavorito
+    tb_cliente.nm_cliente AS cliente,
+    tb_favorito.id_cliente,
+    tb_produto.nm_produto AS produto,
+    tb_favorito.id_produto,
+    tb_favorito.ds_favorito,
+    tb_favorito.id_favorito     ,
+    tb_imagem.img_produto       as imagem   
 FROM tb_favorito
-
 LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
-LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto;
-
+LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
+LEFT JOIN tb_imagem ON tb_favorito.id_produto = tb_imagem.id_produto
 `
     const [resposta] = await con.query(comando)
     return resposta
 
 }
+
+
+export async function favoritoRanked() {
+
+    const comando = `
+    SELECT
+    tb_produto.nm_produto as produto,
+    MAX(tb_imagem.img_produto) as imagem,
+    COUNT(tb_favorito.id_cliente) as qtd_favoritos
+FROM tb_produto
+LEFT JOIN tb_favorito ON tb_produto.id_produto = tb_favorito.id_produto
+LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+LEFT JOIN tb_imagem ON tb_produto.id_produto = tb_imagem.id_produto
+WHERE tb_favorito.ds_favorito = 1
+GROUP BY tb_produto.id_produto, tb_produto.nm_produto
+ORDER BY qtd_favoritos DESC;
+`
+    const [resposta] = await con.query(comando)
+    return resposta
+
+}
+
+
+
+
 
 
 export async function alterarfavorito(favorito) {
@@ -105,11 +128,12 @@ END AS valor,
 
 
 tb_cliente.nm_cliente AS cliente,
-tb_favorito.id_cliente,
+tb_favorito.id_cliente      as idcliente,
 tb_produto.nm_produto as produto,
-tb_favorito.id_produto,
-ds_favorito,
-id_favorito
+tb_produto.vl_preco   as preco,
+tb_produto.id_produto as idproduto,
+ds_favorito           as favorito,
+id_favorito           as idfavorito
 FROM tb_favorito
 
 LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente

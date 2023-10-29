@@ -9,7 +9,7 @@ import axios from 'axios'
 
 
 
-export default function Favoritos() {
+export default function CadaFavorito() {
     const navigate = useNavigate();
 
     const [favorito, Setfavorito] = useState()
@@ -21,7 +21,7 @@ export default function Favoritos() {
 
     useEffect(() => {
         ListarFavoritos();
- 
+
     }, [])
 
     async function ListarFavoritos() {
@@ -32,39 +32,43 @@ export default function Favoritos() {
 
 
     return (
-        <div className='pagina-favoritos'>
+        <div className='pagina-cada-favoritos'>
             <CompAtalhosAdm />
 
-            <div className='container-favoritos'>
+            <div className='container-cada-favoritos'>
 
-                <div className='cabecalho-favoritos'>
+                <div className='cabecalho-cada-favoritos'>
                     <h1>Clientes</h1>
                 </div>
 
-                <div className='subtitulo-favoritos'>
+                <div className='subtitulo-cada-favoritos'>
                     <h1>Favoritos</h1>
                 </div>
 
 
 
 
-                <div className='conteudo-favoritos'>
+                <div className='conteudo-cada-favoritos'>
 
-                    <div className='principal-favorito'>
+                    <div className='principal-cada-favorito'>
 
                         <div className="buscar">
                             <div ><img src={Lupa} /></div>
                             <input type="text" placeholder="busque por nome do produto" value={favorito} onChange={e => Setfavorito(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
                         </div>
 
-                        <table className='tabela-favoritos'>
-                            <thead>
-                                <tr>
-                                    <th>imagem</th>
-                                    <th>Quantidade</th>
-                                    <th>produto</th>
 
-                                </tr>
+                        <div className='titulo-cada-favorito'>
+                            <h1>Produtos Favoritados pelo cliente </h1>
+                        </div>
+
+                        <div className='linha'></div>
+
+
+                        <table className='tabela-cada-favoritos'>
+
+                            <thead>
+
                             </thead>
 
                             <tbody>
@@ -72,8 +76,7 @@ export default function Favoritos() {
 
                                 {tdsFavoritos.map(item =>
                                     <tr className="cada-linha">
-                                        <td><img src={`${api.getUri()}/${item.imagem}` }/></td>
-                                        <td>{item.qtd_favoritos}</td>
+                                        <td className='imagem-fav'><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.produto}</td>
 
                                     </tr>
