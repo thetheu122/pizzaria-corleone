@@ -61,7 +61,7 @@ export default function Favoritos() {
                             <thead>
                                 <tr>
                                     <th>imagem</th>
-                                    <th>Quantidade</th>
+                                    <th>Contagem de Favoritos</th>
                                     <th>produto</th>
 
                                 </tr>

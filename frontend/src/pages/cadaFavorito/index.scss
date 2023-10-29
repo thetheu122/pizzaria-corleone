@@ -151,7 +151,7 @@
         tbody img{
             height: 45px;
             width: 60px;
-            border-radius: 5px;
+            border-radius: 70px;
         }
     
         tbody div {
@@ -167,6 +167,18 @@
     .imagem-fav {
         padding-right: 15px;
     }
+
+/*.imagem-favoritos {
+
+        display: flex !important;
+
+        justify-content: flex-end !important;
+
+        img {
+            height: 18px !important;
+            width: 20px !important;
+        }
+    }*/
     
    
 
@@ -214,6 +226,35 @@
         width: 50%;
         align-items: center;
         margin-top: 30px;
+    }
+
+    .parte-favorito {
+        display: flex;
+        align-items: center;
+
+        h1 {
+            font-size: 20px;
+            font-family: lato-regular;
+            color: #636363;
+            margin-right: 5px;
+        }
+
+        div {
+            display: flex;
+            color: #fff;
+            background-color:  #0D3E53;
+            padding: 10px;
+            align-items: center;
+
+            img {
+                height: 18px;
+                margin-right: 5px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
     }
 
 

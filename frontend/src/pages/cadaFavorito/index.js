@@ -3,9 +3,10 @@ import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
 import Carrinho from '../../assets/img/carrinho.png'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import React from 'react'
 import axios from 'axios'
+import Coracao from '../../assets/img/Union (1).png'
 
 
 
@@ -14,19 +15,32 @@ export default function CadaFavorito() {
 
     const [favorito, Setfavorito] = useState()
     const [tdsFavoritos, setTdsFavoritos] = useState([])
+    const[nome, setNome]= useState('')
+    const {id} = useParams();
+
 
     const api = axios.create({
         baseURL: 'http://localhost:5000'
     })
 
     useEffect(() => {
-        ListarFavoritos();
+        ListarFavoritos()
+        mostrarNome()
 
     }, [])
+    console.log(id)
 
     async function ListarFavoritos() {
-        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/listar/ranked`)
+        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
         setTdsFavoritos(r.data)
+    }
+
+    async function mostrarNome() {
+        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
+        const resp = r.data[0]
+        const resposta = resp.cliente
+        console.log(resp)
+        setNome(resposta)
     }
 
 
@@ -59,7 +73,7 @@ export default function CadaFavorito() {
 
 
                         <div className='titulo-cada-favorito'>
-                            <h1>Produtos Favoritados pelo cliente </h1>
+                            <h1>Produtos Favoritados pelo cliente {nome}</h1>
                         </div>
 
                         <div className='linha'></div>
@@ -78,7 +92,7 @@ export default function CadaFavorito() {
                                     <tr className="cada-linha">
                                         <td className='imagem-fav'><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.produto}</td>
-
+                                        
                                     </tr>
                                 )}
 

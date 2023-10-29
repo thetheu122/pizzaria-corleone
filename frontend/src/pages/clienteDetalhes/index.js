@@ -13,8 +13,9 @@ export default function ClienteDetalhe() {
 
     const navigate = useNavigate()
 
-    function entrarFavoritos() {
-        
+    function entrarFavoritos(id) {
+        navigate(`/cadafavorito/cliente/${id}`)
+        console.log(id)
     }
 
 
@@ -25,7 +26,6 @@ export default function ClienteDetalhe() {
         }else{
             Listarcliente();
         }
-        
 
     }, [buscarcliente])
 
@@ -94,8 +94,10 @@ export default function ClienteDetalhe() {
                             {cliente.map(item =>
 
 
-                                <tr onClick={() => {navigate('/cadafavorito')}} className="linha-separadora">
-                                    <td>#{item.endereco}</td>
+                                <tr
+                                 
+                                onClick={() => {entrarFavoritos(item.idcliente)}} className="linha-separadora">
+                                    <td>#{item.idcliente}</td>
                                     <td>{item.cliente}</td>
                                     <td>{item.email}</td>
                                     <td>{item.telefone}</td>

@@ -66,7 +66,7 @@ root.render(
         <Route path ='/corleone/usuario/compra' element={<Finalizarcadastrado/>}/>
        <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
        <Route path='/favoritos' element={<Favoritos/>}/>
-       <Route path='/cadafavorito' element={<CadaFavorito/>}/>
+       <Route path='/cadafavorito/cliente/:id' element={<CadaFavorito/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -22,27 +22,29 @@ values( ? ,? , ? )`;
 export async function listarfavoritos(iDcliente) {
 
     const comando = `
-SELECT  
-CASE 
-    WHEN ds_favorito = 0 THEN 'false' 
-    WHEN ds_favorito = 1 THEN 'Favorito'
-    ELSE 'valor inválido'
-END AS valor, 
-
-
-tb_cliente.nm_cliente AS cliente,
-tb_favorito.id_cliente      as idcliente,
-tb_produto.nm_produto as produto,
-tb_produto.vl_preco   as preco,
-tb_produto.id_produto as idproduto,
-ds_favorito           as favorito,
-id_favorito           as idfavorito
-FROM tb_favorito
-
-LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
-LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
-where ds_favorito = true
-and   tb_cliente.id_cliente = ?;`
+    SELECT  
+    CASE 
+        WHEN ds_favorito = 0 THEN 'false' 
+        WHEN ds_favorito = 1 THEN 'Favorito'
+        ELSE 'valor inválido'
+    END AS valor, 
+    
+    
+    tb_cliente.nm_cliente AS cliente,
+    tb_favorito.id_cliente      as idcliente,
+    tb_produto.nm_produto as produto,
+    tb_produto.vl_preco   as preco,
+    tb_produto.id_produto as idproduto,
+    ds_favorito           as favorito,
+    id_favorito           as idfavorito,
+    tb_imagem.img_produto	as imagem
+    FROM tb_favorito
+    
+    LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+    LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
+    LEFT JOIN tb_imagem ON tb_produto.id_produto = tb_imagem.id_produto
+    where ds_favorito = true
+    and   tb_cliente.id_cliente = ?;`
 
     const [resposta] = await con.query(comando, [iDcliente])
     return resposta
