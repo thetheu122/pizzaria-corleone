@@ -89,6 +89,7 @@ export async function listarCliente() {
     let comando =
         `
     SELECT
+    c.id_cliente        as idcliente,
     c.id_endereco       as endereco,
     c.id_cartao         as cartao,
     c.nm_cliente        as cliente,

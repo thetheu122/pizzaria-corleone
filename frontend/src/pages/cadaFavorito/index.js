@@ -3,68 +3,86 @@ import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
 import Carrinho from '../../assets/img/carrinho.png'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import React from 'react'
 import axios from 'axios'
+import Coracao from '../../assets/img/Union (1).png'
 
 
 
-export default function Favoritos() {
+export default function CadaFavorito() {
     const navigate = useNavigate();
 
     const [favorito, Setfavorito] = useState()
     const [tdsFavoritos, setTdsFavoritos] = useState([])
+    const[nome, setNome]= useState('')
+    const {id} = useParams();
+
 
     const api = axios.create({
         baseURL: 'http://localhost:5000'
     })
 
     useEffect(() => {
-        ListarFavoritos();
- 
+        ListarFavoritos()
+        mostrarNome()
+
     }, [])
+    console.log(id)
 
     async function ListarFavoritos() {
-        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/listar/ranked`)
+        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
         setTdsFavoritos(r.data)
+    }
+
+    async function mostrarNome() {
+        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
+        const resp = r.data[0]
+        const resposta = resp.cliente
+        console.log(resp)
+        setNome(resposta)
     }
 
 
 
     return (
-        <div className='pagina-favoritos'>
+        <div className='pagina-cada-favoritos'>
             <CompAtalhosAdm />
 
-            <div className='container-favoritos'>
+            <div className='container-cada-favoritos'>
 
-                <div className='cabecalho-favoritos'>
+                <div className='cabecalho-cada-favoritos'>
                     <h1>Clientes</h1>
                 </div>
 
-                <div className='subtitulo-favoritos'>
+                <div className='subtitulo-cada-favoritos'>
                     <h1>Favoritos</h1>
                 </div>
 
 
 
 
-                <div className='conteudo-favoritos'>
+                <div className='conteudo-cada-favoritos'>
 
-                    <div className='principal-favorito'>
+                    <div className='principal-cada-favorito'>
 
                         <div className="buscar">
                             <div ><img src={Lupa} /></div>
                             <input type="text" placeholder="busque por nome do produto" value={favorito} onChange={e => Setfavorito(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
                         </div>
 
-                        <table className='tabela-favoritos'>
-                            <thead>
-                                <tr>
-                                    <th>imagem</th>
-                                    <th>Contagem de Favoritos</th>
-                                    <th>produto</th>
 
-                                </tr>
+                        <div className='titulo-cada-favorito'>
+                            <h1>Produtos Favoritados pelo cliente {nome}</h1>
+                        </div>
+
+                        <div className='linha'></div>
+
+
+                        <table className='tabela-cada-favoritos'>
+
+                            <thead>
+
                             </thead>
 
                             <tbody>
@@ -72,10 +90,9 @@ export default function Favoritos() {
 
                                 {tdsFavoritos.map(item =>
                                     <tr className="cada-linha">
-                                        <td><img src={`${api.getUri()}/${item.imagem}` }/></td>
-                                        <td>{item.qtd_favoritos}</td>
+                                        <td className='imagem-fav'><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.produto}</td>
-
+                                        
                                     </tr>
                                 )}
 

@@ -3,12 +3,20 @@ import CompAtalhosAdm from '../../components/compAtalhosAdm';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import {  useNavigate } from 'react-router-dom';
 
 
 export default function ClienteDetalhe() {
 
     const [buscarcliente, setBuscarcliente] = useState('')
     const [cliente, setCliente] = useState([])
+
+    const navigate = useNavigate()
+
+    function entrarFavoritos(id) {
+        navigate(`/cadafavorito/cliente/${id}`)
+        console.log(id)
+    }
 
 
     useEffect(() => {
@@ -18,7 +26,6 @@ export default function ClienteDetalhe() {
         }else{
             Listarcliente();
         }
-        
 
     }, [buscarcliente])
 
@@ -87,8 +94,10 @@ export default function ClienteDetalhe() {
                             {cliente.map(item =>
 
 
-                                <tr className="linha-separadora">
-                                    <td>#{item.endereco}</td>
+                                <tr
+                                 
+                                onClick={() => {entrarFavoritos(item.idcliente)}} className="linha-separadora">
+                                    <td>#{item.idcliente}</td>
                                     <td>{item.cliente}</td>
                                     <td>{item.email}</td>
                                     <td>{item.telefone}</td>
