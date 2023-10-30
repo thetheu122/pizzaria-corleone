@@ -12,7 +12,25 @@
     box-sizing: border-box;
     overflow: hidden;
 
+.itens{
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    
+    width: 17px;
+    height: 17px;
+    font-size: 12px;
 
+    border-radius: 100%;
+    background-color: #fff;
+    opacity: 0.8;
+    
+    position: relative;
+    right: 12px;
+    bottom: 15px;
+
+
+}
 
     .logo-principal {
         width: 216px;
