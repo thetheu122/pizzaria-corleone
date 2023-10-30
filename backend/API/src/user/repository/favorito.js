@@ -116,7 +116,6 @@ set     ds_favorito = ?
 where   id_favorito = ?
 `
     const [resposta] = await con.query(comando, [favorito.favorito, favorito.id])
-    console.log(resposta)
     return resposta.affectedRows > 0
 }
 

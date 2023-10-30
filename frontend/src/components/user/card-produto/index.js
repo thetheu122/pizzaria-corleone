@@ -78,7 +78,8 @@ export default function CardProduto(props) {
                 if (usuario && usuario.id !== 0 && usuario.id !== null) {
                     setIdc(usuario.id)
                     let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
-                    setIdFav(response.data[0].idproduto);
+                    console.log(response.data)
+                    setIdFav(response.data[0].idfavorito);
                     if (response.data[0].valor === 'false') {
                         setFavorito(false);
                     } else {
@@ -174,8 +175,9 @@ export default function CardProduto(props) {
                 console.log(dados)
 
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
-
+                console.log(response.data)
                 setFavorito(true)
+                setIdFav(response.data.id)
             }
             else if (idFav != 0 && !favorito) {
                 let dados = {
@@ -192,7 +194,6 @@ export default function CardProduto(props) {
                     favorito: false,
                     id: idFav
                 }
-                console.log(dados)
                 let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
                 setFavorito(false)
             }
