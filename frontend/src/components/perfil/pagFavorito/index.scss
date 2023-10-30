@@ -30,4 +30,24 @@
      &::-webkit-scrollbar-track {
         background: transparent;
      }
+
+     .not {
+      height: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      h1 {
+          opacity: 0.8;
+          color: black;
+      }
+
+      img {
+          width: 23px;
+          margin-right: 12px;
+
+          animation: loading 1s infinite;
+      }
+  }
 }

@@ -129,6 +129,18 @@ export default function Cabecalho(props) {
         theme: "light",
       });
     }
+    else if (!nome.includes(" ")){
+      toast.warn('Seu nome precisar conter ao menos um sobrenome', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
     else {
       setOpenCadastroModal(!openCadastroModal)
       setCaptcha(false)
@@ -162,6 +174,8 @@ export default function Cabecalho(props) {
         setIdUsuario(response.data.id)
         setIsLogged(true)
         setOpenLoginModal(false)
+
+        window.location.reload(true);
 
         toast.success("Login realizado com sucesso", {
           position: "top-left",
@@ -232,6 +246,7 @@ export default function Cabecalho(props) {
           progress: undefined,
           theme: "dark",
         });
+        window.location.reload(true);
         setIsLogged(true)
         setOpenLoginModal(false)
         let local = {

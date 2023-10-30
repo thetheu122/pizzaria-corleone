@@ -53,10 +53,11 @@
    .favorito-icons {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
       align-items: center;
-      width: 90%;
+      justify-content: flex-start;
+      width: 100%;
       margin-left: 10px;
+      gap: 20px;
    }
 
    .favorito-icons h3 {
@@ -97,6 +98,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      justify-self: end;
       transition: 150ms;
       border: black 1px solid;
 

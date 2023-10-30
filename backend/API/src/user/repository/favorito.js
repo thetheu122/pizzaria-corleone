@@ -22,27 +22,29 @@ values( ? ,? , ? )`;
 export async function listarfavoritos(iDcliente) {
 
     const comando = `
-SELECT  
-CASE 
-    WHEN ds_favorito = 0 THEN 'false' 
-    WHEN ds_favorito = 1 THEN 'Favorito'
-    ELSE 'valor inválido'
-END AS valor, 
-
-
-tb_cliente.nm_cliente AS cliente,
-tb_favorito.id_cliente,
-tb_produto.nm_produto as produto,
-tb_produto.vl_preco   as preco,
-tb_produto.id_produto,
-ds_favorito,
-id_favorito
-FROM tb_favorito
-
-LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
-LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
-where ds_favorito = true
-and   tb_cliente.id_cliente = ?;`
+    SELECT
+    CASE
+      WHEN tb_favorito.ds_favorito = 0 THEN 'false'
+      WHEN tb_favorito.ds_favorito = 1 THEN 'Favorito'
+      ELSE 'valor inválido'
+    END AS valor,
+    tb_cliente.nm_cliente AS cliente,
+    tb_favorito.id_cliente,
+    tb_produto.nm_produto AS produto,
+    tb_produto.vl_preco AS preco,
+    tb_produto.ds_ingredientes AS ingredientes,
+    tb_imagem.img_produto AS imagem,
+    tb_produto.id_produto,
+    tb_favorito.ds_favorito,
+    tb_favorito.id_favorito
+  FROM tb_favorito
+  LEFT JOIN tb_cliente ON tb_favorito.id_cliente = tb_cliente.id_cliente
+  LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_media ON tb_produto.id_produto = tb_media.id_produto
+  LEFT JOIN tb_imagem ON tb_produto.id_produto = tb_imagem.id_produto
+  WHERE tb_favorito.ds_favorito = 1
+  AND tb_cliente.id_cliente = ?;
+  `
 
     const [resposta] = await con.query(comando, [iDcliente])
     return resposta
@@ -82,13 +84,13 @@ LEFT JOIN tb_produto ON tb_favorito.id_produto = tb_produto.id_produto;
 
 
 export async function alterarfavorito(favorito) {
-
     const comando = `
 update  tb_favorito 
 set     ds_favorito = ?
-where   id_favorito = ?;
+where   id_favorito = ?
 `
     const [resposta] = await con.query(comando, [favorito.favorito, favorito.id])
+    console.log(resposta)
     return resposta.affectedRows > 0
 }
 

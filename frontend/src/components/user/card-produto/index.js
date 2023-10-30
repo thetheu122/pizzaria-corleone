@@ -33,7 +33,7 @@ export default function CardProduto(props) {
     const [nome, setNome] = useState('')
 
     // id cliente
-    const [idc, setIdc] = useState()
+    const [idc, setIdc] = useState(0)
 
     // info produto
     const id = props.produto.id
@@ -74,28 +74,25 @@ export default function CardProduto(props) {
     useEffect(() => {
         async function fetchData() {
             try {
-                let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
-
-                console.log(response.data[0].valor)
-                if (response.data[0].valor === 'false') {
-                    setFavorito(false);
-                } else {
-                    setFavorito(true);
-                    setIdFav(response.data[0].id_produto)
+                let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
+                if (usuario && usuario.id !== 0 && usuario.id !== null) {
+                    setIdc(usuario.id)
+                    let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
+                    setIdFav(response.data[0].id_favorito);
+                    if (response.data[0].valor === 'false') {
+                        setFavorito(false);
+                    } else {
+                        setFavorito(true);
+                    }
                 }
             } catch (err) {
             }
         }
-
-        let usuario = localStorage.getItem('usuario-logado');
-        usuario = JSON.parse(usuario);
-
-        if (usuario.id) {
-            fetchData();
-            setIdc(usuario.id)
-        }
-
-    }, [id, idc]);
+    
+        fetchData(); 
+    }, [id]);
+    
+    
 
     async function carrinho() {
 
@@ -120,7 +117,7 @@ export default function CardProduto(props) {
                     "qtd": 1
                 }
                 let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho', user)
-                console.log(resposne.data.erro)
+
                 setOpenModalCart(false)
             }
 
@@ -142,7 +139,6 @@ export default function CardProduto(props) {
                     }
                     let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar', user)
                     setOpenModalCart(false)
-                    console.log(resposta.carrinho)
                 }
             }
         } catch (erro) {
@@ -169,34 +165,42 @@ export default function CardProduto(props) {
             let usuario = localStorage.getItem('usuario-logado');
             usuario = JSON.parse(usuario);
 
-            if (!favorito) {
+            if (idFav === 0) {
                 let dados = {
                     cliente: idc,
                     produto: id,
                     favorito: true
                 }
-                console.log(dados)
+
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
-                console.log(response)
+
                 setFavorito(true)
+            }
+            else if (idFav != 0 && !favorito) {
+                let dados = {
+                    favorito: true,
+                    id: idFav
+                }
+                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+
+                setFavorito(true)
+
             }
             else {
                 let dados = {
                     favorito: false,
-                    id:idFav
+                    id: idFav
                 }
-
-                console.log(dados)
-
                 let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
-                console.log(response)
                 setFavorito(false)
             }
 
         } catch (err) {
             toast.error('Algo deu errado')
-            toast.error(err.message)
-
+            if (idc == 0) {
+                setCadastroAtv(true)
+                toast.error('Impossivel favoritar produto, favor se cadastrar ou realizar login no nosso site');
+            }
         }
 
     }

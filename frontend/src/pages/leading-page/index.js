@@ -18,6 +18,10 @@ export default function Leading() {
 
     const [mostrarBotao, setMostrarBotao] = useState(true);
 
+    const cardapioFiltroAtv = (value) => {
+        navigate('/cardapio?filtro=' + value);
+      }
+
     return (
         <main className='leadingPage'>
             <Cabecalho />
@@ -82,28 +86,28 @@ export default function Leading() {
                 <h2>Temos pizza e além</h2>
                 <div className='classeProduto'>
 
-                    <div onClick={() => navigate('/cardapio')}>
+                    <div onClick={() => cardapioFiltroAtv('p')}>
                         <div className='classePizza' />
                         <h3>Pizza</h3>
                         <p>Chefe Responsável: Henrique Fogaça</p>
                     </div>
 
 
-                    <div onClick={() => navigate('/cardapio')}>
+                    <div onClick={() => cardapioFiltroAtv('s')}>
                         <div className='classeSobremesa' />
                         <h3>Sobremesa</h3>
                         <p>Chefe Responsável: Henela Riso</p>
                     </div>
 
 
-                    <div onClick={() => navigate('/cardapio')}>
+                    <div onClick={() => cardapioFiltroAtv('b')}>
                         <div className='classeBebidas' />
                         <h3>Bebidas</h3>
                         <p>Adega Responsável: Brunello di Montalcino</p>
                     </div>
 
 
-                    <div onClick={() => navigate('/cardapio')}>
+                    <div onClick={() => cardapioFiltroAtv('v')}>
                         <div className='classeVegana' />
                         <h3>Opções Veganas</h3>
                         <p>Chefe Responsável: Alex Atala</p>
