@@ -109,21 +109,14 @@ useEffect(()=>{
         
         <div>
             
-            <div className='cab'> <Cabecalho/></div>
+            <div> <Cabecalho/></div>
             <div className='body'  >
 
 
 
             <div> 
-                   <div className='mae-comp'>
+                   <div>
                       <h2> Meu Carrinho</h2>
-<<<<<<< HEAD
-                      <ProdutoCompra />
-
-                      <h2> Sugestões </h2>
-                      
-                   </div>
-=======
            
                       {produtos.map((item) => {
 
@@ -209,21 +202,11 @@ useEffect(()=>{
         </div>
     
 </div>
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
 
                  
             </div>
-           
 
-
-
-           
             <div className='ld-esquerdo'>
-
-                <div>
-
-                    
-                </div>
                     
                  <h2>Resumo do Pedido </h2>
 
@@ -242,31 +225,21 @@ useEffect(()=>{
                 </div> 
 
                 <div className='ld-esquerdo-fl'>
-                       <h4>
-                            Subtotal   
-                        </h4>
+                    <h4>
+                        Subtotal   
+                    </h4>
 
-<<<<<<< HEAD
-                        <h4> 
-                            R$ 480 
-                        </h4> 
-=======
                     <h4> 
                         R${total.toFixed(2)} 
                     </h4> 
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
 
                 </div> 
 
                 <div  className='ld-esquerdo-fl'>
-                     <p> Frete </p>   <p>a calcular</p>
+                <p> Frete </p>   <p>a calcular</p>
                 </div>
 
                 <div className='ld-esquerdo-fl'>
-<<<<<<< HEAD
-                            <h3>Total   </h3>
-                            <h3>R$ 480</h3>
-=======
                         <h3>Total   </h3>
                         <h3>R$ {total.toFixed(2)} </h3>
                 </div>
@@ -281,32 +254,13 @@ useEffect(()=>{
                         value={digitadoCupom}
                         onChange={ (e) => { setDigitadoCupom ( e.target.value) ;}}
                         onClick={()=> { setLabel(true) }  } /> 
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
                     </div>
+                  
+                </div>
 
-<<<<<<< HEAD
-                    <button> Comprar </button>
-                    <div>
-                        <div className='butao'>
-                            { cupom.length  > 0 && 
-                            <label>Cupom</label>
-                            }
-                        <input placeholder='Cupom' 
-                            value={cupom}
-                            onChange={ (e) => { setCupom ( e.target.value) ;}}
-                            onClick={()=> { setLabel(true) }  } /> 
-                        </div>
-                    
-                    </div>
-
-                    <button className='claro'>Aplicar</button>
-                 </div>
-             </div>
-=======
                 <button onClick={cupom} className='claro'>Aplicar</button>
             </div>
             </div>
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
 
               
 

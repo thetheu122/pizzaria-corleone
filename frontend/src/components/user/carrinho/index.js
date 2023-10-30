@@ -16,12 +16,7 @@ export default function Carrinho({ onClose }) {
     let usuario = localStorage.getItem('usuario-logado');
     usuario = JSON.parse(usuario)
     async function listar() {
-<<<<<<< HEAD
-      let usuario = localStorage.getItem('usuario-logado');
-      usuario = JSON.parse(usuario);
-=======
       
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
         const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id);
         setListarr(response.data)
         if(listarr.length < 1){

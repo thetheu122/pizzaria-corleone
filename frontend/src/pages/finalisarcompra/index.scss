@@ -1,279 +1,228 @@
 .body{
-     display: flex;
-     flex-direction: row;
-     
-    .mae-comp > div{
-      box-shadow:  8px 5px 12px rgb(173, 171, 171) ;
-      transition: 1s;
-      margin-bottom: 50px;
-      &:hover{
-        box-shadow:  10px 3px 10px rgb(173, 171, 171) ;
-      }
-    }
-     width: auto;
-     height: auto;
-     min-height: 745px;
-     
-     background-color: rgb(243, 238, 232);
-    
-    > div  {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     width: 100%;
-<<<<<<< HEAD
-     margin-top: 120px;
-=======
+  display: flex;
+  flex-direction: row;
+  
+
+  width: auto;
+  height: auto;
+  min-height: 745px;
+  
+  background-color: rgb(243, 238, 232);
  
-    .sugestao{
-      display: flex;
-      flex-direction: column  ;
-      justify-content: start;
-      width: 66%;
-      margin-top: 50px;
-      h3{
-        margin-left: 10px;
-        color: #635d57;
-      }
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
+ > div  {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    }
-     h2{
-       color:  #635d57;
-       margin-bottom: 22px;
-  
-     }
-   
-    
+  margin-top: 100px; 
+  width: 100%;
 
-    }
+ .sugestao{
+   display: flex;
+   flex-direction: column  ;
+   justify-content: start;
+   width: 66%;
+   margin-top: 50px;
+   h3{
+     margin-left: 10px;
+     color: #635d57;
+   }
 
-
-
- .ld-esquerdo{
-    padding-top: 23px;
-  
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-
-    margin-right: 60px;
-    padding-left: 10px;
-
-    height: 450px !important;
-    width: 550px !important;
-
-    border-radius: 15px;
-    
-    box-shadow:  8px 5px 12px rgb(173, 171, 171) ;
-    background-color: #fff;
-    h2{
-      margin-left: 10px;
-    }
-   
-    > div  >div {
-        width: 100%;
-        height: 40px;
-        display: flex;
-        margin-bottom: 12px;
-        margin-left: 10px;
-       
-    }
-   
-
-     div{
-        width: 90%;
-    
-            
-         div { 
-                display: flex;
-                justify-content: space-between;
-                margin-left: 10px;
-               
-              }          
-      }
-
-
+ }
+  h2{
+    color:  #635d57;
+    margin-bottom: 22px;
+  }
 
  }
 
+.ld-esquerdo{
+ padding-top: 23px;
+ display: flex;
+ align-items: start;
+
+ margin-right: 60px;
+ padding-left: 10px;
+
+ height: 450px;
+ width: 550px;
+
+ border-radius: 20px;
+ background-color: #fff;
+ h2{
+   margin-left: 10px;
+ }
+
+ > div  >div {
+     width: 100%;
+     height: 40px;
+     display: flex;
+     margin-bottom: 12px;
+     margin-left: 10px;
+    
+ }
+
+
+  div{
+     width: 90%;
+ 
+         
+      div {
+             display: flex;
+             justify-content: space-between;
+             margin-left: 10px;
+            
+           }          
+   }
+
+
+
+}
+
 .ld-esquerdo-fl{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  margin-left: 10px;
+display: flex;
+justify-content: space-between;
+margin-bottom: 15px;
+margin-left: 10px;
 }
 
 button{
-  width: 80%;
-  margin-left:30px;
-  margin-bottom: 10px;
-  margin-top: 5px;
-  height: 30px;
+width: 80%;
+margin-left:30px;
+margin-bottom: 10px;
+margin-top: 5px;
+height: 30px;
 
-  border: none;
-  border-radius: 8px;
-  color:white;
-  transition: 0.5s;
+border: none;
+border-radius: 8px;
+color:white;
 
-  background-color: #53220D;
-  &:hover{
-    background-color: #fff;
-    color:#53220D;
-<<<<<<< HEAD
-    border: 1px solid #53220D ;
-  }
-  
-=======
-    border: 1px solid #53220D;
-  }
+background-color: #53220D;
+&:hover{
+ background-color: #fff;
+ color:#53220D;
+ border: 1px solid #53220D;
+}
 
-  transition: 0.7s;
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
+transition: 0.7s;
 }
 .claro{
-  background-color: #FFC857;
-  color: white;
-<<<<<<< HEAD
-  transition: 0.5s;
-=======
-  &:hover{
-    background-color: white;
-    color: #FFC857;;
-    border:1px solid #FFC857;
-  }
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
+background-color: #FFC857;
+color: white;
+&:hover{
+ background-color: white;
+ color: #FFC857;;
+ border:1px solid #FFC857;
+}
 
- &:hover {
-  background-color: #fff;
-  color: #FFC857;
-  border: 1px solid  #FFC857 ;
- }
 }
 .butao{
-  display: flex;
-  flex-direction: column;
-  
-  margin-bottom: 10px !important;
-  margin-left:30px !important;
-  margin-top: 4px;
+display: flex;
+flex-direction: column;
 
-  outline: none;
-  border: 1px solid rgb(226, 226, 226);
+margin-bottom: 5px;
+outline: none;
+border: 1px solid rgb(226, 226, 226);
 
-  height:45px !important;
-<<<<<<< HEAD
-  
-  width: 89% !important;
-=======
-  width: 87% !important;
+height:45px !important;
+width: 87% !important;
 
-  margin-left: 30px !important;
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
+margin-left: 30px !important;
 
-  input{
-    height: 100%;
+input{
+ height: 80%;
 
-    outline: none;
-    border: none;
+ outline: none;
+ border: none;
 
-    font-size: 14px;
-    margin-left: 10px;
-    text-transform: uppercase;
-  }
-  label{
-    margin-left: 12px;
-    font-size: 13px;
-<<<<<<< HEAD
-    margin-bottom: 2px;
-=======
-    margin-bottom: 4px;
-    color: #a2a2a2;
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
-  }
+ font-size: 14px;
+ margin-left: 10px;
+ text-transform: uppercase;
+}
+label{
+ margin-left: 12px;
+ font-size: 13px;
+ margin-bottom: 4px;
+ color: #a2a2a2;
+}
 
 }
 .sug{
-  width: 100% ;
-  display: flex;
+width: 100% ;
+display: flex;
 }
 
 
-<<<<<<< HEAD
-
-
-=======
 .sugestao-itens {
-  width: 100%;
-  display: flex;
-  margin-bottom: 40px;
+width: 100%;
+display: flex;
+margin-bottom: 40px;
 }
 .paginacao {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  width: 115%;
-  margin-top: 40px;
-  padding-right: 100px;
+display: flex;
+flex-direction: row;
+justify-content: start;
+align-items: center;
+width: 115%;
+margin-top: 40px;
+padding-right: 100px;
 
-  div {
-      display: flex;
-      gap: 10px;
-  }
-
-  
-  .proximo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100px;
-      height: 40px;
-      border-radius: 30px;
-      border: #53220D 1px solid;
-      color: #53220D;
-      font-family: lobster-two-regular;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      gap: 5px;
-      transition: .6s;
-      background-color: #ffffff;
-
-      &:hover {
-          scale: 1.07;
-          cursor: pointer;
-
-          svg {
-            height: 20px;
-              stroke: #FFF !important;
-          }
-      }
-  }
-
-  .negado {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100px;
-      height: 40px;
-      border-radius: 30px;
-      border: 1px solid #8d8d8d;
-      background-color: #c3c3c3;
-      color: #a2a2a2;
-      font-family: lobster-two-regular;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      gap: 5px;
-      transition: 0.6s;
-      color: #8d8d8d;
-      svg{
-        width: 20px;
-      }
-  }
+div {
+   display: flex;
+   gap: 10px;
 }
->>>>>>> 894db7531e83a580c6f0e850c41238b9e9488037
+
+
+.proximo {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100px;
+   height: 40px;
+   border-radius: 30px;
+   border: #53220D 1px solid;
+   color: #53220D;
+   font-family: lobster-two-regular;
+   font-size: 20px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: normal;
+   gap: 5px;
+   transition: .6s;
+   background-color: #ffffff;
+
+   &:hover {
+       scale: 1.07;
+       cursor: pointer;
+
+       svg {
+         height: 20px;
+           stroke: #FFF !important;
+       }
+   }
+}
+
+.negado {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100px;
+   height: 40px;
+   border-radius: 30px;
+   border: 1px solid #8d8d8d;
+   background-color: #c3c3c3;
+   color: #a2a2a2;
+   font-family: lobster-two-regular;
+   font-size: 20px;
+   font-style: normal;
+   font-weight: 400;
+   line-height: normal;
+   gap: 5px;
+   transition: 0.6s;
+   color: #8d8d8d;
+   svg{
+     width: 20px;
+   }
+}
+}
 }
