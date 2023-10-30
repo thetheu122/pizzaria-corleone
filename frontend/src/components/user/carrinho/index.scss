@@ -42,7 +42,10 @@
         }
     }
 
-    button {
+    .button {
+        text-decoration: none;
+        color:black;
+
         margin-top: 400px;
         display: flex;
         align-items: center;

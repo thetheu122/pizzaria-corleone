@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { alterarfavorito, favorito, inserirfavorito, listarfavoritos, verificafavorito } from "../repository/favorito.js";
+import { alterarfavorito, favorito, favoritoRanked, inserirfavorito, listarfavoritos, verificafavorito } from "../repository/favorito.js";
 
 const endpoits = Router();
 
@@ -67,6 +67,17 @@ endpoits.get('/corleone/produtos/favoritos/listar', async (req, resp) => {
 });
 
 
+endpoits.get('/corleone/produtos/favoritos/listar/ranked', async (req, resp) => {
+  try {
+
+    const resposta = await favoritoRanked();
+    resp.send(resposta)
+
+  } catch (err) { 
+    resp.status(400).send({ erro: err.message });
+  }
+});
+
 
 
 
@@ -107,22 +118,19 @@ endpoits.put('/corleone/produtos/alterar/favoritos', async (req, resp) => {
 endpoits.get('/corleone/produtos/favoritos/verificar', async (req, resp) => {
   try {
 
-    const {id} = req.query
-    JSON.parse(id)
-    console.log(id)
-    const resposta = await verificafavorito(id)
+    const {produto, cliente} = req.query
 
-    console.log(resposta)
+    const resposta = await verificafavorito(produto, cliente)
 
-    if (resposta === '') {
-      resp.status(200).send({ message: 'Esse usuário não possui esta pizza cadastrada como favorita' });
+    if (resposta.length === 0) {
+      throw new Error('Esse usuário não possui esta pizza cadastrada como favorita')
     }
      else {
       resp.send(resposta);
     }
 
   } catch (err) {
-    resp.status(400).send({ erro: err.message });
+    resp.status(400).send({ err: err.message });
   }
 });
 

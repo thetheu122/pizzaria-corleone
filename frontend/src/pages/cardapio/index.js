@@ -12,10 +12,15 @@ import CardProduct from '../../components/user/cardProduct'
 import CardProduto from '../../components/user/card-produto'
 import Rodape from '../../components/user/rodape'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
 export default function Cardapio() {
+
+    const location = useLocation();
+    const filtroUrl = new URLSearchParams(location.search).get('filtro');
+
 
     const [produto, setProduto] = useState([])
 
@@ -79,7 +84,12 @@ export default function Cardapio() {
 
             setIdUsuario(usuario.id);
         }
+        window.scrollTo(0, 0);
     }, [])
+
+    useEffect(() => {
+        controladorFiltroSuperior(filtroUrl)
+    },[filtroUrl])
 
     const ultimoCartao = paginaAtual * itensPorPagina
     const primeiroCartao = ultimoCartao - itensPorPagina
@@ -196,7 +206,7 @@ export default function Cardapio() {
 
     const favorito = async () => {
         try {
-            
+
         } catch (err) {
             if (idUsuario == 0) {
                 setCadastroAtv(true)
@@ -211,7 +221,7 @@ export default function Cardapio() {
 
     return (
         <main className='cardapio'>
-            <Cabecalho cadastro={cadastroAtv} funcao={ttt}/>
+            <Cabecalho cadastro={cadastroAtv} funcao={ttt} />
             <div className='cima'>
                 <div className={`fpizza ${pizzasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('p')}>
                     <h1>Pizzas</h1>
@@ -240,8 +250,10 @@ export default function Cardapio() {
                         <div>
                             <select onChange={(e) => setOrderBy(e.target.value)}>
                                 <option value='null'>Nenhum parâmetro</option>
-                                <option value="m.ds_media DESC">Melhores avaliações</option>
-                                <option value="novidades">Novidades</option>
+                                <option value="4">Melhores avaliações</option>
+                                <option value="3">Novidades</option>
+                                <option value="1">Opções Familia</option>
+                                <option value="2">Opções Sofisticadas</option>
                             </select>
                         </div>
                     </div>

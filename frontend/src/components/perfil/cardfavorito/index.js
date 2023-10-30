@@ -3,10 +3,50 @@ import '../../../assets/config/fonts-config.scss'
 
 import pizza from '../../../assets/img/descricao.png'
 import carrinho from '../../../assets/img/vista-lateral-vazia-do-carrinho-de-compras (1).png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
-export default function CardFavorito() {
-    const [favorito, setFavorito] = useState(false)
+export default function CardFavorito(props) {
+
+    // id cliente
+    const [idc, setIdc] = useState(0)
+
+    // info produto
+    const [idProduto, setIdProduto] = useState(props.produto.id)
+
+    // ID FAVORITO
+    const [idFav, setIdFav] = useState(props.produto.idFavorito)
+
+    const [favorito, setFavorito] = useState(true)
+
+    useEffect(() => {
+        let usuario = localStorage.getItem('usuario-logado');
+        usuario = JSON.parse(usuario);
+
+        if (usuario.id) {
+            setIdc(usuario.id)
+        }
+    }, [idProduto, idc]);
+
+    const desfavoritar = async () => {
+        try {
+            let dados = {
+                favorito: false,
+                id: idFav
+            }
+
+            let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+            setFavorito(false)
+            window.location.reload(true);
+        } catch (err) {
+            toast.error('Algo deu errado')
+            toast.error(err.message)
+
+        }
+
+    }
+
 
     return (
         <div className='card-favorito'>
@@ -15,23 +55,23 @@ export default function CardFavorito() {
 
             <div className='ladoCardFavorito'>
                 <div className='favorito-secao-lateral'>
-                    <h1> Pizza Margherita</h1>
+                    <h1>{props.produto.nome}</h1>
                     <b >
                         Ingredientes :
                     </b>
 
-                    <p> Tomate, queijo mozzarela , molho de tomate  e manjericão</p>
+                    <p>{props.produto.ingredientes}</p>
                 </div>
 
 
                 <div className='favorito-icons'>
 
-                    <h3> R$ 71,00</h3>
+                    <h3>R${props.produto.preco}</h3>
                     <div className='favorito-circulo'>
                         <img src={carrinho} />
                     </div>
 
-                    <div className='circulo' onClick={() => setFavorito(!favorito)}>
+                    <div className='circulo' onClick={() => desfavoritar()}>
                         {favorito ? <svg width="19" height="16" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="path-1-inside-1_22_170" fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.4239 1.72615C0.401344 3.7487 0.401343 7.02791 2.4239 9.05047L3.1963 9.82287L3.19503 9.82415L10.5194 17.1485L18.5761 9.09172C20.5987 7.06916 20.5987 3.78995 18.5761 1.76739C16.5536 -0.255162 13.2743 -0.255163 11.2518 1.76739L10.5206 2.49855L9.74822 1.72614C7.72567 -0.296411 4.44646 -0.29641 2.4239 1.72615Z" />

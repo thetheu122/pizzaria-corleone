@@ -95,22 +95,30 @@
     }
 
 
-    .coracao {
+    .circulo {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background-color: #53220D;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
-        width: 29px;
-        height: 29px;
+        img {
+            filter: invert(100%);
+        }
 
-        border: 1px solid black;
-        border-radius: 100%;
-    }
+        &:hover {
+            cursor: pointer;
+            background-color: #FFC857;
+            transition: .6s;
+            color: #53220D;
 
-    .coracao>svg {
-        width: 20px;
-        margin-top: 1px;
-        margin-left: 1px;
+            img {
+                filter: none;
+            }
+        }
     }
 
     .button-01 {

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, loginCliente, validarDados } from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, validarDados } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -103,6 +103,32 @@ server.put('/cliente/alterar', async (req, resp) => {
       resp.status(404).send(err.message);
     }
   });
+
+
+  server.get('/clientes', async(req, resp)=>{
+    try{
+     
+        const cliente = await listarCliente();
+        resp.send(cliente)        
+
+    }catch(err){
+        resp.status(400).send({erro: err.message})
+    }
+  })
+
+
+  server.get('/clientes/nome/:nome', async(req, resp)=>{
+    try{
+        const {nome} = req.params
+        const cliente = await listarNome(nome);
+        resp.send(cliente)        
+
+    }catch(err){
+        resp.status(400).send({erro: err.message})
+    }
+  })
+
+
   
 
 

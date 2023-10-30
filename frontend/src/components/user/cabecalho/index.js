@@ -59,24 +59,37 @@ export default function Cabecalho(props) {
 
   const [idUsuario, setIdUsuario] = useState(0);
    
+  const [listarr, setListarr] = useState([]);
 
 
   
   useEffect(() => {
-   let usuario = localStorage.getItem('usuario-logado');
-    if (usuario != null) {
-      usuario = JSON.parse(usuario);
+    
+    let usuario = localStorage.getItem('usuario-logado');
+      if (usuario != null) {
+        usuario = JSON.parse(usuario);
 
-      setIsLogged(true);
-      setIdUsuario(usuario.id);
-    }
-  }, [])
+        setIsLogged(true);
+        setIdUsuario(usuario.id);
+
+        async function listar() {
+        
+          const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id);
+          setListarr(response.data)
+      }
+      listar()
+
+      }
+  
+  }, [listarr])
 
   useEffect(() => {
     if(props.cadastro == true){
       setOpenLoginModal(true)
     }
   },[props.cadastro])
+
+
 
 
 
@@ -129,6 +142,18 @@ export default function Cabecalho(props) {
         theme: "light",
       });
     }
+    else if (!nome.includes(" ")){
+      toast.warn('Seu nome precisar conter ao menos um sobrenome', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
     else {
       setOpenCadastroModal(!openCadastroModal)
       setCaptcha(false)
@@ -162,6 +187,8 @@ export default function Cabecalho(props) {
         setIdUsuario(response.data.id)
         setIsLogged(true)
         setOpenLoginModal(false)
+
+        window.location.reload(true);
 
         toast.success("Login realizado com sucesso", {
           position: "top-left",
@@ -232,6 +259,7 @@ export default function Cabecalho(props) {
           progress: undefined,
           theme: "dark",
         });
+        window.location.reload(true);
         setIsLogged(true)
         setOpenLoginModal(false)
         let local = {
@@ -337,9 +365,14 @@ export default function Cabecalho(props) {
           <div onClick={() => navigate('/cardapio')} className='cardapio'>
             <img alt='cardapio' src={Cardapio} />
             <p>Cardapio</p>
+      
           </div>
           <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
             <img alt='Carrinho' src={CarrinhoIcon} />
+            {listarr.length > 0 && 
+            <div className='itens'>{listarr.length}</div>
+            }
+            
             <p>Carrinho</p>
           </div>
           <div className='minha-conta'>

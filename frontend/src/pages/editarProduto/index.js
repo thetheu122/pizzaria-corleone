@@ -1,5 +1,6 @@
 //import './index.scss'
 
+
 import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import storage, { set } from 'local-storage';
@@ -23,9 +24,7 @@ export default function EditarProduto() {
     const [idImagem, setIdImagem] = useState(0)
     const [idTipo, setIdTipo] = useState(0)
 
-    function toastConfirmar(){
-        toast.dark('Produto Cadastrado')
-    }
+
 
     function notifySuccess() {
         toast.success('Produto editado com sucesso!', {
@@ -55,7 +54,7 @@ export default function EditarProduto() {
 
 
 
-console.log(imagem)
+
 
 
     useEffect(() => {
@@ -65,23 +64,13 @@ console.log(imagem)
         alterar()
         alteraridImagem()
         alterarTipo();
-        mostraImg();
-        
-        
     }, [])
 
     useEffect(() => {
-        carregarRestricao()
         carregarTipo()
-    })
+        carregarRestricao()
 
-    async function mostraImg() {
-        const r = await axios.get(`http://localhost:5000/produto/listar/${id}`)
-        const resp = r.data[0]
-        const resposta = resp.imagem
-        console.log(resp)
-    }
-
+    },[tipo, restricao])
 
 
 
@@ -97,27 +86,11 @@ console.log(imagem)
         setdescricao(resp.descricao)
         setDisponivel(resp.disponivel)
         setImagem(resp.imagem)
-
     }
 
-    function carregarRestricao() {
-        const checkboxes = document.querySelectorAll('.tay2');
 
-        checkboxes.forEach((checkbox) => {
-            const value = checkbox.value;
-            if(restricao) {
-                if (restricao.includes(value)) {
-                    checkbox.checked = true;
-                } else {
-                    checkbox.checked = false;
-                }
 
-            } else {
-                checkbox.checkbox= false
-            }
 
-        });
-    }
 
     function carregarTipo() {
         const checkboxes = document.querySelectorAll('.tay');
@@ -130,6 +103,20 @@ console.log(imagem)
                 checkbox.checked = false;
             }
         });
+    }
+
+    function carregarRestricao() {
+        const checkboxes = document.querySelectorAll('.tay2');
+    
+        checkboxes.forEach((checkbox) => {
+            const value = checkbox.value;
+            if (restricao === value) {
+                checkbox.checked = true;
+            } else {
+                checkbox.checked = false;
+            }
+        })
+        
     }
     
 
@@ -183,6 +170,8 @@ console.log(imagem)
                 imagem: imagem
             }
 
+           // alert(idproduto);
+
             const imagemTorV = await axios.get('http://localhost:5000/produto/listar/' + idproduto)
             const result = imagemTorV.data[0]
             const r = result.imagem
@@ -197,18 +186,19 @@ console.log(imagem)
             }
 
             else {
-                const r = await axios.put(`http://localhost:5000/produto/${idImagem}/imagem`, formData, {
+                const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData, {
                     headers: {
                         "Content-type": "multipart/form-data"
                     },
                 })
             }
 
+/*
+*/  
 
 
 
-
-            const restricaoAtualizada = restricao[0,1,2]
+            
 
             //alert(restricaoAtualizada)
 
@@ -216,7 +206,7 @@ console.log(imagem)
 
 
             const alterarRestricao = {
-                restricao: restricaoAtualizada
+                restricao: restricao
             }
 
             let variavelnul = null
@@ -225,7 +215,7 @@ console.log(imagem)
             if (idrestricao === '' || idrestricao === variavelnul || idrestricao === variavelandfilne) {
                 let novarestricao = {
                     produto: idproduto,
-                    restricao: restricaoAtualizada
+                    restricao: restricao
                 }
                 const respo = await axios.post('http://localhost:5000/restricao', novarestricao)
             }
@@ -260,7 +250,6 @@ console.log(imagem)
                 notifySuccess();
             }
 
-
         } catch (err) {
             if (err.response) {
                 console.log('Erro de resposta:', err.response.data);
@@ -278,8 +267,8 @@ console.log(imagem)
 
 
 
-    async function BuscarImagem(imagem) {
-        console.log(`${api.getUri()}/${imagem}`)
+    function BuscarImagem(imagem) {
+        //alert(`${api.getUri()}/${imagem}`)
         return `${api.getUri()}/${imagem}`
     }
 
@@ -299,6 +288,7 @@ console.log(imagem)
             return BuscarImagem(imagem);
         }
     }
+    
     
 
     return (
@@ -598,92 +588,3 @@ console.log(imagem)
     )
 
 }
-
-/*function carregarRestricao() {
-        const checkboxes = document.querySelectorAll('.tay2');
-
-        checkboxes.forEach((checkbox) => {
-            const value = checkbox.value;
-            if (restricao.includes(value)) {
-                console.log(restricao.includes(value))
-                checkbox.checked = true;
-            } else {
-                checkbox.checked = false;
-            }
-        });
-    }
-
-                                    <div className='in'>
-                                <input
-                                        className="tay2"
-                                        type="checkbox"
-                                        value="Leite e seus derivados"
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-
-                                            if (Array.isArray(restricao)) {
-                                                if (restricao.includes(value)) {
-                                                    setrestricao(restricao.filter(item => item !== value));
-                                                } else {
-                                                    setrestricao([...restricao, value]);
-                                                }
-                                            } else {
-                                                setrestricao([value]);
-                                            }
-                                        }}
-                                        checked={Array.isArray(restricao) && restricao.includes('Leite e seus derivados')}
-                                    />
-                                    <p className='nomeproduto'>Leite e seus derivados</p>
-                                </div>
-
-                            </div>
-
-
-                        </div>
-
-                        <div className='pref-prod'>
-                            <div className='in'>
-                            <input
-                                        className="tay2"
-                                        type="checkbox"
-                                        value="Vegetariano"
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-
-                                            if (Array.isArray(restricao)) {
-                                                if (restricao.includes(value)) {
-                                                    setrestricao(restricao.filter(item => item !== value));
-                                                } else {
-                                                    setrestricao([...restricao, value]);
-                                                }
-                                            } else {
-                                                setrestricao([value]);
-                                            }
-                                        }}
-                                        checked={Array.isArray(restricao) && restricao.includes('Vegetariano')}
-                                    />
-                                <p className='nomeproduto'>Vegetariano</p>
-                            </div>
-
-                            <div className='in'>
-                            <input
-                                        className="tay2"
-                                        type="checkbox"
-                                        value="Vegano"
-                                        onChange={(e) => {
-                                            const value = e.target.value;
-
-                                            if (Array.isArray(restricao)) {
-                                                if (restricao.includes(value)) {
-                                                    setrestricao(restricao.filter(item => item !== value));
-                                                } else {
-                                                    setrestricao([...restricao, value]);
-                                                }
-                                            } else {
-                                                setrestricao([value]);
-                                            }
-                                        }}
-                                        checked={Array.isArray(restricao) && restricao.includes('Vegano')}
-                                    />
-                                <p className='nomeproduto'>Vegano</p>
-                            </div>*/

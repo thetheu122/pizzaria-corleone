@@ -11,7 +11,7 @@ import Star from '../../../assets/images/icons/star_icon.svg'
 import Loja from '../../../assets/images/icons/loja-localizacao.png'
 import Add from '../../../assets/images/pictures/add-cart.png'
 
-import { useFetcher, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -33,7 +33,7 @@ export default function CardProduto(props) {
     const [nome, setNome] = useState('')
 
     // id cliente
-    const [idc, setIdc] = useState()
+    const [idc, setIdc] = useState(0)
 
     // info produto
     const id = props.produto.id
@@ -73,34 +73,27 @@ export default function CardProduto(props) {
 
     useEffect(() => {
         async function fetchData() {
-          try {
-            let dados = {
-              produto: id,
-              cliente: usuario.id,
-            };
-      
-            let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?id=${JSON.stringify(dados)}`, { params: dados });
-      
-            console.log(response)
-            if (response.data.length === 0) {
-              setFavorito(false);
-              console.log('oi')
-            } else {
-              setFavorito(true);
-              setIdFav(response.data.id)
-              console.log('io')
+            try {
+                let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
+                if (usuario && usuario.id !== 0 && usuario.id !== null) {
+                    setIdc(usuario.id)
+                    let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
+                    console.log(response.data)
+                    setIdFav(response.data[0].idfavorito);
+                    if (response.data[0].valor === 'false') {
+                        setFavorito(false);
+                    } else {
+                        setFavorito(true);
+                    }
+                }
+            } catch (err) {
             }
-          } catch (err) {
-            console.error(err);
-          }
         }
-      
-        let usuario = localStorage.getItem('usuario-logado');
-        usuario = JSON.parse(usuario);
-      
-        fetchData();
-      
-      }, [id, idc]); 
+    
+        fetchData(); 
+    }, [id]);
+    
+    
 
     async function carrinho() {
 
@@ -125,7 +118,7 @@ export default function CardProduto(props) {
                     "qtd": 1
                 }
                 let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho', user)
-                console.log(resposne.data.erro)
+
                 setOpenModalCart(false)
             }
 
@@ -147,7 +140,6 @@ export default function CardProduto(props) {
                     }
                     let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar', user)
                     setOpenModalCart(false)
-                    console.log(resposta.carrinho)
                 }
             }
         } catch (erro) {
@@ -164,9 +156,9 @@ export default function CardProduto(props) {
     }
 
 
-    const navigation = useNavigate()
+        const navigation = useNavigate()
 
-    const teste = 'http://localhost:5000/' + props.produto.imagem
+        const teste = 'http://localhost:5000/' + props.produto.imagem
 
 
     const favoritar = async () => {
@@ -174,27 +166,44 @@ export default function CardProduto(props) {
             let usuario = localStorage.getItem('usuario-logado');
             usuario = JSON.parse(usuario);
 
-            if (!favorito) {
-
+            if (idFav === 0) {
                 let dados = {
                     cliente: idc,
                     produto: id,
                     favorito: true
                 }
+                console.log(dados)
 
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
+                console.log(response.data)
+                setFavorito(true)
+                setIdFav(response.data.id)
+            }
+            else if (idFav != 0 && !favorito) {
+                let dados = {
+                    favorito: true,
+                    id: idFav
+                }
+                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
 
                 setFavorito(true)
-                //se for false vai para add favorito
+
             }
             else {
-
+                let dados = {
+                    favorito: false,
+                    id: idFav
+                }
+                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+                setFavorito(false)
             }
 
         } catch (err) {
             toast.error('Algo deu errado')
-            toast.error(err.message)
-
+            if (idc == 0) {
+                setCadastroAtv(true)
+                toast.error('Impossivel favoritar produto, favor se cadastrar ou realizar login no nosso site');
+            }
         }
 
     }
@@ -202,10 +211,10 @@ export default function CardProduto(props) {
     return (
         <main className='card-produto'>
 
-            <img alt='linha' src={LinhaAmarela} className='linha1' />
-            <div className='produto'>
+                <img alt='linha' src={LinhaAmarela} className='linha1' />
+                <div className='produto'>
 
-                {/*<img className='img' src={teste}/>*/}
+                    {/*<img className='img' src={teste}/>*/}
 
                 <div className='circulo' onClick={() => favoritar()}>
                     {favorito ? <svg width="21" height="18" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,16 +233,16 @@ export default function CardProduto(props) {
                         </svg>}
 
 
+                    </div>
                 </div>
-            </div>
-            <img alt='linha' src={LinhaAmarela} className='linha2' />
+                <img alt='linha' src={LinhaAmarela} className='linha2' />
 
-            <div className='descricao-produto'>
+                <div className='descricao-produto'>
 
-                <div className='precoNome'>
-                    <h3>{props.produto.nome}</h3>
-                    <p>R${props.produto.preco}</p>
-                </div>
+                    <div className='precoNome'>
+                        <h3>{props.produto.nome}</h3>
+                        <p>R${props.produto.preco}</p>
+                    </div>
 
                 <div className='baixo'>
                     <div>
@@ -252,7 +261,7 @@ export default function CardProduto(props) {
                 </div>
 
 
-            </div>
+                </div>
 
             <Modal
                 isOpen={openModalCart}

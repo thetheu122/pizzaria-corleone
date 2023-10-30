@@ -220,3 +220,10 @@ CREATE TABLE tb_sugestao (
   FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto),
   FOREIGN KEY (ds_sugestao) REFERENCES tb_produto(id_produto)
 );
+
+
+create table tb_cupom(
+id_cupom   int primary key  auto_increment,
+nm_cupom   varchar(100),
+ds_valor   int  
+);

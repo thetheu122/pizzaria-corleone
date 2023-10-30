@@ -21,8 +21,8 @@ export default function ListarProdutosAdm() {
 
     const [filtro, setFiltro] = useState('');
     const [produtos, setProdutos] = useState([])
-    const [restricoes, setRestricoes] = useState('')
-    const [tipos, setTipos] = useState('')
+    const [restricoes, setRestricoes] = useState([])
+    const [tipos, setTipos] = useState([])
 
 
 
@@ -33,10 +33,16 @@ export default function ListarProdutosAdm() {
     }
 
     useEffect(() => {
-        Listando();
+
+        if (filtro.length > 0){
+            buscarProdutos()
+        }else {
+            Listando();
+        }
+        
 
 
-    }, [])
+    }, [filtro])
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
@@ -148,46 +154,38 @@ export default function ListarProdutosAdm() {
 
 
     //FILTRAR OS PRODUTOS CLICANDO NO CHECKBOX
-    const handleCheckboxChangerestriction = (value) => {
 
-        if (restricoes.includes(value)) {
-
+    
+    const handleCheckboxChange = (value, category) => {
+        if (category === "restricoes") {
+          if (restricoes.includes(value)) {
             setRestricoes(restricoes.filter((item) => item !== value));
-        } else {
-
+          } else {
             setRestricoes([...restricoes, value]);
-        }
-    };
-
-    const handleCheckboxChangetype = (value) => {
-
-        if (tipos.includes(value)) {
-
+          }
+        } else if (category === "tipos") {
+          if (tipos.includes(value)) {
             setTipos(tipos.filter((item) => item !== value));
-        } else {
-
+          } else {
             setTipos([...tipos, value]);
+          }
         }
-    };
+      };
 
-    function buscar() {
-        if (tipos == '1' || tipos == '2') {
-            buscarPorTipo();
+      function buscar() {
+        if (tipos.length > 0) {
+          buscarPorTipo();
+        } else if (restricoes.length > 0) {
+          buscarPorRestricao();
+        } else {
+          Listando();
         }
-
-        else if (!restricoes && !tipos) {
-            Listando();
-        }
-
-        else {
-            buscarPorRestricao();
-        }
-    }
+      }
 
 
 
     //NÃO REPETIR PRODUTOS
-
+/*
     async function NaoRepetir() {
         const r = await axios.get(`http://localhost:5000/produto`)
         const resp = r.data
@@ -254,7 +252,7 @@ export default function ListarProdutosAdm() {
         return produtosUnicos;
       }
       
-      
+      */
       
  
 
@@ -341,7 +339,7 @@ export default function ListarProdutosAdm() {
                                 <input type="checkbox"
                                     value="vegano"
                                     checked={restricoes.includes('vegano')}
-                                    onChange={() => handleCheckboxChangerestriction("vegano")}
+                                    onChange={() => handleCheckboxChange("vegano", "restricoes")}
                                 />
                                 <p>Vegano(a)</p>
                             </div>
@@ -351,7 +349,7 @@ export default function ListarProdutosAdm() {
                                     type="checkbox"
                                     value="Vegetariano"
                                     checked={restricoes.includes("Vegetariano")}
-                                    onChange={() => handleCheckboxChangerestriction("Vegetariano")}
+                                    onChange={() => handleCheckboxChange("Vegetariano", "restricoes")}
                                 />
                                 <p>Vegetariano(a)</p>
                             </div>
@@ -362,7 +360,7 @@ export default function ListarProdutosAdm() {
                                     type="checkbox"
                                     value="ovo"
                                     checked={restricoes.includes("ovo")}
-                                    onChange={() => handleCheckboxChangerestriction("ovo")}
+                                    onChange={() => handleCheckboxChange("ovo", "restricoes")}
                                 />
                                 <p>Intolerante a Ovo</p>
                             </div>
@@ -373,7 +371,7 @@ export default function ListarProdutosAdm() {
                                     type="checkbox"
                                     value="gluten"
                                     checked={restricoes.includes("gluten")}
-                                    onChange={() => handleCheckboxChangerestriction("gluten")}
+                                    onChange={() => handleCheckboxChange("gluten", "restricoes")}
                                 />
                                 <p>Intolerante a Glúten</p>
                             </div>
@@ -384,34 +382,12 @@ export default function ListarProdutosAdm() {
                                     type="checkbox"
                                     value="lactose"
                                     checked={restricoes.includes("lactose")}
-                                    onChange={() => handleCheckboxChangerestriction("lactose")}
+                                    onChange={() => handleCheckboxChange("lactose", "restricoes")}
                                 />
                                 <p>Intolerante a Lactose</p>
                             </div>
                             <div className="linha-produtos"></div>
 
-                            <div className="tipo">
-                                <input
-                                    type="checkbox"
-                                    value="1"
-                                    checked={tipos.includes("1")}
-                                    onChange={() => handleCheckboxChangetype("1")}
-                                />
-                                <p>Vinho</p>
-                            </div>
-                            <div className="linha-produtos"></div>
-
-                            <div className="tipo">
-                                <input
-                                    type="checkbox"
-                                    value="2"
-                                    checked={tipos.includes("2")}
-                                    onChange={() => handleCheckboxChangetype("2")}
-                                />
-                                <p>Sobremesa</p>
-                            </div>
-
-                            <div className="linha-produtos"></div>
 
                             <button onClick={buscar}> BUSCAR</button>
                         </div>
