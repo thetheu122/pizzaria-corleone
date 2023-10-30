@@ -24,7 +24,7 @@ endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
            const itens = req.body
         if( verificar(req,resp,itens)){
             const enviar = await itenscarrinho(itens)
-            
+            console.log('post:'+ itens)
             resp.send(enviar)
            
         }
@@ -102,6 +102,7 @@ endpoints.get('/corleone/usuario/carrinho/verificar' , async (req,resp) =>{
         resp.send(resposta);
       }
        else {
+        console.log(resposta.length)
         resp.send(resposta);
       }
   

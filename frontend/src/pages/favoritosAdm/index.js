@@ -1,8 +1,6 @@
 import './index.scss'
 import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
-import ImgAleatria from '../../assets/images/pictures/pizza-marguerita.png'
-import Coracao from '../../assets/img/coracao 2.png'
 import Carrinho from '../../assets/img/carrinho.png'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -15,18 +13,21 @@ export default function Favoritos() {
     const navigate = useNavigate();
 
     const [favorito, Setfavorito] = useState()
-    const [favoritos, setFavoritos] = useState([])
+    const [tdsFavoritos, setTdsFavoritos] = useState([])
+
+    const api = axios.create({
+        baseURL: 'http://localhost:5000'
+    })
 
     useEffect(() => {
         ListarFavoritos();
+ 
     }, [])
 
     async function ListarFavoritos() {
-        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/listar`)
-        setFavoritos(r)
+        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/listar/ranked`)
+        setTdsFavoritos(r.data)
     }
-
-
 
 
 
@@ -60,7 +61,7 @@ export default function Favoritos() {
                             <thead>
                                 <tr>
                                     <th>imagem</th>
-                                    <th>Id</th>
+                                    <th>Contagem de Favoritos</th>
                                     <th>produto</th>
 
                                 </tr>
@@ -69,117 +70,14 @@ export default function Favoritos() {
                             <tbody>
 
 
-                                {favoritos.map(item =>
+                                {tdsFavoritos.map(item =>
                                     <tr className="cada-linha">
-                                        <td><img src={ImgAleatria} /></td>
-                                        <td>{item}</td>
-                                        <td>Pizza marguerita</td>
+                                        <td><img src={`${api.getUri()}/${item.imagem}` }/></td>
+                                        <td>{item.qtd_favoritos}</td>
+                                        <td>{item.produto}</td>
 
                                     </tr>
                                 )}
-
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-                                <tr className="cada-linha">
-                                    <td><img src={ImgAleatria} /></td>
-                                    <td>#20</td>
-                                    <td>Pizza marguerita</td>
-
-                                </tr>
-
-
-
-
 
                             </tbody>
                         </table>

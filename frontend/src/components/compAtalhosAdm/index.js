@@ -20,17 +20,27 @@ import { useEffect, useState } from 'react'
 export default function CompAtalhosAdm() {
 
     const navigate = useNavigate();
-    const [popUp, setPopUp] = useState(false)
+    const [popUpProdutos, setPopUpProdutos] = useState(false)
+    const [popUpClientes, setPopUpClientes] = useState(false)
 
 useEffect(()=> {
- console.log(popUp)   
+ console.log(popUpProdutos)   
 })
-    function abrirPopup() {
-        setPopUp(true)
+    function abrirPopupProdutos() {
+        setPopUpProdutos(true)
     }
 
-    function fecharPopUp() {
-        setPopUp(false)
+    function fecharPopUpProdutos() {
+        setPopUpProdutos(false)
+    }
+
+
+    function abrirPopupClientes() {
+        setPopUpClientes(true)
+    }
+
+    function fecharPopUpClientes() {
+        setPopUpClientes(false)
     }
 
     function sairClick() {
@@ -50,16 +60,16 @@ useEffect(()=> {
                 </div>
 
                 <div className="produto-atalhos">
-                    <div><img  onClick={abrirPopup}src={Produtos} />
-                    <h2 onClick={abrirPopup}>Produtos</h2>
+                    <div><img  onClick={abrirPopupProdutos}src={Produtos} />
+                    <h2 onClick={abrirPopupProdutos}>Produtos</h2>
                     </div>
                     
-                    {popUp && (
+                    {popUpProdutos && (
                         <div className='pop-up-atalhos'>   
                                 <h3 onClick={() => {navigate('/produtos')}}>Listar Produtos</h3>
 
                                 <h4 onClick={() => {navigate('/cadastroproduto')}}>Cadastrar</h4>
-                                <img onClick={fecharPopUp} src={Setapracima}/>
+                                <img onClick={fecharPopUpProdutos} src={Setapracima}/>
                                 
                         </div>
 
@@ -77,8 +87,22 @@ useEffect(()=> {
                 </div>
 
                 <div className='clientes'>
-                    <img id='clientes' src={Clientes} />
-                    <h2>ajeitar</h2>
+                    <div>
+                        <img onClick={abrirPopupClientes} id='clientes' src={Clientes} />
+                        <h2 onClick={abrirPopupClientes}>Clientes</h2>
+                    </div>
+                    
+
+                    {popUpClientes && (
+                        <div className='pop-up-atalhos'>   
+                                <h3 onClick={() => {navigate('/clienteDetalhes')}}>Detalhes Clientes</h3>
+
+                                <h4 onClick={() => {navigate('/favoritos')}}>Favoritos</h4>
+                                <img onClick={fecharPopUpClientes} src={Setapracima}/>
+                                
+                        </div>
+
+                    )}  
                 </div>
 
 

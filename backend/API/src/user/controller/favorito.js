@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { alterarfavorito, favorito, inserirfavorito, listarfavoritos, verificafavorito } from "../repository/favorito.js";
+import { alterarfavorito, favorito, favoritoRanked, inserirfavorito, listarfavoritos, verificafavorito } from "../repository/favorito.js";
 
 const endpoits = Router();
 
@@ -66,6 +66,17 @@ endpoits.get('/corleone/produtos/favoritos/listar', async (req, resp) => {
   }
 });
 
+
+endpoits.get('/corleone/produtos/favoritos/listar/ranked', async (req, resp) => {
+  try {
+
+    const resposta = await favoritoRanked();
+    resp.send(resposta)
+
+  } catch (err) { 
+    resp.status(400).send({ erro: err.message });
+  }
+});
 
 
 
