@@ -3,7 +3,7 @@ import '../../assets/config/fonts-config.scss'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
-import { Pagination, Autoplay } from 'swiper';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 
@@ -148,7 +148,7 @@ export default function Leading() {
                         modifier: 1,
                     }}
                     pagination={{ el: '.swiper-pagination', clickable: true, dynamicBullets: true }}
-                    modules={[Pagination, Autoplay]}
+                  
                 >
                     <SwiperSlide onClick={() => cardapioFiltroAtv('s')}>
                         <CardFiltroLeadingPage filtro='sobremesa' chefe='Helena Riso' tp='Sobremesas' />
