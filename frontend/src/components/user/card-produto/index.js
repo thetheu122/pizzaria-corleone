@@ -172,10 +172,9 @@ export default function CardProduto(props) {
                     produto: id,
                     favorito: true
                 }
-                console.log(dados)
 
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
-                console.log(response.data)
+
                 setFavorito(true)
                 setIdFav(response.data.id)
             }
@@ -184,6 +183,7 @@ export default function CardProduto(props) {
                     favorito: true,
                     id: idFav
                 }
+
                 let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
 
                 setFavorito(true)

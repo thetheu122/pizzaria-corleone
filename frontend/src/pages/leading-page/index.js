@@ -3,6 +3,12 @@ import '../../assets/config/fonts-config.scss'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
+import { Pagination, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+
+import 'swiper/css/autoplay'
+
 import ImgSobre from '../../assets/img/sobreleanding.png';
 
 import Rodape from '../../components/user/rodape'
@@ -11,6 +17,7 @@ import Secao from '../../assets/images/pictures/ingredientes.png'
 
 import CompSobre from '../../components/compSobre'
 import { useState } from 'react';
+import CardFiltroLeadingPage from '../../components/cardFiltroLeadingPage';
 
 
 export default function Leading() {
@@ -20,7 +27,7 @@ export default function Leading() {
 
     const cardapioFiltroAtv = (value) => {
         navigate('/cardapio?filtro=' + value);
-      }
+    }
 
     return (
         <main className='leadingPage'>
@@ -86,28 +93,28 @@ export default function Leading() {
                 <h2>Temos pizza e além</h2>
                 <div className='classeProduto'>
 
-                    <div onClick={() => cardapioFiltroAtv('p')}>
+                    <div >
                         <div className='classePizza' />
                         <h3>Pizza</h3>
                         <p>Chefe Responsável: Henrique Fogaça</p>
                     </div>
 
 
-                    <div onClick={() => cardapioFiltroAtv('s')}>
+                    <div >
                         <div className='classeSobremesa' />
                         <h3>Sobremesa</h3>
                         <p>Chefe Responsável: Henela Riso</p>
                     </div>
 
 
-                    <div onClick={() => cardapioFiltroAtv('b')}>
+                    <div >
                         <div className='classeBebidas' />
                         <h3>Bebidas</h3>
                         <p>Adega Responsável: Brunello di Montalcino</p>
                     </div>
 
 
-                    <div onClick={() => cardapioFiltroAtv('v')}>
+                    <div >
                         <div className='classeVegana' />
                         <h3>Opções Veganas</h3>
                         <p>Chefe Responsável: Alex Atala</p>
@@ -123,39 +130,75 @@ export default function Leading() {
                     <p onClick={() => navigate('/cardapio')}>Fazer Pedido</p>
                 </button>
             </div>
+
+
+
+            <div className="swiper-container">
+                <Swiper
+                    grabCursor={true}
+                    slidesPerView={2} // Set the number of slides to display in the view
+                    autoplay={{
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    }}
+                    coverflowEffect={{
+                        rotate: 20,
+                        stretch: 0,
+                        depth: 200,
+                        modifier: 1,
+                    }}
+                    pagination={{ el: '.swiper-pagination', clickable: true, dynamicBullets: true }}
+                    modules={[Pagination, Autoplay]}
+                >
+                    <SwiperSlide onClick={() => cardapioFiltroAtv('s')}>
+                        <CardFiltroLeadingPage filtro='sobremesa' chefe='Helena Riso' tp='Sobremesas' />
+                    </SwiperSlide>
+                    <SwiperSlide onClick={() => cardapioFiltroAtv('p')}>
+                        <CardFiltroLeadingPage filtro='pizza' chefe='Henrique Fogasa' tp='Pizzas' />
+                    </SwiperSlide>
+                    <SwiperSlide onClick={() => cardapioFiltroAtv('v')}>
+                        <CardFiltroLeadingPage filtro='veg' chefe='Alex Atala' tp='Vegetariana' />
+                    </SwiperSlide>
+                    <SwiperSlide onClick={() => cardapioFiltroAtv('b')}>
+                        <CardFiltroLeadingPage filtro='bebida' chefe='Brunello di Montalcino' tp='Bebida' />
+                    </SwiperSlide>
+                </Swiper>
+            </div>
+
+
             <img src={Secao} className='ingredientes' />
 
 
-        <div className="comp-sobre-nos">
-            <div className="containerrr">
-                <div className='sub-container'>
-                    <div className="titulo">
-                        <h1>Nossas pizzas são</h1>
-                    </div>
-
-                    <div className="conteudo-sobre-nos">
-                        <div className="esquerda-sobre-nos">
-
-                            <img src={ImgSobre} alt="imagem" />
+            <div className="comp-sobre-nos">
+                <div className="containerrr">
+                    <div className='sub-container'>
+                        <div className="titulo">
+                            <h1>Nossas pizzas são</h1>
                         </div>
 
-                        <div className="direita-sobre-nos">
-                            <div><h1>preparadas com dedicação</h1></div>
-                            <p>E o cuidado que só uma pizzaria legítima italiana pode oferecer. Desde a massa artesanal, amassada à mão, até o molho de tomate caseiro, cada etapa é executada com maestria para garantir uma experiência gastronômica única na sua vida.</p>
-                            <span>Além de nossas pizzas tradicionais, trazemos um toque de inovação, combinando ingredientes locais e inspirações brasileiras. Assim, criamos sabores exclusivos que agradam a todos os paladares. Nosso objetivo é encantar você com a fusão perfeita entre a tradição italiana e a criatividade brasileira."</span>
+                        <div className="conteudo-sobre-nos">
+                            <div className="esquerda-sobre-nos">
+
+                                <img src={ImgSobre} alt="imagem" />
+                            </div>
+
+                            <div className="direita-sobre-nos">
+                                <div><h1>preparadas com dedicação</h1></div>
+                                <p>E o cuidado que só uma pizzaria legítima italiana pode oferecer. Desde a massa artesanal, amassada à mão, até o molho de tomate caseiro, cada etapa é executada com maestria para garantir uma experiência gastronômica única na sua vida.</p>
+                                <span>Além de nossas pizzas tradicionais, trazemos um toque de inovação, combinando ingredientes locais e inspirações brasileiras. Assim, criamos sabores exclusivos que agradam a todos os paladares. Nosso objetivo é encantar você com a fusão perfeita entre a tradição italiana e a criatividade brasileira."</span>
                                 <Link to="/sobrenos" className=' butao'>
-                                <a>Mais sobre nós</a>
-                                </Link>                                                                       
+                                    <a>Mais sobre nós</a>
+                                </Link>
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
-            
-                
             </div>
-        </div>
 
 
-            
+
 
             <button className='redirecionar' onClick={() => navigate('/cardapio')}>
                 Experimente aqui a <strong>Pizza</strong> digna de um <strong>Don</strong>

@@ -101,14 +101,14 @@
 
         gap: 30px;
 
-        transition: .6s;  
+        transition: .6s;
 
-        &:hover > div:not(:hover){
+        &:hover>div:not(:hover) {
             opacity: 0.6;
         }
 
-         > div:hover {
-            scale: 1.1;  
+        >div:hover {
+            scale: 1.1;
             transition: .6s;
         }
 
@@ -518,3 +518,10 @@
     }
 }
 
+
+.swiper-container {
+    width: 100%;
+    height: fit-content;
+    padding: 2rem 0;
+    position: relative;
+}
