@@ -2,7 +2,6 @@ import './index.scss'
 
 import CompAtalhosAdm from "../../components/compAtalhosAdm"
 import Lupa from '../../assets/images/pictures/lupa 1.png'
-import ImgAleatria from '../../assets/images/pictures/pizza-marguerita.png'
 import Coracao from '../../assets/img/coracao 2.png'
 
 import { useEffect, useState } from "react"
@@ -14,16 +13,14 @@ import axios from 'axios'
 
 
 
+
 export default function Carrinhodecompras() {
     const navigate = useNavigate()
 
-    const [filtro, setFiltro] = useState(null)
-    const [carrinho, setCarrinho] = useState([])
     const [tdscarrinhos, setTdscarrinhos] = useState([])
-    const [adicionadoCheckbox, setAdicionadoCheckbox] = useState(false);
-    const [removidoCheckbox, setRemovidoCheckbox] = useState(false);
-
-
+    const [telaAtiva, setTelaAtiva] = useState('favoritos');
+    const [buscarNome, setBuscarnome] = useState('')
+    const [selecao, setSelecao] = useState('');
 
 
     const api = axios.create({
@@ -35,25 +32,36 @@ export default function Carrinhodecompras() {
         setTdscarrinhos(r.data)
     }
 
+    async function ListarnomeCarrinho() {
+        const r = await axios.get('http://localhost:5000/corleone/produto/' + buscarNome)
+        setTdscarrinhos(r.data)
+
+    }
+
     useEffect(() => {
-        ListarCarrinho();
+        if (buscarNome.length > 0) {
+            ListarnomeCarrinho()
+        }
 
-    }, [])
+        else {
+            ListarCarrinho()
 
-    useEffect(() => {
-        ListarCarrinho();
-    }, []);
+        }
 
-    const handleFilter = () => {
-        if (filtro === "adicionado") {
-            const disponiveis = tdscarrinhos.filter(item => item.carrinho === "disponivel");
-            setCarrinho(disponiveis);
-        } else if (filtro === "removido") {
-            const removidos = tdscarrinhos.filter(item => item.carrinho === "indisponivel");
-            setCarrinho(removidos);
+
+    }, [buscarNome])
+
+
+
+    const handleSelecaoChange = (event) => {
+        const valorSelecionado = event.target.value;
+        if (valorSelecionado === 'carrinho') {
+            navigate('/ADM/carrinho');
+        } else if (valorSelecionado === 'favoritos') {
+            navigate('/favoritos');
         }
     };
-    
+
 
 
 
@@ -65,11 +73,6 @@ export default function Carrinhodecompras() {
            }
        }
  */
-
-
-
-
-
 
 
 
@@ -88,10 +91,30 @@ export default function Carrinhodecompras() {
 
                 <div className="conteudo-carrinho">
                     <div className="principal-carrinho">
-                        <div className="buscar">
-                            <div ><img src={Lupa} /></div>
-                            <input type="text" placeholder="busque por nome do produto" value={filtro} onChange={e => setFiltro(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
+
+                        <div className='carrinho-buscar'>
+                            <div className="buscar">
+                                <div ><img src={Lupa} /></div>
+                                <input type="text" placeholder="Busque por nome do produto" value={buscarNome} onChange={e => setBuscarnome(e.target.value)} />
+
+
+
+
+                            </div>
+
+                            <div className="parte-filtros-carrinho">
+                                <label htmlFor="carrinho"></label>
+                                <select id="carrinho" onChange={handleSelecaoChange} value={selecao}>
+                                    <optgroup label="Ordenar">
+                                        <option value="carrinho">Carrinho</option>
+                                        <option value="favoritos">Favoritos</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
                         </div>
+
+
 
 
 
@@ -113,7 +136,7 @@ export default function Carrinhodecompras() {
                                         <td><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.produto}</td>
                                         <td>
-                                            {item.carrinho === "disponivel" ? (
+                                            {item.carrinho === "disponível" ? (
                                                 <div className='tracinhos'></div>
                                             ) : item.carrinho === "indisponível" ? (
                                                 <div className='removido'></div>
@@ -122,13 +145,14 @@ export default function Carrinhodecompras() {
                                             )}
                                         </td>
                                         <td>
-                                            {item.carrinho === "disponivel" ? (
+                                            {item.carrinho === "disponivel" || item.carrinho === "disponível" ? (
                                                 <div className='adicionado'></div>
                                             ) : item.carrinho === "indisponível" ? (
                                                 <div className='tracinhos'></div>
                                             ) : (
                                                 <div className='tracinhos'></div>
                                             )}
+
                                         </td>
                                     </tr>
                                 )}
@@ -139,50 +163,22 @@ export default function Carrinhodecompras() {
                         </table>
                     </div>
 
+                    
 
-                    <div className="parte-filtros-carrinho">
-                        <div className="parte-1">
-                            <h1>Ordenar por:</h1>
-                            <div onClick={() => navigate('/favoritos')}>
-                                <img src={Coracao} />
-                                <p>Favoritos</p>
-                            </div>
-                        </div>
 
-                        <div className="parte-2">
-                <div>
-                    <input
-                        type="checkbox"
-                        value="adicionado"
-                        checked={filtro === "adicionado"}
-                        onChange={() => setFiltro("adicionado")}
-                    />
-                    <h4>Adicionado</h4>
+
+
+
                 </div>
-                <div className="linha-filtro"></div>
-                <div>
-                    <input
-                        type="checkbox"
-                        value="removido"
-                        checked={filtro === "removido"}
-                        onChange={() => setFiltro("removido")}
-                    />
-                    <h4>Removido</h4>
-                </div>
-                <div className="linha-filtro"></div>
-                <button className='bbotao' onClick={handleFilter}>Filtrar</button>
-            </div>
-            </div>
             </div>
 
-                            
-                        </div>
-                 
 
 
 
-              
-           
+
+
+
+
         </section>
     )
 }

@@ -20,14 +20,13 @@ export default function ClienteDetalhe() {
 
 
     useEffect(() => {
-       
-        if(buscarcliente.length > 0  ){
-            listarPorNome()
-        }else{
-            Listarcliente();
+        if (buscarcliente.length > 0) {
+          listarPorNome();
+        } else {
+          Listarcliente();
         }
-
-    }, [buscarcliente])
+      }, [buscarcliente]);
+      
 
     async function Listarcliente() {
         const r = await axios.get('http://localhost:5000/clientes')
@@ -67,7 +66,7 @@ export default function ClienteDetalhe() {
                         <input
                         
                             type='text'
-                            placeholder='Busque por id ou nome do cliente'
+                            placeholder='Busque por nome do cliente'
                             value={buscarcliente}
                             onChange={e => setBuscarcliente(e.target.value)}
                         />
