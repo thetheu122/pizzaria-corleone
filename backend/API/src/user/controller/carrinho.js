@@ -93,16 +93,19 @@ endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
 })
 
 
-endpoints.get('/corleone/usuario/carrinho/verificar' , async (req,resp) =>{
+endpoints.get('/corleone/usuario/carrinho/verificar/:cliente/:produto' , async (req,resp) =>{
     try {
-      const id = req.body
-      const resposta = await verificarcarrinho(id)
+      const {cliente,produto} = req.params
+      console.log(cliente,produto)
+      const resposta = await verificarcarrinho(cliente,produto)
+
+
 
       if (resposta == '') {
         resp.send(resposta);
       }
        else {
-        console.log(resposta.length)
+        
         resp.send(resposta);
       }
   

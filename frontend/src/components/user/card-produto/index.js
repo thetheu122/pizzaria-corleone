@@ -11,7 +11,7 @@ import Star from '../../../assets/images/icons/star_icon.svg'
 import Loja from '../../../assets/images/icons/loja-localizacao.png'
 import Add from '../../../assets/images/pictures/add-cart.png'
 
-import { useNavigate } from 'react-router-dom'
+import { Await, useFetcher, useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -24,11 +24,13 @@ import { useEffect } from 'react'
 export default function CardProduto(props) {
 
     const [openModalCart, setOpenModalCart] = useState(false)
-    const [favorito, setFavorito] = useState(false)
-    const [cadastroAtv, setCadastroAtv] = useState(false)
-    const [sugestoes, setSugestoes] = useState([])
-    const [sugestoesBe, setSugestoesBe] = useState([])
-    const [sugestoesSo, setSugestoesSo] = useState([])
+    const [ favorito    , setFavorito] = useState(false)
+    const [ cadastroAtv , setCadastroAtv] = useState(false)
+    const [ sugestoes   , setSugestoes] = useState([])
+    const [ sugestoesBe , setSugestoesBe] = useState([])
+    const [ sugestoesSo , setSugestoesSo] = useState([])
+
+    const [ verificar   , setVerificar ]  = useState([]) 
 
     const [nome, setNome] = useState('')
 
@@ -51,9 +53,6 @@ export default function CardProduto(props) {
     
 
 
-    useEffect(() => {
-        listarsugestao()
-    }, [id])
 
     async function listarsugestao() {
 
@@ -73,6 +72,8 @@ export default function CardProduto(props) {
         }
 
     }
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -96,69 +97,84 @@ export default function CardProduto(props) {
         fetchData(); 
     }, [id]);
     
-    
+
+    let usuario = JSON.parse(localStorage.getItem('usuario-logado'))
+
+     async function buscar() { 
+
+       
+        
+      
+     
+    }
+
+
+      
+ 
 
     async function carrinho (){
 
         try {
-           let usuario = localStorage.getItem('usuario-logado');
-           usuario = JSON.parse(usuario)
-       
-         let user ={
-           "produto":id,
-           "cliente":usuario.id
-         }
-       
-         let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar', user)
-         const resposta = r.data
-       
+        let user = {
+            "cliente":usuario.id,
+            "produto":id
+        }
+          
+          let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+          setVerificar(r.data)  ;
+    
+      
          
-         if( resposta.length > 0){
-           
-               if(resposta.carrinho === 'disponivel'){
-       
-                       
-                       let resposta = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar',usuario.id)
-                       const consulta  = resposta.data
-       
-                               let qtd =  consulta.quantidade + 1
-                               let user  = {
-                                   "disponivel":true,
-                                   "qtd": qtd ,
-                                   "idcarrinho":resposta.idcarrinho
-                               }
-                               let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
-                               setOpenModalCart(false)
-               
-                 }
-               else{
-       
-                       let user  = {
-                           "disponivel":true,
-                           "qtd":1,
-                           "idcarrinho":resposta.idcarrinho
-                       }
-                       let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
-                       setOpenModalCart(false)
+         if(  verificar.length > 0) {
+    
+              verificar.map( async (item)=>{ 
                    
-               }
-       
-           
+                    if( item.carrinho == 'disponivel'){
+
+                        let  qtd        = item.quantidade
+                        const idcarrinho = item.id_carrinho
+
+                        let user  = {
+                            "disponivel":true,
+                            "qtd": qtd + 1,
+                            "idcarrinho": idcarrinho
+                        }
+                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        setOpenModalCart(false)
+                      
+                    
+                    }
+
+                    else{
+                       
+                        const idcarrinho = item.id_carrinho
+        
+                        let user  = {
+                            "disponivel":true,
+                            "qtd": 1,
+                            "idcarrinho": idcarrinho
+                        }
+                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        setOpenModalCart(false)
+                          
+                    }
+                })
          }
-       
-         if(resposta.length < 1){
-       
-           let user = {
-               "produto":id,
-               "cliente":usuario.id,
-               "disponivel":true,
-               "qtd":1
-              }
-              let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
-              setOpenModalCart(false)
-         } 
-       
-       
+      
+          
+
+         else{
+
+            let user = {
+                "produto":id,
+                "cliente":usuario.id,
+                "disponivel":true,
+                "qtd":1
+               }
+               let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+               setOpenModalCart(false)
+         }             
+           
         } catch (erro) {
            if (!localStorage.getItem('usuario-logado')) {
                toast.error('Impossivel inserir ao carrinho, favor se cadastrar ou realizar login no nosso site')     
@@ -189,7 +205,7 @@ export default function CardProduto(props) {
                     produto: id,
                     favorito: true
                 }
-                console.log(dados)
+
 
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
                 console.log(response.data)

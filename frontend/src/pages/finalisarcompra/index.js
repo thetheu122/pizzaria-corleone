@@ -19,7 +19,7 @@ const [ subtotal , seSubtTotal ] = useState(0)
 const [ produtosugestao , setProdutosugestao ] = useState([])
 
 const [paginaAtual, setPaginaAtual] = useState(1);
-const [itensPorPagina, setItensPorPagina] = useState(4);
+const [itensPorPagina, setItensPorPagina] = useState(3);
 const [pages, setPages] = useState([]);
 const [digitadoCupom , setDigitadoCupom] = useState('')
 

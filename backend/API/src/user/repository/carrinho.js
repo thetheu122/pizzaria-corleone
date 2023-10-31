@@ -102,7 +102,7 @@ export async function listarcarrinhoid (id) {
 
 
 
-    export async function verificarcarrinho (id) {
+    export async function verificarcarrinho (cliente,produto) {
 
         const comando = `
         select 
@@ -124,7 +124,7 @@ export async function listarcarrinhoid (id) {
         and   tb_produto.id_produto = ?
         
         `;
-            const [ resposta ] = await con.query(comando,[id.cliente,id.produto])
+            const [ resposta ] = await con.query(comando,[cliente,produto])
             return resposta 
         }
     

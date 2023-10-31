@@ -5,7 +5,7 @@
 
   width: auto;
   height: auto;
-  min-height: 745px;
+  min-height: 945px;
   
   background-color: rgb(243, 238, 232);
  
@@ -154,7 +154,7 @@ display: flex;
 
 
 .sugestao-itens {
-width: 100%;
+width: 120%;
 display: flex;
 margin-bottom: 40px;
 }
@@ -163,9 +163,10 @@ display: flex;
 flex-direction: row;
 justify-content: start;
 align-items: center;
-width: 115%;
+width: 120%;
 margin-top: 40px;
 padding-right: 100px;
+
 
 div {
    display: flex;
