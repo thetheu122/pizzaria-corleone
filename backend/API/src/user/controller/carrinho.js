@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { alteraritens, itenscarrinho, listarcarrinho, listarcarrinhoid, verificarcarrinho } from "../repository/carrinho.js";
+import { alteraritens, itenscarrinho, listarcarrinho, listarcarrinhoid, verificarcarrinho, buscarNomeDoProduto } from "../repository/carrinho.js";
 
 
 
@@ -93,16 +93,19 @@ endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
 })
 
 
-endpoints.get('/corleone/usuario/carrinho/verificar' , async (req,resp) =>{
+endpoints.get('/corleone/usuario/carrinho/verificar/:cliente/:produto' , async (req,resp) =>{
     try {
-      const id = req.body
-      const resposta = await verificarcarrinho(id)
+      const {cliente,produto} = req.params
+      console.log(cliente,produto)
+      const resposta = await verificarcarrinho(cliente,produto)
+
+
 
       if (resposta == '') {
         resp.send(resposta);
       }
        else {
-        console.log(resposta.length)
+        
         resp.send(resposta);
       }
   
@@ -110,5 +113,19 @@ endpoints.get('/corleone/usuario/carrinho/verificar' , async (req,resp) =>{
         resp.status(400).send({erro:err.message})
     }
 })
+
+endpoints.get('/corleone/produto/:produto', async (req, resp) => {
+    try {
+      const { produto } = req.params;
+      const resultado = await buscarNomeDoProduto(produto);
+      resp.send(resultado)
+     
+    } catch (err) {
+      resp.status(500).send({ erro: err.message });
+    }
+  });
+  
+
+
 
 export default endpoints

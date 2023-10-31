@@ -11,7 +11,7 @@ export default function CardCarrinho(props) {
         let qtd = props.produto.qtd
         let user  = {
             "disponivel":false,
-            "qtd":qtd,
+            "qtd":1,
             "idcarrinho":id
         }
         console.log('id:' +id)

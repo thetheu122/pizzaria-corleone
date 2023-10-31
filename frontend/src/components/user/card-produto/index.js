@@ -11,7 +11,7 @@ import Star from '../../../assets/images/icons/star_icon.svg'
 import Loja from '../../../assets/images/icons/loja-localizacao.png'
 import Add from '../../../assets/images/pictures/add-cart.png'
 
-import { useNavigate } from 'react-router-dom'
+import { Await, useFetcher, useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -24,11 +24,13 @@ import { useEffect } from 'react'
 export default function CardProduto(props) {
 
     const [openModalCart, setOpenModalCart] = useState(false)
-    const [favorito, setFavorito] = useState(false)
-    const [cadastroAtv, setCadastroAtv] = useState(false)
-    const [sugestoes, setSugestoes] = useState([])
-    const [sugestoesBe, setSugestoesBe] = useState([])
-    const [sugestoesSo, setSugestoesSo] = useState([])
+    const [ favorito    , setFavorito] = useState(false)
+    const [ cadastroAtv , setCadastroAtv] = useState(false)
+    const [ sugestoes   , setSugestoes] = useState([])
+    const [ sugestoesBe , setSugestoesBe] = useState([])
+    const [ sugestoesSo , setSugestoesSo] = useState([])
+
+    const [ verificar   , setVerificar ]  = useState([]) 
 
     const [nome, setNome] = useState('')
 
@@ -48,9 +50,9 @@ export default function CardProduto(props) {
         setCadastroAtv(novoValor);
     }
 
-    useEffect(() => {
-        listarsugestao()
-    }, [id])
+    
+
+
 
     async function listarsugestao() {
 
@@ -70,6 +72,8 @@ export default function CardProduto(props) {
         }
 
     }
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -93,67 +97,96 @@ export default function CardProduto(props) {
         fetchData(); 
     }, [id]);
     
-    
 
-    async function carrinho() {
+    let usuario = JSON.parse(localStorage.getItem('usuario-logado'))
+
+     async function buscar() { 
+
+       
+        
+      
+     
+    }
+
+
+      
+ 
+
+    async function carrinho (){
 
         try {
+        let user = {
+            "cliente":usuario.id,
+            "produto":id
+        }
+          
+          let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+          setVerificar(r.data)  ;
+    
+      
+         
+         if(  verificar.length > 0) {
+    
+              verificar.map( async (item)=>{ 
+                   
+                    if( item.carrinho == 'disponivel'){
 
+                        let  qtd        = item.quantidade
+                        const idcarrinho = item.id_carrinho
+
+                        let user  = {
+                            "disponivel":true,
+                            "qtd": qtd + 1,
+                            "idcarrinho": idcarrinho
+                        }
+                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        setOpenModalCart(false)
+                      
+                    
+                    }
+
+                    else{
+                       
+                        const idcarrinho = item.id_carrinho
+        
+                        let user  = {
+                            "disponivel":true,
+                            "qtd": 1,
+                            "idcarrinho": idcarrinho
+                        }
+                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        setOpenModalCart(false)
+                          
+                    }
+                })
+         }
+      
+          
+
+         else{
 
             let user = {
-                "produto": id,
-                "cliente": idc
-            }
-
-            let r = await axios.get('http://localhost:5000/corleone/usuario/carrinho/verificar', user)
-            const resposta = r.data
-
-
-            if (resposta == '') {
-
-                let user = {
-                    "produto": id,
-                    "cliente": idc,
-                    "disponivel": true,
-                    "qtd": 1
-                }
-                let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho', user)
-
-                setOpenModalCart(false)
-            }
-
-            else {
-                if (resposta.carrinho == 'disponivel') {
-                    let user = {
-                        "disponivel": true,
-                        "qtd": + 1,
-                        "idcarrinho": resposta.idcarrinho
-                    }
-                    let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar', user)
-                    setOpenModalCart(false)
-                }
-                else {
-                    let user = {
-                        "disponivel": true,
-                        "qtd": 1,
-                        "idcarrinho": resposta.idcarrinho
-                    }
-                    let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar', user)
-                    setOpenModalCart(false)
-                }
-            }
+                "produto":id,
+                "cliente":usuario.id,
+                "disponivel":true,
+                "qtd":1
+               }
+               let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+               setOpenModalCart(false)
+         }             
+           
         } catch (erro) {
-            if (!localStorage.getItem('usuario-logado')) {
-                toast.error('Impossivel inserir ao carrinho, favor se cadastrar ou realizar login no nosso site')
-            }
-            else {
-                toast.error(erro.message)
-
-            }
-
+           if (!localStorage.getItem('usuario-logado')) {
+               toast.error('Impossivel inserir ao carrinho, favor se cadastrar ou realizar login no nosso site')     
+           }
+           else{
+               toast.error(erro.message)
+       
+           }
+           
         }
-
-    }
+       
+       }
 
 
         const navigation = useNavigate()
@@ -172,6 +205,7 @@ export default function CardProduto(props) {
                     produto: id,
                     favorito: true
                 }
+         
 
                 const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
 
@@ -247,7 +281,7 @@ export default function CardProduto(props) {
                 <div className='baixo'>
                     <div>
                         <div className='circulo'>
-                            <img alt='carrinho' src={Carrinho} onClick={() => setOpenModalCart(!openModalCart)} />
+                            <img alt='carrinho' src={Carrinho} onClick={() => carrinho()} />
                         </div>
                         <Link to={`/informacao/${props.produto.id}`} className='mais-detalhes'>
                             <p>Mais Detalhes</p>
@@ -263,100 +297,7 @@ export default function CardProduto(props) {
 
                 </div>
 
-            <Modal
-                isOpen={openModalCart}
-                closeTimeoutMS={500}
-                className={'sugestoes'}
-                overlayClassName={'modal-overlay'}
-                onRequestClose={() => setOpenModalCart(false)}
-            >
-                <div className='imagem-produto' />
-                <svg onClick={() => setOpenModalCart(false)} xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                    <path d="M2 1.47386L14.3896 13.1358" stroke="black" stroke-width="2" stroke-linecap="round" />
-                    <path d="M2.00049 13.1351L14.3901 1.47317" stroke="black" stroke-width="2" stroke-linecap="round" />
-                </svg>
-                <div className='opcoes'>
-
-                    <h1>{props.produto.nome}</h1>
-                    <h2>{props.produto.preco}</h2>
-                    <div className='localPartida'>
-                        <div className='ruaAvaliacao'>
-                            <img className='iconezin' src={Loja} />
-                            <p>Avenida Europa - 3090</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="418" height="2" viewBox="0 0 418 2" fill="none">
-                            <path d="M1 0.961498H417" stroke="black" stroke-linecap="round" />
-                        </svg>
-                        <div className='precoEntrega'>
-                            <p>20-22 minutos - R$8,20</p>
-                        </div>
-                    </div>
-
-
-                    {sugestoes.length > 0 &&
-                        <>
-
-                            <div className='opcoesExtra'>
-                                <div className='esquerdista'>
-                                    <h2>Escolha um Vinho</h2>
-                                    <p>Escolha uma opção</p>
-                                </div>
-                                <div className='direitaOpcional'>
-                                    <p>OPCIONAL</p>
-                                </div>
-                            </div>
-
-
-                            <div className='deLadinho'>
-
-                                {sugestoes.map((item) => (
-                                    <div>
-                                        <input type='radio' />
-                                        <p>{item.sugestao_produto}</p>
-                                    </div>
-                                ))}
-
-                            </div>
-
-                        </>
-
-                    }
-
-
-                    {sugestoesSo.length > 0 &&
-
-                        <>
-                            <div className='opcoesExtra'>
-                                <div className='esquerdista'>
-                                    <h2>Escolha uma Sobremesa</h2>
-                                    <p>Escolha uma opção</p>
-                                </div>
-                                <div className='direitaOpcional'>
-                                    <p>OPCIONAL</p>
-                                </div>
-                            </div>
-
-                            <div className='deLadinho'>
-                                {sugestoesSo.map((item) => (
-                                    <div>
-                                        <input type='radio' />
-                                        <p>{item.sugestao_produto}</p>
-                                    </div>
-
-                                ))}
-                            </div>
-
-                        </>
-
-                    }
-
-
-
-
-
-                    <img src={Add} onClick={carrinho} className='butaumzin' />
-                </div>
-            </Modal>
+           
         </main>
     )
 }

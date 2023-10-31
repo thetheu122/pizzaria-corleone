@@ -21,7 +21,7 @@ export default function  Sugestao(props){
                 </div>
            </div>
 
-           <button> Adionar</button>
+           <button> Adicionar</button>
            
        </div>
     )
