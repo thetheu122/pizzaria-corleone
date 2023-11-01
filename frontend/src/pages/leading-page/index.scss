@@ -97,7 +97,7 @@
         align-items: center;
 
         margin-top: 100px;
-        margin-bottom: 100px;
+        margin-bottom: 30px;
 
         gap: 30px;
 
@@ -377,110 +377,7 @@
     }
 
 
-    .menuzin {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
 
-        >h2 {
-            color: #000;
-            text-align: center;
-            font-family: lobster-two-regular;
-            font-size: 30px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            margin-bottom: 10px;
-        }
-
-        .classeProduto {
-            display: flex;
-            justify-content: space-evenly;
-            width: 100%;
-
-            >div {
-                width: 241px;
-
-                h3 {
-                    color: #000;
-                    text-align: center;
-                    font-family: lato-regular;
-                    font-size: 17px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: normal;
-                }
-
-                p {
-                    color: rgba(0, 0, 0, 0.18);
-                    text-align: center;
-                    font-family: lato-regular;
-                    font-size: 17px;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: normal;
-                }
-
-
-
-            }
-
-            h3 {
-                color: #000;
-            }
-
-            p {
-                color: #000;
-            }
-        }
-
-        button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 30px;
-            border: 1px solid #53220D;
-            background: #ffffff;
-
-            width: 185px;
-            height: 40px;
-            flex-shrink: 0;
-
-            margin-top: 15px;
-
-            transition: 170ms;
-
-            &:hover {
-                cursor: pointer;
-                background: #53220D;
-
-                p {
-                    color: white;
-                }
-
-                svg {
-                    fill: #ffffff
-                }
-            }
-
-            p {
-                color: #53220D;
-                font-family: lato-regular;
-                font-size: 18px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: normal;
-                margin-left: 5px;
-            }
-
-            svg {
-                fill: #53220D
-            }
-
-        }
-    }
 
     .compsobre {
         width: 100%;
@@ -521,7 +418,17 @@
 
 .swiper-container {
     width: 100%;
-    height: fit-content;
-    padding: 2rem 0;
-    position: relative;
 }
+
+.swiper-button-prev {
+    color: #ffffff !important;
+  }
+  
+  .swiper-button-next {
+    color: #ffffff !important; 
+  }
+  
+.swiper-pagination-bullet {
+    background: #ffffff !important;
+  }
+  
