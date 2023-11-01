@@ -58,105 +58,113 @@ export default function Cabecalho(props) {
   const [senhaLogin, setSenhaLogin] = useState('')
 
   const [idUsuario, setIdUsuario] = useState(0);
-   
+
   const [listarr, setListarr] = useState([]);
 
-
   
+
+
+
   useEffect(() => {
-    
+
     let usuario = localStorage.getItem('usuario-logado');
-      if (usuario != null) {
-        usuario = JSON.parse(usuario);
+    if (usuario != null) {
+      usuario = JSON.parse(usuario);
 
-        setIsLogged(true);
-        setIdUsuario(usuario.id);
+      setIsLogged(true);
+      setIdUsuario(usuario.id);
 
-        async function listar() {
-        
-          const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id);
-          setListarr(response.data)
+      async function listar() {
+
+        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/' + usuario.id);
+        setListarr(response.data)
       }
       listar()
 
-      }
-  
+    }
+
   }, [listarr])
 
   useEffect(() => {
-    if(props.cadastro == true){
+    if (props.cadastro == true) {
       setOpenLoginModal(true)
     }
-  },[props.cadastro])
+  }, [props.cadastro])
 
 
 
 
 
-  const inversao = () => {
-    if (!nome) {
-      toast.warn('Digite o seu nome', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else if (!email) {
-      toast.warn('Digite o seu email', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else if (!senha) {
-      toast.warn('Digite a sua senha', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else if (!captcha) {
-      toast.warn('Clique no botão "Não sou um robô"', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else if (!nome.includes(" ")){
-      toast.warn('Seu nome precisar conter ao menos um sobrenome', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-    else {
-      setOpenCadastroModal(!openCadastroModal)
-      setCaptcha(false)
+  const inversao = async () => {
+    try {
+      let response = await axios.post(`http://localhost:5000/cliente/senha/verificar?senha=${senha}`)
+
+      if (!nome) {
+        toast.warn('Digite o seu nome', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else if (!email) {
+        toast.warn('Digite o seu email', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else if (!senha) {
+        toast.warn('Digite a sua senha', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else if (!captcha) {
+        toast.warn('Clique no botão "Não sou um robô"', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else if (!nome.includes(" ")) {
+        toast.warn('Seu nome precisar conter ao menos um sobrenome', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else {
+        setOpenCadastroModal(!openCadastroModal)
+        setCaptcha(false)
+      }
+    } catch (err) {
+      toast.error(err.response.data)
     }
   }
 
@@ -234,7 +242,9 @@ export default function Cabecalho(props) {
 
       let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
 
+
       if (responseCl.status !== 200) {
+
         toast.error(
           responseCl.data ? responseCl.data.erro : 'Erro desconhecido',
           {
@@ -270,8 +280,9 @@ export default function Cabecalho(props) {
         storage('usuario-logado', local)
       }
     } catch (err) {
+      console.log(err.response.data)
       toast.error(
-        err.response.data ? err.response.data.erro : 'Erro desconhecido',
+        err.response.data ? err.response.data : 'Erro desconhecido',
         {
           position: "top-right",
           autoClose: 5000,
@@ -290,13 +301,13 @@ export default function Cabecalho(props) {
   const buscarCEP = async (cep) => {
     try {
 
-        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = response.data;
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
 
-        setRua(data.logradouro)
-        setBairro(data.bairro)
-        setCidade(data.localidade)
-        setEstado(data.uf)
+      setRua(data.logradouro)
+      setBairro(data.bairro)
+      setCidade(data.localidade)
+      setEstado(data.uf)
 
     } catch (error) {
       toast.error(('CEP digitado invalido'), {
@@ -365,14 +376,14 @@ export default function Cabecalho(props) {
           <div onClick={() => navigate('/cardapio')} className='cardapio'>
             <img alt='cardapio' src={Cardapio} />
             <p>Cardapio</p>
-      
+
           </div>
           <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
             <img alt='Carrinho' src={CarrinhoIcon} />
-            {listarr.length > 0 && 
-            <div className='itens'>{listarr.length}</div>
+            {listarr.length > 0 &&
+              <div className='itens'>{listarr.length}</div>
             }
-            
+
             <p>Carrinho</p>
           </div>
           <div className='minha-conta'>
@@ -382,7 +393,7 @@ export default function Cabecalho(props) {
               : <p onClick={() => setOpenLoginModal(!openLoginModal)}>Fazer Login </p>
             }
           </div>
-       
+
         </div>
       </main>
       <Modal
@@ -485,14 +496,14 @@ export default function Cabecalho(props) {
 
               <div className='informacoes'>
                 <div className='esquerdaFds'>
-                <Components.Input
+                  <Components.Input
                     type='text'
                     placeholder='CEP'
                     value={cep}
                     onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
                     onBlur={() => buscarCEP(cep)}
                   />
-                    
+
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
                   <Components.Input type='text' placeholder='Cidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
                   <Components.Input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />

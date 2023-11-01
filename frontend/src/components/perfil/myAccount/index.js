@@ -1,8 +1,7 @@
 import './index.scss'
 import Logo from '../../../assets/images/logo.svg'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
-
 import { confirmAlert } from 'react-confirm-alert';
 
 import Aberto from '../../../assets/images/pictures/olho-aberto.svg'
@@ -34,6 +33,30 @@ export default function MyAccount() {
 
     //CONTROLADOR DE SENHA
     const [showPassword, setShowPassword] = useState(false)
+
+    const refMes = useRef(null);
+    const refAno = useRef(null);
+
+    const handleDiaChange = (event) => {
+        const inputValue = event.target.value;
+        setDia(inputValue);
+
+        if (inputValue.length === 2) {
+            // Quando o campo de dia atingir 2 dígitos, mude o foco para o campo de mês
+            refMes.current.focus();
+        }
+    }
+
+    const handleMesChange = (event) => {
+        const inputValue = event.target.value;
+        setMes(inputValue);
+
+        if (inputValue.length === 2) {
+            // Quando o campo de mês atingir 2 dígitos, mude o foco para o campo de ano
+            refAno.current.focus();
+        }
+    }
+
 
 
     useEffect(() => {
@@ -92,7 +115,7 @@ export default function MyAccount() {
             if (!nome || !sobrenome) {
                 throw new Error(`Campo de nome e/ou sobrenome vazio`);
             }
-            
+
             let nomeCompleto = `${nome} ${sobrenome}`
             let dtnascimento = `${dia}/${mes}/${ano}`
 
@@ -205,9 +228,9 @@ export default function MyAccount() {
                     <input placeholder='Nome' value={nome} disabled={!edt} onChange={(e) => setNome(e.target.value)} />
                     <input placeholder='Sobrenome' value={sobrenome} disabled={!edt} onChange={(e => setSobrenome(e.target.value))} />
                     <div className='dataNascimento' >
-                        <input placeholder='Dia' value={dia} disabled={!edt} onChange={(e => setDia(e.target.value))} />
+                        <input placeholder='Dia' value={dia} disabled={!edt} onChange={handleDiaChange} />
                         <input placeholder='Mês' value={mes} disabled={!edt} onChange={(e => setMes(e.target.value))} />
-                        <input placeholder='Ano' value={ano} disabled={!edt} onChange={(e => setAno(e.target.value))} />
+                        <input placeholder='Ano' value={ano} disabled={!edt} ref={refMes} onChange={handleMesChange} />
                     </div>
                 </div>
 
@@ -235,7 +258,7 @@ export default function MyAccount() {
                     : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>}
                 <button className='butaumm'>Método de Pagamento</button>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     )
 };
