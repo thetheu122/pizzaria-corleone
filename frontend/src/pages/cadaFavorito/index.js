@@ -15,8 +15,10 @@ export default function CadaFavorito() {
 
     const [favorito, Setfavorito] = useState()
     const [tdsFavoritos, setTdsFavoritos] = useState([])
-    const[nome, setNome]= useState('')
-    const {id} = useParams();
+    const [nome, setNome] = useState('')
+    const [selecao, setSelecao] = useState('');
+    const [buscarNome, setBuscarnome] = useState('')
+    const { id } = useParams();
 
 
     const api = axios.create({
@@ -24,11 +26,18 @@ export default function CadaFavorito() {
     })
 
     useEffect(() => {
-        ListarFavoritos()
-        mostrarNome()
 
-    }, [])
-    console.log(id)
+        if (buscarNome.length > 0) {
+            ListarnomeFavoritos()
+        }
+
+        else {
+            ListarFavoritos()
+
+        }
+        mostrarNome()
+    }, [buscarNome])
+
 
     async function ListarFavoritos() {
         const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
@@ -43,6 +52,23 @@ export default function CadaFavorito() {
         setNome(resposta)
     }
 
+
+
+
+    async function ListarnomeFavoritos() {
+        const r = await axios.get('http://localhost:5000/corleone/produto/' + buscarNome)
+        setTdsFavoritos(r.data)
+
+    }
+
+    const handleSelecaoChange = (event) => {
+        const valorSelecionado = event.target.value;
+        if (valorSelecionado === 'carrinho') {
+            navigate('/ADM/carrinho');
+        } else if (valorSelecionado === 'favoritos') {
+            navigate('/favoritos');
+        }
+    };
 
 
     return (
@@ -66,9 +92,24 @@ export default function CadaFavorito() {
 
                     <div className='principal-cada-favorito'>
 
-                        <div className="buscar">
-                            <div ><img src={Lupa} /></div>
-                            <input type="text" placeholder="busque por nome do produto" value={favorito} onChange={e => Setfavorito(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
+                        <div className='favorito-buscar'>
+
+                            <div className="buscar">
+                                <div ><img src={Lupa} /></div>
+                                <input type="text" placeholder="busque por nome do produto" value={buscarNome} onChange={e => setBuscarnome(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
+                            </div>
+
+                            <div className="parte-filtros-carrinho">
+                                <label htmlFor="carrinho"></label>
+                                <select id="carrinho" onChange={handleSelecaoChange} value={selecao}>
+                                    <optgroup label="Ordenar">
+                                        <option value="favoritos">Favoritos</option>
+                                        <option value="carrinho">Carrinho</option>
+
+                                    </optgroup>
+                                </select>
+                            </div>
+
                         </div>
 
 
@@ -92,7 +133,7 @@ export default function CadaFavorito() {
                                     <tr className="cada-linha">
                                         <td className='imagem-fav'><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.produto}</td>
-                                        
+
                                     </tr>
                                 )}
 
@@ -101,15 +142,7 @@ export default function CadaFavorito() {
 
                     </div>
 
-                    <div className="parte-filtros-favoritos">
-                        <div className="parte-favorito">
-                            <h1>Ordenar por:</h1>
-                            <div onClick={() => navigate('/ADM/carrinho')}>
-                                <img src={Carrinho} />
-                                <p>Carrinho</p>
-                            </div>
-                        </div>
-                    </div>
+
 
 
 
