@@ -38,6 +38,8 @@ import Favoritos from './pages/favoritosAdm';
 
 import Teste from './pages/teste';
 
+import ClienteMaisdetalhe from './pages/ClienteAdmMaisdetalhe';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -64,11 +66,13 @@ root.render(
         <Route path='/minhaconta' element={<MinhaConta/>} />
         <Route path='/cliente' element={<ClienteAdm/>} />
         <Route path='/vendas' element={<Vendas/>}/>
-        <Route path='/ADM/carrinho' element={<Carrinhodecompras/>} />
+        <Route path='/corleone/usuario/carrinho/listar/:id' element={<Carrinhodecompras/>} />
         <Route path ='/corleone/usuario/compra' element={<Finalizarcadastrado/>}/>
        <Route path='/clienteDetalhes' element={<ClienteDetalhe/>}/>
        <Route path='/favoritos' element={<Favoritos/>}/>
        <Route path='/cadafavorito/cliente/:id' element={<CadaFavorito/>}/>
+
+       <Route path='/clienteadmmaisdetalhe/:id' element={<ClienteMaisdetalhe/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
