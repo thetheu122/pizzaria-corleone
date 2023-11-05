@@ -102,7 +102,6 @@ export default function ClienteDetalhe() {
                                     <td>{item.telefone}</td>
                                     <td>{item.nascimento}</td>
                                     <td >{item.cep}</td>
-
                                 </tr>
                             )
 
