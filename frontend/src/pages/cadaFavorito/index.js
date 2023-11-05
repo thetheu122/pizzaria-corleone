@@ -64,7 +64,7 @@ export default function CadaFavorito() {
     const handleSelecaoChange = (event) => {
         const valorSelecionado = event.target.value;
         if (valorSelecionado === 'carrinho') {
-            navigate('/ADM/carrinho');
+            navigate(`/corleone/usuario/carrinho/listar/${id}`);
         } else if (valorSelecionado === 'favoritos') {
             navigate('/favoritos');
         }

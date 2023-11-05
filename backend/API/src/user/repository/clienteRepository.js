@@ -184,4 +184,38 @@ export function validarDados(dados) {
             throw new Error('CPF possui um formato inválido.');
         }
     }
+
+   
+    
+    
+
+
+
+}
+
+export async function listarid(id) {
+    let comando =
+        `
+    SELECT
+    c.id_endereco       as endereco,
+    c.id_cartao         as cartao,
+    c.nm_cliente        as cliente,
+    c.ds_email          as email,
+    c.ds_telefone       as telefone,
+    c.ds_senha          as senha,
+    c.ds_cpf            as cpf,
+    c.ds_nacimento      as nascimento,
+    e.ds_estado         as estado,
+    e.ds_cidade         as cidade,
+    e.ds_bairro         as bairro,
+    e.ds_rua            as rua,
+    e.ds_numero         as numero,
+    e.ds_cep            as cep
+    FROM tb_cliente c
+    INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+    WHERE c.id_cliente = ?
+    `
+    
+    const [resposta] = await con.query(comando, [id]);
+    return resposta;
 }

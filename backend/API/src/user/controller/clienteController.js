@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, validarDados } from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, validarDados, listarid } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -171,6 +171,19 @@ server.get('/clientes/nome/:nome', async (req, resp) => {
         resp.status(400).send({ erro: err.message })
     }
 })
+
+server.get('/clientes/:id', async (req, resp) => {
+    try {
+        const { id} = req.params
+        const cliente = await listarid(id);
+        resp.send(cliente)
+
+    } catch (err) {
+        resp.status(400).send({ erro: err.message })
+    }
+})
+
+
 
 
 
