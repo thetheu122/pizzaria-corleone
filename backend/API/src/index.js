@@ -54,11 +54,10 @@ server.use(cartao)
 server.use(sugestao)
 server.use(produtoUs)
 server.use(cupom)
-<<<<<<< HEAD
+
 server.use(compra)
-=======
 server.use(vendas)
->>>>>>> 73e52c71b847ec08160aa96c59d22c5b0b7028bd
+
 
 server.listen ( process.env.PORT , () =>{
     console.log(` A API esta online na porta ${process.env.PORT}`)
