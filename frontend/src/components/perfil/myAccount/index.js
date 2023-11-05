@@ -1,15 +1,31 @@
 import './index.scss'
 import Logo from '../../../assets/images/logo.svg'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
 
 import { confirmAlert } from 'react-confirm-alert';
+import { ToastContainer, toast, useToastContainer } from 'react-toastify'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import Cards from "react-credit-cards";
+import "react-credit-cards/es/styles-compiled.css";
+
 
 import Aberto from '../../../assets/images/pictures/olho-aberto.svg'
 import Fechado from '../../../assets/images/pictures/olho-fechado.svg'
-import { ToastContainer, toast } from 'react-toastify'
+
 
 export default function MyAccount() {
+
+    //DADOS CARTÃO
+    const data = {
+        cvc: "",
+        expiry: "",
+        focus: "",
+        name: "",
+        number: "",
+    };
+
+    const [cardDetails, setCardDetails] = useState(data);
+
 
     //DADOS DO CLIENTE
     const [id, setiD] = useState(0)
@@ -34,6 +50,18 @@ export default function MyAccount() {
 
     //CONTROLADOR DE SENHA
     const [showPassword, setShowPassword] = useState(false)
+
+    //CONTROLADOR DE PAG - CARTAO/INFO CLIENTE
+    const [pagController, setPagController] = useState(true)
+
+    const handleInputFocus = (e) => {
+        setCardDetails({ ...cardDetails, focus: e.target.name });
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCardDetails({ ...cardDetails, [name]: value });
+    };
 
 
     useEffect(() => {
@@ -92,7 +120,7 @@ export default function MyAccount() {
             if (!nome || !sobrenome) {
                 throw new Error(`Campo de nome e/ou sobrenome vazio`);
             }
-            
+
             let nomeCompleto = `${nome} ${sobrenome}`
             let dtnascimento = `${dia}/${mes}/${ano}`
 
@@ -185,9 +213,9 @@ export default function MyAccount() {
     return (
         <div className="minhaConta">
             <img className='logoCorleone' src={Logo} />
-            <h1>Minha Conta</h1>
+            <h1>{pagController ? "Minha Conta" : "Meu Cartão"}</h1>
 
-            <div className='baixoMinhaConta'>
+            {pagController ? <div className='baixoMinhaConta'>
                 <div className='esquerdaMinhaConta'>
                     <p>Conta</p>
                     <input placeholder='Email' value={email} disabled={!edt} onChange={(e) => setEmail(e.target.value)} />
@@ -228,14 +256,68 @@ export default function MyAccount() {
 
                 </div>
 
-            </div>
+            </div> :
+                <div className='cartaoSide'>
+                    <Cards
+                        cvc={cardDetails.cvc}
+                        expiry={cardDetails.expiry}
+                        focused={cardDetails.focus}
+                        name={cardDetails.name}
+                        number={cardDetails.number}
+                    />
+                    <div>
+                        <form className='formsCartao'>
+                            <input
+                                type="number"
+                                name="number"
+                                placeholder="Número"
+                                onChange={handleInputChange}
+                                onFocus={handleInputFocus}
+                                value={cardDetails.number}
+                                maxLength={16}
+                                className="no-spinners" 
+                                disabled={!edt}
+                            />
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Nome"
+                                onChange={handleInputChange}
+                                onFocus={handleInputFocus}
+                                value={cardDetails.name}
+                                disabled={!edt}
+                            />
+                            <div className='expiraCartao'>
+                                <input
+                                    type="text"
+                                    name="expiry"
+                                    placeholder="MM/AA Expiração"
+                                    onChange={handleInputChange}
+                                    onFocus={handleInputFocus}
+                                    value={cardDetails.expiry}
+                                    disabled={!edt}
+                                />
+                                <input
+                                    type="tel"
+                                    name="cvc"
+                                    placeholder="CVC"
+                                    onChange={handleInputChange}
+                                    onFocus={handleInputFocus}
+                                    value={cardDetails.cvc}
+                                    maxLength={3}
+                                    disabled={!edt}
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>}
             <div className='duplada'>
                 {edt ?
                     <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
                     : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>}
-                <button className='butaumm'>Método de Pagamento</button>
+                <button className='butaumm' onClick={() => setPagController(!pagController)}>{pagController ? "Método de Pagamento" : "Dados Pessoais"}</button>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     )
 };

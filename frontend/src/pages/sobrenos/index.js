@@ -74,7 +74,7 @@ export default function SobreNos() {
                         <div className="direita-sobre-nos">
                             <div><h1>O Sabor Autêntico da Itália!</h1></div>
                             <p>Quando você escolhe a Corleone Pizzaria, não está apenas saboreando uma pizza excepcional, mas também fazendo parte de nossa história. Somos uma empresa comprometida em proporcionar momentos memoráveis, reunindo famílias e amigos em torno da mesa, celebrando a vida e compartilhando risadas.</p>
-                            <span>Convidamos você a se juntar a nós nesta jornada gastronômica única. Deixe-nos transportar você para a Itália, mesmo que esteja a milhares de quilômetros de distância. Descubra a magia da culinária italiana, com um toque especial do Brasil, na Corleone Pizzaria.</span>                                                                     
+                            <p>Convidamos você a se juntar a nós nesta jornada gastronômica única. Deixe-nos transportar você para a Itália, mesmo que esteja a milhares de quilômetros de distância. Descubra a magia da culinária italiana, com um toque especial do Brasil, na Corleone Pizzaria.</p>                                                                     
                         </div>
                     </div>
                 </div>

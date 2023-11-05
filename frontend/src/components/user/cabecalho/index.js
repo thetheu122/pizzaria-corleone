@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 
 import './index.scss'
@@ -47,6 +47,7 @@ export default function Cabecalho(props) {
   const [rua, setRua] = useState('');
   const [num, setNum] = useState('');
   const [cep, setCep] = useState('');
+  const [formattedCep, setFormattedCep] = useState('');
   const [endereco, setEndereco] = useState({})
   const [cpf, setCpf] = useState('');
 
@@ -58,43 +59,152 @@ export default function Cabecalho(props) {
   const [senhaLogin, setSenhaLogin] = useState('')
 
   const [idUsuario, setIdUsuario] = useState(0);
-   
+
   const [listarr, setListarr] = useState([]);
 
 
-  
+
   useEffect(() => {
-    
+
     let usuario = localStorage.getItem('usuario-logado');
-      if (usuario != null) {
-        usuario = JSON.parse(usuario);
+    if (usuario != null) {
+      usuario = JSON.parse(usuario);
 
-        setIsLogged(true);
-        setIdUsuario(usuario.id);
+      setIsLogged(true);
+      setIdUsuario(usuario.id);
 
-        async function listar() {
-        
-          const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id);
-          setListarr(response.data)
+      async function listar() {
+
+        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/' + usuario.id);
+        setListarr(response.data)
       }
       listar()
 
-      }
-  
+    }
+
   }, [listarr])
 
   useEffect(() => {
-    if(props.cadastro == true){
+    let usuario = localStorage.getItem('contiuacao-cadastro');
+    if (usuario != null) {
+      usuario = JSON.parse(usuario);
+      setNome(usuario.nome)
+      setEmail(usuario.email)
+      setSenha(usuario.senha)
+      setOpenCadastroModal(!openCadastroModal)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (props.cadastro == true) {
       setOpenLoginModal(true)
     }
-  },[props.cadastro])
+  }, [props.cadastro])
+
+// Função para lidar com a mudança no campo de dia
+function handleDiaChange(e) {
+  let novoDia = e.target.value;
+  // Remove caracteres não numéricos, incluindo o primeiro caractere
+  novoDia = novoDia.replace(/\D/g, '');
+  // Verifica se é um número e se está no intervalo válido
+  if (/^\d+$/.test(novoDia)) {
+    const diaNum = parseInt(novoDia, 10);
+    if (diaNum >= 1 && diaNum <= 31) {
+      setDia(novoDia);
+    }
+  } else {
+    setDia(novoDia);
+  }
+}
+
+// Função para lidar com a mudança no campo de mês
+function handleMesChange(e) {
+  let novoMes = e.target.value;
+  // Remove caracteres não numéricos, incluindo o primeiro caractere
+  novoMes = novoMes.replace(/\D/g, '');
+  // Verifica se é um número e se está no intervalo válido
+  if (/^\d+$/.test(novoMes)) {
+    const mesNum = parseInt(novoMes, 10);
+    if (mesNum >= 1 && mesNum <= 12) {
+      setMes(novoMes);
+    }
+  } else {
+    setMes(novoMes);
+  }
+}
 
 
+
+
+
+
+  function formatarTelefone(telefone) {
+    // Remove todos os caracteres não numéricos
+    telefone = telefone.replace(/\D/g, '');
+
+    // Adiciona parênteses, espaço e hífen ao telefone
+    telefone = telefone.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+
+    return telefone;
+  }
+
+  // Função para lidar com a mudança no campo de telefone
+  function handleTelefoneChange(e) {
+    const novoTelefone = formatarTelefone(e.target.value);
+    setTelefone(novoTelefone);
+  }
+
+  function formatarCPF(cpf) {
+    // Remove todos os caracteres não numéricos
+    cpf = cpf.replace(/\D/g, '');
+
+    // Adiciona pontos e traço ao CPF
+    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+    return cpf;
+  }
+
+  // Função para lidar com a mudança no campo de CPF
+  function handleCPFChange(e) {
+    const novoCPF = formatarCPF(e.target.value);
+    setCpf(novoCPF);
+  }
+
+
+
+  function handleCEPChange(e) {
+    const novoCep = e.target.value.replace(/\D/g, '');
+
+    if (novoCep.length <= 8) {
+      if (novoCep.length === 8) {
+        buscarCEP(novoCep);
+        const cepFormatado = `${novoCep.substring(0, 5)}-${novoCep.substring(5)}`;
+        setFormattedCep(cepFormatado);
+      } else {
+        setFormattedCep(novoCep);
+      }
+
+      setCep(novoCep);
+    }
+  }
+
+  function capitalizeFirstLetterWithoutNumbers(string) {
+    const stringWithoutNumbers = string.replace(/[0-9]/g, '');
+    return stringWithoutNumbers.charAt(0).toUpperCase() + stringWithoutNumbers.slice(1);
+  }
+
+  function handleNomeChange(e) {
+    const novoNome = capitalizeFirstLetterWithoutNumbers(e.target.value);
+    setNome(novoNome);
+  }
 
 
 
   const inversao = () => {
-    if (!nome) {
+    if (email.indexOf('@') === -1) {
+      toast.error('Digite um email válido');
+    }
+    else if (!nome) {
       toast.warn('Digite o seu nome', {
         position: "top-right",
         autoClose: 5000,
@@ -142,7 +252,7 @@ export default function Cabecalho(props) {
         theme: "light",
       });
     }
-    else if (!nome.includes(" ")){
+    else if (!nome.includes(" ")) {
       toast.warn('Seu nome precisar conter ao menos um sobrenome', {
         position: "top-right",
         autoClose: 5000,
@@ -157,6 +267,12 @@ export default function Cabecalho(props) {
     else {
       setOpenCadastroModal(!openCadastroModal)
       setCaptcha(false)
+      let local = {
+        nome: nome,
+        email: email,
+        senha: senha
+      }
+      storage('contiuacao-cadastro', local)
     }
   }
 
@@ -208,70 +324,80 @@ export default function Cabecalho(props) {
   }
 
   const addCliente = async () => {
+
+
     try {
-      let requestEn = {
-        estado: estado,
-        cidade: cidade,
-        bairro: bairro,
-        rua: rua,
-        numero: num,
-        cep: cep,
-      };
-
-      let responseEn = await axios.post('http://localhost:5000/endereco/cadastro', requestEn);
-
-      let nascimento = `${dia}/${mes}/${ano}`;
-
-      let requestCl = {
-        endereco: responseEn.data.id,
-        cliente: nome,
-        email: email,
-        telefone: telefone,
-        senha: senha,
-        cpf: cpf,
-        nascimento: nascimento
+      if(ano > 2023){
+        toast.error('Ano invalido')
       }
+      else {
+        let requestEn = {
+          estado: estado,
+          cidade: cidade,
+          bairro: bairro,
+          rua: rua,
+          numero: num,
+          cep: cep,
+        };
 
-      let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
 
-      if (responseCl.status !== 200) {
-        toast.error(
-          responseCl.data ? responseCl.data.erro : 'Erro desconhecido',
-          {
-            position: "top-right",
+
+        let responseEn = await axios.post('http://localhost:5000/endereco/cadastro', requestEn);
+
+        let nascimento = `${dia}/${mes}/${ano}`;
+
+        let requestCl = {
+          endereco: responseEn.data.id,
+          cliente: nome,
+          email: email,
+          telefone: telefone,
+          senha: senha,
+          cpf: cpf,
+          nascimento: nascimento
+        }
+
+        let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
+
+        if (responseCl.status !== 200) {
+          toast.error(
+            responseCl.data ? responseCl.data.erro : 'Erro desconhecido',
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            }
+          );
+        } else {
+          toast.success("Cadastro realizado com sucesso", {
+            position: "top-left",
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "dark",
+            theme: "colored",
+          });
+          localStorage.removeItem('contiuacao-cadastro');
+          window.location.reload(true);
+          setIsLogged(true)
+          setOpenLoginModal(false)
+          let local = {
+            id: responseCl.data.id,
+            nome: responseCl.data.cliente,
+            email: responseCl.data.email
           }
-        );
-      } else {
-        toast.info((`Cadastro realizado com sucesso`), {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-        window.location.reload(true);
-        setIsLogged(true)
-        setOpenLoginModal(false)
-        let local = {
-          id: responseCl.data.id,
-          nome: responseCl.data.cliente,
-          email: responseCl.data.email
+          storage('usuario-logado', local)
         }
-        storage('usuario-logado', local)
       }
     } catch (err) {
       toast.error(
-        err.response.data ? err.response.data.erro : 'Erro desconhecido',
+        err.response.data ? err.response.data : 'Erro desconhecido',
         {
           position: "top-right",
           autoClose: 5000,
@@ -290,13 +416,13 @@ export default function Cabecalho(props) {
   const buscarCEP = async (cep) => {
     try {
 
-        const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = response.data;
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
 
-        setRua(data.logradouro)
-        setBairro(data.bairro)
-        setCidade(data.localidade)
-        setEstado(data.uf)
+      setRua(data.logradouro)
+      setBairro(data.bairro)
+      setCidade(data.localidade)
+      setEstado(data.uf)
 
     } catch (error) {
       toast.error(('CEP digitado invalido'), {
@@ -365,14 +491,14 @@ export default function Cabecalho(props) {
           <div onClick={() => navigate('/cardapio')} className='cardapio'>
             <img alt='cardapio' src={Cardapio} />
             <p>Cardapio</p>
-      
+
           </div>
           <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
             <img alt='Carrinho' src={CarrinhoIcon} />
-            {listarr.length > 0 && 
-            <div className='itens'>{listarr.length}</div>
+            {listarr.length > 0 &&
+              <div className='itens'>{listarr.length}</div>
             }
-            
+
             <p>Carrinho</p>
           </div>
           <div className='minha-conta'>
@@ -382,7 +508,7 @@ export default function Cabecalho(props) {
               : <p onClick={() => setOpenLoginModal(!openLoginModal)}>Fazer Login </p>
             }
           </div>
-       
+
         </div>
       </main>
       <Modal
@@ -397,9 +523,9 @@ export default function Cabecalho(props) {
             <Components.SignUpContainer signinIn={signIn}>
               <Components.Form>
                 <Components.Title>Criar Conta</Components.Title>
-                <Components.Input type='text' placeholder='Nome' value={nome} onChange={(e) => setNome(e.target.value)} />
-                <Components.Input type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                <Components.Input type='password' placeholder='Senha' value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <Components.Input type='text' placeholder='Nome' spellCheck='false' value={nome} onChange={handleNomeChange} />
+                <Components.Input type='email' placeholder='Email' spellCheck='false' value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Components.Input type='password' placeholder='Senha' spellCheck='false' value={senha} onChange={(e) => setSenha(e.target.value)} />
                 <ReCAPTCHA
                   sitekey="6LdHbGsoAAAAAEuxguADWAR5shW3Jy3ZNQHtVbOQ"
                   onChange={() => setCaptcha(true)}
@@ -411,8 +537,8 @@ export default function Cabecalho(props) {
             <Components.SignInContainer signinIn={signIn}>
               <Components.Form>
                 <Components.Title>Entrar</Components.Title>
-                <Components.Input type='email' placeholder='Email' value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} />
-                <Components.Input type='password' placeholder='Senha' value={senhaLogin} onChange={(e) => setSenhaLogin(e.target.value)} />
+                <Components.Input type='email' placeholder='Email' spellCheck='false' value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} />
+                <Components.Input type='password' placeholder='Senha' spellCheck='false' value={senhaLogin} onChange={(e) => setSenhaLogin(e.target.value)} />
                 <ReCAPTCHA
                   sitekey="6LdHbGsoAAAAAEuxguADWAR5shW3Jy3ZNQHtVbOQ"
                   onChange={() => setCaptcha(true)}
@@ -465,7 +591,7 @@ export default function Cabecalho(props) {
                     </a>
                   </div>
                   <Components.GhostButton onClick={() => toggle(false)}>
-                    Entrar
+                    Cadastrar-se
                   </Components.GhostButton>
                 </Components.RightOverlayPanel>
 
@@ -485,14 +611,13 @@ export default function Cabecalho(props) {
 
               <div className='informacoes'>
                 <div className='esquerdaFds'>
-                <Components.Input
+                  <Components.Input
                     type='text'
                     placeholder='CEP'
-                    value={cep}
-                    onChange={(e) => setCep(e.target.value.replace(/\D/g, ''))}
-                    onBlur={() => buscarCEP(cep)}
+                    value={formattedCep}
+                    onChange={handleCEPChange}
                   />
-                    
+
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
                   <Components.Input type='text' placeholder='Cidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />
                   <Components.Input type='text' placeholder='Bairro' value={bairro} onChange={(e) => setBairro(e.target.value)} />
@@ -503,13 +628,47 @@ export default function Cabecalho(props) {
                 <div className='direitaFin'>
                   <p className='nmDataNascimento'>Data de Nascimento</p>
                   <div className='data-nascimento'>
-                    <input id='diminuicao' className='separacao' type='text' placeholder='Dia' value={dia} onChange={(e) => setDia(e.target.value)} />
-                    <input id='diminuicao' className='separacao' type='text' placeholder='Mês' value={mes} onChange={(e) => setMes(e.target.value)} />
-                    <input id='diminuicao' type='text' placeholder='Ano' value={ano} onChange={(e) => setAno(e.target.value)} />
+
+                    <input
+                      id='diminuicao'
+                      className='separacao'
+                      type='text'
+                      placeholder='Dia'
+                      value={dia}
+                      onChange={handleDiaChange}
+                    />
+
+                    <input
+                      id='diminuicao'
+                      className='separacao'
+                      type='text'
+                      placeholder='Mês'
+                      value={mes}
+                      onChange={handleMesChange}
+                    />
+
+                    <input
+                      id='diminuicao'
+                      type='text'
+                      placeholder='Ano'
+                      value={ano}
+                      onChange={(e) => setAno(e.target.value)}
+                    />
                   </div>
-                  <Components.Input type='text' placeholder='CPF' className='inputo' value={cpf} onChange={(e) => setCpf(e.target.value)} />
-                  <Components.Input type='tel' placeholder='Telefone' className='inputo' value={telefone} onChange={(e) => setTelefone(e.target.value)} />
-                  <h1>Don Corleone</h1>
+                  <Components.Input
+                    type='text'
+                    placeholder='CPF'
+                    className='inputo'
+                    value={cpf}
+                    onChange={handleCPFChange}
+                  />
+                  <Components.Input
+                    type='tel'
+                    placeholder='Telefone'
+                    className='inputo'
+                    value={telefone}
+                    onChange={handleTelefoneChange}
+                  />
                   <button onClick={addCliente}>Finalizar Cadastro</button>
                   <p className='ttt'>Ao criar uma conta, você concorda com nossos<br /> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
                 </div>

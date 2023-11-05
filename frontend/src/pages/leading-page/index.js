@@ -3,7 +3,10 @@ import '../../assets/config/fonts-config.scss'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
-
+import Alimentos from '../../assets/images/pictures/image14.svg'
+import Relogio from '../../assets/images/pictures/image15.svg'
+import Chef from '../../assets/images/pictures/image16.svg'
+import Bowl from '../../assets/images/pictures/image17.svg'
 
 
 import { register } from 'swiper/element/bundle'
@@ -22,7 +25,6 @@ import ImgSobre from '../../assets/img/sobreleanding.png';
 
 import Rodape from '../../components/user/rodape'
 import Cabecalho from '../../components/user/cabecalho'
-import Secao from '../../assets/images/pictures/ingredientes.png'
 
 import CompSobre from '../../components/compSobre'
 import { useEffect, useState } from 'react';
@@ -76,6 +78,7 @@ export default function Leading() {
                 </button>
             </div>
 
+ 
             <div className='secaoDoisLeading'>
                 <div className='propaganda1'>
                     <div className='sombrinha'>
@@ -122,8 +125,28 @@ export default function Leading() {
                 </div>
             </div>
 
-            <img src={Secao} className='ingredientes' />
-
+            <div className='quebraLeadingPage'>
+                <div className='etapa'>
+                    <img src={Alimentos} alt='ft'/>
+                    <p>Ingredientes frescos e de altíssima qualidade.</p>
+                </div>
+                <div className='linha'></div>
+                <div className='etapa'>
+                    <img src={Relogio} alt='ft'/>
+                    <p>Paixão em compartilhar a experiência e tradição italiana em encantar com o paladar.</p>
+                </div>
+                <div className='linha'></div>
+                <div className='etapa'>
+                    <img src={Chef} alt='ft'/>
+                    <p>Levar até sua mesa refeições deliciosas e com rapidez.</p>
+                </div>
+                <div className='linha'></div>
+                <div className='etapa'>
+                    <img src={Bowl} alt='ft'/>
+                    <p>Atendimento de qualidade para tornar a sua experiência inesquecível.</p>
+                </div>
+            </div>
+            
             <div className="swiper-container">
                 <Swiper
                     slidesPerView={perViewSlider}
@@ -152,6 +175,9 @@ export default function Leading() {
                     </SwiperSlide>
                 </Swiper>
             </div>
+
+
+            
 
 
             <div className="comp-sobre-nos">
