@@ -60,16 +60,22 @@ export default function Cabecalho(props) {
 
   const [idUsuario, setIdUsuario] = useState(0);
 
+
   const [listarr, setListarr] = useState([]);
 
 
 
   useEffect(() => {
 
+
     let usuario = localStorage.getItem('usuario-logado');
     if (usuario != null) {
       usuario = JSON.parse(usuario);
+    if (usuario != null) {
+      usuario = JSON.parse(usuario);
 
+      setIsLogged(true);
+      setIdUsuario(usuario.id);
       setIsLogged(true);
       setIdUsuario(usuario.id);
 
@@ -77,8 +83,14 @@ export default function Cabecalho(props) {
 
         const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/' + usuario.id);
         setListarr(response.data)
+      async function listar() {
+
+        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/' + usuario.id);
+        setListarr(response.data)
       }
       listar()
+
+    }
 
     }
 
@@ -100,6 +112,7 @@ export default function Cabecalho(props) {
       setOpenLoginModal(true)
     }
   }, [props.cadastro])
+  }, [props.cadastro])
 
 // Função para lidar com a mudança no campo de dia
 function handleDiaChange(e) {
@@ -117,12 +130,9 @@ function handleDiaChange(e) {
   }
 }
 
-// Função para lidar com a mudança no campo de mês
 function handleMesChange(e) {
   let novoMes = e.target.value;
-  // Remove caracteres não numéricos, incluindo o primeiro caractere
   novoMes = novoMes.replace(/\D/g, '');
-  // Verifica se é um número e se está no intervalo válido
   if (/^\d+$/.test(novoMes)) {
     const mesNum = parseInt(novoMes, 10);
     if (mesNum >= 1 && mesNum <= 12) {
@@ -396,7 +406,9 @@ function handleMesChange(e) {
         }
       }
     } catch (err) {
+      console.log(err.response.data)
       toast.error(
+        err.response.data ? err.response.data : 'Erro desconhecido',
         err.response.data ? err.response.data : 'Erro desconhecido',
         {
           position: "top-right",
@@ -418,7 +430,13 @@ function handleMesChange(e) {
 
       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
       const data = response.data;
+      const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = response.data;
 
+      setRua(data.logradouro)
+      setBairro(data.bairro)
+      setCidade(data.localidade)
+      setEstado(data.uf)
       setRua(data.logradouro)
       setBairro(data.bairro)
       setCidade(data.localidade)
@@ -492,12 +510,16 @@ function handleMesChange(e) {
             <img alt='cardapio' src={Cardapio} />
             <p>Cardapio</p>
 
+
           </div>
           <div className='carrinho' onClick={() => setSideBar(!sideBar)}>
             <img alt='Carrinho' src={CarrinhoIcon} />
             {listarr.length > 0 &&
               <div className='itens'>{listarr.length}</div>
+            {listarr.length > 0 &&
+              <div className='itens'>{listarr.length}</div>
             }
+
 
             <p>Carrinho</p>
           </div>
@@ -508,6 +530,7 @@ function handleMesChange(e) {
               : <p onClick={() => setOpenLoginModal(!openLoginModal)}>Fazer Login </p>
             }
           </div>
+
 
         </div>
       </main>
@@ -612,11 +635,13 @@ function handleMesChange(e) {
               <div className='informacoes'>
                 <div className='esquerdaFds'>
                   <Components.Input
+                  <Components.Input
                     type='text'
                     placeholder='CEP'
                     value={formattedCep}
                     onChange={handleCEPChange}
                   />
+
 
                   <Components.Input type='text' placeholder='Estado' value={estado} onChange={(e) => setEstado(e.target.value)} />
                   <Components.Input type='text' placeholder='Cidade' value={cidade} onChange={(e) => setCidade(e.target.value)} />

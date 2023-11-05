@@ -7,15 +7,22 @@ import {  useNavigate } from 'react-router-dom';
 
 
 export default function ClienteDetalhe() {
-
+      
     const [buscarcliente, setBuscarcliente] = useState('')
     const [cliente, setCliente] = useState([])
-
+    const [clienteSelecionado, setClienteSelecionado] = useState(null);
+   
     const navigate = useNavigate()
 
     function entrarFavoritos(id) {
         navigate(`/cadafavorito/cliente/${id}`)
         console.log(id)
+    }
+
+    function entramaisdetalhe(id){
+        navigate(`/clienteadmmaisdetalhe/${id}`)
+        console.log(id)
+
     }
 
 
@@ -41,6 +48,15 @@ export default function ClienteDetalhe() {
         setCliente(r.data)
 
     }
+
+    async function buscarDetalhesCliente(id) {
+        try {
+          const response = await axios.get(`http://localhost:5000/clientes/${id}`);
+          setClienteSelecionado(response.data);
+        } catch (error) {
+          console.error('Erro ao buscar detalhes do cliente', error);
+        }
+      }
 
 
 
@@ -87,7 +103,6 @@ export default function ClienteDetalhe() {
                         </thead>
 
                         <tr className='linha-separadora'></tr>
-
                         <tbody>
 
                             {cliente.map(item =>
@@ -122,7 +137,9 @@ export default function ClienteDetalhe() {
 
             </div>
 
+       
+      </div>
+    </div>
 
-        </div>
-    )
+  );
 }

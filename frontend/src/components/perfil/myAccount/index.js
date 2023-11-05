@@ -121,6 +121,7 @@ export default function MyAccount() {
                 throw new Error(`Campo de nome e/ou sobrenome vazio`);
             }
 
+
             let nomeCompleto = `${nome} ${sobrenome}`
             let dtnascimento = `${dia}/${mes}/${ano}`
 
@@ -233,9 +234,9 @@ export default function MyAccount() {
                     <input placeholder='Nome' value={nome} disabled={!edt} onChange={(e) => setNome(e.target.value)} />
                     <input placeholder='Sobrenome' value={sobrenome} disabled={!edt} onChange={(e => setSobrenome(e.target.value))} />
                     <div className='dataNascimento' >
-                        <input placeholder='Dia' value={dia} disabled={!edt} onChange={(e => setDia(e.target.value))} />
+                        <input placeholder='Dia' value={dia} disabled={!edt} onChange={handleDiaChange} />
                         <input placeholder='Mês' value={mes} disabled={!edt} onChange={(e => setMes(e.target.value))} />
-                        <input placeholder='Ano' value={ano} disabled={!edt} onChange={(e => setAno(e.target.value))} />
+                        <input placeholder='Ano' value={ano} disabled={!edt} ref={refMes} onChange={handleMesChange} />
                     </div>
                 </div>
 
@@ -317,6 +318,7 @@ export default function MyAccount() {
                     : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>}
                 <button className='butaumm' onClick={() => setPagController(!pagController)}>{pagController ? "Método de Pagamento" : "Dados Pessoais"}</button>
             </div>
+            <ToastContainer />
             <ToastContainer />
         </div>
     )

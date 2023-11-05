@@ -22,7 +22,7 @@ export default function Favoritos() {
 
     useEffect(() => {
         ListarFavoritos();
- 
+
     }, [])
 
     async function ListarFavoritos() {
@@ -62,20 +62,20 @@ export default function Favoritos() {
                 <div className='conteudo-favoritos'>
 
                     <div className='principal-favorito'>
-                     <div className='favorito-buscar'> 
-                        
-                        <div className="buscar">
-                            <div ><img src={Lupa} /></div>
-                            <input type="text" placeholder="busque por nome do produto" value={favorito} onChange={e => Setfavorito(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
-                        </div>
+                        <div className='favorito-buscar'>
 
-                        <div className="parte-filtros-carrinho">
+                            <div className="buscar">
+                                <div ><img src={Lupa} /></div>
+                                <input type="text" placeholder="busque por nome do produto" value={favorito} onChange={e => Setfavorito(e.target.value)} /*onKeyDown={handleKeyPress}*/ />
+                            </div>
+
+                            <div className="parte-filtros-carrinho">
                                 <label htmlFor="carrinho"></label>
                                 <select id="carrinho" onChange={handleSelecaoChange} value={selecao}>
                                     <optgroup label="Ordenar">
-                                         <option value="favoritos">Favoritos</option>
+                                        <option value="favoritos">Favoritos</option>
                                         <option value="carrinho">Carrinho</option>
-                                       
+
                                     </optgroup>
                                 </select>
                             </div>
@@ -101,7 +101,7 @@ export default function Favoritos() {
 
                                 {tdsFavoritos.map(item =>
                                     <tr className="cada-linha">
-                                        <td><img src={`${api.getUri()}/${item.imagem}` }/></td>
+                                        <td><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.qtd_favoritos}</td>
                                         <td>{item.produto}</td>
 
@@ -113,7 +113,7 @@ export default function Favoritos() {
 
                     </div>
 
-                    
+
 
 
 

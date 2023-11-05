@@ -14,6 +14,7 @@ import produto    from './admin/controller/produtocontroller.js'
 import usuario    from './admin/controller/usuariocontroler.js'
 import sugestao   from './admin/controller/sugestao.js'
 import cupom      from './admin/controller/cupom.js'
+import vendas     from './admin/controller/vendas.js'
 //  }
  
 
@@ -52,6 +53,7 @@ server.use(cartao)
 server.use(sugestao)
 server.use(produtoUs)
 server.use(cupom)
+server.use(vendas)
 
 server.listen ( process.env.PORT , () =>{
     console.log(` A API esta online na porta ${process.env.PORT}`)
