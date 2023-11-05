@@ -78,7 +78,7 @@ export default function CardProduto(props) {
     useEffect(() => {
         async function fetchData() {
             try {
-                let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
+                
                 if (usuario && usuario.id !== 0 && usuario.id !== null) {
                     setIdc(usuario.id)
                     let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
@@ -99,37 +99,32 @@ export default function CardProduto(props) {
     
 
     let usuario = JSON.parse(localStorage.getItem('usuario-logado'))
+  
+useEffect(()=>{
 
-     async function buscar() { 
-
-       
-        
-      
-     
-    }
-
-
-      
- 
-
-    async function carrinho (){
-
-        try {
+    async function fetchData(){
+        let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
         let user = {
             "cliente":usuario.id,
             "produto":id
         }
           
-          let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
-          setVerificar(r.data)  ;
-    
+        let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+        setVerificar(r.data)  ;
+    };
+    fetchData();
+
+},[verificar])
+  
+
+    async function carrinho (){
+
+        try {
       
-         
          if(  verificar.length > 0) {
-    
-              verificar.map( async (item)=>{ 
-                   
-                    if( item.carrinho == 'disponivel'){
+               const item = verificar[0]                 
+                  
+                if( item.carrinho == 'disponivel'){
 
                         let  qtd        = item.quantidade
                         const idcarrinho = item.id_carrinho
@@ -140,13 +135,9 @@ export default function CardProduto(props) {
                             "idcarrinho": idcarrinho
                         }
                         let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
-                        setOpenModalCart(false)
-                      
-                    
+                        setOpenModalCart(false)        
                     }
-
                     else{
-                       
                         const idcarrinho = item.id_carrinho
         
                         let user  = {
@@ -156,37 +147,43 @@ export default function CardProduto(props) {
                         }
                         let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
                         setOpenModalCart(false)
-                          
                     }
-                })
-         }
+              }
       
           
 
          else{
-
             let user = {
-                "produto":id,
                 "cliente":usuario.id,
-                "disponivel":true,
-                "qtd":1
-               }
-               let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
-               setOpenModalCart(false)
-         }             
+                "produto":id
+            }
+
+            let r2 = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+            let verificar2 = r2.data
+
+                if(verificar2.length === 0 ){
+
+                    let user = {
+                        "produto":id,
+                        "cliente":usuario.id,
+                        "disponivel":true,
+                        "qtd":1
+                       }
+
+                    let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+                    setOpenModalCart(false)
+                }       
+         }
            
         } catch (erro) {
-           if (!localStorage.getItem('usuario-logado')) {
+           if (!localStorage.getItem('usuario-logado')) {           
                toast.error('Impossivel inserir ao carrinho, favor se cadastrar ou realizar login no nosso site')     
            }
            else{
-               toast.error(erro.message)
-       
+               toast.error(erro.message)     
            }
-           
-        }
-       
-       }
+        }  
+ }
 
 
         const navigation = useNavigate()

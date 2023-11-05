@@ -4,9 +4,13 @@ import '../../../assets/config/fonts-config.scss'
 import Star from '../../../assets/images/icons/star_icon.svg'
 import Coracao from '../../../assets/images/icons/coracao_icon.svg'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export default function CardCarrinho(props) {
+
+    
     function deletar(){
+        
         let id = props.produto.id
         let qtd = props.produto.qtd
         let user  = {
@@ -16,6 +20,65 @@ export default function CardCarrinho(props) {
         }
         console.log('id:' +id)
         let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+       // window.location.reload()
+    }
+
+
+
+   async  function alterar (){
+    try {
+        let  qtd        = props.produto.qtd
+        const idcarrinho = props.produto.id
+
+        let user  = {
+            "disponivel":true,
+            "qtd": qtd + 1,
+            "idcarrinho": idcarrinho
+        }
+
+        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+
+    } catch (err) {
+        toast.error(err.message)
+    }
+        
+      
+    }
+
+    async  function remover (){
+
+        try {
+            let quant = props.produto.qtd
+
+            if( quant > 1 ){
+            let  qtd        = props.produto.qtd
+            const idcarrinho = props.produto.id
+    
+            let user  = {
+                "disponivel":true,
+                "qtd": qtd - 1,
+                "idcarrinho": idcarrinho
+            }
+            let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+             }
+            if( quant == 1 || quant < 1){
+                let id = props.produto.id
+                let qtd = props.produto.qtd
+
+                let user  = {
+                    "disponivel":false,
+                    "qtd":1,
+                    "idcarrinho":id
+                }
+
+                let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+            }
+        
+        } catch (err) {
+            toast.error(err.message)
+        }
+    
+      
     }
 
 
@@ -43,6 +106,11 @@ export default function CardCarrinho(props) {
                         <p>4.9</p>
                         <img alt='estrela' src={Star}/>
                     </div>
+                     <div className='qtd'>
+                          <p onClick={ remover}> - </p>
+                             {props.produto.qtd}
+                           <p onClick={alterar}> + </p> 
+                     </div>
                     <p>{props.produto.preco}</p>
                 </div>
 

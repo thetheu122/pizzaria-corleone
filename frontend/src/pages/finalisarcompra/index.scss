@@ -10,25 +10,13 @@
   background-color: rgb(243, 238, 232);
  
  > div  {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
 
-  margin-top: 100px; 
-  width: 100%;
+      margin-top: 100px; 
+      width: 100%;
 
- .sugestao{
-   display: flex;
-   flex-direction: column  ;
-   justify-content: start;
-   width: 66%;
-   margin-top: 50px;
-   h3{
-     margin-left: 10px;
-     color: #635d57;
-   }
-
- }
   h2{
     color:  #635d57;
     margin-bottom: 22px;
@@ -154,21 +142,31 @@ display: flex;
 
 
 .sugestao-itens {
-width: 120%;
+width: 100%;
 display: flex;
+justify-content: center;
+align-items: center;
 margin-bottom: 40px;
+}
+.pagination{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .paginacao {
 display: flex;
 flex-direction: row;
-justify-content: start;
-align-items: center;
-width: 120%;
+
+width:64%;
 margin-top: 40px;
 padding-right: 100px;
+ h3{
+  color: #636363;
+ }
 
-
-div {
+div { 
    display: flex;
    gap: 10px;
 }
@@ -191,6 +189,7 @@ div {
    gap: 5px;
    transition: .6s;
    background-color: #ffffff;
+   
 
    &:hover {
        scale: 1.07;

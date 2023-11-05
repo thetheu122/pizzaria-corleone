@@ -6,15 +6,19 @@ import CardCarrinho from '../carrinhoCard';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function Carrinho({ onClose }) {
    
   const [listarr, setListarr] = useState([]);
-  const [mostrar, setMostrar] = useState(false)
+  const [mostrar, setMostrar] = useState(false);
+  const [verificar , setVerificar] = useState([])
+
+  let usuario = localStorage.getItem('usuario-logado');
+  usuario = JSON.parse(usuario)
 
   useEffect(() => {
-    let usuario = localStorage.getItem('usuario-logado');
-    usuario = JSON.parse(usuario)
+ 
     async function listar() {
       
         const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id);
@@ -25,13 +29,44 @@ export default function Carrinho({ onClose }) {
         else{
           setMostrar(false)
         }
-
-
-    
+   
     }
 
     listar();
   }, [listarr]);
+  
+
+// useEffect ( async()=>{
+    
+//       const r = await axios.get(`http://localhost:5000/corleone/pedido/cliente/${usuario}`)   
+//       setVerificar(r.data)
+
+// },[])
+
+// //   {
+// //     "id_cliente":  1   ,
+// //     "desconto ": "20" ,
+    
+// //     "produtos": {
+// //         "itens": [
+// //         {"id_produto": 1, "quantidade": 3},
+// //         {"id_produto": 2, "quantidade": 2}
+// //         ]
+// //     },
+    
+// //     "total_compra": "150"
+// // }
+//   async function compra (){
+
+//     try {
+      
+//       const response = await axios.post("http://localhost:5000/corleone/pedido/produto")
+      
+//     } catch (error) {
+//       toast.error(error.message)
+//     }
+
+//   }
 
   return (
     <div className='carrinhoSideBar'>
