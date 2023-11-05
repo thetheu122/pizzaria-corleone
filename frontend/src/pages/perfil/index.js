@@ -41,6 +41,7 @@ export default function MinhaConta() {
     }
   }
   return (
+    
     <div className='background-minhaconta'>
       <Barralateral controlador = {controladorDireitaMenu}/>
 

@@ -152,6 +152,9 @@ export async function listarcarrinhoid (id) {
           const [resposta] = await con.query(comando, ['%'+nmProduto+'%']);
           return resposta;
        }
+
+      
+      
       
         
     
