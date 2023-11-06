@@ -28,7 +28,7 @@ const [desconto ,setDesconto] = useState(0)
 async function cupom() {
     try {
       const response = await axios.get('http://localhost:5000/cupom/' + digitadoCupom);
-  
+
       if (response.data.length > 0) {
         const desconto = (total * response.data[0].ds_valor) / 100;
         const conta = total - desconto ;
@@ -43,6 +43,8 @@ async function cupom() {
     }
   }
   
+
+
 
 
 useEffect(() => {
@@ -128,7 +130,7 @@ useEffect(()=>{
 
                   
                    </div>
-                   <div className='sugestao'>
+
     
          
          
@@ -194,14 +196,14 @@ useEffect(()=>{
 
         <div className='sugestao-itens'>
             {cartoesAtuais.map(item => (  
-                <Sugestao produto={{ nome: item.nome, media: item.media, preco: item.preço }} />
+                <Sugestao produto={{ nome: item.nome, media: item.media, preco: item.preço ,id:item.ID}} />
             ))}
         </div>
 
             
         </div>
     
-</div>
+
 
                  
             </div>

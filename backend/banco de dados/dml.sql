@@ -614,3 +614,28 @@ LEFT JOIN tb_produto   AS tb_produto_produto  ON tb_sugestao.ds_sugestao  = tb_p
 LEFT JOIN tb_imagem    AS tb_produto_img      ON tb_sugestao.id_produto   = tb_produto_img.id_produto
 where tb_produto_produto.ds_tipo_produto = 1
 and   tb_produto_produto.id_produto      = 1;
+
+
+
+SELECT
+  tb_pedido_produto.id_pedido_produto,
+  tb_cliente.id_cliente,
+  tb_cliente.nm_cliente AS nome_cliente,
+  tb_pedido_produto.ds_total,
+  tb_pedido_produto.ds_produtos
+FROM tb_pedido_produto
+INNER JOIN tb_cliente ON tb_pedido_produto.id_cliente = tb_cliente.id_cliente;
+
+
+
+INSERT INTO tb_pedido_produto (id_cliente, ds_produtos, ds_total)
+VALUES (
+  1, 
+  '{
+    "produtos": [
+      {"id_produto": 1, "quantidade": 3},
+      {"id_produto": 2, "quantidade": 2}
+    ]
+  }',
+  '150'
+);

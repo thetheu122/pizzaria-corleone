@@ -23,11 +23,11 @@ const [qtd, setQtd] = useState(0)
  async function atualizar () {
     
     let id = props.produto.id
-    setQtd ( qtd + 1 )
+    let quant = props.produto.qtd
 
     let user  = {
         "disponivel":true,
-        "qtd":qtd,
+        "qtd": quant+1,
         "idcarrinho":id
     }
 
@@ -37,28 +37,36 @@ const [qtd, setQtd] = useState(0)
  
  }
   async function diminuir (){ 
- if(qtd > 0) {
+        
+    let quant = props.produto.qtd
     
-    setQtd ( qtd - 1 ) 
+    if(quant > 1) {
+        
+        let id = props.produto.id
 
-    let id = props.produto.id
+        let user  = {
+            "disponivel":true,
+            "qtd":quant - 1,
+            "idcarrinho":id
+        }
 
-    let user  = {
-        "disponivel":true,
-        "qtd":qtd,
-        "idcarrinho":id
-    }
+        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user) 
 
+        } 
+    else{
+        let id = props.produto.id
+        let qtd = props.produto.qtd
 
-    let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user) 
+            let user  = {
+                "disponivel":false,
+                "qtd":qtd,
+                "idcarrinho":id
+            }
 
-    }   
+        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user) 
+    }  
 }
     
-function alterar(){
-
-  
-}  
 
 
 

@@ -58,27 +58,6 @@ FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 
 
 
-CREATE TABLE  tb_cartao(
-
-id_cartao    INT PRIMARY KEY AUTO_INCREMENT,
-ds_numero    VARCHAR(100) NOT NULL,
-ds_nome      VARCHAR(100) NOT NULL,
-ds_validade  VARCHAR(100) NOT NULL,
-ds_cvv       VARCHAR(100)  NOT NULL
-
-);
-
-
-
-CREATE TABLE tb_tp_pagamento (
-
-id_tp_pagamento   INT PRIMARY KEY AUTO_INCREMENT,
-id_cartao         INT,
-tp_pix            VARCHAR(200),
-tp_dinheiro       BOOL ,
-FOREIGN KEY ( id_cartao ) REFERENCES tb_cartao(id_cartao)
-
-);
 
 
 
@@ -99,7 +78,6 @@ CREATE TABLE  tb_cliente (
 
 id_cliente     INT PRIMARY KEY AUTO_INCREMENT,
 id_endereco    INT  NOT NULL ,
-id_cartao      INT   ,
 nm_cliente     VARCHAR(200) NOT NULL,
 ds_email       VARCHAR(200) NOT NULL,
 ds_telefone    VARCHAR(200) NOT NULL,
@@ -107,10 +85,35 @@ ds_senha       VARCHAR(200) NOT NULL,
 ds_cpf         VARCHAR(200) NOT NULL,
 ds_nacimento   VARCHAR(200) NOT NULL,
 
-FOREIGN  KEY (id_endereco)	REFERENCES tb_endereco(id_endereco) ,
-FOREIGN  KEY (id_cartao)	REFERENCES tb_cartao(id_cartao) 
+FOREIGN  KEY (id_endereco)	REFERENCES tb_endereco(id_endereco) 
+);
+
+
+
+CREATE TABLE  tb_cartao(
+
+id_cartao    INT PRIMARY KEY AUTO_INCREMENT,
+id_cliente   INT , 
+ds_numero    VARCHAR(100) NOT NULL,
+ds_nome      VARCHAR(100) NOT NULL,
+ds_validade  VARCHAR(100) NOT NULL,
+ds_cvv       VARCHAR(100)  NOT NULL,
+
+FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
+);
+
+
+
+CREATE TABLE tb_tp_pagamento (
+
+id_tp_pagamento   INT PRIMARY KEY AUTO_INCREMENT,
+id_cartao         INT,
+tp_pix            VARCHAR(200),
+tp_dinheiro       BOOL ,
+FOREIGN KEY ( id_cartao ) REFERENCES tb_cartao(id_cartao)
 
 );
+
 
 
 CREATE TABLE tb_avaliacao(
@@ -160,19 +163,19 @@ FOREIGN  KEY ( id_tipo_pagamento) 	REFERENCES tb_tp_pagamento ( id_cartao )
 
 );
 
-
-
 CREATE TABLE tb_pedido_produto (
 
 id_pedido_produto   INT PRIMARY KEY AUTO_INCREMENT,
-id_produto          INT NOT NULL , 
-id_pedido           INT NOT NULL ,
-qtd_produto         VARCHAR(100),
+id_cliente          INT  ,
+ds_produtos         JSON ,
+ds_total            VARCHAR(200),
 
-FOREIGN  KEY ( id_produto) 	REFERENCES tb_produto ( id_produto ) ,
-FOREIGN  KEY ( id_pedido) 	REFERENCES tb_pedido ( id_pedido ) 
-
+FOREIGN  KEY ( id_cliente) 	REFERENCES tb_cliente ( id_cliente ) 
 );
+
+
+
+
 
 
 
@@ -227,3 +230,5 @@ id_cupom   int primary key  auto_increment,
 nm_cupom   varchar(100),
 ds_valor   int  
 );
+
+

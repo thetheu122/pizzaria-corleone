@@ -26,8 +26,9 @@ import comentario from './user/controller/comentarioController.js'
 import endereco   from './user/controller/enderecoController.js'
 import cliente    from './user/controller/clienteController.js'
 import carrinho   from './user/controller/carrinho.js'
-import cartao from './user/controller/pagamentoController.js'
-import produtoUs from './user/controller/produtoController.js'
+import cartao     from './user/controller/pagamentoController.js'
+import produtoUs  from './user/controller/produtoController.js'
+import compra     from './user/controller/compra.js' 
 // }
 
 
@@ -53,7 +54,11 @@ server.use(cartao)
 server.use(sugestao)
 server.use(produtoUs)
 server.use(cupom)
+<<<<<<< HEAD
+server.use(compra)
+=======
 server.use(vendas)
+>>>>>>> 73e52c71b847ec08160aa96c59d22c5b0b7028bd
 
 server.listen ( process.env.PORT , () =>{
     console.log(` A API esta online na porta ${process.env.PORT}`)

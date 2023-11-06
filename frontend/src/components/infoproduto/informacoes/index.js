@@ -44,6 +44,98 @@ export default function Informacoes(props) {
 
     const { id } = useParams();
 
+  
+    const [ verificar   , setVerificar ]  = useState([]) 
+
+    let usuario = JSON.parse(localStorage.getItem('usuario-logado'))
+   
+useEffect(()=>{
+
+    async function fetchData(){
+        let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
+        let user = {
+            "cliente":usuario.id,
+            "produto":id
+        }
+          
+        let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+        setVerificar(r.data)  ;
+    };
+    fetchData();
+
+},[verificar]);
+  
+
+    async function carrinhoo (){
+
+        try {
+      
+         if(  verificar.length > 0) {
+               const item = verificar[0]                 
+                  
+                if( item.carrinho == 'disponivel'){
+
+                        let  qtd        = item.quantidade
+                        const idcarrinho = item.id_carrinho
+
+                        let user  = {
+                            "disponivel":true,
+                            "qtd": qtd + 1,
+                            "idcarrinho": idcarrinho
+                        }
+                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                           
+                    }
+                    else{
+                        const idcarrinho = item.id_carrinho
+        
+                        let user  = {
+                            "disponivel":true,
+                            "qtd": 1,
+                            "idcarrinho": idcarrinho
+                        }
+                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                    
+                    }
+              }
+      
+          
+
+         else{
+            let user = {
+                "cliente":usuario.id,
+                "produto":id
+            }
+
+            let r2 = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+            let verificar2 = r2.data
+
+                if(verificar2.length === 0 ){
+
+                    let user = {
+                        "produto":id,
+                        "cliente":usuario.id,
+                        "disponivel":true,
+                        "qtd":1
+                       }
+
+                    let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+               
+                }       
+         }
+           
+        } catch (erro) {
+           if (!localStorage.getItem('usuario-logado')) {           
+               toast.error('Impossivel inserir ao carrinho, favor se cadastrar ou realizar login no nosso site')     
+           }
+           else{
+               toast.error(erro.message)     
+           }
+        }  
+ };
+
+
+
         // id cliente
         const [idc, setIdc] = useState(0)
     
@@ -381,7 +473,7 @@ export default function Informacoes(props) {
                         </div>
 
                         <div className='space'>
-                            <div className='button-01' onClick={() => setModalOpen(!isModalOpen)}>
+                            <div className='button-01' onClick={carrinhoo}>
                                 <img src={carrinho} alt="Carrinho" />
                                 <p>Adicione ao carrinho</p>
                             </div>

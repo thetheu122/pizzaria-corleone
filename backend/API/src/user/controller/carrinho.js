@@ -22,9 +22,10 @@ const verificar =( (req,resp,itens) =>{
 endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
     try {
            const itens = req.body
+           console.log(itens)
         if( verificar(req,resp,itens)){
             const enviar = await itenscarrinho(itens)
-            console.log('post:'+ itens)
+           
             resp.send(enviar)
            
         }
@@ -40,7 +41,6 @@ endpoints.put('/corleone/usuario/carrinho/editar' , async (req,resp) =>{
        
         const erro = []
         const itens = req.body
-        console.log('put:' + itens.idcarrinho)
         const resposta = await alteraritens(itens)
         
      
@@ -57,11 +57,7 @@ endpoints.put('/corleone/usuario/carrinho/editar' , async (req,resp) =>{
         }
         
         else{
-
-            
-            resp.status(200).send({message:'item alterado com sucesso '})
-            
-
+            resp.status(200).send({message:'item alterado com sucesso '})        
            
          }
 
@@ -96,7 +92,7 @@ endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
 endpoints.get('/corleone/usuario/carrinho/verificar/:cliente/:produto' , async (req,resp) =>{
     try {
       const {cliente,produto} = req.params
-      console.log(cliente,produto)
+
       const resposta = await verificarcarrinho(cliente,produto)
 
 
