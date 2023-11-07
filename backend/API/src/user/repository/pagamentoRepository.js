@@ -26,3 +26,26 @@ export function validarDadosCartao(dados) {
         }
     }
 }
+
+export async function listarTodosCartoes() {
+    const comando = `
+        SELECT * FROM tb_cartao;
+    `;
+
+    const cartoes = await con.query(comando);
+
+    return cartoes;
+}
+
+
+export async function listarCartaoPorId(id) {
+    let comando = `
+        SELECT * FROM tb_cartao
+        WHERE id_cartao = ?;
+    `;
+
+    const resultado = await con.query(comando, [id]);
+
+    return resultado; 
+}
+

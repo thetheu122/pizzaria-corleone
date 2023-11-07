@@ -9,16 +9,17 @@ export default function ClienteMaisdetalhe() {
     const navigate = useNavigate()
     const { id } = useParams();
     const [selecao, setSelecao] = useState('');
-    const [cliente, setCliente] = useState()
-    const [favoritos, setFavoritos] = useState([]); 
-    const [carrinho, setCarrinho]=useState([])
+    const [cliente, setCliente] = useState([])
+    const [favoritos, setFavoritos] = useState([]);
+    const [carrinho, setCarrinho] = useState([])
+    const [cartao, setcartao] = useState([])
 
     async function Listarcliente() {
         const r = await axios.get('http://localhost:5000/clientes')
         setCliente(r.data)
 
     }
-    
+
     async function fetchClienteDetails() {
         try {
             const response = await axios.get(`http://localhost:5000/clientes/${id}`);
@@ -28,7 +29,7 @@ export default function ClienteMaisdetalhe() {
         }
     }
 
- 
+
     async function fetchFavoritosCliente() {
         try {
             const response = await axios.get(`http://localhost:5000/cadafavorito/cliente/${id}`);
@@ -40,26 +41,48 @@ export default function ClienteMaisdetalhe() {
 
     async function fetchCarrinhoCliente(id) {
         try {
-          const response = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/listar/${id}`);
-          setCarrinho(response.data);
+            const response = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/listar/${id}`);
+            setCarrinho(response.data);
         } catch (error) {
-          console.error('Erro ao buscar detalhes do carrinho do cliente', error);
+            console.error('Erro ao buscar detalhes do carrinho do cliente', error);
         }
-      }
-    
-    
-      useEffect(() => {
+    }
+
+    async function cartaocliente(id) {
+        try {
+            const response = await axios.get(`http://localhost:5000/cartao/listar/${id}`);
+            setcartao(response.data);
+        } catch (error) {
+            console.log('erro no cartão', error)
+
+        }
+    }
+
+
+    useEffect(() => {
         fetchCarrinhoCliente(id);
-      }, [id]);
+        cartaocliente(id)
+    }, [id]);
 
     useEffect(() => {
         fetchClienteDetails();
-        fetchFavoritosCliente(); 
+        fetchFavoritosCliente();
     }, [id]);
 
 
+
     useEffect(() => {
-       
+        fetchCarrinhoCliente(id);
+        fetchClienteDetails();
+        fetchFavoritosCliente();
+        cartaocliente(id);
+    }, [id]);
+
+
+
+
+    useEffect(() => {
+
         async function fetchClienteDetails() {
             try {
                 const response = await axios.get(`http://localhost:5000/clientes/${id}`);
@@ -117,7 +140,7 @@ export default function ClienteMaisdetalhe() {
                     <table className='tabela-mais-detalhes'>
                         <thead>
                             <tr >
-                               
+
                                 <th ></th>
                                 <th>Nome</th>
                                 <th className="comp-linha-detalhes"></th>
@@ -148,7 +171,7 @@ export default function ClienteMaisdetalhe() {
                         <tbody>
                             {cliente && cliente.map((item) => (
                                 <tr key={item.idcliente}>
-                                   
+
                                     <td></td>
                                     <td>{item.cliente}</td>
                                     <td className="comp-linha-detalhes"></td>
@@ -196,41 +219,32 @@ export default function ClienteMaisdetalhe() {
                             <th className="compe-linha-detalhes"></th>
                             <th>Cartão</th>
                             <th className="comp-linha-detalhes"></th>
-                            <th>Nome</th>
+                            <th>Numero</th>
                             <th className="comp-linha-detalhes"></th>
-                            <th>Email</th>
+                            <th>nome</th>
                             <th className="compp-linha-detalhes"></th>
-                            <th>Email</th>
+                            <th>Validade</th>
                             <th className="compp-linha-detalhes"></th>
-                            <th>Email</th>
+                            <th>Cvv</th>
 
 
 
                         </tr>
                     </thead>
 
-
                     <tbody>
-
-
-                        <tr>
-
-                            <td>#157</td>
-
-                            <td className="comp-linha-detalhes"></td>
-                            <td>carlos Ribeiro</td>
-                            <td className="comp-linha-detalhes"></td>
-                            <td>Dinheiro</td>
-                            <td className="compp-linha-detalhes"></td>
-                            <td>Dinheiro</td>
-                            <td className="compp-linha-detalhes"></td>
-                            <td>Dinheiro</td>
-
-                        </tr>
-
-
-
+                        {cartao && cartao.map((item) => (
+                            <tr key={item.id}>
+                                <td>{item.cartao}</td>
+                                <td>{item.ds_numero}</td>
+                                <td>{item.ds_nome}</td>
+                                <td>{item.ds_validade}</td>
+                                <td>{item.ds_cvv}</td>
+                            </tr>
+                        ))}
                     </tbody>
+
+                    
 
 
                 </table>

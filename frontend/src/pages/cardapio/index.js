@@ -81,7 +81,6 @@ export default function Cardapio() {
         let usuario = localStorage.getItem('usuario-logado');
         if (usuario != null) {
             usuario = JSON.parse(usuario);
-
             setIdUsuario(usuario.id);
         }
         window.scrollTo(0, 0);
@@ -314,8 +313,6 @@ export default function Cardapio() {
                                         media: item.media,
                                         tipo: item.tipo
                                     }}
-
-
                                 />
                             </div>
 
