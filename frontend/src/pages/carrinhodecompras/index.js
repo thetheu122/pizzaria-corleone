@@ -39,12 +39,7 @@ export default function Carrinhodecompras() {
 
 
 
-    async function ListarnomeCarrinho() {
-        const r = await axios.get('http://localhost:5000/corleone/produto/' + buscarNome)
-        console.log(r)
-        setTdscarrinhos(r.data)
 
-    }
 
     useEffect(() => {
         if (buscarNome.length > 0) {
@@ -55,8 +50,15 @@ export default function Carrinhodecompras() {
     }, [buscarNome, id])
 
 
+    console.log(id)
 
+    async function ListarnomeCarrinho() {
+        const r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${id}/produto/${buscarNome}`)
+        const resp = r.data
+        console.log(resp)
+        setTdscarrinhos(r.data)
 
+    }
 
 
 

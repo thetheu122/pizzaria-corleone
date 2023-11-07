@@ -60,8 +60,8 @@ useEffect(()=> {
                 </div>
 
                 <div className="produto-atalhos">
-                    <div><img  onClick={abrirPopupProdutos}src={Produtos} />
-                    <h2 onClick={abrirPopupProdutos}>Produtos</h2>
+                    <div onClick={abrirPopupProdutos}><img  src={Produtos} />
+                    <h2>Produtos</h2>
                     </div>
                     
                     {popUpProdutos && (
@@ -69,7 +69,10 @@ useEffect(()=> {
                                 <h3 onClick={() => {navigate('/produtos')}}>Listar Produtos</h3>
 
                                 <h4 onClick={() => {navigate('/cadastroproduto')}}>Cadastrar</h4>
-                                <img onClick={fecharPopUpProdutos} src={Setapracima}/>
+                                <div onClick={fecharPopUpProdutos}>
+                                    <img  src={Setapracima}/>
+                                </div>
+                                
                                 
                         </div>
 
@@ -87,9 +90,9 @@ useEffect(()=> {
                 </div>
 
                 <div className='clientes'>
-                    <div>
-                        <img onClick={abrirPopupClientes} id='clientes' src={Clientes} />
-                        <h2 onClick={abrirPopupClientes}>Clientes</h2>
+                    <div onClick={abrirPopupClientes}>
+                        <img  id='clientes' src={Clientes} />
+                        <h2 >Clientes</h2>
                     </div>
                     
 
@@ -98,7 +101,11 @@ useEffect(()=> {
                                 <h3 onClick={() => {navigate('/clienteDetalhes')}}>Detalhes Clientes</h3>
 
                                 <h4 onClick={() => {navigate('/favoritos')}}>Favoritos</h4>
-                                <img onClick={fecharPopUpClientes} src={Setapracima}/>
+                                <div onClick={fecharPopUpClientes}>
+                                    <img src={Setapracima}/>
+                                </div>
+
+                                
                                 
                         </div>
 

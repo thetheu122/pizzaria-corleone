@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { alteraritens, itenscarrinho, listarcarrinho, listarcarrinhoid, verificarcarrinho, buscarNomeDoProduto } from "../repository/carrinho.js";
+import { alteraritens, itenscarrinho, listarcarrinho, listarcarrinhoid, verificarcarrinho, buscarNomeDoProduto, listarProdutosDeUmCliente } from "../repository/carrinho.js";
 
 
 
@@ -127,18 +127,25 @@ endpoints.get('/corleone/produto/:produto', async (req, resp) => {
 
 
 
-
-  endpoints.get('/corleone/usuario/:id/produto/:nome', async (req,resp) => {
+  endpoints.get('/corleone/usuario/carrinho/verificar/:id/produto/:nome' , async (req,resp) =>{
     try {
-        const {id} = req.params
-        const r = await listarcarrinhoid(id)
+      const {id,nome} = req.params
+
+      const resposta = await listarProdutosDeUmCliente(id,nome)
+
+
+      if (resposta == '') {
+        resp.send(resposta);
+      }
+       else {
         
+        resp.send(resposta);
+      }
+  
     } catch (err) {
-        resp.status(500).send({
-            erro: err.message
-        })
+        resp.status(400).send({erro:err.message})
     }
-  })
+})
   
 
 

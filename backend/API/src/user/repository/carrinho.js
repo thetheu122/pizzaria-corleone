@@ -132,8 +132,8 @@ export async function buscarNomeDoProduto(nmProduto) {
     const comando = `
           SELECT 
              CASE
-                WHEN ds_carrinho = 0 THEN 'indisponível'
-                WHEN ds_carrinho = 1 THEN 'disponível'
+                WHEN ds_carrinho = 0 THEN false
+                WHEN ds_carrinho = 1 THEN true
               END AS carrinho,
              tb_carrinho.id_carrinho,
               tb_produto.nm_produto AS produto,
@@ -156,9 +156,13 @@ export async function buscarNomeDoProduto(nmProduto) {
 
 export async function listarProdutosDeUmCliente(id, nome) {
     let comando = `
-        SELECT
+            SELECT
+            CASE
+            WHEN ds_carrinho = 0 THEN false
+            WHEN ds_carrinho = 1 THEN true
+          END AS carrinho,
             c.nm_cliente AS nomecliente,
-            p.nm_produto AS nomeproduto
+            p.nm_produto AS produto
         FROM
             tb_cliente AS c
         JOIN
@@ -170,10 +174,12 @@ export async function listarProdutosDeUmCliente(id, nome) {
         ON
             carrinho.id_produto = p.id_produto
         WHERE
-            c.id_cliente = 3; 
+            c.id_cliente = ?
+        AND nm_produto like ?
         `
 
-        let TERMINAR = 'terminar'
+        const [resposta] = await con.query(comando, [id,`%${nome}%`])
+        return resposta;
 }
 
 
