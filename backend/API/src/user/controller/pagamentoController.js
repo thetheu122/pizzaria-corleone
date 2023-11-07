@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { inserirCartao, validarDadosCartao } from "../repository/pagamentoRepository.js";
+import { inserirCartao, validarDadosCartao, listarTodosCartoes, listarCartaoPorId } from "../repository/pagamentoRepository.js";
 
 const endpoints = Router()
 
@@ -18,6 +18,33 @@ endpoints.post('/cartao/inserir', async (req, resp) => {
     }
 
 })
+
+endpoints.get('/cartao/listar', async (req, resp) => {
+    try {
+        const cartoes = await listarTodosCartoes(); 
+
+        resp.status(200).send(cartoes);
+    } catch (error) {
+        resp.status(500).send('Erro interno do servidor');
+    }
+});
+
+
+
+endpoints.get('/cartao/listar/:id', async (req, resp) => {
+    try {
+        const id = req.params.id; 
+
+        const cartao = await listarCartaoPorId(id); 
+        if (cartao) {
+            resp.status(200).send(cartao); 
+        } else {
+            resp.status(404).send('Cartão não encontrado'); 
+        }
+    } catch (error) {
+        resp.status(500).send('Erro interno do servidor');
+    }
+});
 
 
 
