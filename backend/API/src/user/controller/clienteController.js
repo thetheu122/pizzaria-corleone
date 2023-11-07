@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, validarDados, listarid } from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -15,10 +15,6 @@ schema
     .has().not().spaces(true, 'A senha não pode conter espaços') //Sem espaços
     .has().symbols(1, 'A senha deve conter um caracter especial'); // Pelo menos um caractere especial
 
-//testes:
-//console.log(schema.validate(''));
-//console.log(schema.validate('@ 1', { details: true }));
-//console.log(schema.validate('', { list: true }));
 
 
 server.post('/cliente/senha/verificar', (req, resp) => {
@@ -104,6 +100,28 @@ server.post('/cliente/login', async (req, resp) => {
             throw new Error('Campo da senha vazio');
 
         let respo = await loginCliente(email, senha)
+
+        if (!respo)
+            throw new Error('Credenciais inválidas');
+
+
+        resp.status(200).send(respo)
+    } catch (err) {
+        resp.status(404).send({
+            erro: err.message
+        })
+    }
+});
+
+server.post('/cliente/login/google', async (req, resp) => {
+    try {
+
+        const { email } = req.query
+
+        if (!email)
+            throw new Error('Campo do email vazio');
+
+        let respo = await loginClienteGoogle(email)
 
         if (!respo)
             throw new Error('Credenciais inválidas');
