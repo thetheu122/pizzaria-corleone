@@ -2,7 +2,7 @@ import { con } from "../../conection.js";
 
 export async function itenscarrinho(itens) {
 
-const comando = `
+    const comando = `
 insert tb_carrinho
 (id_produto,
 id_cliente,
@@ -11,47 +11,47 @@ ds_qtd)
 values ( ? ,? , ? , ? )
 `;
 
-const [ resposta ] = await con.query(comando,[
-itens.produto,
-itens.cliente,
-itens.disponivel,
-itens.qtd
-]);
-itens.id = resposta.insertId
+    const [resposta] = await con.query(comando, [
+        itens.produto,
+        itens.cliente,
+        itens.disponivel,
+        itens.qtd
+    ]);
+    itens.id = resposta.insertId
 
-return itens
+    return itens
 
 
 }
 
-export async function alteraritens (itens) {
+export async function alteraritens(itens) {
 
-const comando = `
+    const comando = `
 update tb_carrinho
 set    ds_carrinho = ? ,
        ds_qtd      = ?
 where  id_carrinho = ? 
 
 `;
-    const [ resposta ] = await con.query(comando,[
-    itens.disponivel,
-    itens.qtd,
-    itens.idcarrinho
+    const [resposta] = await con.query(comando, [
+        itens.disponivel,
+        itens.qtd,
+        itens.idcarrinho
     ])
 
-    
+
     return resposta.affectedRows > 0
 }
 
 
 
-export async function listarcarrinho () {
+export async function listarcarrinho() {
 
-const comando = `
+    const comando = `
 select 
 case 
-when  ds_carrinho = 0 then 'indisponível'
-when  ds_carrinho = 1 then 'disponivel'
+when  ds_carrinho = 0 then false
+when  ds_carrinho = 1 then true
 end   as carrinho ,
 id_carrinho , 
 tb_produto.nm_produto as produto,
@@ -65,19 +65,19 @@ LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
 LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto;
 
 `;
-    const [ resposta ] = await con.query(comando)
-    return resposta 
+    const [resposta] = await con.query(comando)
+    return resposta
 }
 
 
 
-export async function listarcarrinhoid (id) {
+export async function listarcarrinhoid(id) {
 
     const comando = `
     select 
     case 
-    when  ds_carrinho = 0 then 'indisponível'
-    when  ds_carrinho = 1 then 'disponivel'
+    when  ds_carrinho = 0 then false
+    when  ds_carrinho = 1 then true
     end   as carrinho ,
     id_carrinho , 
     tb_produto.nm_produto as produto,
@@ -90,21 +90,20 @@ export async function listarcarrinhoid (id) {
     LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
     LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
     where tb_cliente.id_cliente = ?
-    and   tb_carrinho.ds_carrinho = true;
     
     `;
-        const [ resposta ] = await con.query(comando,[id])
-        return resposta 
-    }
+    const [resposta] = await con.query(comando, [id])
+    return resposta
+}
 
 
 
 
 
 
-    export async function verificarcarrinho (cliente,produto) {
+export async function verificarcarrinho(cliente, produto) {
 
-        const comando = `
+    const comando = `
         select 
         case 
         when  ds_carrinho = 0 then 'indisponível'
@@ -124,13 +123,13 @@ export async function listarcarrinhoid (id) {
         and   tb_produto.id_produto = ?
         
         `;
-            const [ resposta ] = await con.query(comando,[cliente,produto])
-            return resposta 
-        }
+    const [resposta] = await con.query(comando, [cliente, produto])
+    return resposta
+}
 
 
-        export async function buscarNomeDoProduto(nmProduto) {
-          const comando = `
+export async function buscarNomeDoProduto(nmProduto) {
+    const comando = `
           SELECT 
              CASE
                 WHEN ds_carrinho = 0 THEN 'indisponível'
@@ -148,14 +147,35 @@ export async function listarcarrinhoid (id) {
             LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
             WHERE tb_produto.nm_produto like ?;
           `;
-        
-          const [resposta] = await con.query(comando, ['%'+nmProduto+'%']);
-          return resposta;
-       }
 
-      
-      
-      
-        
-    
-    
+    const [resposta] = await con.query(comando, ['%' + nmProduto + '%']);
+    return resposta;
+}
+
+
+
+export async function listarProdutosDeUmCliente(id, nome) {
+    let comando = `
+        SELECT
+            c.nm_cliente AS nomecliente,
+            p.nm_produto AS nomeproduto
+        FROM
+            tb_cliente AS c
+        JOIN
+            tb_carrinho AS carrinho
+        ON
+            c.id_cliente = carrinho.id_cliente
+        JOIN
+            tb_produto AS p
+        ON
+            carrinho.id_produto = p.id_produto
+        WHERE
+            c.id_cliente = 3; 
+        `
+
+        let TERMINAR = 'terminar'
+}
+
+
+
+

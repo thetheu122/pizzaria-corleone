@@ -81,6 +81,8 @@ endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
     try {
       const {id} = req.params
       const resposta = await listarcarrinhoid(id)
+
+      
       resp.send(resposta)  
 
     } catch (err) {
@@ -122,7 +124,21 @@ endpoints.get('/corleone/produto/:produto', async (req, resp) => {
   });
 
 
- 
+
+
+
+
+  endpoints.get('/corleone/usuario/:id/produto/:nome', async (req,resp) => {
+    try {
+        const {id} = req.params
+        const r = await listarcarrinhoid(id)
+        
+    } catch (err) {
+        resp.status(500).send({
+            erro: err.message
+        })
+    }
+  })
   
 
 

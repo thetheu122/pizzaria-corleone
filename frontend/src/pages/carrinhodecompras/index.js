@@ -23,8 +23,8 @@ export default function Carrinhodecompras() {
     const [telaAtiva, setTelaAtiva] = useState('favoritos');
     const [buscarNome, setBuscarnome] = useState('')
     const [selecao, setSelecao] = useState('');
-    
-      
+
+
 
 
     const api = axios.create({
@@ -34,12 +34,14 @@ export default function Carrinhodecompras() {
     async function ListarCarrinho(idCliente) {
         const r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/listar/${idCliente}`);
         setTdscarrinhos(r.data);
+
     }
-    
-      
+
+
 
     async function ListarnomeCarrinho() {
         const r = await axios.get('http://localhost:5000/corleone/produto/' + buscarNome)
+        console.log(r)
         setTdscarrinhos(r.data)
 
     }
@@ -51,10 +53,10 @@ export default function Carrinhodecompras() {
             ListarCarrinho(id)
         }
     }, [buscarNome, id])
-    
 
- 
-      
+
+
+
 
 
 
@@ -136,30 +138,26 @@ export default function Carrinhodecompras() {
 
                             <tbody>
 
-                            {tdscarrinhos.map(item =>
-                            <tr className="cada-linha" key={item.id_carrinho}>
-                                <td><img src={`${api.getUri()}/${item.imagem}`} /></td>
-                                <td>{item.produto}</td>
-                                <td>
-                                    {item.carrinho === "disponível" ? (
-                                        <div className='tracinhos'></div>
-                                    ) : item.carrinho === "indisponível" ? (
-                                        <div className='removido'></div>
-                                    ) : (
-                                        <div className='tracinhos'></div>
-                                    )}
-                                </td>
-                                <td>
-                                    {item.carrinho === "disponivel" || item.carrinho === "disponível" ? (
-                                        <div className='adicionado'></div>
-                                    ) : item.carrinho === "indisponível" ? (
-                                        <div className='tracinhos'></div>
-                                    ) : (
-                                        <div className='tracinhos'></div>
-                                    )}
-                                </td>
-                            </tr>
-                        )}
+                                {tdscarrinhos.map(item =>
+                                    <tr className="cada-linha" key={item.id_carrinho}>
+                                        <td><img src={`${api.getUri()}/${item.imagem}`} alt={item.produto} /></td>
+                                        <td>{item.produto}</td>
+                                        <td>
+                                            {item.carrinho === 0 ? (
+                                                <div className='removido'></div>
+                                            ) : (
+                                                <div className='tracinhos'>--</div>
+                                            )}
+                                        </td>
+                                        <td>
+                                            {item.carrinho === 1 ? (
+                                                <div className='adicionado'></div>
+                                            ) : (
+                                                <div className='tracinhos'>--</div>
+                                            )}
+                                        </td>
+                                    </tr>
+                                )}
 
 
 
@@ -167,7 +165,7 @@ export default function Carrinhodecompras() {
                         </table>
                     </div>
 
-                    
+
 
 
 
