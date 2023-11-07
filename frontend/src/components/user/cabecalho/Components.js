@@ -54,7 +54,7 @@ export const Form = styled.div`
 
 export const Title = styled.h1`
  font-weight: bold;
- margin-botton: 10px;
+ margin-botton: 20px;
  font-family:lobster-two-regular;
  `;
 
@@ -102,6 +102,7 @@ export const Button = styled.button`
 export const GhostButton = styled(Button)`
  background-color: transparent;
  border-color: #ffffff;
+ margin-top: 20px;
  `;
 
 export const Anchor = styled.a`

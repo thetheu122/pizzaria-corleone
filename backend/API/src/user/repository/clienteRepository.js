@@ -55,6 +55,22 @@ export async function loginCliente(email, senha) {
     return resposta[0];
 };
 
+export async function loginClienteGoogle(email) {
+    let comando =
+        `
+        SELECT
+        tb_cliente.id_cliente    AS id,
+        tb_cliente.nm_cliente    AS nome,
+        tb_cliente.ds_email      AS email
+        FROM tb_cliente
+        WHERE ds_email = ?
+    `
+
+    const [resposta] = await con.query(comando, [email])
+
+    return resposta[0];
+};
+
 export async function infoCLiente(id) {
     let comando =
         `

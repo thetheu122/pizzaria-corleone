@@ -77,6 +77,7 @@ export default function CardProduto(props) {
 
     useEffect(() => {
         async function fetchData() {
+            console.log(id)
             try {
                 
                 if (usuario && usuario.id !== 0 && usuario.id !== null) {
@@ -104,6 +105,8 @@ useEffect(()=>{
 
     async function fetchData(){
         let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
+        
+    if (usuario != null) {
         let user = {
             "cliente":usuario.id,
             "produto":id
@@ -111,7 +114,9 @@ useEffect(()=>{
           
         let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
         setVerificar(r.data)  ;
+    }
     };
+
     fetchData();
 
 },[verificar])

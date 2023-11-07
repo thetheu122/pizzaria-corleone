@@ -219,7 +219,7 @@ export default function MyAccount() {
             {pagController ? <div className='baixoMinhaConta'>
                 <div className='esquerdaMinhaConta'>
                     <p>Conta</p>
-                    <input placeholder='Email' value={email} disabled={!edt} onChange={(e) => setEmail(e.target.value)} />
+                    <input placeholder='Email' value={email} disabled={true} onChange={(e) => setEmail(e.target.value)} />
 
                     <div className='senhaTelefone'>
                         <div className='senha'>
@@ -241,7 +241,7 @@ export default function MyAccount() {
                 </div>
 
                 <div className='direitaMinhaConta'>
-                    <input className='cpfzin' placeholder='CPF' value={cpf} disabled={!edt} onChange={(e => formatCpf(e.target.value))} />
+                    <input className='cpfzin' placeholder='CPF' value={cpf} disabled={true} onChange={(e => formatCpf(e.target.value))} />
 
                     <p>Logradouro</p>
                     <div className='metadinha'>
