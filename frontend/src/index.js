@@ -40,6 +40,7 @@ import Favoritos from './pages/favoritosAdm';
 import Teste from './pages/teste';
 
 import ClienteMaisdetalhe from './pages/ClienteAdmMaisdetalhe';
+import Cartaocliente from './pages/cartaoCliente';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -74,6 +75,7 @@ root.render(
         <Route path='/favoritos' element={<Favoritos />} />
         <Route path='/cadafavorito/cliente/:id' element={<CadaFavorito />} />
         <Route path='/clienteadmmaisdetalhe/:id' element={<ClienteMaisdetalhe />} />
+        <Route path='/cartao/:id' element={<Cartaocliente />} />
       </Routes>
     </BrowserRouter>
   </GoogleOAuthProvider>
