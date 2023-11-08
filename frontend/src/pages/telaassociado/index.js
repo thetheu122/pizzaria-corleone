@@ -1,10 +1,11 @@
 import './index.scss'
 import '../../assets/config/fonts-config.scss'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import storage from 'local-storage';
+import LoadingBar from 'react-top-loading-bar';
 
 export default function TelaAssociado() {
 
@@ -12,6 +13,8 @@ export default function TelaAssociado() {
   const [email, setemail] = useState('')
   const [senha, setsenha] = useState('')
   const [cnpj, setcpnj] = useState('')
+
+  const[carregando, setCarregando] = useState(false)
 
   const navigate = useNavigate()
 
@@ -21,11 +24,17 @@ export default function TelaAssociado() {
     }
   }, [])
 
+  
+  const ref = useRef()
 
   async function entrar() {
 
 
+
     try {
+
+      ref.current.continuousStart();
+      setCarregando(true)
 
       let associadoo = {
         nome: nome,
@@ -37,12 +46,16 @@ export default function TelaAssociado() {
       const response = await axios.put('http://localhost:5000/usuarioadm/login', associadoo)
       storage('adm-logado', associadoo)
       if (response.status === 200) {
-        toast.info("Login efetuado com sucesso");
+
+        setTimeout(() => {
+
         navigate('/cadastroproduto')
 
-      }
+      }, 2500) }
     }
     catch (error) {
+      ref.current.complete();
+      setCarregando(false)
 
       if (error.response) {
         alert(error.response.data.erro);
@@ -56,6 +69,7 @@ export default function TelaAssociado() {
 
   return (
     <div className="login-associado">
+       <LoadingBar color='#53220D' ref={ref}/>
 
       <div className='direitaaaaa'>
         <h2>Entrar na Conta Associada</h2>
@@ -76,12 +90,12 @@ export default function TelaAssociado() {
           </div>
 
           <div>
-            <input type='number' placeholder='CNPJ' value={cnpj} onChange={e => setcpnj(e.target.value)} />
+            <input type='text' placeholder='CNPJ' value={cnpj} onChange={e => setcpnj(e.target.value)} />
           </div>
         </div>
 
         <div className='final'>
-          <button onClick={() => entrar()}>Entrar</button>
+          <button onClick={() => entrar()} disabled={carregando}>Entrar</button>
           <p>Ao criar uma conta, você concorda com nossos<br /> <a href=''>Termos de Uso</a> e <a href=''>Políticas de Privacidade</a></p>
         </div>
 
