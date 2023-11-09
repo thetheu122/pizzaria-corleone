@@ -16,7 +16,7 @@ import Fechado from '../../../assets/images/pictures/olho-fechado.svg'
 export default function MyAccount() {
 
     //DADOS CARTÃO
-    const data = {
+    let data = {
         cvc: "",
         expiry: "",
         focus: "",
@@ -24,6 +24,7 @@ export default function MyAccount() {
         number: "",
     };
 
+    const [idCartao, setIdCartao] = useState(undefined)
     const [cardDetails, setCardDetails] = useState(data);
 
 
@@ -115,6 +116,39 @@ export default function MyAccount() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let request = await axios.get(`http://localhost:5000/cliente/cartao?request=${id}`)
+                request = request.data;
+                
+                if(request.idCartao){
+                    setIdCartao(request.idCartao)
+                }
+                else{
+                    setIdCartao(undefined)
+                }
+                
+    
+                if (request) {
+                    let dados = {
+                        cvc: request.cvv || "",
+                        expiry: request.validade || "",
+                        focus: "",
+                        name: request.nome || "",
+                        number: request.num || "",
+                    };
+                    setCardDetails(dados);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        fetchData();
+    }, [id]);
+    
+
     const alterarUser = async () => {
         try {
             if (!nome || !sobrenome) {
@@ -131,7 +165,7 @@ export default function MyAccount() {
                 telefone: telefone,
                 senha: senha,
                 cpf: cpf,
-                nascimento: dtnascimento,
+                dtnascimento: dtnascimento,
                 estado: uf,
                 cidade: cidade,
                 bairro: bairro,
@@ -143,6 +177,8 @@ export default function MyAccount() {
 
             let response = await axios.put(`http://localhost:5000/cliente/alterar?id=${data.id}`, newInfos)
 
+            cartaoCliente()
+
             data.nome = nomeCompleto
             data.email = email
             localStorage.setItem('usuario-logado', JSON.stringify(data));
@@ -153,6 +189,57 @@ export default function MyAccount() {
             toast.error(error.message)
         }
     };
+
+    const cartaoCliente = async () => {
+        try {
+            verificarCampos(cardDetails)
+
+            let infoCartao = {
+                num: cardDetails.number,
+                nome: cardDetails.name,
+                validade: cardDetails.expiry,
+                cvv: cardDetails.cvc,
+                id: id,
+                cartao: idCartao
+            }
+
+            alert(idCartao)
+
+            console.log(infoCartao)
+    
+            let response = await axios.post('http://localhost:5000/cliente/cartao', infoCartao)  
+
+        } catch (error) {
+            
+        }
+    }
+
+    const DeletarCartao = async () => {
+        try {
+            let response = await axios.delete(`http://localhost:5000/cliente/cartao?id=${idCartao}`)
+             
+            setCardDetails({
+                cvc: "",
+                expiry: "",
+                focus: "",
+                name: "",
+                number: "",
+            })   
+        } catch (error) {
+            
+        }
+        
+    }
+
+
+    const verificarCampos = (cardDetails) => {
+        if(!cardDetails.cvc || !cardDetails.expiry || !cardDetails.name || !cardDetails.number){
+            return "Campo(s) faltando"
+        }
+        else{
+            return cardDetails
+        }
+    }
 
 
     const formatCep = (value) => {
@@ -211,6 +298,26 @@ export default function MyAccount() {
         });
     };
 
+    const showConfirmationDialogCartao = () => {
+        confirmAlert({
+            customUI: ({ onClose }) => (
+                <div className="custom-confirm-dialog">
+                    <h1>Deletar Cartão de sua Conta</h1>
+                    <p>Ao selecionar "Sim", você confirmara e deletara seu cartão ativo.</p>
+                    <div>
+                        <button onClick={() => {
+                            DeletarCartao()
+                            onClose();
+                        }}>Sim</button>
+                        <button onClick={() => {
+                            onClose();
+                        }}>Não</button>
+                    </div>
+                </div>
+            ),
+        });
+    };
+
     return (
         <div className="minhaConta">
             <img className='logoCorleone' src={Logo} />
@@ -236,7 +343,7 @@ export default function MyAccount() {
                     <div className='dataNascimento' >
                         <input placeholder='Dia' value={dia} disabled={true} onChange={(e => setDia(e.target.value))} />
                         <input placeholder='Mês' value={mes} disabled={true} onChange={(e => setMes(e.target.value))} />
-                        <input placeholder='Ano' value={ano} disabled={true}  onChange={(e => setAno(e.target.value))} />
+                        <input placeholder='Ano' value={ano} disabled={true} onChange={(e => setAno(e.target.value))} />
                     </div>
                 </div>
 
@@ -276,7 +383,7 @@ export default function MyAccount() {
                                 onFocus={handleInputFocus}
                                 value={cardDetails.number}
                                 maxLength={16}
-                                className="no-spinners" 
+                                className="no-spinners"
                                 disabled={!edt}
                             />
                             <input
@@ -313,9 +420,11 @@ export default function MyAccount() {
                     </div>
                 </div>}
             <div className='duplada'>
+            {pagController ? null : <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button>}
                 {edt ?
                     <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
-                    : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>}
+                    : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
+                    }
                 <button className='butaumm' onClick={() => setPagController(!pagController)}>{pagController ? "Método de Pagamento" : "Dados Pessoais"}</button>
             </div>
             <ToastContainer />

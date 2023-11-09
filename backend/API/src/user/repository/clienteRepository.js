@@ -105,7 +105,6 @@ export async function listarCliente() {
     SELECT
     c.id_cliente        as idcliente,
     c.id_endereco       as endereco,
-    c.id_cartao         as cartao,
     c.nm_cliente        as cliente,
     c.ds_email          as email,
     c.ds_telefone       as telefone,
@@ -132,7 +131,6 @@ export async function listarNome(nome) {
         `
     SELECT
     c.id_endereco       as endereco,
-    c.id_cartao         as cartao,
     c.nm_cliente        as cliente,
     c.ds_email          as email,
     c.ds_telefone       as telefone,
@@ -162,7 +160,6 @@ export async function editarInfoClient(newInfos, id) {
     UPDATE tb_cliente c
         INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
         SET
-            c.id_cartao = null,
             c.nm_cliente = ?,
             c.ds_email = ?,
             c.ds_telefone = ?,
@@ -178,7 +175,7 @@ export async function editarInfoClient(newInfos, id) {
         WHERE c.id_cliente = ?;
     `
 
-    const [resposta] = await con.query(comando, [newInfos.nome, newInfos.email, newInfos.telefone, newInfos.senha, newInfos.cpf, newInfos.nascimento, newInfos.estado, newInfos.cidade, newInfos.bairro, newInfos.rua, newInfos.numero, newInfos.cep, id])
+    const [resposta] = await con.query(comando, [newInfos.nome, newInfos.email, newInfos.telefone, newInfos.senha, newInfos.cpf, newInfos.dtnascimento, newInfos.estado, newInfos.cidade, newInfos.bairro, newInfos.rua, newInfos.numero, newInfos.cep, id])
 
     return resposta
     console.log(resposta)
@@ -212,7 +209,6 @@ export async function listarid(id) {
         `
     SELECT
     c.id_endereco       as endereco,
-    c.id_cartao         as cartao,
     c.nm_cliente        as cliente,
     c.ds_email          as email,
     c.ds_telefone       as telefone,

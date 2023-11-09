@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validarDadosCartao, listarTodosCartoes, listarCartaoPorId, ListarCartaoCliente, AlterarCartao, CadastrarCartao } from "../repository/pagamentoRepository.js";
+import { validarDadosCartao, listarTodosCartoes, ExcluirCartao, listarCartaoPorId, ListarCartaoCliente, AlterarCartao, CadastrarCartao } from "../repository/pagamentoRepository.js";
 
 const endpoints = Router()
 
@@ -39,6 +39,7 @@ endpoints.post('/cliente/cartao', async (req, resp) => {
 
         if(request.cartao != null){
             let requestUpdate = await AlterarCartao(request)
+            
             resp.send(requestUpdate)
         }
         else{
@@ -62,6 +63,19 @@ endpoints.get('/cliente/cartao', async (req, resp) => {
         else{
             resp.status(404).send()
         }
+    } catch (err) {
+        resp.status(500).send(err.message);
+    }
+})
+
+endpoints.delete('/cliente/cartao', async (req, resp) => {
+    try {
+        let { id } = req.query;
+
+        let response = await ExcluirCartao(id)
+
+        resp.send(response)
+
     } catch (err) {
         resp.status(500).send(err.message);
     }
