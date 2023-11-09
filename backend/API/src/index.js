@@ -15,6 +15,7 @@ import usuario    from './admin/controller/usuariocontroler.js'
 import sugestao   from './admin/controller/sugestao.js'
 import cupom      from './admin/controller/cupom.js'
 import vendas     from './admin/controller/vendas.js'
+import Pedido     from './admin/controller/pedido.js'
 //  }
  
 
@@ -57,6 +58,7 @@ server.use(cupom)
 
 server.use(compra)
 server.use(vendas)
+server.use(Pedido)
 
 
 server.listen ( process.env.PORT , () =>{

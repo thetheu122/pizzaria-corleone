@@ -8,10 +8,11 @@ import axios from 'axios'
 import { confirmAlert } from 'react-confirm-alert';
 import { ToastContainer, toast, useToastContainer } from 'react-toastify'
 import { useEffect} from 'react'
+import { useParams } from 'react-router-dom';
 
 export default function Cartaocliente(){
 
-    const [id, setiD] = useState(0)
+    const { id } = useParams();
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [telefone, setTelefone] = useState('')
@@ -27,6 +28,7 @@ export default function Cartaocliente(){
     const [rua, setRua] = useState('')
     const [num, setNum] = useState('')
     const [cep, setCep] = useState('')
+    const [cartao, setCartao]=useState([])
 
     const data = {
         cvc: "",
@@ -110,6 +112,20 @@ export default function Cartaocliente(){
         });
     };
 
+
+//listar por id - cada cliente
+
+async function cartaoid(id){
+    const r= await axios.get(`http://localhost:5000/cartao/listar/${id}`)
+    setCartao(r.data)
+
+}
+
+useEffect(()=>{
+    cartaoid(id)
+}, id)
+
+
 return(
     <div className='pagina-cartao'>
          <CompAtalhosAdm />
@@ -123,6 +139,7 @@ return(
                     <h1>Cartão</h1>
                 </div>
 
+        
                 <div className='cartaoSide'>
                     <Cards
                         cvc={cardDetails.cvc}
@@ -132,6 +149,8 @@ return(
                         number={cardDetails.number}
                     />
                     <div>
+
+                        {cartao.map(item=>
                         <form className='formsCartao'>
                             <input
                                 type="number"
@@ -175,7 +194,9 @@ return(
                                 />
                             </div>
                         </form>
+                        )}
                     </div>
+                    
                 </div>
            
 
