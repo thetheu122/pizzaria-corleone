@@ -208,7 +208,7 @@ export default function ListarPedido() {
                                     <td>{item.nome}</td>
                                     <td>Cartão de crédito</td>
                                     <td>{item.produto}</td>
-                                    <td>{item.data}</td>
+                                    <td>{item.data.substr(0,10)}</td>
                                     <td className='status-entregue'></td>
                                     <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
                                 </tr>
