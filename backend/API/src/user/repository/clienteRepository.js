@@ -14,13 +14,12 @@ export async function inserirCliente(clientes) {
     }
 
     let comando = `
-    INSERT INTO tb_cliente (id_endereco, id_cartao, nm_cliente, ds_email, ds_telefone, ds_senha, ds_cpf, ds_nacimento)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO tb_cliente (id_endereco, nm_cliente, ds_email, ds_telefone, ds_senha, ds_cpf, ds_nacimento)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     `;
 
     const [resposta] = await con.query(comando, [
         clientes.endereco,
-        clientes.cartao,
         clientes.cliente,
         clientes.email,
         clientes.telefone,
@@ -76,7 +75,6 @@ export async function infoCLiente(id) {
         `
         SELECT
             c.id_endereco as endereco,
-            c.id_cartao         as cartao,
             c.nm_cliente        as cliente,
             c.ds_email          as email,
             c.ds_telefone       as telefone,

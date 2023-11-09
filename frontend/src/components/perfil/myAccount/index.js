@@ -231,12 +231,12 @@ export default function MyAccount() {
                     </div>
 
                     <p>Dados Pessoais</p>
-                    <input placeholder='Nome' value={nome} disabled={!edt} onChange={(e) => setNome(e.target.value)} />
-                    <input placeholder='Sobrenome' value={sobrenome} disabled={!edt} onChange={(e => setSobrenome(e.target.value))} />
+                    <input placeholder='Nome' value={nome} disabled={true} onChange={(e) => setNome(e.target.value)} />
+                    <input placeholder='Sobrenome' value={sobrenome} disabled={true} onChange={(e => setSobrenome(e.target.value))} />
                     <div className='dataNascimento' >
-                        <input placeholder='Dia' value={dia} disabled={!edt} onChange={(e => setDia(e.target.value))} />
-                        <input placeholder='Mês' value={mes} disabled={!edt} onChange={(e => setMes(e.target.value))} />
-                        <input placeholder='Ano' value={ano} disabled={!edt}  onChange={(e => setAno(e.target.value))} />
+                        <input placeholder='Dia' value={dia} disabled={true} onChange={(e => setDia(e.target.value))} />
+                        <input placeholder='Mês' value={mes} disabled={true} onChange={(e => setMes(e.target.value))} />
+                        <input placeholder='Ano' value={ano} disabled={true}  onChange={(e => setAno(e.target.value))} />
                     </div>
                 </div>
 

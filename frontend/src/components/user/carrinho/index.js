@@ -13,15 +13,21 @@ export default function Carrinho({ onClose }) {
   const [listarr, setListarr] = useState([]);
   const [mostrar, setMostrar] = useState(false);
   const [verificar , setVerificar] = useState([])
+  const [usuario, setUsuario] = useState(null)
 
-  let usuario = localStorage.getItem('usuario-logado');
-  usuario = JSON.parse(usuario)
+  
+  
 
   useEffect(() => {
  
     async function listar() {
-      
-        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id);
+      let us = localStorage.getItem('usuario-logado');
+      us = JSON.parse(us)
+      console.log(us)
+      if(us != null){
+        setUsuario(us)
+        
+        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+us.id);
         setListarr(response.data)
         if(listarr.length < 1){
           setMostrar(true)
@@ -29,7 +35,10 @@ export default function Carrinho({ onClose }) {
         else{
           setMostrar(false)
         }
-   
+      }
+      else{
+        setMostrar(true)
+      }
     }
 
     listar();

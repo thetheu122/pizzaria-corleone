@@ -86,7 +86,7 @@ export default function Cabecalho(props) {
 
       listar()
     }
-  }, [listarr]);
+  }, []);
 
   useEffect(() => {
     let usuario = localStorage.getItem('contiuacao-cadastro');
@@ -591,7 +591,7 @@ return (
                   Entre e aventuresse em nosso cardápio rico e inclusivo
                 </Components.Paragraph>
                 <div className='mmm'>
-                  <a className="social-icon">
+                  {/* <a className="social-icon">
                     <svg className="fab fa-google" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" color="#fff" viewBox="0 0 30 30">
                       <path d="M 15.003906 3 C 8.3749062 3 3 8.373 3 15 C 3 21.627 8.3749062 27 15.003906 27 C 25.013906 27 27.269078 17.707 26.330078 13 L 25 13 L 22.732422 13 L 15 13 L 15 17 L 22.738281 17 C 21.848702 20.448251 18.725955 23 15 23 C 10.582 23 7 19.418 7 15 C 7 10.582 10.582 7 15 7 C 17.009 7 18.839141 7.74575 20.244141 8.96875 L 23.085938 6.1289062 C 20.951937 4.1849063 18.116906 3 15.003906 3 z"></path>
                     </svg>
@@ -600,7 +600,7 @@ return (
                     <svg xmlns="http://www.w3.org/2000/svg" className="fab fa-facebook-fe" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50">
                       <path d="M32,11h5c0.552,0,1-0.448,1-1V3.263c0-0.524-0.403-0.96-0.925-0.997C35.484,2.153,32.376,2,30.141,2C24,2,20,5.68,20,12.368 V19h-7c-0.552,0-1,0.448-1,1v7c0,0.552,0.448,1,1,1h7v19c0,0.552,0.448,1,1,1h7c0.552,0,1-0.448,1-1V28h7.222 c0.51,0,0.938-0.383,0.994-0.89l0.778-7C38.06,19.518,37.596,19,37,19h-8v-5C29,12.343,30.343,11,32,11z"></path>
                     </svg>
-                  </a>
+                  </a> */}
                 </div>
                 <Components.GhostButton onClick={() => toggle(true)}>
                   Entrar

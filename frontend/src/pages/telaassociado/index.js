@@ -110,10 +110,10 @@ export default function TelaAssociado() {
 
             <p>Gerencie suas operações agora mesmo. </p>
 
-            <a href=''>Clicou errado?</a>
+            <a href='/'>Clicou errado?</a>
 
             <Link to='/' style={{ textDecoration: 'none', outline: 'none' }}>
-              <button>Voltar</button>
+              <button className='voltar'>Voltar</button>
             </Link>
           </div>
 
