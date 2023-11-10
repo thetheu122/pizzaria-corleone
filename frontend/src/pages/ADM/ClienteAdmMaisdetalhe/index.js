@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import CompAtalhosAdm from '../../components/compAtalhosAdm'
+import CompAtalhosAdm from '../../../components/compAtalhosAdm'
 import './index.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios, { Axios } from 'axios';
 import { useEffect } from 'react';
 
-import { API_URL } from '../../config/constants';
+import { API_URL } from '../../../config/constants';
 
 export default function ClienteMaisdetalhe() {
     const navigate = useNavigate()

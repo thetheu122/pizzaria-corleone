@@ -1,14 +1,14 @@
 import './index.scss'
-import CompAtalhosAdm from "../../components/compAtalhosAdm"
-import Lupa from '../../assets/images/pictures/lupa 1.png'
-import Carrinho from '../../assets/img/carrinho.png'
+import CompAtalhosAdm from "../../../components/compAtalhosAdm"
+import Lupa from '../../../assets/images/pictures/lupa 1.png'
+import Carrinho from '../../../assets/img/carrinho.png'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import React from 'react'
 import axios from 'axios'
-import Coracao from '../../assets/img/Union (1).png'
+import Coracao from '../../../assets/img/Union (1).png'
 
-import { API_URL } from '../../config/constants'
+import { API_URL } from '../../../config/constants'
 
 
 

@@ -1,10 +1,10 @@
-import CompAtalhosAdm from "../../components/compAtalhosAdm"
-import Lupa from '../../assets/images/pictures/lupa 1.png'
-import Setaesquerda from '../../assets/images/pictures/seta-preta 1.png'
-import SetaDireita from '../../assets/images/pictures/setadireita.png'
-import Deletar from '../../assets/images/pictures/deletar.png'
-import Editar from '../../assets/images/pictures/editar.png'
-import Setaprabaixo from '../../assets/images/pictures/setaprabaixo.png'
+import CompAtalhosAdm from "../../../components/compAtalhosAdm"
+import Lupa from '../../../assets/images/pictures/lupa 1.png'
+import Setaesquerda from '../../../assets/images/pictures/seta-preta 1.png'
+import SetaDireita from '../../../assets/images/pictures/setadireita.png'
+import Deletar from '../../../assets/images/pictures/deletar.png'
+import Editar from '../../../assets/images/pictures/editar.png'
+import Setaprabaixo from '../../../assets/images/pictures/setaprabaixo.png'
 import axios from "axios"
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,7 +16,7 @@ import React from "react"
 
 import './index.scss'
 
-import { API_URL } from "../../config/constants"
+import { API_URL } from "../../../config/constants"
 
 
 export default function ListarProdutosAdm() {

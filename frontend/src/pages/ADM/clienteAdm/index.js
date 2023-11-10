@@ -1,5 +1,5 @@
 import './index.scss'
-import CompAtalhosAdm from '../../components/compAtalhosAdm';
+import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { useState } from 'react';
 
 

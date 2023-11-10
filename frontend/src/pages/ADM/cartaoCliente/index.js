@@ -1,5 +1,5 @@
 import './index.scss'
-import CompAtalhosAdm from "../../components/compAtalhosAdm"
+import CompAtalhosAdm from "../../../components/compAtalhosAdm"
 import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import { useState } from 'react';
@@ -10,7 +10,7 @@ import { ToastContainer, toast, useToastContainer } from 'react-toastify'
 import { useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
-import { API_URL } from '../../config/constants';
+import { API_URL } from '../../../config/constants';
 
 export default function Cartaocliente(){
 

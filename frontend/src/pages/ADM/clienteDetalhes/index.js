@@ -1,11 +1,11 @@
 import './index.scss'
-import CompAtalhosAdm from '../../components/compAtalhosAdm';
+import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import {  useNavigate } from 'react-router-dom';
 
-import { API_URL } from '../../config/constants';
+import { API_URL } from '../../../config/constants';
 
 
 export default function ClienteDetalhe() {

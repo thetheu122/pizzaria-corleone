@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 
 import './index.scss'
-import CompAtalhosAdm from '../../components/compAtalhosAdm';
+import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal'
 import axios from 'axios'
 
 
 
-import { API_URL } from '../../config/constants';
+import { API_URL } from '../../../config/constants';
 
 Modal.setAppElement('#root')
 
 export default function ListarPedido() {
 
-    const [buscarid, setBuscarid] = useState('')
+    
 
     const navigate = useNavigate()
 
@@ -24,17 +24,23 @@ export default function ListarPedido() {
 
 
     ///<button className="modal-button" type="submit">Aplicar Filtros</button>
-
+    const [buscarid, setBuscarid] = useState('')
     const [filtro, setFiltro] = useState('')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [pedidos, setPedidos] = useState([])
+    const [buscarNome, setBuscarNome] = useState('')
+
 
 
     useEffect(() => {
-        ListarPedidos()
-    }, [])
+        if(buscarid.length > 0) {
+            ListarporNome()
+        }else {
+            ListarPedidos()
+        }
+    }, [buscarid])
 
     async function ListarPedidos() {
         const r = await axios.get(API_URL + '/pedido')
@@ -42,6 +48,11 @@ export default function ListarPedido() {
         setPedidos(r.data)
     }
 
+
+    async function ListarporNome() {
+        const r = await axios.get(`${API_URL}/pedido/nome/${buscarid}`)
+        setPedidos(r.data)
+    }
 
 
     function openModal() {
@@ -85,7 +96,7 @@ export default function ListarPedido() {
                         <div className="input-container">
                             <input
                                 type='text'
-                                placeholder='Busque por id ou nome do cliente'
+                                placeholder='Busque por id ou nome do pedido'
                                 value={buscarid}
                                 onChange={e => setBuscarid(e.target.value)}
                             />

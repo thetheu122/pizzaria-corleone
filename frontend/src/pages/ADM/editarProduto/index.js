@@ -4,12 +4,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react';
 import storage, { set } from 'local-storage';
-import CompAtalhosAdm from '../../components/compAtalhosAdm';
+import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { toast, ToastContainer}  from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useParams } from 'react-router-dom';
 
-import { API_URL } from '../../config/constants';
+import { API_URL } from '../../../config/constants';
 
 
 

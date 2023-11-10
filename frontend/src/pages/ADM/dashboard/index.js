@@ -1,9 +1,9 @@
 import './index.scss'
-import Banco from '../../assets/img/banco.png'
-import Dinheiro from '../../assets/img/money.png'
-import Caixa from '../../assets/img/caixa.png'
-import Desligado from '../../assets/img/on or off.png';
-import CompAtalhosAdm from '../../components/compAtalhosAdm'
+import Banco from '../../../assets/img/banco.png'
+import Dinheiro from '../../../assets/img/money.png'
+import Caixa from '../../../assets/img/caixa.png'
+import Desligado from '../../../assets/img/on or off.png';
+import CompAtalhosAdm from '../../../components/compAtalhosAdm'
 
 
 export default function Dashboard() {

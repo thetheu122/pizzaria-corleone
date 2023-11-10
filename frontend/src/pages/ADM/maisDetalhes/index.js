@@ -1,13 +1,13 @@
 
-import CompAtalhosAdm from '../../components/compAtalhosAdm'
-import Lupa from '../../assets/images/pictures/lupa 1.png'
-import SetaEsquerda from '../../assets/img/seta-esquerda.png'
+import CompAtalhosAdm from '../../../components/compAtalhosAdm'
+import Lupa from '../../../assets/images/pictures/lupa 1.png'
+import SetaEsquerda from '../../../assets/img/seta-esquerda.png'
 import { useEffect, useState } from 'react'
 import './index.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
-import { API_URL } from '../../config/constants'
+import { API_URL } from '../../../config/constants'
 
 
 export default function MaisDetalhes() {
@@ -80,11 +80,6 @@ export default function MaisDetalhes() {
                 <div className='conteudo-mais'>
 
                     <div className='parte-dos-filtros'>
-
-                        <div className="buscar-mais">
-                            <div><img src={Lupa} /></div>
-                            <input type="text" placeholder="Busque por ID " value={filtro} onChange={e => setFiltro(e.target.value)} />
-                        </div>
 
                         <div className='pedido-mais'>
                             <p>Pedido Entregue</p>

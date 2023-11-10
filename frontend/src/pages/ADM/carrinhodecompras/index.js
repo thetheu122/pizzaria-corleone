@@ -1,14 +1,14 @@
 import './index.scss'
 
-import CompAtalhosAdm from "../../components/compAtalhosAdm"
-import Lupa from '../../assets/images/pictures/lupa 1.png'
-import Coracao from '../../assets/img/coracao 2.png'
+import CompAtalhosAdm from "../../../components/compAtalhosAdm"
+import Lupa from '../../../assets/images/pictures/lupa 1.png'
+import Coracao from '../../../assets/img/coracao 2.png'
 
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
-import { API_URL } from '../../config/constants'
+import { API_URL } from '../../../config/constants'
 
 
 
@@ -34,7 +34,6 @@ export default function Carrinhodecompras() {
     async function ListarCarrinho(idCliente) {
         const r = await axios.get(`${API_URL}/corleone/usuario/carrinho/listar/${idCliente}`);
         setTdscarrinhos(r.data);
-
     }
 
 
