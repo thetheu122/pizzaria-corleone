@@ -21,6 +21,8 @@ import Cabecalho from '../cabecalho'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 
+import { API_URL } from '../../../config/constants'
+
 export default function CardProduto(props) {
 
     const [openModalCart, setOpenModalCart] = useState(false)
@@ -58,13 +60,13 @@ export default function CardProduto(props) {
 
         try {
 
-            const response = await axios.get('http://localhost:5000/corleone/sugestao/pizza/' + id)
+            const response = await axios.get(API_URL + '/corleone/sugestao/pizza/' + id)
             setSugestoes(response.data);
 
-            const resp = await axios.get('http://localhost:5000/corleone/sugestao/bebida/' + id)
+            const resp = await axios.get(API_URL + '/corleone/sugestao/bebida/' + id)
             setSugestoesBe(resp.data);
 
-            const resposta = await axios.get('http://localhost:5000/corleone/sugestao/sobremesa/' + id)
+            const resposta = await axios.get(API_URL + '/corleone/sugestao/sobremesa/' + id)
             setSugestoesSo(resposta.data)
 
         } catch (err) {
@@ -82,7 +84,7 @@ export default function CardProduto(props) {
                 
                 if (usuario && usuario.id !== 0 && usuario.id !== null) {
                     setIdc(usuario.id)
-                    let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
+                    let response = await axios.get(`${API_URL}/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
                     console.log(response.data)
                     setIdFav(response.data[0].idfavorito);
                     if (response.data[0].valor === 'false') {
@@ -112,7 +114,7 @@ useEffect(()=>{
             "produto":id
         }
           
-        let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+        let r = await axios.get(API_URL + `/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
         setVerificar(r.data)  ;
     }
     };
@@ -139,7 +141,7 @@ useEffect(()=>{
                             "qtd": qtd + 1,
                             "idcarrinho": idcarrinho
                         }
-                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
                         setOpenModalCart(false)        
                     }
                     else{
@@ -150,7 +152,7 @@ useEffect(()=>{
                             "qtd": 1,
                             "idcarrinho": idcarrinho
                         }
-                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
                         setOpenModalCart(false)
                     }
               }
@@ -163,7 +165,7 @@ useEffect(()=>{
                 "produto":id
             }
 
-            let r2 = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+            let r2 = await axios.get(`${API_URL}/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
             let verificar2 = r2.data
 
                 if(verificar2.length === 0 ){
@@ -175,7 +177,7 @@ useEffect(()=>{
                         "qtd":1
                        }
 
-                    let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+                    let resposne = await axios.post(API_URL + '/corleone/usuario/carrinho',user)
                     setOpenModalCart(false)
                 }       
          }
@@ -193,7 +195,7 @@ useEffect(()=>{
 
         const navigation = useNavigate()
 
-        const teste = 'http://localhost:5000/' + props.produto.imagem
+        const teste = API_URL + props.produto.imagem
 
 
     const favoritar = async () => {
@@ -209,7 +211,7 @@ useEffect(()=>{
                 }
          
 
-                const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
+                const response = await axios.post(API_URL + '/corleone/produtos/favoritos', dados)
 
                 setFavorito(true)
                 setIdFav(response.data.id)
@@ -220,7 +222,7 @@ useEffect(()=>{
                     id: idFav
                 }
 
-                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+                let response = await axios.put(API_URL + '/corleone/produtos/alterar/favoritos', dados)
 
                 setFavorito(true)
 
@@ -230,7 +232,7 @@ useEffect(()=>{
                     favorito: false,
                     id: idFav
                 }
-                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+                let response = await axios.put(API_URL + '/corleone/produtos/alterar/favoritos', dados)
                 setFavorito(false)
             }
 

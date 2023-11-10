@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 
+import { API_URL } from '../../../config/constants'
 export default function CardFavorito(props) {
 
     // id cliente
@@ -36,7 +37,7 @@ export default function CardFavorito(props) {
                 id: idFav
             }
 
-            let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+            let response = await axios.put(API_URL+'/corleone/produtos/alterar/favoritos', dados)
             setFavorito(false)
             window.location.reload(true);
         } catch (err) {

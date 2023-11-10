@@ -8,6 +8,8 @@ import axios from 'axios'
 
 
 
+import { API_URL } from '../../config/constants';
+
 Modal.setAppElement('#root')
 
 export default function ListarPedido() {
@@ -30,13 +32,12 @@ export default function ListarPedido() {
     const [pedidos, setPedidos] = useState([])
 
 
-
     useEffect(() => {
         ListarPedidos()
     }, [])
 
     async function ListarPedidos() {
-        const r = await axios.get('http://localhost:5000/pedido')
+        const r = await axios.get(API_URL + '/pedido')
         console.log(r.data)
         setPedidos(r.data)
     }
@@ -208,7 +209,7 @@ export default function ListarPedido() {
                                     <td>{item.nome}</td>
                                     <td>Cartão de crédito</td>
                                     <td>{item.produto}</td>
-                                    <td>{item.data.substr(0,10)}</td>
+                                    <td>{item.data.substr(0, 10)}</td>
                                     <td className='status-entregue'></td>
                                     <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
                                 </tr>

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import axios from 'axios'
 
-
+import { API_URL } from '../../config/constants'
 
 export default function Favoritos() {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function Favoritos() {
     const [selecao, setSelecao] = useState('');
 
     const api = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: API_URL
     })
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function Favoritos() {
     }, [])
 
     async function ListarFavoritos() {
-        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/listar/ranked`)
+        const r = await axios.get(`${API_URL}/corleone/produtos/favoritos/listar/ranked`)
         setTdsFavoritos(r.data)
     }
 

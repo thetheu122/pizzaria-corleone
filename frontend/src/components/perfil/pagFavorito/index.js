@@ -5,6 +5,8 @@ import carregando from '../../../assets/images/carregando.png'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
+import { API_URL } from '../../../config/constants'
+
 export default function PagFavorito() {
     //controlador se vai mostrar os card's ou expressar sua ausência
     const [mostrar, setMostrar] = useState(true)
@@ -16,7 +18,7 @@ export default function PagFavorito() {
     useEffect(() => {
         try {
             async function BuscarFavoritos() {
-                const response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${usuario.id}`);
+                const response = await axios.get(`${API_URL}/corleone/produtos/favoritos/usuario/${usuario.id}`);
                 console.log(response.data);
                 setProdutosFav(response.data);
             }

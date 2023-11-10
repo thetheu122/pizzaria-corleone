@@ -7,6 +7,7 @@ import './index.scss'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
+import { API_URL } from '../../config/constants'
 
 
 export default function MaisDetalhes() {
@@ -23,14 +24,14 @@ export default function MaisDetalhes() {
     }, [])
 
     async function PegarInfoPoduto() {
-        const r = await axios.get(`http://localhost:5000/produto`)
+        const r = await axios.get(`${API_URL}/produto`)
         const resp = r.data[0]
         console.log(resp)
         //setDetalhes(r.data)
     }
 
     async function PegarInfoCliente() {
-        const r = await axios.get(`http://localhost:5000/produto/listar/${idProduto}`)
+        const r = await axios.get(`${API_URL}/produto/listar/${idProduto}`)
         setDetalhes(r.data)
     }
 
@@ -39,7 +40,7 @@ export default function MaisDetalhes() {
     }
 
     async function PegarInfoEndereco() {
-        const r = await axios.get(`http://localhost:5000/produto/endereco`)
+        const r = await axios.get(`${API_URL}/produto/endereco`)
         setDetalhes(r.data)
     }
 

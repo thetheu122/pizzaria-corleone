@@ -8,6 +8,8 @@ import React from 'react'
 import axios from 'axios'
 import Coracao from '../../assets/img/Union (1).png'
 
+import { API_URL } from '../../config/constants'
+
 
 
 export default function CadaFavorito() {
@@ -22,7 +24,7 @@ export default function CadaFavorito() {
 
 
     const api = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: API_URL
     })
 
     useEffect(() => {
@@ -40,12 +42,12 @@ export default function CadaFavorito() {
 
 
     async function ListarFavoritos() {
-        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
+        const r = await axios.get(`${API_URL}/corleone/produtos/favoritos/usuario/${id}`)
         setTdsFavoritos(r.data)
     }
 
     async function mostrarNome() {
-        const r = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/usuario/${id}`)
+        const r = await axios.get(`${API_URL}/corleone/produtos/favoritos/usuario/${id}`)
         const resp = r.data[0]
         const resposta = resp.cliente
         console.log(resp)
@@ -56,7 +58,7 @@ export default function CadaFavorito() {
 
 
     async function ListarnomeFavoritos() {
-        const r = await axios.get('http://localhost:5000/corleone/produto/' + buscarNome)
+        const r = await axios.get(API_URL + '/corleone/produto/' + buscarNome)
         setTdsFavoritos(r.data)
 
     }

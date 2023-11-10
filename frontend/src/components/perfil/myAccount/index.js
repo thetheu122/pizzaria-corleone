@@ -12,6 +12,8 @@ import "react-credit-cards/es/styles-compiled.css";
 import Aberto from '../../../assets/images/pictures/olho-aberto.svg'
 import Fechado from '../../../assets/images/pictures/olho-fechado.svg'
 
+import { API_URL } from '../../../config/constants';
+
 
 export default function MyAccount() {
 
@@ -71,7 +73,7 @@ export default function MyAccount() {
                 let usuario = localStorage.getItem('usuario-logado');
                 usuario = JSON.parse(usuario);
                 setiD(usuario.id)
-                let rep = await axios.get(`http://localhost:5000/cliente/info?id=${usuario.id}`);
+                let rep = await axios.get(`${API_URL}/cliente/info?id=${usuario.id}`);
                 let response = rep.data
                 console.log(response)
                 setBairro(response.bairro)
@@ -119,7 +121,7 @@ export default function MyAccount() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                let request = await axios.get(`http://localhost:5000/cliente/cartao?request=${id}`)
+                let request = await axios.get(`${API_URL}/cliente/cartao?request=${id}`)
                 request = request.data;
                 
                 if(request.idCartao){
@@ -175,7 +177,7 @@ export default function MyAccount() {
             }
             const data = JSON.parse(localStorage.getItem('usuario-logado'));
 
-            let response = await axios.put(`http://localhost:5000/cliente/alterar?id=${data.id}`, newInfos)
+            let response = await axios.put(`${API_URL}/cliente/alterar?id=${data.id}`, newInfos)
 
             cartaoCliente()
 
@@ -207,7 +209,7 @@ export default function MyAccount() {
 
             console.log(infoCartao)
     
-            let response = await axios.post('http://localhost:5000/cliente/cartao', infoCartao)  
+            let response = await axios.post(API_URL+'/cliente/cartao', infoCartao)  
 
         } catch (error) {
             
@@ -216,7 +218,7 @@ export default function MyAccount() {
 
     const DeletarCartao = async () => {
         try {
-            let response = await axios.delete(`http://localhost:5000/cliente/cartao?id=${idCartao}`)
+            let response = await axios.delete(`${API_URL}/cliente/cartao?id=${idCartao}`)
              
             setCardDetails({
                 cvc: "",

@@ -6,6 +6,8 @@ import CompAtalhosAdm from '../../components/compAtalhosAdm';
 import { useNavigate } from 'react-router-dom';
 import storage from 'local-storage';
 
+import { API_URL } from '../../config/constants';
+
 
 export default function Cadastro() {
     const [nome, setnome] = useState('')
@@ -48,13 +50,13 @@ export default function Cadastro() {
       
 
 
-      const respCadastro = await axios.post('http://localhost:5000/produto', cadastrar);
+      const respCadastro = await axios.post(API_URL + '/produto', cadastrar);
       const productId = respCadastro.data.id;
 
       //alert(productId)
 
 
-      const respImagem = await axios.post(`http://localhost:5000/produto/${productId}/capa`, formData);
+      const respImagem = await axios.post(`${API_URL}/produto/${productId}/capa`, formData);
       console.log(respImagem)
 
 
@@ -69,7 +71,7 @@ export default function Cadastro() {
       alert(JSON.stringify(restricaoData));
       
      
-      const resprestricao = await axios.post('http://localhost:5000/restricao', restricaoData);
+      const resprestricao = await axios.post(API_URL + '/restricao', restricaoData);
       
     
 

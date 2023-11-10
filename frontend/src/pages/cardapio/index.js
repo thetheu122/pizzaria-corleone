@@ -16,6 +16,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
+import { API_URL } from '../../config/constants'
+
 export default function Cardapio() {
 
     const location = useLocation();
@@ -159,7 +161,7 @@ export default function Cardapio() {
         restricao_3 = restricao_3 ? restricao_3 : '%'
 
         // Execute a chamada à API
-        let response = await axios.get(`http://129.148.42.252:3013/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&restricao_3=${restricao_3}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`);
+        let response = await axios.get(`${API_URL}/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&restricao_3=${restricao_3}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`);
 
         response = response.data
 

@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 import storage from 'local-storage';
 import LoadingBar from 'react-top-loading-bar';
 
+import { API_URL } from '../../config/constants';
+
 export default function TelaAssociado() {
 
   const [nome, setnome] = useState('')
@@ -43,7 +45,7 @@ export default function TelaAssociado() {
         cnpj: cnpj
       }
 
-      const response = await axios.put('http://localhost:5000/usuarioadm/login', associadoo)
+      const response = await axios.put(API_URL + '/usuarioadm/login', associadoo)
       storage('adm-logado', associadoo)
       if (response.status === 200) {
 

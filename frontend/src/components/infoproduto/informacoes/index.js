@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_URL } from '../../../config/constants';
 
 export default function Informacoes(props) {
 
@@ -59,7 +60,7 @@ export default function Informacoes(props) {
                     "cliente": usuario.id,
                     "produto": id
                 }
-                let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+                let r = await axios.get(`${API_URL}/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
                 setVerificar(r.data);
             }
         };
@@ -85,7 +86,7 @@ export default function Informacoes(props) {
                         "qtd": qtd + 1,
                         "idcarrinho": idcarrinho
                     }
-                    let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar', user)
+                    let respo = await axios.put(API_URL+'/corleone/usuario/carrinho/editar', user)
 
                 }
                 else {
@@ -96,7 +97,7 @@ export default function Informacoes(props) {
                         "qtd": 1,
                         "idcarrinho": idcarrinho
                     }
-                    let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar', user)
+                    let respo = await axios.put(API_URL+'/corleone/usuario/carrinho/editar', user)
 
                 }
             }
@@ -109,7 +110,7 @@ export default function Informacoes(props) {
                     "produto": id
                 }
 
-                let r2 = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+                let r2 = await axios.get(`${API_URL}/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
                 let verificar2 = r2.data
 
                 if (verificar2.length === 0) {
@@ -121,7 +122,7 @@ export default function Informacoes(props) {
                         "qtd": 1
                     }
 
-                    let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho', user)
+                    let resposne = await axios.post(API_URL+'/corleone/usuario/carrinho', user)
 
                 }
             }
@@ -189,7 +190,7 @@ export default function Informacoes(props) {
 
     useEffect(() => {
         async function listar() {
-            const response = await axios.get('http://localhost:5000/produto/listar/' + id);
+            const response = await axios.get(API_URL +'/produto/listar/' + id);
             setProduto(response.data);
         }
 
@@ -202,7 +203,7 @@ export default function Informacoes(props) {
                 let usuario = JSON.parse(localStorage.getItem('usuario-logado'));
                 if (usuario && usuario.id !== 0 && usuario.id !== null) {
                     setIdc(usuario.id)
-                    let response = await axios.get(`http://localhost:5000/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
+                    let response = await axios.get(API_URL + `/corleone/produtos/favoritos/verificar?produto=${id}&cliente=${usuario.id}`);
                     setIdFav(response.data[0].id_favorito);
                     if (response.data[0].valor === 'false') {
                         setFavorito(false);
@@ -224,7 +225,7 @@ export default function Informacoes(props) {
 
     async function comentario() {
 
-        const respo = await axios.get('http://localhost:5000/listar/comentario/' + id);
+        const respo = await axios.get(API_URL+'/listar/comentario/' + id);
         if (respo.data == '') {
             setVizu(false)
         }
@@ -252,7 +253,7 @@ export default function Informacoes(props) {
                     favorito: true
                 }
 
-                const response = await axios.post('http://localhost:5000/corleone/produtos/favoritos', dados)
+                const response = await axios.post(API_URL+'/corleone/produtos/favoritos', dados)
 
                 setFavorito(true)
             }
@@ -261,7 +262,7 @@ export default function Informacoes(props) {
                     favorito: true,
                     id: idFav
                 }
-                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+                let response = await axios.put(API_URL+'/corleone/produtos/alterar/favoritos', dados)
 
                 setFavorito(true)
 
@@ -271,7 +272,7 @@ export default function Informacoes(props) {
                     favorito: false,
                     id: idFav
                 }
-                let response = await axios.put('http://localhost:5000/corleone/produtos/alterar/favoritos', dados)
+                let response = await axios.put(API_URL+'/corleone/produtos/alterar/favoritos', dados)
                 setFavorito(false)
             }
 
@@ -304,7 +305,7 @@ export default function Informacoes(props) {
 
 
             if (comentarioo.length > 0) {
-                const resp = await axios.put('http://localhost:5000/media/' + id, media)
+                const resp = await axios.put(API_URL+'/media/' + id, media)
                 toast.error(resp.data.err)
                 console.log('1media:' + media.media)
             }
@@ -314,7 +315,7 @@ export default function Informacoes(props) {
                     media: media.media,
                 };
 
-                const resp = await axios.post('http://localhost:5000/media', valor);
+                const resp = await axios.post(API_URL+'/media', valor);
                 toast.error(resp.data.error);
                 console.log('2media:' + media)
 
@@ -391,7 +392,7 @@ export default function Informacoes(props) {
                         toast.error('É necessario avaliar o comentario ')
                     }
                     else {
-                        const resp = await axios.post('http://localhost:5000/comentario', comen);
+                        const resp = await axios.post(API_URL+'/comentario', comen);
                         setDigitado('');
                         setEstrela1(true)
                         setEstrela2(true)
