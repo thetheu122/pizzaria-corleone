@@ -16,6 +16,8 @@ import React from "react"
 
 import './index.scss'
 
+import { API_URL } from "../../config/constants"
+
 
 export default function ListarProdutosAdm() {
 
@@ -64,23 +66,23 @@ export default function ListarProdutosAdm() {
 
     //BUSCAR OU LISTAR OS PRODUTOS
     async function buscarProdutos() {
-        const resposta = await axios.get('http://localhost:5000/produto/' + filtro)
+        const resposta = await axios.get(API_URL + '/produto/' + filtro)
         setProdutos(resposta.data)
     }
 
     async function Listando() {
-        const r = await axios.get('http://localhost:5000/produto')
+        const r = await axios.get(API_URL + '/produto')
         console.log(r.data)
         setProdutos(r.data)
     }
 
     async function buscarPorTipo() {
-        const resposta = await axios.get(`http://localhost:5000/produto/tipos/${tipos}`)
+        const resposta = await axios.get(`${API_URL}/produto/tipos/${tipos}`)
         setProdutos(resposta.data)
     }
 
     async function buscarPorRestricao() {
-        const resposta = await axios.get(`http://localhost:5000/produto/restricoes/${restricoes}`)
+        const resposta = await axios.get(`${API_URL}/produto/restricoes/${restricoes}`)
         setProdutos(resposta.data)
     }
 
@@ -90,7 +92,7 @@ export default function ListarProdutosAdm() {
     //DELETAR UM PRODUTO
     async function apagarProduto(id) {
         try {
-            const r = await axios.get('http://localhost:5000/produto');
+            const r = await axios.get(API_URL + '/produto');
 
 
             const produto = r.data.find(item => item.ID === id);
@@ -112,9 +114,9 @@ export default function ListarProdutosAdm() {
                             onClick: async () => {
                                 if (!filtro) {
                                     try {
-                                        const respostaImagem = await axios.delete(`http://localhost:5000/imagem/deletar/${imagemid}`);
-                                        const respostaRestricao = await axios.delete(`http://localhost:5000/restricao/${restricaoId}`);
-                                        const respostaProduto = await axios.delete(`http://localhost:5000/produto/${id}`);
+                                        const respostaImagem = await axios.delete(`${API_URL}/imagem/deletar/${imagemid}`);
+                                        const respostaRestricao = await axios.delete(`${API_URL}/restricao/${restricaoId}`);
+                                        const respostaProduto = await axios.delete(`${API_URL}/produto/${id}`);
                                         alert('Produto removido');
                                         Listando();
                                     } catch (err) {
@@ -124,9 +126,9 @@ export default function ListarProdutosAdm() {
 
                                 else if (filtro) {
                                     try {
-                                        const respostaImagem = await axios.delete(`http://localhost:5000/imagem/deletar/${imagemid}`);
-                                        const respostaRestricao = await axios.delete(`http://localhost:5000/restricao/${restricaoId}`);
-                                        const respostaProduto = await axios.delete(`http://localhost:5000/produto/${id}`);
+                                        const respostaImagem = await axios.delete(`${API_URL}/imagem/deletar/${imagemid}`);
+                                        const respostaRestricao = await axios.delete(`${API_URL}/restricao/${restricaoId}`);
+                                        const respostaProduto = await axios.delete(`${API_URL}/produto/${id}`);
                                         alert('Produto removido');
                                         buscarProdutos();
                                     } catch (err) {
@@ -187,7 +189,7 @@ export default function ListarProdutosAdm() {
     //NÃO REPETIR PRODUTOS
 /*
     async function NaoRepetir() {
-        const r = await axios.get(`http://localhost:5000/produto`)
+        const r = await axios.get(`${API_URL}/produto`)
         const resp = r.data
 
 

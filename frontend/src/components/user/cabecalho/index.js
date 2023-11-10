@@ -25,6 +25,8 @@ import SetaEsquerda from '../../../assets/img/seta-preta 1.png';
 import Informacoes from '../../infoproduto/informacoes';
 import storage from 'local-storage';
 
+import { API_URL } from '../../../config/constants';
+
 
 export default function Cabecalho(props) {
   const [isLogged, setIsLogged] = useState(false)
@@ -73,7 +75,7 @@ export default function Cabecalho(props) {
 
     async function listar() {
 
-      const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/' + usuario.id);
+      const response = await axios.get(API_URL+'/corleone/usuario/carrinho/listar/' + usuario.id);
       setListarr(response.data)
 
     }
@@ -299,7 +301,7 @@ export default function Cabecalho(props) {
           senha: senhaLogin
         }
 
-        let response = await axios.post(`http://localhost:5000/cliente/login`, logi)
+        let response = await axios.post(API_URL+`/cliente/login`, logi)
         storage('usuario-logado', response.data)
         setIdUsuario(response.data.id)
         setIsLogged(true)
@@ -326,7 +328,7 @@ export default function Cabecalho(props) {
 
   const loginGoogle = async (credentialResponseDecoded) => {
     try {
-      let response = await axios.post(`http://localhost:5000/cliente/login/google?email=${credentialResponseDecoded.email}`)
+      let response = await axios.post(`${API_URL}/cliente/login/google?email=${credentialResponseDecoded.email}`)
       storage('usuario-logado', response.data)
       setIdUsuario(response.data.id)
       setIsLogged(true)
@@ -370,7 +372,7 @@ const addCliente = async () => {
 
 
 
-      let responseEn = await axios.post('http://localhost:5000/endereco/cadastro', requestEn);
+      let responseEn = await axios.post(API_URL + '/endereco/cadastro', requestEn);
 
       let nascimento = `${dia}/${mes}/${ano}`;
 
@@ -384,7 +386,7 @@ const addCliente = async () => {
         nascimento: nascimento
       }
 
-      let responseCl = await axios.post('http://localhost:5000/cliente/cadastro', requestCl);
+      let responseCl = await axios.post(API_URL + '/cliente/cadastro', requestCl);
 
       if (responseCl.status !== 200) {
         toast.error(
@@ -486,7 +488,7 @@ const CadastrarEndereco = async () => {
 
     })
 
-    const resp = await axios.post('http://localhost:5000/endereco/cadastro', endereco)
+    const resp = await axios.post(API_URL + '/endereco/cadastro', endereco)
 
 
   } catch (err) {

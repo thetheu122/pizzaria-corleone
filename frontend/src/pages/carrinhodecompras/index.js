@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
-
+import { API_URL } from '../../config/constants'
 
 
 
@@ -28,11 +28,11 @@ export default function Carrinhodecompras() {
 
 
     const api = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: API_URL
     })
 
     async function ListarCarrinho(idCliente) {
-        const r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/listar/${idCliente}`);
+        const r = await axios.get(`${API_URL}/corleone/usuario/carrinho/listar/${idCliente}`);
         setTdscarrinhos(r.data);
 
     }
@@ -53,7 +53,7 @@ export default function Carrinhodecompras() {
     console.log(id)
 
     async function ListarnomeCarrinho() {
-        const r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${id}/produto/${buscarNome}`)
+        const r = await axios.get(`${API_URL}/corleone/usuario/carrinho/verificar/${id}/produto/${buscarNome}`)
         const resp = r.data
         console.log(resp)
         setTdscarrinhos(r.data)

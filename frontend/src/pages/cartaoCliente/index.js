@@ -10,6 +10,8 @@ import { ToastContainer, toast, useToastContainer } from 'react-toastify'
 import { useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
+import { API_URL } from '../../config/constants';
+
 export default function Cartaocliente(){
 
     const { id } = useParams();
@@ -79,7 +81,7 @@ export default function Cartaocliente(){
             }
             const data = JSON.parse(localStorage.getItem('usuario-logado'));
 
-            let response = await axios.put(`http://localhost:5000/cliente/alterar?id=${data.id}`, newInfos)
+            let response = await axios.put(`${API_URL}/cliente/alterar?id=${data.id}`, newInfos)
 
             data.nome = nomeCompleto
             data.email = email
@@ -116,7 +118,7 @@ export default function Cartaocliente(){
 //listar por id - cada cliente
 
 async function cartaoid(id){
-    const r= await axios.get(`http://localhost:5000/cartao/listar/${id}`)
+    const r= await axios.get(`${API_URL}/cartao/listar/${id}`)
     setCartao(r.data)
 
 }

@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios, { Axios } from 'axios';
 import { useEffect } from 'react';
 
+import { API_URL } from '../../config/constants';
+
 export default function ClienteMaisdetalhe() {
     const navigate = useNavigate()
     const { id } = useParams();
@@ -15,14 +17,14 @@ export default function ClienteMaisdetalhe() {
     const [cartao, setcartao] = useState([])
 
     async function Listarcliente() {
-        const r = await axios.get('http://localhost:5000/clientes')
+        const r = await axios.get(API_URL + '/clientes')
         setCliente(r.data)
 
     }
 
     async function fetchClienteDetails() {
         try {
-            const response = await axios.get(`http://localhost:5000/clientes/${id}`);
+            const response = await axios.get(`${API_URL}/clientes/${id}`);
             setCliente(response.data);
         } catch (error) {
             console.error('Erro ao buscar detalhes do cliente', error);
@@ -32,7 +34,7 @@ export default function ClienteMaisdetalhe() {
 
     async function fetchFavoritosCliente() {
         try {
-            const response = await axios.get(`http://localhost:5000/cadafavorito/cliente/${id}`);
+            const response = await axios.get(`${API_URL}/cadafavorito/cliente/${id}`);
             setFavoritos(response.data);
         } catch (error) {
             console.error('Erro ao buscar favoritos do cliente', error);
@@ -41,7 +43,7 @@ export default function ClienteMaisdetalhe() {
 
     async function fetchCarrinhoCliente(id) {
         try {
-            const response = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/listar/${id}`);
+            const response = await axios.get(`${API_URL}/corleone/usuario/carrinho/listar/${id}`);
             setCarrinho(response.data);
         } catch (error) {
             console.error('Erro ao buscar detalhes do carrinho do cliente', error);
@@ -50,7 +52,7 @@ export default function ClienteMaisdetalhe() {
 
     async function cartaocliente(id) {
         try {
-            const response = await axios.get(`http://localhost:5000/cartao/listar/${id}`);
+            const response = await axios.get(`${API_URL}/cartao/listar/${id}`);
             setcartao(response.data);
         } catch (error) {
             console.log('erro no cartão', error)
@@ -85,7 +87,7 @@ export default function ClienteMaisdetalhe() {
 
         async function fetchClienteDetails() {
             try {
-                const response = await axios.get(`http://localhost:5000/clientes/${id}`);
+                const response = await axios.get(`${API_URL}/clientes/${id}`);
                 setCliente(response.data);
             } catch (error) {
                 console.error('Erro ao buscar detalhes do cliente', error);

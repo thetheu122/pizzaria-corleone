@@ -3,6 +3,8 @@ import imagemproduto from '../../../assets/images/pictures/soso.png'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
+import { API_URL } from '../../../config/constants'
+
 export default  function ProdutoCompra(props){
 
 const [qtd, setQtd] = useState(0)
@@ -17,7 +19,7 @@ const [qtd, setQtd] = useState(0)
             "idcarrinho":id
         }
         console.log('id:' +id)
-        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
     }
 
  async function atualizar () {
@@ -32,7 +34,7 @@ const [qtd, setQtd] = useState(0)
     }
 
   
-    let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)    
+    let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)    
     
  
  }
@@ -50,7 +52,7 @@ const [qtd, setQtd] = useState(0)
             "idcarrinho":id
         }
 
-        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user) 
+        let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user) 
 
         } 
     else{
@@ -63,7 +65,7 @@ const [qtd, setQtd] = useState(0)
                 "idcarrinho":id
             }
 
-        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user) 
+        let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user) 
     }  
 }
     

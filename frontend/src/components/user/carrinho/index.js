@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import { API_URL } from '../../../config/constants';
+
 export default function Carrinho({ onClose }) {
    
   const [listarr, setListarr] = useState([]);
@@ -27,7 +29,7 @@ export default function Carrinho({ onClose }) {
       if(us != null){
         setUsuario(us)
         
-        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+us.id);
+        const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/'+us.id);
         setListarr(response.data)
         if(listarr.length < 1){
           setMostrar(true)
@@ -47,7 +49,7 @@ export default function Carrinho({ onClose }) {
 
 // useEffect ( async()=>{
     
-//       const r = await axios.get(`http://localhost:5000/corleone/pedido/cliente/${usuario}`)   
+//       const r = await axios.get(`${API_URL}/corleone/pedido/cliente/${usuario}`)   
 //       setVerificar(r.data)
 
 // },[])
@@ -69,7 +71,7 @@ export default function Carrinho({ onClose }) {
 
 //     try {
       
-//       const response = await axios.post("http://localhost:5000/corleone/pedido/produto")
+//       const response = await axios.post(API_URL + "/corleone/pedido/produto")
       
 //     } catch (error) {
 //       toast.error(error.message)

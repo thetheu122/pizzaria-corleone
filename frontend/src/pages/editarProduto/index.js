@@ -9,6 +9,8 @@ import { toast, ToastContainer}  from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useParams } from 'react-router-dom';
 
+import { API_URL } from '../../config/constants';
+
 
 
 export default function EditarProduto() {
@@ -42,7 +44,7 @@ export default function EditarProduto() {
 
 
     const api = axios.create({
-        baseURL: 'http://localhost:5000'
+        baseURL: API_URL
     })
 
 
@@ -76,7 +78,7 @@ export default function EditarProduto() {
 
 
     async function MostrarInfo() {
-        const r = await axios.get(`http://localhost:5000/produto/listar/${id}`)
+        const r = await axios.get(`${API_URL}/produto/listar/${id}`)
         const resp = r.data[0]
         setnome(resp.nome)
         settipo(resp.tipo)
@@ -125,7 +127,7 @@ export default function EditarProduto() {
 
 
     async function alterar() {
-        const resposta = await axios.get('http://localhost:5000/produto/listar/' + id)
+        const resposta = await axios.get(API_URL + '/produto/listar/' + id)
         const r = resposta.data[0]
         const resp = r.idrestricao
         setIdrestricao(resp)
@@ -134,7 +136,7 @@ export default function EditarProduto() {
 
 
     async function alteraridImagem() {
-        const resposta = await axios.get('http://localhost:5000/produto/listar/' + id)
+        const resposta = await axios.get(API_URL + '/produto/listar/' + id)
         const r = resposta.data[0]
         const resp = r.idimagem
         setIdImagem(resp)
@@ -142,7 +144,7 @@ export default function EditarProduto() {
 
 
     async function alterarTipo() {
-        const resposta = await axios.get(`http://localhost:5000/produto/listar/${id}`)
+        const resposta = await axios.get(`${API_URL}/produto/listar/${id}`)
         const r = resposta.data[0]
         const resp = r.idtipo
         setIdTipo(resp)
@@ -172,13 +174,13 @@ export default function EditarProduto() {
 
            // alert(idproduto);
 
-            const imagemTorV = await axios.get('http://localhost:5000/produto/listar/' + idproduto)
+            const imagemTorV = await axios.get(API_URL + '/produto/listar/' + idproduto)
             const result = imagemTorV.data[0]
             const r = result.imagem
 
 
             if (!r) {
-                const r = await axios.post(`http://localhost:5000/produto/${idproduto}/capa`, formData, {
+                const r = await axios.post(`${API_URL}/produto/${idproduto}/capa`, formData, {
                     headers: {
                         "Content-type": "multipart/form-data"
                     },
@@ -186,7 +188,7 @@ export default function EditarProduto() {
             }
 
             else {
-                const r = await axios.put(`http://localhost:5000/produto/${idproduto}/imagem`, formData, {
+                const r = await axios.put(`${API_URL}/produto/${idproduto}/imagem`, formData, {
                     headers: {
                         "Content-type": "multipart/form-data"
                     },
@@ -217,14 +219,14 @@ export default function EditarProduto() {
                     produto: idproduto,
                     restricao: restricao
                 }
-                const respo = await axios.post('http://localhost:5000/restricao', novarestricao)
+                const respo = await axios.post(API_URL + '/restricao', novarestricao)
             }
 
             else if (restricao.length > 1) {
                 alert('Apenas uma restrição pode ser cadastrada')
             }
             else {
-                const respRestricao = await axios.put(`http://localhost:5000/restricao/alterar/${idrestricao}`, alterarRestricao)
+                const respRestricao = await axios.put(`${API_URL}/restricao/alterar/${idrestricao}`, alterarRestricao)
             }
 
 
@@ -243,7 +245,7 @@ export default function EditarProduto() {
 
             alert(JSON.stringify(produto));
 
-            const resposta = await axios.put(`http://localhost:5000/produto/editar/${idproduto}`, produto)
+            const resposta = await axios.put(`${API_URL}/produto/editar/${idproduto}`, produto)
 
 
             if (resposta.status === 200) {

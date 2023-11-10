@@ -6,6 +6,8 @@ import Coracao from '../../../assets/images/icons/coracao_icon.svg'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
+import { API_URL } from '../../../config/constants'
+
 export default function CardCarrinho(props) {
 
     
@@ -19,7 +21,7 @@ export default function CardCarrinho(props) {
             "idcarrinho":id
         }
         console.log('id:' +id)
-        let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
        // window.location.reload()
     }
 
@@ -36,7 +38,7 @@ export default function CardCarrinho(props) {
             "idcarrinho": idcarrinho
         }
 
-        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+        let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
 
     } catch (err) {
         toast.error(err.message)
@@ -59,7 +61,7 @@ export default function CardCarrinho(props) {
                 "qtd": qtd - 1,
                 "idcarrinho": idcarrinho
             }
-            let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+            let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
              }
             if( quant == 1 || quant < 1){
                 let id = props.produto.id
@@ -71,7 +73,7 @@ export default function CardCarrinho(props) {
                     "idcarrinho":id
                 }
 
-                let respo = axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
             }
         
         } catch (err) {

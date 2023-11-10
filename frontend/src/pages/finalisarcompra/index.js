@@ -7,6 +7,8 @@ import { useFetcher } from 'react-router-dom'
 import { useEffect } from 'react'
 import axios from 'axios'
 
+import { API_URL } from '../../config/constants'
+
 
 export default function Finalizarcadastrado(){
     
@@ -27,7 +29,7 @@ const [desconto ,setDesconto] = useState(0)
 
 async function cupom() {
     try {
-      const response = await axios.get('http://localhost:5000/cupom/' + digitadoCupom);
+      const response = await axios.get(API_URL + '/cupom/' + digitadoCupom);
 
       if (response.data.length > 0) {
         const desconto = (total * response.data[0].ds_valor) / 100;
@@ -84,11 +86,11 @@ useEffect(()=>{
         usuario = JSON.parse(usuario)
 
         async function listar() {  
-        const response = await axios.get('http://localhost:5000/corleone/usuario/carrinho/listar/'+usuario.id)
+        const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/'+usuario.id)
         setProdutos(response.data)
         
         //  lista de sugestao   \\
-        const lisatagem = await axios.get('http://localhost:5000/produto') 
+        const lisatagem = await axios.get(API_URL + '/produto') 
         setProdutosugestao(lisatagem.data);
 
         const mappedPrices = produtos.map((item) => parseFloat(item.preco));

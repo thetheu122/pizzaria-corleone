@@ -4,6 +4,8 @@ import Margherita from '../../../assets/images/pictures/margherita.png';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+
+import { API_URL } from '../../../config/constants';
 export default function  Sugestao(props){
     
     const [ verificar   , setVerificar ]  = useState([]) 
@@ -20,7 +22,7 @@ useEffect(()=>{
             "produto":id
         }
           
-        let r = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+        let r = await axios.get(API_URL + `/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
         setVerificar(r.data)  ;
     };
     fetchData();
@@ -45,7 +47,7 @@ useEffect(()=>{
                             "qtd": qtd + 1,
                             "idcarrinho": idcarrinho
                         }
-                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
                            
                     }
                     else{
@@ -56,7 +58,7 @@ useEffect(()=>{
                             "qtd": 1,
                             "idcarrinho": idcarrinho
                         }
-                        let respo = await axios.put('http://localhost:5000/corleone/usuario/carrinho/editar',user)
+                        let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
                     
                     }
               }
@@ -69,7 +71,7 @@ useEffect(()=>{
                 "produto":id
             }
 
-            let r2 = await axios.get(`http://localhost:5000/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
+            let r2 = await axios.get(API_URL + `/corleone/usuario/carrinho/verificar/${user.cliente}/${user.produto}`)
             let verificar2 = r2.data
 
                 if(verificar2.length === 0 ){
@@ -81,7 +83,7 @@ useEffect(()=>{
                         "qtd":1
                        }
 
-                    let resposne = await axios.post('http://localhost:5000/corleone/usuario/carrinho',user)
+                    let resposne = await axios.post(API_URL + '/corleone/usuario/carrinho',user)
                
                 }       
          }

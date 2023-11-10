@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import {  useNavigate } from 'react-router-dom';
 
+import { API_URL } from '../../config/constants';
+
 
 export default function ClienteDetalhe() {
       
@@ -36,7 +38,7 @@ export default function ClienteDetalhe() {
       
 
     async function Listarcliente() {
-        const r = await axios.get('http://localhost:5000/clientes')
+        const r = await axios.get(API_URL + '/clientes')
         setCliente(r.data)
 
     }
@@ -44,14 +46,14 @@ export default function ClienteDetalhe() {
     
 
         async function listarPorNome() {
-        const r = await axios.get(`http://localhost:5000/clientes/nome/${buscarcliente}`)
+        const r = await axios.get(`${API_URL}/clientes/nome/${buscarcliente}`)
         setCliente(r.data)
 
     }
 
     async function buscarDetalhesCliente(id) {
         try {
-          const response = await axios.get(`http://localhost:5000/clientes/${id}`);
+          const response = await axios.get(`${API_URL}/clientes/${id}`);
           setClienteSelecionado(response.data);
         } catch (error) {
           console.error('Erro ao buscar detalhes do cliente', error);
