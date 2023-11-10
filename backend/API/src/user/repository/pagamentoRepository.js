@@ -44,7 +44,7 @@ export async function CadastrarCartao(params){
         params.cvv
     ])
 
-    params.idCartao = cartaoAdd[0].insertId
+    params.cartao = cartaoAdd[0].insertId
 
     return params
 

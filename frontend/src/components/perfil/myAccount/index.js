@@ -204,10 +204,6 @@ export default function MyAccount() {
                 id: id,
                 cartao: idCartao
             }
-
-            alert(idCartao)
-
-            console.log(infoCartao)
     
             let response = await axios.post(API_URL+'/cliente/cartao', infoCartao)  
 
@@ -219,6 +215,8 @@ export default function MyAccount() {
     const DeletarCartao = async () => {
         try {
             let response = await axios.delete(`${API_URL}/cliente/cartao?id=${idCartao}`)
+
+            setIdCartao(undefined)
              
             setCardDetails({
                 cvc: "",
@@ -422,7 +420,7 @@ export default function MyAccount() {
                     </div>
                 </div>}
             <div className='duplada'>
-            {pagController ? null : <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button>}
+            {(pagController == false && idCartao) ? <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button> : null }
                 {edt ?
                     <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
                     : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>

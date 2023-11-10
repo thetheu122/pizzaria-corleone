@@ -35,10 +35,10 @@ endpoints.get('/cartao/listar/:id', async (req, resp) => {
 endpoints.post('/cliente/cartao', async (req, resp) => {
     try {
         let request = req.body;
-        let verifyError = validarDadosCartao(request)
 
-        if(request.cartao != null){
+        if(request.cartao){
             let requestUpdate = await AlterarCartao(request)
+            console.log(request.cartao)
             
             resp.send(requestUpdate)
         }

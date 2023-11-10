@@ -153,11 +153,3 @@ insert into  tb_restricao (id_produto,ds_restricao)
                      values (7,'gluten');                     
 
 
-        -- \\ inserts de outras tabelas (nao obrigatorios) // --
-
-
-INSERT INTO tb_cartao (ds_numero, ds_nome, ds_validade, ds_cvv)
-			   VALUES ('1234567890123456', 'João Silva', '12/25', '123');
-               
-               INSERT INTO tb_cartao ( ds_numero , ds_nome ,ds_validade ,ds_cvv)
-			   VALUES ( ' 0000-0000 ', 'maximosmiguel' , '28/12' , '123' );
