@@ -22,18 +22,18 @@ export default function Cardapio() {
     const filtroUrl = new URLSearchParams(location.search).get('filtro');
 
 
-    const [produto, setProduto] = useState([])
+    const [produto, setProduto] = useState([]);
 
-    const [cadastroAtv, setCadastroAtv] = useState(false)
+    const [cadastroAtv, setCadastroAtv] = useState(false);
 
-    const [mostrar, setMostrar] = useState(true)
+    const [mostrar, setMostrar] = useState(true);
 
     //CONTROLADOR FILTRO LATERAL
-    const [qtdAtv, setQtdAtv] = useState(0)
-    const [vegano, setVegano] = useState(false)
-    const [intoleranteOvo, setIntoleranteOvo] = useState(false)
-    const [intoleranteGluten, setIntoleranteGluten] = useState(false)
-    const [intoleranteLactose, setIntoleranteLactose] = useState(false)
+    const [qtdAtv, setQtdAtv] = useState(0);
+    const [vegano, setVegano] = useState(false);
+    const [intoleranteOvo, setIntoleranteOvo] = useState(false);
+    const [intoleranteGluten, setIntoleranteGluten] = useState(false);
+    const [intoleranteLactose, setIntoleranteLactose] = useState(false);
 
     //FILTRO PESQUISA NOME
     const [pesquisa, setPesquisa] = useState('')
@@ -159,7 +159,7 @@ export default function Cardapio() {
         restricao_3 = restricao_3 ? restricao_3 : '%'
 
         // Execute a chamada à API
-        let response = await axios.get(`http://localhost:5000/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&restricao_3=${restricao_3}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`)
+        let response = await axios.get(`http://129.148.42.252:3013/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&restricao_3=${restricao_3}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`);
 
         response = response.data
 
