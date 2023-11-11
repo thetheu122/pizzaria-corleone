@@ -201,21 +201,7 @@ server.get('/clientes/:id', async (req, resp) => {
     }
 })
 
-server.get('/clientes/cartao/:id', async (req, resp) => {
-    try {
-      const { id } = req.params;
-      const clientePorCartao = await listarPorIdCartao(id);
-  
-      if (clientePorCartao) {
-        resp.status(200).send(clientePorCartao);
-      } else {
-        resp.status(404).send('Cliente não encontrado com base no id_cartao.');
-      }
-    } catch (err) {
-      resp.status(500).send({ erro: err.message });
-    }
-  });
-  
+
 
 
 

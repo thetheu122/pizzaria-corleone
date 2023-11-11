@@ -230,24 +230,5 @@ export async function listarid(id) {
     return resposta;
 }
 
-export async function listarPorIdCartao(idCartao) {
-  
-      let comando = `
-        SELECT
-          c.id_cliente as idCliente,
-          c.nm_cliente as cliente,
-          c.ds_email as email,
-          c.id_cartao as cartao,
-          c.ds_telefone as telefone,
-          c.ds_senha as senha,
-          c.ds_cpf as cpf,
-          c.ds_nacimento as nascimento
-        FROM tb_cliente c
-        WHERE c.id_cartao = ?;
-      `;
-      
-      const [resposta] = await con.query(comando, [idCartao]);
-      return resposta;
-    
-  }
+
   
