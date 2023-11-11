@@ -105,7 +105,6 @@ export async function listarCliente() {
     SELECT
     c.id_cliente        as idcliente,
     c.id_endereco       as endereco,
-    c.id_cartao         as cartao,
     c.nm_cliente        as cliente,
     c.ds_email          as email,
     c.ds_telefone       as telefone,
@@ -212,7 +211,6 @@ export async function listarid(id) {
     c.id_endereco       as endereco,
     c.nm_cliente        as cliente,
     c.ds_email          as email,
-    c.id_cartao         as cartao,
     c.ds_telefone       as telefone,
     c.ds_senha          as senha,
     c.ds_cpf            as cpf,

@@ -26,19 +26,17 @@ export default function Cartaocliente(){
     const obterDadosDoCliente = async () => {
       try {
         const response = await axios.get(`${API_URL}/clientes/cartao/${id}`);
-
+    
         console.log('Resposta do servidor para obter dados do cliente:', response.data);
-
+    
+        // Verifica se a resposta contém dados válidos
         if (response.data && Array.isArray(response.data) && response.data.length > 0) {
           const cliente = response.data[0];
-
+    
           console.log('Dados do cliente:', cliente);
-
-          if (cliente && cliente.idCliente) {
-            setCliente(cliente);
-          } else {
-            console.error('O cliente não possui a propriedade "idCliente".');
-          }
+    
+          // Atualiza o estado com os dados do cliente
+          setCliente(cliente);
         } else {
           console.error('Resposta do servidor não contém dados de cliente válidos.');
         }
@@ -46,19 +44,25 @@ export default function Cartaocliente(){
         console.error('Erro ao obter dados do cliente', error);
       }
     };
-
+    
     obterDadosDoCliente();
   }, [id]);
+  
+      
+  
+
 
   useEffect(() => {
-    if (cliente.cartao) {
-      fetchCartao(cliente.cartao);
-    }
-  }, [cliente]);
+  // Verifica se o cliente possui a propriedade 'idCliente' antes de chamar fetchCartao
+  if (cliente && cliente.idCliente) {
+    fetchCartao(cliente.idCliente);
+  }
+}, [cliente]);
 
-  const fetchCartao = async (cartaoId) => {
+
+  const fetchCartao = async (clienteId) => {
     try {
-      const response = await axios.get(`${API_URL}/cartao/listar/${cartaoId}`);
+      const response = await axios.get(`${API_URL}/cartao/listar/${clienteId}`);
       setCartao(response.data);
     } catch (error) {
       console.error('Erro ao buscar detalhes do cartão', error);
@@ -91,7 +95,6 @@ export default function Cartaocliente(){
       });
     }
   };
-
 
 
   return (
