@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid ,listarPorIdCartao} from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
 
 const server = Router()
 
