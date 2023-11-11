@@ -1,211 +1,164 @@
-import './index.scss'
-import CompAtalhosAdm from "../../../components/compAtalhosAdm"
-import Cards from "react-credit-cards";
-import "react-credit-cards/es/styles-compiled.css";
-import { useState } from 'react';
-import axios from 'axios'
-
-import { confirmAlert } from 'react-confirm-alert';
-import { ToastContainer, toast, useToastContainer } from 'react-toastify'
-import { useEffect} from 'react'
-import { useParams } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
+import { useParams, navigate } from 'react-router-dom';
+import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { API_URL } from '../../../config/constants';
+import 'react-toastify/dist/ReactToastify.css';
+import './index.scss';
 
 export default function Cartaocliente(){
+  const { id } = useParams();
 
-    const { id } = useParams();
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    const [telefone, setTelefone] = useState('')
-    const [nome, setNome] = useState('')
-    const [sobrenome, setSobrenome] = useState('')
-    const [dia, setDia] = useState('')
-    const [mes, setMes] = useState('')
-    const [ano, setAno] = useState('')
-    const [cpf, setCpf] = useState('')
-    const [uf, setUf] = useState('')
-    const [cidade, setCidade] = useState('')
-    const [bairro, setBairro] = useState('')
-    const [rua, setRua] = useState('')
-    const [num, setNum] = useState('')
-    const [cep, setCep] = useState('')
-    const [cartao, setCartao]=useState([])
+  const [cliente, setCliente] = useState({});
+  const [cartao, setCartao] = useState([]);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0);
+  const [cardDetails, setCardDetails] = useState({
+    cvc: '',
+    expiry: '',
+    focus: '',
+    name: '',
+    number: '',
+  });
 
-    const data = {
-        cvc: "",
-        expiry: "",
-        focus: "",
-        name: "",
-        number: "",
-    };
+  useEffect(() => {
+    const obterDadosDoCliente = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/clientes/cartao/${id}`);
 
-    const [cardDetails, setCardDetails] = useState(data);
-    const [edt, setEdt] = useState(true);
+        console.log('Resposta do servidor para obter dados do cliente:', response.data);
 
+        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+          const cliente = response.data[0];
 
-    const [pagController, setPagController] = useState(true)
+          console.log('Dados do cliente:', cliente);
 
-    const handleInputFocus = (e) => {
-        setCardDetails({ ...cardDetails, focus: e.target.name });
-    };
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCardDetails({ ...cardDetails, [name]: value });
-    };
-
-    const alterarUser = async () => {
-        try {
-            if (!nome || !sobrenome) {
-                throw new Error(`Campo de nome e/ou sobrenome vazio`);
-            }
-
-
-            let nomeCompleto = `${nome} ${sobrenome}`
-            let dtnascimento = `${dia}/${mes}/${ano}`
-
-            let newInfos = {
-                nome: nomeCompleto,
-                email: email,
-                telefone: telefone,
-                senha: senha,
-                cpf: cpf,
-                nascimento: dtnascimento,
-                estado: uf,
-                cidade: cidade,
-                bairro: bairro,
-                rua: rua,
-                numero: num,
-                cep: cep
-            }
-            const data = JSON.parse(localStorage.getItem('usuario-logado'));
-
-            let response = await axios.put(`${API_URL}/cliente/alterar?id=${data.id}`, newInfos)
-
-            data.nome = nomeCompleto
-            data.email = email
-            localStorage.setItem('usuario-logado', JSON.stringify(data));
-            window.location.reload();
-
-            setEdt(!edt)
-        } catch (error) {
-            toast.error(error.message)
+          if (cliente && cliente.idCliente) {
+            setCliente(cliente);
+          } else {
+            console.error('O cliente não possui a propriedade "idCliente".');
+          }
+        } else {
+          console.error('Resposta do servidor não contém dados de cliente válidos.');
         }
+      } catch (error) {
+        console.error('Erro ao obter dados do cliente', error);
+      }
     };
 
-    const showConfirmationDialog = () => {
-        confirmAlert({
-            customUI: ({ onClose }) => (
-                <div className="custom-confirm-dialog">
-                    <h1>Alteração de Dados</h1>
-                    <p>Ao selecionar "Sim", você confirmar as alterações feitas nos campos.</p>
-                    <div>
-                        <button onClick={() => {
-                            alterarUser()
-                            onClose();
-                        }}>Sim</button>
-                        <button onClick={() => {
-                            onClose();
-                        }}>Não</button>
-                    </div>
-                </div>
-            ),
-        });
-    };
+    obterDadosDoCliente();
+  }, [id]);
+
+  useEffect(() => {
+    if (cliente.cartao) {
+      fetchCartao(cliente.cartao);
+    }
+  }, [cliente]);
+
+  const fetchCartao = async (cartaoId) => {
+    try {
+      const response = await axios.get(`${API_URL}/cartao/listar/${cartaoId}`);
+      setCartao(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar detalhes do cartão', error);
+    }
+  };
+
+  const handleCardSelection = (selectedCard, index) => {
+    setSelectedCardIndex(index);
+    setCardDetails({
+      cvc: selectedCard.ds_cvv || '',
+      expiry: selectedCard.ds_validade || '',
+      focus: '',
+      name: selectedCard.ds_nome || '',
+      number: selectedCard.ds_numero || '',
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    if (selectedCardIndex !== null) {
+      setCartao((prevCartao) => {
+        const updatedCartao = [...prevCartao];
+        const selectedCard = { ...updatedCartao[selectedCardIndex] };
+
+        if (selectedCard[name] !== undefined) {
+          selectedCard[name] = value;
+        }
+        return updatedCartao;
+      });
+    }
+  };
 
 
-//listar por id - cada cliente
 
-async function cartaoid(id){
-    const r= await axios.get(`${API_URL}/cartao/listar/${id}`)
-    setCartao(r.data)
+  return (
+    <div className="pagina-cartao">
+      <CompAtalhosAdm />
 
-}
+      <div className="container-cartao">
+        <div className="cabecalho-cartao">
+          <h1>Clientes</h1>
+        </div>
 
-useEffect(()=>{
-    cartaoid(id)
-}, id)
+        <div className="subtitulo-cartao">
+          <h1>Cartão</h1>
+        </div>
 
+        <div className="cartaoSide">
+          <Cards
+            cvc={cardDetails?.ds_cvv || ''}
+            expiry={cardDetails?.ds_validade || ''}
+            focused={cardDetails?.focus || ''}
+            name={cardDetails?.ds_nome || ''}
+            number={cardDetails?.ds_numero || ''}
+          />
 
-return(
-    <div className='pagina-cartao'>
-         <CompAtalhosAdm />
-
-         <div className='container-cartao'>
-         <div className='cabecalho-cartao'>
-                    <h1>Clientes</h1>
-                </div>
-
-                <div className='subtitulo-cartao'>
-                    <h1>Cartão</h1>
-                </div>
-
-        
-                <div className='cartaoSide'>
-                    <Cards
-                        cvc={cardDetails.cvc}
-                        expiry={cardDetails.expiry}
-                        focused={cardDetails.focus}
-                        name={cardDetails.name}
-                        number={cardDetails.number}
+          <div>
+            {cartao.map((itemArray, outerIndex) => (
+              <form className="formsCartao" key={outerIndex}>
+                {itemArray.map((item, innerIndex) => (
+                  <React.Fragment key={innerIndex}>
+                    <input
+                      type="number"
+                      name="ds_numero"
+                      placeholder="Número"
+                      value={item.ds_numero}
+                      onChange={() => handleInputChange(item)}
                     />
-                    <div>
-
-                        {cartao.map(item=>
-                        <form className='formsCartao'>
-                            <input
-                                type="number"
-                                name="number"
-                                placeholder="Número"
-                                onChange={handleInputChange}
-                                onFocus={handleInputFocus}
-                                value={cardDetails.number}
-                                maxLength={16}
-                                className="no-spinners" 
-                                disabled={!edt}
-                            />
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Nome"
-                                onChange={handleInputChange}
-                                onFocus={handleInputFocus}
-                                value={cardDetails.name}
-                                disabled={!edt}
-                            />
-                            <div className='expiraCartao'>
-                                <input
-                                    type="text"
-                                    name="expiry"
-                                    placeholder="MM/AA Expiração"
-                                    onChange={handleInputChange}
-                                    onFocus={handleInputFocus}
-                                    value={cardDetails.expiry}
-                                    disabled={!edt}
-                                />
-                                <input
-                                    type="tel"
-                                    name="cvc"
-                                    placeholder="CVC"
-                                    onChange={handleInputChange}
-                                    onFocus={handleInputFocus}
-                                    value={cardDetails.cvc}
-                                    maxLength={3}
-                                    disabled={!edt}
-                                />
-                            </div>
-                        </form>
-                        )}
+                    <input
+                      type="text"
+                      name="ds_nome"
+                      placeholder="Nome"
+                      value={item.ds_nome}
+                      onChange={() => handleInputChange(item)}
+                    />
+                    <div className="expiraCartao">
+                      <input
+                        type="text"
+                        name="ds_validade"
+                        placeholder="MM/AA Expiração"
+                        value={item.ds_validade}
+                        onChange={() => handleInputChange(item)}
+                      />
+                      <input
+                        type="tel"
+                        name="ds_cvv"
+                        placeholder="CVC"
+                        value={item.ds_cvv}
+                        onChange={() => handleInputChange(item)}
+                      />
                     </div>
-                    
-                </div>
-           
-
-         </div>
-
-        
-
+                  </React.Fragment>
+                ))}
+              </form>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
-)
-}
+  );
+};
+

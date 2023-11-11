@@ -82,7 +82,7 @@ root.render(
         <Route path='/favoritos' element={<Favoritos />} />
         <Route path='/cadafavorito/cliente/:id' element={<CadaFavorito />} />
         <Route path='/clienteadmmaisdetalhe/:id' element={<ClienteMaisdetalhe />} />
-        <Route path='/cartao/:id' element={<Cartaocliente />} />
+        <Route path='/cartao/listar/:id' element={<Cartaocliente />} />
       </Routes>
     </BrowserRouter>
   </GoogleOAuthProvider>
