@@ -162,17 +162,16 @@ FOREIGN  KEY ( id_tipo_pagamento) 	REFERENCES tb_tp_pagamento ( id_cartao )
 
 
 );
-
-CREATE TABLE tb_pedido_produto (
-
+REATE TABLE tb_pedido_produto (
 id_pedido_produto   INT PRIMARY KEY AUTO_INCREMENT,
 id_cliente          INT  ,
-ds_produtos         JSON ,
+ds_produtos         varchar(200),
+ds_subtotal			varchar(200),
 ds_total            VARCHAR(200),
-
-FOREIGN  KEY ( id_cliente) 	REFERENCES tb_cliente ( id_cliente ) 
-);
-
+ds_desconto         VARCHAR(200),
+ds_frete            VARCHAR(200),
+    
+FOREIGN  KEY ( id_cliente) 	REFERENCES tb_cliente ( id_cliente ) );
 
 
 

@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 
 import { API_URL } from '../../config/constants'
+import { toast } from 'react-toastify'
 
 
 export default function Finalizarcadastrado(){
@@ -27,9 +28,11 @@ const [digitadoCupom , setDigitadoCupom] = useState('')
 
 const [desconto ,setDesconto] = useState(0)
 
+const [tabelaTotal,setTabelaTotal] = useState([])
+
 async function cupom() {
     try {
-      const response = await axios.get(API_URL + '/cupom/' + digitadoCupom);
+      const response = await axios.get(API_URL+'/cupom/'+digitadoCupom);
 
       if (response.data.length > 0) {
         const desconto = (total * response.data[0].ds_valor) / 100;
@@ -86,7 +89,12 @@ useEffect(()=>{
         usuario = JSON.parse(usuario)
 
         async function listar() {  
-        const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/'+usuario.id)
+
+        const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/'+usuario.id);
+        const resp     = await axios.get(`${API_URL}/corleone/pedido/cliente/${usuario.id}`);
+        setTabelaTotal(resp.data)
+        
+
         setProdutos(response.data)
         
         //  lista de sugestao   \\
@@ -101,12 +109,108 @@ useEffect(()=>{
         setTotal(total);
 
         setPrecos(mappedPrices);
-                
+
+        try {
+
+                    let compra = {
+                      "id_cliente": usuario.id,
+                      "desconto": 0,
+                      "produtos": 0,
+                      "subtotal": 0,
+                      "total": 0  
+                    };
+              
+                    
+                    let totalProdutosqtd = 0;
+              
+                    const mappedPrices = produtos.map((item) => {
+                      const preco = parseFloat(item.preco);
+                      const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
+                    
+                      totalProdutosqtd += quantidade.reduce((acm, pro) => acm + pro, 0);
+                    
+                      if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
+                        return preco * quantidade.reduce((acm, pro) => acm + pro, 0);
+                      } else {
+                        return 0;
+                      }
+                    });
+                    
+                    const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
+                    
+                    // console.log('Total de produtos (quantidade):', totalProdutosqtd);
+                    // console.log('Total geral:', total);
+                    
+                    
+                    compra.produtos = totalProdutosqtd;
+                    compra.total = total - desconto;
+                    compra.subtotal = total
+                    compra.desconto = desconto
+              
+                    const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)      
+                   
+                  } 
+                    catch (err) {
+                    toast.error(err.message)
+                  
+                    }
     };
     listar();
 
 },[produtos]);
 
+
+
+// useEffect(()=>{
+// async function listar (){
+//      let usuario = localStorage.getItem('usuario-logado');
+//         usuario = JSON.parse(usuario)
+//     try {
+
+//         let compra = {
+//           "id_cliente": usuario.id,
+//           "desconto": 0,
+//           "produtos": 0,
+//           "subtotal": 0,
+//           "total": 0  
+//         };
+  
+        
+//         let totalProdutosqtd = 0;
+  
+//         const mappedPrices = produtos.map((item) => {
+//           const preco = parseFloat(item.preco);
+//           const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
+        
+//           totalProdutosqtd += quantidade.reduce((acm, pro) => acm + pro, 0);
+        
+//           if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
+//             return preco * quantidade.reduce((acm, pro) => acm + pro, 0);
+//           } else {
+//             return 0;
+//           }
+//         });
+        
+//         const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
+        
+//         // console.log('Total de produtos (quantidade):', totalProdutosqtd);
+//         // console.log('Total geral:', total);
+        
+        
+//         compra.produtos = totalProdutosqtd;
+//         compra.total = total - desconto;
+//         compra.subtotal = total
+//         compra.desconto = desconto
+  
+//         const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)      
+       
+//       } 
+//         catch (err) {
+//         toast.error(err.message)
+//       }
+//  }
+//  listar()
+// },[produtos.quantidade])
 
  
     return(
@@ -215,7 +319,12 @@ useEffect(()=>{
                  <h2>Resumo do Pedido </h2>
 
                 <div> 
-                    <div>  <p> Produtos ( {produtos.length == 1 ?  produtos.length + ' item' : produtos.length + ' itens'} ) </p>
+                    <div>   
+                        {tabelaTotal.map((item) =>(
+                          <p>{item.ds_produtos > 1 ? `Produtos ( ${item.ds_produtos} )`: `Produto ( ${item.ds_produtos} )` }</p> 
+                                     
+                            ))
+                         } 
                       <p> R$ {total.toFixed(2)}</p>
                     </div>
                     
@@ -233,9 +342,9 @@ useEffect(()=>{
                         Subtotal   
                     </h4>
 
-                    <h4> 
-                        R${total.toFixed(2)} 
-                    </h4> 
+                    <h4>
+                    R$ {tabelaTotal.map((item) => item.ds_subtotal)}
+                    </h4>
 
                 </div> 
 
@@ -245,7 +354,8 @@ useEffect(()=>{
 
                 <div className='ld-esquerdo-fl'>
                         <h3>Total   </h3>
-                        <h3>R$ {total.toFixed(2)} </h3>
+                        <h3>R$ {tabelaTotal.map((item)=>( item.ds_total
+                            ))} </h3>
                 </div>
 
                 <button> Comprar </button>
