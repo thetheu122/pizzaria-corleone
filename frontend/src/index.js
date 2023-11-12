@@ -70,7 +70,7 @@ root.render(
         <Route path='/pedido2' element={<EnderecoPedido />} />
         <Route path='/pedido3' element={<Confirmacaopedidos />} />
         <Route path='/produto/alterar/:id' element={<EditarProduto />} />
-        <Route path='/detalhes' element={<MaisDetalhes />} />
+        <Route path='/detalhes/pedido/:id' element={<MaisDetalhes />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/listapedido' element={<ListarPedido />} />
         <Route path='/minhaconta' element={<MinhaConta />} />

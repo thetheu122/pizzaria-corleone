@@ -18,8 +18,8 @@ export default function ListarPedido() {
 
     const navigate = useNavigate()
 
-    function MaisDetalhes() {
-        navigate('/detalhes')
+    function MaisDetalhes(id) {
+        navigate(`/detalhes/pedido/${id}`)
     }
 
 
@@ -52,19 +52,22 @@ export default function ListarPedido() {
 
     async function ListarPedidos() {
         const r = await axios.get(API_URL + '/pedido')
-        console.log(r.data)
-        setPedidos(r.data)
+        const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+        setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
     }
+
 
 
     async function ListarporNomeOuId() {
 
         if (!isNaN(buscarid)) {
             const rId = await axios.get(`${API_URL}/pedido/id/${buscarid}`)
-            setPedidos(rId.data)
+            const uniquePedidos = [...new Set(rId.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => rId.data.find(item => item.idpedido === idpedido)));
         } else {
             const rNome = await axios.get(`${API_URL}/pedido/nome/${buscarid}`)
-            setPedidos(rNome.data)
+            const uniquePedidos = [...new Set(rNome.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => rNome.data.find(item => item.idpedido === idpedido)));
         }
     }
 
@@ -84,22 +87,26 @@ export default function ListarPedido() {
     async function TodasFuncoes() {
         if (AaoZ === true) {
             const r = await axios.get(`http://localhost:5013/pedido/ordem`)
-            setPedidos(r.data)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
         }
 
         if (data) {
             const r = await axios.get(`http://localhost:5013/pedido/data/${data}`)
-            setPedidos(r.data)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
         }
 
         if (entregue === true && cancelado == false) {
             const r = await axios.get(`http://localhost:5013/pedido/status/entregue`)
-            setPedidos(r.data)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
         }
 
         if (cancelado == true && entregue == false) {
             const r = await axios.get(`http://localhost:5013/pedido/status/cancelado`)
-            setPedidos(r.data)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
         }
 
 
@@ -269,7 +276,7 @@ export default function ListarPedido() {
 
                             {pedidos.map(item => (
                                 item.produto &&
-                                item.data ? (
+                                    item.data ? (
                                     <tr className="linha-separadora" key={item.idpedido}>
                                         <td>{item.idpedido}</td>
                                         <td>{item.nome}</td>
@@ -281,7 +288,7 @@ export default function ListarPedido() {
                                             {item.situacao === 'cancelado' && <div className='status-cancelado'></div>}
                                             {item.situacao === 'pendente' && null}
                                         </td>
-                                        <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
+                                        <td className='preto' onClick={() => { MaisDetalhes(item.idpedido) }}>mais detalhes...</td>
                                     </tr>
                                 ) : null
                             ))}

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue } from "../repository/pedido.js";
+import { Listarpedido, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue } from "../repository/pedido.js";
 
 
 
@@ -96,6 +96,23 @@ endpoints.get('/pedido/status/cancelado', async (req, resp) => {
         })
     }
 })
+
+
+
+
+endpoints.get('/pedido/detalhes/id/:id', async (req, resp) => {
+    try {
+        const {id} = req.params
+        const w = await listarDetalhesPorId(id)
+        resp.send(w)
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
+
+
 
 
 export default endpoints

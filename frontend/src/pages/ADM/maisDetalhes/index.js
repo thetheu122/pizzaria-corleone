@@ -12,43 +12,31 @@ import { API_URL } from '../../../config/constants'
 
 export default function MaisDetalhes() {
 
-    const {id} = useParams();
-    const[idProduto, setIdProduto] = useState(id)
-    const[ filtro, setFiltro] = useState('')
-    const[detalhes, setDetalhes] = useState([])
+    const { id } = useParams();
+    const [filtro, setFiltro] = useState('')
+    const [detalhes, setDetalhes] = useState([])
+    const [status, setStatus] = useState('')
+
 
 
     useEffect(() => {
-        
-        PegarInfoPoduto()
+        listarDetalhes()
+        VeriStatus()
     }, [])
 
-    async function PegarInfoPoduto() {
-        const r = await axios.get(`${API_URL}/produto`)
-        const resp = r.data[0]
+    async function listarDetalhes() {
+        const r = await axios.get(`${API_URL}/pedido/detalhes/id/${id}`)
+        const resp = r.data
         console.log(resp)
-        //setDetalhes(r.data)
+        setDetalhes(resp)
     }
 
-    async function PegarInfoCliente() {
-        const r = await axios.get(`${API_URL}/produto/listar/${idProduto}`)
-        setDetalhes(r.data)
+    async function VeriStatus() {
+        const r = await axios.get(`${API_URL}/pedido/detalhes/id/${id}`)
+        const resp = r.data[0]
+        const resposta = resp.status
+        setStatus(resposta)
     }
-
-    async function PegarInfoPagamento() {
-        
-    }
-
-    async function PegarInfoEndereco() {
-        const r = await axios.get(`${API_URL}/produto/endereco`)
-        setDetalhes(r.data)
-    }
-
-    async function PegarInfoCliente() {
-        
-    }
-    
-    
 
 
     const navigate = useNavigate();
@@ -56,6 +44,25 @@ export default function MaisDetalhes() {
     function Voltar() {
         navigate('/listapedido')
     }
+
+    const groupedDetalhes = detalhes.reduce((acc, item) => {
+        if (!acc[item.idpedido]) {
+            acc[item.idpedido] = {
+                idpedido: item.idpedido,
+                nome: item.nome,
+                status: item.status,
+                pagamento: item.pagamento,
+                produtos: [item.produto],
+                data: item.data.substr(0, 10),
+                total: item.total,
+                endereco: `${item.rua} - ${item.bairro} - ${item.cidade}`,
+                telefone: item.telefone,
+            };
+        } else {
+            acc[item.idpedido].produtos.push(item.produto);
+        }
+        return acc;
+    }, {});
 
 
 
@@ -65,7 +72,7 @@ export default function MaisDetalhes() {
             <div className='container-mais'>
                 <div className='cabecalho-mais'>
                     <h2>Pedidos</h2>
-                    
+
                 </div>
 
                 <div className="sub-titulo-mais">
@@ -80,16 +87,21 @@ export default function MaisDetalhes() {
                 <div className='conteudo-mais'>
 
                     <div className='parte-dos-filtros'>
+                        {status === 'Entregue' ?
+                            <div className='pedido-mais'>
+                                <p>Pedido Entregue</p>
+                            </div> :
+                            <div className='pedido-mais-cancelado'>
+                                <p>Pedido Cancelado</p>
+                            </div>}
 
-                        <div className='pedido-mais'>
-                            <p>Pedido Entregue</p>
-                        </div>
+
                     </div>
 
                     <table className='tabela-mais-detalhes'>
                         <thead>
                             <tr>
-                            <th className="compe-linha-detalhes"></th>
+                                <th className="compe-linha-detalhes"></th>
                                 <th>ID</th>
                                 <th className="comp-linha-detalhes"></th>
                                 <th>Nome</th>
@@ -108,32 +120,31 @@ export default function MaisDetalhes() {
                             </tr>
                         </thead>
 
-                        
+
                         <tbody>
-                        
-                            <tr>
-                            <td className="compe-linha-detalhes"></td>
-                                <td>#157</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>carlos Ribeiro</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>Dinheiro</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>Pizza de murango, cantinho do vale, sorvete de murango</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>11/09/2001</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>169,00</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>Rua Serra de Bragança - Vila Gomes Cardim - São Paulo</td>
-                                <td className="comp-linha-detalhes"></td>
-                                <td>(11) 4002-8922</td>
-                            </tr>
-                            
-                            
+                            {Object.values(groupedDetalhes).map((item) => (
+                                <tr key={item.idpedido}>
+                                    <td className="compe-linha-detalhes"></td>
+                                    <td>{item.idpedido}</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>{item.nome}</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>Dinheiro</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>{item.produtos.join(', ')}</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>{item.data}</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>R$169,00</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>{item.endereco}</td>
+                                    <td className="comp-linha-detalhes"></td>
+                                    <td>{item.telefone}</td>
+                                </tr>
+                            ))}
                         </tbody>
 
-                        
+
                     </table>
 
 

@@ -172,3 +172,34 @@ export async function listarPorStatusCancelado() {
         const [resposta] = await con.query(comando)
         return resposta
 }
+
+
+
+
+export async function listarDetalhesPorId(id) {
+    let comando = `
+            SELECT
+            p.id_pedido     as idpedido,
+            p.dt_pedido     as data,
+            c.nm_cliente    as nome,
+            c.ds_telefone   as telefone,
+            e.ds_estado     as estado,
+            e.ds_cidade     as cidade,
+            e.ds_bairro     as bairro,
+            e.ds_rua        as rua,
+            e.ds_numero     as numero,
+            e.ds_cep        as cep,
+            pr.nm_produto   as produto,
+            p.ds_situacao   as status
+        FROM
+            tb_pedido p
+            LEFT JOIN tb_pedido_produto pp ON p.id_pedido = pp.id_pedido
+            LEFT JOIN tb_produto pr ON pp.id_produto = pr.id_produto
+            LEFT JOIN tb_cliente c ON p.id_cliente = c.id_cliente
+            LEFT JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+            WHERE p.id_pedido = ?
+        `
+
+        const [resposta] = await con.query(comando, [id])
+        return resposta
+}
