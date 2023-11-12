@@ -105,7 +105,7 @@
     .titulo-cada-favorito {
         display: flex;
         width: 100%;
-        justify-content: center;
+        
 
         h1 {
             font-size: 18px;
@@ -114,6 +114,8 @@
             font-weight: 500;
             align-self: center;
             padding-bottom: 15px;
+       
+           
         }
     }
 
@@ -232,6 +234,44 @@
         }
 
     }
+
+    .parte-filtros-carrinho {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        align-items: center;
+        margin-top: 5px;
+       
+
+       
+
+        select {
+
+            border: #A59A9A 1px solid;
+            width: 38%;
+            padding: 5px;
+            border-radius: 3px;
+            color: #636363;
+            outline: none;
+            
+
+            optgroup {
+                
+
+                label {
+                    
+                    font-weight: bold;
+                }
+
+                option {
+                    color: #636363;
+                    
+                }
+            }
+        }
+
+    }
+
 
 
 

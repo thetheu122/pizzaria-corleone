@@ -37,7 +37,7 @@ export default function CadaFavorito() {
             ListarFavoritos()
 
         }
-        mostrarNome()
+        mostrarFavoritosPorNome()
     }, [buscarNome])
 
 
@@ -46,13 +46,29 @@ export default function CadaFavorito() {
         setTdsFavoritos(r.data)
     }
 
-    async function mostrarNome() {
-        const r = await axios.get(`${API_URL}/corleone/produtos/favoritos/usuario/${id}`)
-        const resp = r.data[0]
-        const resposta = resp.cliente
-        console.log(resp)
-        setNome(resposta)
+    async function mostrarFavoritosPorNome(id, buscarNome) {
+        try {
+            // Modifique a chamada da API para incluir o ID do usuário e o nome do produto
+            const response = await axios.get(`${API_URL}/corleone/produtos/favoritos/verificar/${id}/produto/${buscarNome}`);
+            
+            // Atualize o estado com a resposta da API
+            setTdsFavoritos(response.data);
+        } catch (error) {
+            console.error("Erro ao buscar favoritos:", error);
+        }
     }
+    
+    // ...
+    
+    useEffect(() => {
+        if (buscarNome.length > 0) {
+            mostrarFavoritosPorNome(id, buscarNome);
+        } else {
+            ListarFavoritos(); // Chame a função padrão para listar todos os favoritos
+        }
+        mostrarFavoritosPorNome();
+    }, [buscarNome]);
+    
 
 
 
@@ -62,14 +78,15 @@ export default function CadaFavorito() {
         setTdsFavoritos(r.data)
 
     }
-
     const handleSelecaoChange = (event) => {
         const valorSelecionado = event.target.value;
         if (valorSelecionado === 'carrinho') {
             navigate(`/corleone/usuario/carrinho/listar/${id}`);
         } else if (valorSelecionado === 'favoritos') {
-            navigate('/favoritos');
-        }
+            navigate(`/cadafavorito/cliente/${id}`);
+        } else if (valorSelecionado === 'pagamento') {
+            navigate(`/cartao/listar/${id}`);
+          }
     };
 
 
@@ -107,7 +124,7 @@ export default function CadaFavorito() {
                                     <optgroup label="Ordenar">
                                         <option value="favoritos">Favoritos</option>
                                         <option value="carrinho">Carrinho</option>
-
+                                        <option value="pagamento">Cartão</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -116,7 +133,7 @@ export default function CadaFavorito() {
 
 
                         <div className='titulo-cada-favorito'>
-                            <h1>Produtos Favoritados pelo cliente {nome}</h1>
+                            <h1>Produtos  favoritados  pelo  cliente  {nome}</h1>
                         </div>
 
                         <div className='linha'></div>
