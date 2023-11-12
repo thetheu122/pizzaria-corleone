@@ -1,211 +1,122 @@
-import './index.scss'
-import CompAtalhosAdm from "../../../components/compAtalhosAdm"
-import Cards from "react-credit-cards";
-import "react-credit-cards/es/styles-compiled.css";
-import { useState } from 'react';
-import axios from 'axios'
-
-import { confirmAlert } from 'react-confirm-alert';
-import { ToastContainer, toast, useToastContainer } from 'react-toastify'
-import { useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Cards from 'react-credit-cards';
+import 'react-credit-cards/es/styles-compiled.css';
 import { useParams } from 'react-router-dom';
-
+import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { API_URL } from '../../../config/constants';
+import 'react-toastify/dist/ReactToastify.css';
+import './index.scss';
 
-export default function Cartaocliente(){
+export default function Cartaocliente() {
+  const { id } = useParams();
+  const [SelectedCardIndex, setSelectedCardIndex] = ([])
+  const [cartao, setCartao] = useState([]);
+  const [detalhesCartao, setDetalhesCartao] = useState({
+    cvc: '',
+    expiry: '',
+    focus: '',
+    name: '',
+    num: '',
+  });
 
-    const { id } = useParams();
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
-    const [telefone, setTelefone] = useState('')
-    const [nome, setNome] = useState('')
-    const [sobrenome, setSobrenome] = useState('')
-    const [dia, setDia] = useState('')
-    const [mes, setMes] = useState('')
-    const [ano, setAno] = useState('')
-    const [cpf, setCpf] = useState('')
-    const [uf, setUf] = useState('')
-    const [cidade, setCidade] = useState('')
-    const [bairro, setBairro] = useState('')
-    const [rua, setRua] = useState('')
-    const [num, setNum] = useState('')
-    const [cep, setCep] = useState('')
-    const [cartao, setCartao]=useState([])
+  useEffect(() => {
+    fetchCartao(id);
+  }, [id]);
 
-    const data = {
-        cvc: "",
-        expiry: "",
-        focus: "",
-        name: "",
-        number: "",
-    };
-
-    const [cardDetails, setCardDetails] = useState(data);
-    const [edt, setEdt] = useState(true);
+  async function fetchCartao(id) {
+    try {
+      const response = await axios.get(`${API_URL}/cliente/cartao/${id}`);
+      console.log('Response from API:', response.data);
+      setCartao(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar detalhes do cartão', error);
+    }
+  }
 
 
-    const [pagController, setPagController] = useState(true)
 
-    const handleInputFocus = (e) => {
-        setCardDetails({ ...cardDetails, focus: e.target.name });
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setDetalhesCartao((prevDetalhesCartao) => ({
+      ...prevDetalhesCartao,
+      [name]: value,
+    }));
+  };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCardDetails({ ...cardDetails, [name]: value });
-    };
+  const handleCardSelection = (selectedCard, index) => {
+    setSelectedCardIndex(index);
+    setDetalhesCartao({
+      cvc: selectedCard.cvv || '',
+      expiry: selectedCard.validade || '', 
+      name: selectedCard.nome || '',       
+      number: selectedCard.num || '',      
+    });
+  };
 
-    const alterarUser = async () => {
-        try {
-            if (!nome || !sobrenome) {
-                throw new Error(`Campo de nome e/ou sobrenome vazio`);
-            }
+  return (
+    <div className="pagina-cartao">
+      <CompAtalhosAdm />
 
+      <div className="container-cartao">
+        <div className="cabecalho-cartao">
+          <h1>Clientes</h1>
+        </div>
 
-            let nomeCompleto = `${nome} ${sobrenome}`
-            let dtnascimento = `${dia}/${mes}/${ano}`
+        <div className="subtitulo-cartao">
+          <h1>Cartão</h1>
+        </div>
 
-            let newInfos = {
-                nome: nomeCompleto,
-                email: email,
-                telefone: telefone,
-                senha: senha,
-                cpf: cpf,
-                nascimento: dtnascimento,
-                estado: uf,
-                cidade: cidade,
-                bairro: bairro,
-                rua: rua,
-                numero: num,
-                cep: cep
-            }
-            const data = JSON.parse(localStorage.getItem('usuario-logado'));
+        <div className="cartaoSide">
 
-            let response = await axios.put(`${API_URL}/cliente/alterar?id=${data.id}`, newInfos)
-
-            data.nome = nomeCompleto
-            data.email = email
-            localStorage.setItem('usuario-logado', JSON.stringify(data));
-            window.location.reload();
-
-            setEdt(!edt)
-        } catch (error) {
-            toast.error(error.message)
-        }
-    };
-
-    const showConfirmationDialog = () => {
-        confirmAlert({
-            customUI: ({ onClose }) => (
-                <div className="custom-confirm-dialog">
-                    <h1>Alteração de Dados</h1>
-                    <p>Ao selecionar "Sim", você confirmar as alterações feitas nos campos.</p>
-                    <div>
-                        <button onClick={() => {
-                            alterarUser()
-                            onClose();
-                        }}>Sim</button>
-                        <button onClick={() => {
-                            onClose();
-                        }}>Não</button>
-                    </div>
+          {cartao.map((item, index) => (
+            <div key={item.idCliente}>
+              <Cards
+                cvc={item.cvv || ''}
+                expiry={item.validade || ''}
+                focused=''
+                name={item.nome || ''}
+                number={item.num || ''}
+                onClick={() => handleCardSelection(item, index)} // Chame a função ao clicar no cartão
+              />
+              <form className="formsCartao">
+                <input
+                  type="number"
+                  name="num"
+                  placeholder="Número"
+                  value={item.num || ''}
+                  onChange={(e) => handleInputChange(e, item.idCliente)}
+                />
+                <input
+                  type="text"
+                  name="nome"
+                  placeholder="Nome"
+                  value={item.nome || ''}
+                  onChange={(e) => handleInputChange(e, item.idCliente)}
+                />
+                <div className="expiraCartao">
+                  <input
+                    type="text"
+                    name="validade"
+                    placeholder="MM/AA Expiração"
+                    value={item.validade || ''}
+                    onChange={(e) => handleInputChange(e, item.idCliente)}
+                  />
+                  <input
+                    type="number"
+                    name="cvv"
+                    placeholder="CVC"
+                    value={item.cvv || ''}
+                    onChange={(e) => handleInputChange(e, item.idCliente)}
+                  />
                 </div>
-            ),
-        });
-    };
+              </form>
+            </div>
+          ))}
+        </div>
 
-
-//listar por id - cada cliente
-
-async function cartaoid(id){
-    const r= await axios.get(`${API_URL}/cartao/listar/${id}`)
-    setCartao(r.data)
-
-}
-
-useEffect(()=>{
-    cartaoid(id)
-}, id)
-
-
-return(
-    <div className='pagina-cartao'>
-         <CompAtalhosAdm />
-
-         <div className='container-cartao'>
-         <div className='cabecalho-cartao'>
-                    <h1>Clientes</h1>
-                </div>
-
-                <div className='subtitulo-cartao'>
-                    <h1>Cartão</h1>
-                </div>
-
-        
-                <div className='cartaoSide'>
-                    <Cards
-                        cvc={cardDetails.cvc}
-                        expiry={cardDetails.expiry}
-                        focused={cardDetails.focus}
-                        name={cardDetails.name}
-                        number={cardDetails.number}
-                    />
-                    <div>
-
-                        {cartao.map(item=>
-                        <form className='formsCartao'>
-                            <input
-                                type="number"
-                                name="number"
-                                placeholder="Número"
-                                onChange={handleInputChange}
-                                onFocus={handleInputFocus}
-                                value={cardDetails.number}
-                                maxLength={16}
-                                className="no-spinners" 
-                                disabled={!edt}
-                            />
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Nome"
-                                onChange={handleInputChange}
-                                onFocus={handleInputFocus}
-                                value={cardDetails.name}
-                                disabled={!edt}
-                            />
-                            <div className='expiraCartao'>
-                                <input
-                                    type="text"
-                                    name="expiry"
-                                    placeholder="MM/AA Expiração"
-                                    onChange={handleInputChange}
-                                    onFocus={handleInputFocus}
-                                    value={cardDetails.expiry}
-                                    disabled={!edt}
-                                />
-                                <input
-                                    type="tel"
-                                    name="cvc"
-                                    placeholder="CVC"
-                                    onChange={handleInputChange}
-                                    onFocus={handleInputFocus}
-                                    value={cardDetails.cvc}
-                                    maxLength={3}
-                                    disabled={!edt}
-                                />
-                            </div>
-                        </form>
-                        )}
-                    </div>
-                    
-                </div>
-           
-
-         </div>
-
-        
-
+      </div>
     </div>
-)
+
+  );
 }

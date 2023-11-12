@@ -109,7 +109,9 @@ export default function ClienteMaisdetalhe() {
             navigate(`/corleone/usuario/carrinho/listar/${id}`);
         } else if (valorSelecionado === 'favoritos') {
             navigate(`/cadafavorito/cliente/${id}`);
-        }
+        } else if (valorSelecionado === 'pagamento') {
+            navigate(`/cartao/listar/${id}`);
+          }
     };
 
     return (
@@ -132,6 +134,8 @@ export default function ClienteMaisdetalhe() {
                                     <option>Ordenar</option>
                                     <option value="carrinho">Carrinho</option>
                                     <option value="favoritos">Favoritos</option>
+                                    <option value="pagamento">Cartão</option>
+
 
                                 </optgroup>
                             </select>
@@ -213,44 +217,8 @@ export default function ClienteMaisdetalhe() {
 
 
                 </div>
-
-                <table className='tabela-cartao'>
-                    <thead>
-                        <tr>
-
-                            <th className="compe-linha-detalhes"></th>
-                            <th>Cartão</th>
-                            <th className="comp-linha-detalhes"></th>
-                            <th>Numero</th>
-                            <th className="comp-linha-detalhes"></th>
-                            <th>nome</th>
-                            <th className="compp-linha-detalhes"></th>
-                            <th>Validade</th>
-                            <th className="compp-linha-detalhes"></th>
-                            <th>Cvv</th>
-
-
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {cartao && cartao.map((item) => (
-                            <tr key={item.id}>
-                                <td>{item.cartao}</td>
-                                <td>{item.ds_numero}</td>
-                                <td>{item.ds_nome}</td>
-                                <td>{item.ds_validade}</td>
-                                <td>{item.ds_cvv}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-
-                    
-
-
-                </table>
-            </div>
+</div>
+       
 
         </div>
     )
