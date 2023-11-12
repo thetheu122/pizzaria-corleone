@@ -20,9 +20,11 @@ export default function CardCarrinho(props) {
             "qtd":1,
             "idcarrinho":id
         }
-        console.log('id:' +id)
-        let respo = axios.put(API_URL + '/corleone/usuario/carrinho/editar',user)
-       // window.location.reload()
+        
+
+        let respo = axios.put(API_URL+'/corleone/usuario/carrinho/editar',user)
+        //alert(respo.data)//
+        // window.location.reload()
     }
 
 
