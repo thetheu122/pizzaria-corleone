@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validarDadosCartao, listarTodosCartoes, ExcluirCartao, listarCartaoPorId, ListarCartaoCliente, AlterarCartao, CadastrarCartao } from "../repository/pagamentoRepository.js";
+import { validarDadosCartao, listarTodosCartoes, ExcluirCartao, listarCartaoPorId, ListarCartaoCliente, AlterarCartao, CadastrarCartao, ListarCartaoClienteid } from "../repository/pagamentoRepository.js";
 
 const endpoints = Router()
 
@@ -80,6 +80,20 @@ endpoints.delete('/cliente/cartao', async (req, resp) => {
         resp.status(500).send(err.message);
     }
 })
+
+endpoints.get('/cliente/cartao/:id', async (req, resp) => {
+    try {
+        let { id } = req.params; 
+        
+        let response = await ListarCartaoClienteid(id); 
+        
+        resp.send(response);
+       
+    } catch (err) {
+        resp.status(500).send(err.message);
+    }
+});
+
 
 
 

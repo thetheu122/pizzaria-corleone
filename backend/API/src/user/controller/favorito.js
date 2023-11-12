@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { alterarfavorito, favorito, favoritoRanked, inserirfavorito, listarfavoritos, verificafavorito } from "../repository/favorito.js";
+import { alterarfavorito, favorito, favoritoRanked, inserirfavorito, listarfavoritos, verificafavorito, listarFavoritosDeUmCliente } from "../repository/favorito.js";
 
 const endpoits = Router();
 
@@ -136,6 +136,23 @@ endpoits.get('/corleone/produtos/favoritos/verificar', async (req, resp) => {
 
 
 // mais informações em analise
+endpoits.get('/corleone/produtos/favoritos/verificar/:id/produto/:nomeProduto', async (req, resp) => {
+  try {
+    const { id, nomeProduto } = req.params;
+
+    const resposta = await listarFavoritosDeUmCliente(id, nomeProduto);
+
+    if (resposta.length === 0) {
+      throw new Error('Este usuário não possui este produto cadastrado como favorito');
+    } else {
+      resp.send(resposta);
+    }
+
+  } catch (err) {
+    resp.status(400).send({ err: err.message });
+  }
+});
+
 
 
 export default endpoits;

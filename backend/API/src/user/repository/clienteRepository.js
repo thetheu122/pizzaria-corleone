@@ -229,3 +229,6 @@ export async function listarid(id) {
     const [resposta] = await con.query(comando, [id]);
     return resposta;
 }
+
+
+  

@@ -1,9 +1,9 @@
 import './index.scss'
-import Lupa from '../../assets/images/pictures/lupa 1.png'
-import Deletar from '../../assets/images/pictures/deletar.png'
-import Filtro from '../../assets/img/filtro vendas.png'
+import Lupa from '../../../assets/images/pictures/lupa 1.png'
+import Deletar from '../../../assets/images/pictures/deletar.png'
+import Filtro from '../../../assets/img/filtro vendas.png'
 import CompAtalhosAdm from '../../../components/compAtalhosAdm'
-import SetaBaixo from '../../assets/img/setabaixo.png'
+import SetaBaixo from '../../../assets/img/setabaixo.png'
 import Modal from 'react-modal';
 
 import ApexChart  from 'react-apexcharts'
@@ -166,6 +166,7 @@ export default function Vendas() {
 
                     <div className='conteudo-input'>
                         <div className="input-container">
+                            
                             <input
                                 type='text'
                                 placeholder='Busque por id ou nome do cliente'

@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import './assets/config/fonts-config.scss'
 
+/////////////////////PAGINAS USUARIO 
+
 import Leading from './pages/leading-page';
 import Cardapio from './pages/cardapio';
 import CompSobre from './components/compSobre';
@@ -13,34 +15,39 @@ import SobreNos from './pages/sobrenos';
 import TelaAssociado from './pages/telaassociado';
 import Pagamento from './pages/pagamento';
 import Pedidosativos from './pages/pedidosativos';
-import Cadastrarproduto from './pages/cadastrarproduto';
 import Informacoes from './components/infoproduto/informacoes';
 import CompAtalhosAdm from './components/compAtalhosAdm';
-import ListarProdutosAdm from './pages/listarProdutosAdm';
+
+
+import MinhaConta from './pages/perfil';
 import ComprarPedido from './pages/comprarPedido';
 import EnderecoPedido from './pages/enderecopedido';
 import Confirmacaopedidos from './pages/confirmacaopedidos';
-import EditarProduto from './pages/editarProduto';
-import MaisDetalhes from './pages/maisDetalhes';
-import Dashboard from './pages/dashboard';
-import ListarPedido from './pages/listarPedido';
-import MinhaConta from './pages/perfil';
-import ClienteAdm from './pages/clienteAdm';
-import Vendas from './pages/vendas';
+//////////////////////////////////////////////
 
+///////////////////// PAGINAS ADM
+
+
+import ListarPedido from './pages/ADM/listarPedido';
+import ListarProdutosAdm from './pages/ADM/listarProdutosAdm';
+import Cadastrarproduto from './pages/ADM/cadastrarproduto';
+import EditarProduto from './pages/ADM/editarProduto';
+import MaisDetalhes from './pages/ADM/maisDetalhes';
+import ClienteAdm from './pages/ADM/clienteAdm';
+import Vendas from './pages/ADM/vendas';
+import Dashboard from './pages/ADM/dashboard';
 import Finalizarcadastrado from './pages/finalisarcompra';
-import ClienteDetalhe from './pages/clienteDetalhes';
-import Carrinhodecompras from './pages/carrinhodecompras';
-import CadaFavorito from './pages/cadaFavorito';
-
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import ClienteDetalhe from './pages/ADM/clienteDetalhes';
+import Carrinhodecompras from './pages/ADM/carrinhodecompras';
+import CadaFavorito from './pages/ADM/cadaFavorito';
+import ClienteMaisdetalhe from './pages/ADM/ClienteAdmMaisdetalhe';
+import Cartaocliente from './pages/ADM/cartaoCliente';
 import Favoritos from './pages/favoritosAdm';
-
 import Teste from './pages/teste';
 
-import ClienteMaisdetalhe from './pages/ClienteAdmMaisdetalhe';
-import Cartaocliente from './pages/cartaoCliente';
+////////////////////////////////////////////////////////////
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -75,7 +82,7 @@ root.render(
         <Route path='/favoritos' element={<Favoritos />} />
         <Route path='/cadafavorito/cliente/:id' element={<CadaFavorito />} />
         <Route path='/clienteadmmaisdetalhe/:id' element={<ClienteMaisdetalhe />} />
-        <Route path='/cartao/:id' element={<Cartaocliente />} />
+        <Route path='/cartao/listar/:id' element={<Cartaocliente />} />
       </Routes>
     </BrowserRouter>
   </GoogleOAuthProvider>

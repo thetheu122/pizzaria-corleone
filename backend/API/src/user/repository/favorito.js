@@ -150,3 +150,32 @@ and   tb_cliente.id_cliente = ?
 
     return resposta
 }
+
+
+export async function listarFavoritosDeUmCliente(id, nome) {
+    let comando = `
+        SELECT
+            CASE
+                WHEN ds_favorito = 0 THEN false
+                WHEN ds_favorito = 1 THEN true
+            END AS favorito,
+            c.nm_cliente AS nomecliente,
+            p.nm_produto AS produto
+        FROM
+            tb_cliente AS c
+        JOIN
+            tb_favorito AS favorito
+        ON
+            c.id_cliente = favorito.id_cliente
+        JOIN
+            tb_produto AS p
+        ON
+            favorito.id_produto = p.id_produto
+        WHERE
+            c.id_cliente = ?
+        AND p.nm_produto LIKE ?
+    `;
+
+    const [resposta] = await con.query(comando, [id, `%${nome}%`]);
+    return resposta;
+}
