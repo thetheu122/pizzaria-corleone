@@ -1,157 +1,71 @@
-.container-maior{
+.container-maior {
     align-items: center;
     display: flex;
     flex-direction: column;
-    background-image: url('../../images//fundoo.png');
-    background-size: cover;
-    
-    .container-medio{
-        margin-top: 30px;
-        display: flex;
-        flex-direction: row;
-        background-color: #D9D9D9;
-        
-        width: 830px;
-        height: 85px;
-        border-radius: 10px;
-       
-    }
-    
-    .prime{
-        margin-right: 20px; 
-        background-color: #fff;
-        align-items: end;
-        flex-direction: column;
-        font-size: 12px;
-        align-items: end;
-        width: 200px;
-        border-radius: 10px;
-        padding-left: 10px;
-      
-        
-       
-        
-    }
-    
-    .primee>h3{
-    align-items: end;
-    font-size: 12px;
-    margin-top: 12px;
-    }
-    .primee>h2{
-        font-size: 12px;
-        align-items: baseline;
-        text-align: right;
-        padding-left: 3px;
-        
-    }
-    
-    .primee{
-        background-color: #fff;
-        color: #B3B3B3;
-        flex-direction: column;
-        
-        align-items: center;
-        width: 200px;
-        border-radius: 10px;
-        padding-left: 10px;
-       align-items: center;
-    
-      
-       
-        
-    }
-    
-    .prime>h2{
-        font-size: 12px;
-        align-items: baseline;
-        text-align: right;
-        padding-left: 3px;
-       
-       
-    }
-    .prime>h3{
-      margin-top: 12px;
-    align-items: end;
-    font-size: 12px;
-    }
-    .esquerdo{
+
+
+    .esquerdo {
         text-align: left;
         padding-left: 40px;
     }
-    
-    .container-grande{
+
+    .container-grande {
         background-color: #F7F5F2;
         display: flex;
         flex-direction: column;
-        margin-top: 10px;
-        border-radius: 30px;
+        justify-content: center;
+        border-radius: 10px;
         padding: 20px 40px;
         padding-right: 90px;
+        height: 90vh;
+
     }
-    
-    .pizza>img{
-        height: 100%;
-    }
-    .vinho{
-         margin-bottom: 20px;
-            height: 60%; 
-            width: auto; 
-       
-    }
-    .sobre{
-            margin-bottom: 20px;
-            height: 10%;
-            width: auto; 
-          
-          
-    }
-    .titu>h1{
+
+
+    .titu>h1 {
         font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    
+        font-weight: 700;
+        margin-bottom: 10px;
+
     }
-    
-    .informação{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
-    
-    
+
+    .informação {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        font-family: lato-regular;
+
     }
-    .informação>h2{
+
+    .informação>h2 {
         font-size: 14px;
         font-weight: 500;
         padding-right: 10px;
-     
+
     }
-    .horario{
-       
+
+    .horario {
+
         display: flex;
         flex-direction: row;
         background-color: #DADADA;
         width: 160px;
-        height: 20px; 
-      
-        
-       
-      
-        
-       
+        height: 20px;
     }
-    .horario>p{
+
+    .horario>p {
         font-size: 13px;
         font-weight: 600;
         margin-top: -0px
-       
     }
-    .horario>img{
+
+    .horario>svg {
         height: 18px;
+        width: 20px;
         padding-right: 3px;
     }
-    
-    .info{
+
+    .info {
         margin-top: 10px;
         display: flex;
         flex-direction: column;
@@ -161,98 +75,105 @@
         border-radius: 10px;
         padding-left: 10px;
         padding-bottom: 5px;
-        
+
     }
-    .pri{
+
+    .pri {
         font-size: 12px;
         font-weight: 500;
         color: #B3B3B3;
         margin-top: 10px;
     }
-    .verde{
+
+    .verde {
         color: #14AE5C;
     }
-    
+
     .acompanhamento {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 30px;
-      }
-      
-      .etapa {
+    }
+
+    .etapa {
         display: flex;
         align-items: center;
-      }
-      
-      .bolinha {
+    }
+
+    .bolinha {
         width: 20px;
         height: 20px;
         background-color: #14AE5C;
         border-radius: 50%;
-        
-      }
-    
-      .bolinhaa{
+
+    }
+
+    .bolinhaa {
         width: 20px;
         height: 20px;
         background-color: #B3B3B3;
         border-radius: 50%;
-      }
-      .linhaa{
+    }
+
+    .linhaa {
         width: 160px;
         height: 3px;
         background-color: #B3B3B3;
-      }
-      .linha {
+    }
+
+    .linha {
         width: 160px;
         height: 3px;
         background-color: #14AE5C;
-      }
-        
-      .t-chegada{
+    }
+
+    .t-chegada {
         display: flex;
         flex-direction: row;
         font-size: 12px;
         font-weight: 500;
         margin-bottom: 10px;
-        
-      }
-    
-      .chegada{
-        padding-right:70px ;
-      }
-    .chegada>p{
+
+    }
+
+    .chegada {
+        padding-right: 70px;
+    }
+
+    .chegada>p {
         font-size: 12px;
         font-weight: 500;
         color: #B3B3B3;
     }
-    .previsao{
+
+    .previsao {
         display: flex;
         flex-direction: row;
-        
+
     }
-    
-    .previsao>p{
+
+    .previsao>p {
         font-size: 12px;
         font-weight: 500;
         color: #B3B3B3;
         margin-top: 0px;
     }
-    .chegada>h1{
+
+    .chegada>h1 {
         font-size: 12px;
         font-weight: 500;
         color: #000000;
     }
-    
-    .hora{
+
+    .hora {
         font-size: 12px;
         font-weight: 500;
         color: #000000 !important;
-       
+
     }
-    
-    .localizacao{
+
+    .localizacao {
         display: flex;
         flex-direction: column;
         background-color: #fff;
@@ -261,36 +182,53 @@
         padding-left: 10px;
         margin-bottom: 30px;
     }
-    
-    .bairro{
+
+    .bairro {
         display: flex;
         flex-direction: row;
         background-color: #E6E6E6;
-       
+
         width: 520px;
-        height: 25px; 
+        height: 25px;
         margin-top: 0px;
         margin-bottom: 10px;
     }
-    .bairro>p{
+
+    .bairro>p {
         font-size: 13px;
         font-weight: 600;
-        
 
 
-        
+
+
     }
-    .localizacao>p{
+
+    .localizacao>p {
         font-size: 14px;
         margin-bottom: 10px;
-        
+
     }
-    .cep{
+
+    .cep {
         margin-top: -10px;
     }
-    .bairro>img{
+
+    .bairro>img {
         height: 20px;
-       padding-left: 2px;
+        padding-left: 2px;
         padding-right: 2px;
     }
-      }
+}
+
+.imagens {
+    display:flex;
+    margin-bottom: 10px;
+
+    .moldura {
+        height: 130px;
+        width: 160px;
+
+        border-radius: 20px;
+        border: 2px solid rgb(179, 176, 176);
+    }
+}

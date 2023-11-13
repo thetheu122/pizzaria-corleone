@@ -307,8 +307,6 @@ export default function Cabecalho(props) {
         setIsLogged(true)
         setOpenLoginModal(false)
 
-        window.location.reload(true);
-
         toast.success("Login realizado com sucesso", {
           position: "top-left",
           autoClose: 5000,
@@ -334,18 +332,6 @@ export default function Cabecalho(props) {
       setIsLogged(true)
       setOpenLoginModal(false)
 
-      window.location.reload(true);
-
-      toast.success("Login realizado com sucesso", {
-        position: "top-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
     }
     catch (err) {
     toast.error(err.response.data.erro);
@@ -403,7 +389,16 @@ const addCliente = async () => {
           }
         );
       } else {
-        toast.success("Cadastro realizado com sucesso", {
+        localStorage.removeItem('contiuacao-cadastro');
+        setIsLogged(true)
+        setOpenLoginModal(false)
+        let local = {
+          id: responseCl.data.id,
+          nome: responseCl.data.cliente,
+          email: responseCl.data.email
+        }
+        storage('usuario-logado', local)
+        toast.info("Verifique sua caixa de email", {
           position: "top-left",
           autoClose: 5000,
           hideProgressBar: false,
@@ -413,16 +408,6 @@ const addCliente = async () => {
           progress: undefined,
           theme: "colored",
         });
-        localStorage.removeItem('contiuacao-cadastro');
-        window.location.reload(true);
-        setIsLogged(true)
-        setOpenLoginModal(false)
-        let local = {
-          id: responseCl.data.id,
-          nome: responseCl.data.cliente,
-          email: responseCl.data.email
-        }
-        storage('usuario-logado', local)
       }
     }
   } catch (err) {

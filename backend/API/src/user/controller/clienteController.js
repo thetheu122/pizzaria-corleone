@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid ,listarPorIdCartao} from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid, listarPorIdCartao } from "../repository/clienteRepository.js";
+import { transporter } from "../../config/emailsend.js";
 
 const server = Router()
 
@@ -15,6 +16,30 @@ schema
     .has().not().spaces(true, 'A senha não pode conter espaços') //Sem espaços
     .has().symbols(1, 'A senha deve conter um caracter especial'); // Pelo menos um caractere especial
 
+
+server.post('/teste', async (req, resp) => {
+    try {
+        // send mail with defined transport object
+        const info = await transporter.sendMail({
+            from: 'doncorleonespizza@hotmail.com',
+            to: "math.santosmed@gmail.com",
+            subject: "Cupom de Desconto Don Corleone's Pizza",
+            text: "Hello world?",
+            html: `
+                <b>Olá!</b>
+                <p>Seja bem-vindo à Pizzaria Corleone!</p>
+                <p>Aproveite o código de cupom <strong>CORLEONE15</strong> e ganhe 15% de desconto em sua próxima compra.</p>
+                <p>Esta oferta é válida até [data de expiração]. Não perca!</p>
+                <p>Esperamos vê-lo em breve!</p>`,
+        });
+
+        console.log("Message sent: %s", info.messageId);
+        resp.send("Email enviado com sucesso!");
+    } catch (error) {
+        console.error(error);
+        resp.status(500).send("Erro ao enviar o e-mail.");
+    }
+});
 
 
 server.post('/cliente/senha/verificar', (req, resp) => {
@@ -81,12 +106,31 @@ server.post('/cliente/cadastro', async (req, resp) => {
             throw new Error(mensErro);
         } else {
             resp.status(200).send(respo);
+
+            const dataAtual = new Date();
+
+            const dataExpiracao = new Date(dataAtual);
+            dataExpiracao.setDate(dataExpiracao.getDate() + 3);
+
+            const diaExpiracao = dataExpiracao.getDate();
+            const mesExpiracao = dataExpiracao.getMonth() + 1; // Os meses em JavaScript são baseados em zero, então adicionamos 1
+
+            const info = await transporter.sendMail({
+                from: 'doncorleonespizza@hotmail.com',
+                to: respo.email,
+                subject: "Bem vindo(a) a Don Corleone's Pizza",
+                text: "",
+                html: `
+                <b>Olá!</b>
+                <p>Seja bem-vindo à Pizzaria Corleone!</p>
+                <p>Aproveite o código de cupom <strong>CORLEONE15</strong> e ganhe 15% de desconto em sua próxima compra.</p>
+                <p>Esta oferta é válida até ${diaExpiracao}/${mesExpiracao}. Não perca!</p>
+                <p>Esperamos vê-lo em breve!</p>`,
+            });
         }
     } catch (err) {
         resp.status(404).send(err.message)
     }
-
-
 })
 
 server.post('/cliente/login', async (req, resp) => {
@@ -192,7 +236,7 @@ server.get('/clientes/nome/:nome', async (req, resp) => {
 
 server.get('/clientes/:id', async (req, resp) => {
     try {
-        const { id} = req.params
+        const { id } = req.params
         const cliente = await listarid(id);
         resp.send(cliente)
 
@@ -203,19 +247,19 @@ server.get('/clientes/:id', async (req, resp) => {
 
 server.get('/clientes/cartao/:id', async (req, resp) => {
     try {
-      const { id } = req.params;
-      const clientePorCartao = await listarPorIdCartao(id);
-  
-      if (clientePorCartao) {
-        resp.status(200).send(clientePorCartao);
-      } else {
-        resp.status(404).send('Cliente não encontrado com base no id_cartao.');
-      }
+        const { id } = req.params;
+        const clientePorCartao = await listarPorIdCartao(id);
+
+        if (clientePorCartao) {
+            resp.status(200).send(clientePorCartao);
+        } else {
+            resp.status(404).send('Cliente não encontrado com base no id_cartao.');
+        }
     } catch (err) {
-      resp.status(500).send({ erro: err.message });
+        resp.status(500).send({ erro: err.message });
     }
-  });
-  
+});
+
 
 
 
