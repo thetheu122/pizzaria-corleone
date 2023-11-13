@@ -22,6 +22,7 @@ export default function CompAtalhosAdm() {
     const navigate = useNavigate();
     const [popUpProdutos, setPopUpProdutos] = useState(false)
     const [popUpClientes, setPopUpClientes] = useState(false)
+    const [popUpPedidos, setPopUpPedidos] = useState(false)
 
 useEffect(()=> {
  console.log(popUpProdutos)   
@@ -41,6 +42,14 @@ useEffect(()=> {
 
     function fecharPopUpClientes() {
         setPopUpClientes(false)
+    }
+
+    function abrirPopupPedidos() {
+        setPopUpPedidos(true)
+    }
+
+    function fecharPopUpPedidos() {
+        setPopUpPedidos(false)
     }
 
     function sairClick() {
@@ -84,9 +93,23 @@ useEffect(()=> {
                     <h2>Vendas</h2>
                 </div>
 
-                <div onClick={() => {navigate('/listapedido')}} className="pedido">
-                    <img id='pedido' src={Pedidos} />
-                    <h2>Pedidos</h2>
+                <div className="pedido">
+                    <div onClick={abrirPopupPedidos}>
+                        <img id='pedido' src={Pedidos} />
+                        <h2>Pedidos</h2>
+                    </div>
+
+                    {popUpPedidos && (
+                        <div className='pop-up-atalhos'>   
+                                <h3 onClick={() => {navigate('/listapedido')}}>Listar Pedidos</h3>
+                                <h4 onClick={() => {navigate('/cliente')}}>Rastreamento</h4>
+                                <div onClick={fecharPopUpPedidos}>
+                                    <img src={Setapracima}/>
+                                </div>
+                        </div>
+
+                    )}  
+                    
                 </div>
 
                 <div className='clientes'>
