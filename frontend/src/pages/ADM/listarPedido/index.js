@@ -14,44 +14,61 @@ Modal.setAppElement('#root')
 
 export default function ListarPedido() {
 
-    
+
 
     const navigate = useNavigate()
 
-    function MaisDetalhes() {
-        navigate('/detalhes')
+    function MaisDetalhes(id) {
+        navigate(`/detalhes/pedido/${id}`)
     }
 
 
     ///<button className="modal-button" type="submit">Aplicar Filtros</button>
     const [buscarid, setBuscarid] = useState('')
-    const [filtro, setFiltro] = useState('')
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [selectedPayment, setSelectedPayment] = useState('');
-    const [selectedDate, setSelectedDate] = useState('');
     const [pedidos, setPedidos] = useState([])
-    const [buscarNome, setBuscarNome] = useState('')
 
+
+    //////////////////////////////filtros
+    const [AaoZ, setAaoZ] = useState(false)
+    const [data, setData] = useState('')
+    const [entregue, setEntregue] = useState(false)
+    const [cancelado, setCancelado] = useState(false)
+    /////////////////////////////////
+
+
+    //console.log(AaoZ)
+    //console.log(data)
+    console.log(entregue)
 
 
     useEffect(() => {
-        if(buscarid.length > 0) {
-            ListarporNome()
-        }else {
+        if (buscarid.length > 0) {
+            ListarporNomeOuId()
+        } else {
             ListarPedidos()
         }
     }, [buscarid])
 
     async function ListarPedidos() {
         const r = await axios.get(API_URL + '/pedido')
-        console.log(r.data)
-        setPedidos(r.data)
+        const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+        setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
     }
 
 
-    async function ListarporNome() {
-        const r = await axios.get(`${API_URL}/pedido/nome/${buscarid}`)
-        setPedidos(r.data)
+
+    async function ListarporNomeOuId() {
+
+        if (!isNaN(buscarid)) {
+            const rId = await axios.get(`${API_URL}/pedido/id/${buscarid}`)
+            const uniquePedidos = [...new Set(rId.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => rId.data.find(item => item.idpedido === idpedido)));
+        } else {
+            const rNome = await axios.get(`${API_URL}/pedido/nome/${buscarid}`)
+            const uniquePedidos = [...new Set(rNome.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => rNome.data.find(item => item.idpedido === idpedido)));
+        }
     }
 
 
@@ -65,13 +82,40 @@ export default function ListarPedido() {
     }
 
 
-    function handleFilterSubmit(event) {
-        event.preventDefault();
 
-        console.log('Forma de pagamento selecionada:', selectedPayment);
-        console.log('Data selecionada:', selectedDate);
-        closeModal();
+
+    async function TodasFuncoes() {
+        if (AaoZ === true) {
+            const r = await axios.get(`http://localhost:5013/pedido/ordem`)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
+        }
+
+        if (data) {
+            const r = await axios.get(`http://localhost:5013/pedido/data/${data}`)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
+        }
+
+        if (entregue === true && cancelado == false) {
+            const r = await axios.get(`http://localhost:5013/pedido/status/entregue`)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
+        }
+
+        if (cancelado == true && entregue == false) {
+            const r = await axios.get(`http://localhost:5013/pedido/status/cancelado`)
+            const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+            setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
+        }
+
+
+
+        setModalIsOpen(false)
+
     }
+
+
 
 
 
@@ -118,13 +162,18 @@ export default function ListarPedido() {
                             >
 
                                 <h2 className="modal-title">Filtros</h2>
-                                <form className='conteudo-filtros' onSubmit={handleFilterSubmit}>
+                                <form className='conteudo-filtros'>
 
                                     <label className='modal-label-pedidos1'>
                                         <p>ordernar por</p>
 
                                         <div className='modal-first-conteudo'>
-                                            <div className='payment-input-pedidos1'><input type='checkbox' /></div>
+                                            <div className='payment-input-pedidos1'>
+                                                <input type='checkbox'
+                                                    checked={AaoZ}
+                                                    onChange={() => setAaoZ(!AaoZ)}
+                                                />
+                                            </div>
                                             <h4>A ao Z</h4>
                                         </div>
 
@@ -158,7 +207,7 @@ export default function ListarPedido() {
                                         <input
                                             className="modal-input"
                                             type="date"
-                                            onChange={(e) => setSelectedDate(e.target.value)}
+                                            onChange={(e) => setData(e.target.value)}
                                         />
                                     </label>
 
@@ -168,12 +217,23 @@ export default function ListarPedido() {
                                         <p>Status</p>
 
                                         <div className='modal-second-conteudo'>
-                                            <div className='payment-input-pedidos2'><input className='inputt' type='checkbox' /></div>
+                                            <div className='payment-input-pedidos2'>
+                                                <input className='inputt'
+                                                    type='checkbox'
+                                                    checked={entregue}
+                                                    onChange={() => setEntregue(!entregue)}
+                                                />
+                                            </div>
                                             <h6>Entregue</h6>
                                         </div>
 
                                         <div className='modal-second-conteudo'>
-                                            <div className='payment-input-pedidos2'><input type='checkbox' /></div>
+                                            <div className='payment-input-pedidos2'>
+                                                <input type='checkbox'
+                                                    checked={cancelado}
+                                                    onChange={() => setCancelado(!cancelado)}
+                                                />
+                                            </div>
                                             <h6>Cancelado</h6>
                                         </div>
 
@@ -183,7 +243,7 @@ export default function ListarPedido() {
                                 </form>
 
                                 <div className='modal-button-filtros'>
-                                    <button className="modal-button" type="submit">Aplicar Filtros</button>
+                                    <button onClick={TodasFuncoes} className="modal-button" type="submit">Aplicar Filtros</button>
                                 </div>
                             </Modal>
                         </div>
@@ -215,15 +275,22 @@ export default function ListarPedido() {
                         <tbody>
 
                             {pedidos.map(item => (
-                                <tr className="linha-separadora">
-                                    <td>{item.id}</td>
-                                    <td>{item.nome}</td>
-                                    <td>Cartão de crédito</td>
-                                    <td>{item.produto}</td>
-                                    <td>{item.data.substr(0, 10)}</td>
-                                    <td className='status-entregue'></td>
-                                    <td className='preto' onClick={MaisDetalhes}>mais detalhes...</td>
-                                </tr>
+                                item.produto &&
+                                    item.data ? (
+                                    <tr className="linha-separadora" key={item.idpedido}>
+                                        <td>{item.idpedido}</td>
+                                        <td>{item.nome}</td>
+                                        <td>Cartão de crédito</td>
+                                        <td>{item.produto}</td>
+                                        <td>{item.data.substr(0, 10)}</td>
+                                        <td>
+                                            {item.situacao === 'Entregue' && <div className='status-entregue'></div>}
+                                            {item.situacao === 'cancelado' && <div className='status-cancelado'></div>}
+                                            {item.situacao === 'pendente' && null}
+                                        </td>
+                                        <td className='preto' onClick={() => { MaisDetalhes(item.idpedido) }}>mais detalhes...</td>
+                                    </tr>
+                                ) : null
                             ))}
 
 

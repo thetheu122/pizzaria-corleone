@@ -161,7 +161,7 @@ export default function ListarProdutosAdm() {
     const handleCheckboxChange = (value, category) => {
         if (category === "restricoes") {
           if (restricoes.includes(value)) {
-            setRestricoes(restricoes.filter((item) => item !== value));
+            setRestricoes(restricoes.filter((item) => item !== value))
           } else {
             setRestricoes([...restricoes, value]);
           }

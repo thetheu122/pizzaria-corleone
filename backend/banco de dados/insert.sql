@@ -129,7 +129,14 @@ VALUES (
   38.00,
   true
 );
+-- Inserir cupom 1
+INSERT INTO tb_cupom (nm_cupom, ds_valor) VALUES ('CUPOM10', 10);
 
+-- Inserir cupom 2
+INSERT INTO tb_cupom (nm_cupom, ds_valor) VALUES ('DESCONTO20', 20);
+
+-- Inserir cupom 3
+INSERT INTO tb_cupom (nm_cupom, ds_valor) VALUES ('OFERTA50', 50);
 
 insert into  tb_restricao (id_produto,ds_restricao)
                      values (1,'lactose'); 

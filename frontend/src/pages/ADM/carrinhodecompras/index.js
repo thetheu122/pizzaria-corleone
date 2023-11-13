@@ -67,8 +67,11 @@ export default function Carrinhodecompras() {
             navigate(`/corleone/usuario/carrinho/listar/${id}`);
         } else if (valorSelecionado === 'favoritos') {
             navigate(`/cadafavorito/cliente/${id}`);
-        }
+        } else if (valorSelecionado === 'pagamento') {
+            navigate(`/cartao/listar/${id}`);
+          }
     };
+
 
 
 
@@ -116,6 +119,7 @@ export default function Carrinhodecompras() {
                                     <optgroup label="Ordenar">
                                         <option value="carrinho">Carrinho</option>
                                         <option value="favoritos">Favoritos</option>
+                                        <option value="pagamento">Cartão</option>
                                     </optgroup>
                                 </select>
                             </div>

@@ -30,6 +30,10 @@
         }
     }
 
+    .formsCartao{
+        margin-top: 20px;
+    }
+
     .subtitulo-cartao{
         background-color: #fff;
         font-size: 12px;
@@ -53,9 +57,11 @@
         gap: 10px;
 
         margin-top: 150px;
+        
 
 
         input {
+         
             border-radius: 7px;
             border: 2px solid #D9D9D9;
 
