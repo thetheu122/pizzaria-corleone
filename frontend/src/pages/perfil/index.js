@@ -6,7 +6,6 @@ import Barralateral from '../../components/perfil/barralateral'
 import Historico from '../../components/perfil/historico'
 import MyAccount from '../../components/perfil/myAccount'
 import PagFavorito from '../../components/perfil/pagFavorito'
-import PedidosAtv from '../../components/perfil/pedidosAtvPg'
 
 export default function MinhaConta() {
   // CONTROLADORES MENU DIRETA
