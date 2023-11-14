@@ -160,3 +160,5 @@ insert into  tb_restricao (id_produto,ds_restricao)
                      values (7,'gluten');                     
 
 
+INSERT INTO tb_associado (nm_nome, ds_email, ds_senha, ds_cnpj)
+VALUES ('corleone', 'corleonemkmw@.com', 'mkmw123', '123456');
