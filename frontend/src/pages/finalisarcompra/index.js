@@ -111,43 +111,47 @@ useEffect(()=>{
         setPrecos(mappedPrices);
 
         try {
-
-                    let compra = {
-                      "id_cliente": usuario.id,
-                      "desconto": 0,
-                      "produtos": 0,
-                      "subtotal": 0,
-                      "total": 0  
-                    };
+            let compra = {
+                "id_cliente": usuario.id,
+                "desconto": 0,
+                "produtos": [],
+                "subtotal": 0,
+                "total": 0,
+                "ds_qtd": 0 // Adicionado campo de quantidade_total
+              };
               
-                    
-                    let totalProdutosqtd = 0;
+              let totalProdutosqtd = 0;
               
-                    const mappedPrices = produtos.map((item) => {
-                      const preco = parseFloat(item.preco);
-                      const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
-                    
-                      totalProdutosqtd += quantidade.reduce((acm, pro) => acm + pro, 0);
-                    
-                      if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
-                        return preco * quantidade.reduce((acm, pro) => acm + pro, 0);
-                      } else {
-                        return 0;
-                      }
-                    });
-                    
-                    const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
-                    
-                    // console.log('Total de produtos (quantidade):', totalProdutosqtd);
-                    // console.log('Total geral:', total);
-                    
-                    
-                    compra.produtos = totalProdutosqtd;
-                    compra.total = total - desconto;
-                    compra.subtotal = total
-                    compra.desconto = desconto
+              const mappedPrices = produtos.map((item) => {
+                const preco = parseFloat(item.preco);
+                const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
               
-                    const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)      
+                const quantidadeTotalProduto = quantidade.reduce((acm, pro) => acm + pro, 0);
+                totalProdutosqtd += quantidadeTotalProduto;
+              
+                if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
+                  compra.produtos.push({
+                    id_produto: item.id_produto,
+                    quantidade: quantidadeTotalProduto
+                  });
+                  return preco * quantidadeTotalProduto;
+                } else {
+                  return 0;
+                }
+              });
+              
+              const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
+              
+              // console.log('Total de produtos (quantidade):', totalProdutosqtd);
+              // console.log('Total geral:', total);
+              
+              compra.ds_qtd = totalProdutosqtd; // Atualizando quantidade_total
+              compra.total = total - desconto;
+              compra.subtotal = total;
+              
+              const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
+              
+                  
                    
                   } 
                     catch (err) {
@@ -321,7 +325,7 @@ useEffect(()=>{
                 <div> 
                     <div>   
                         {tabelaTotal.map((item) =>(
-                          <p>{item.ds_produtos > 1 ? `Produtos ( ${item.ds_produtos} )`: `Produto ( ${item.ds_produtos} )` }</p> 
+                          <p>{item.ds_qtd > 1 ? `Produtos ( ${item.ds_qtd} )`: `Produto ( ${item.ds_qtd} )` }</p> 
                                      
                             ))
                          } 
