@@ -1,6 +1,5 @@
 import { con } from "../../conection.js";
 
-
 export async function inserirCliente(clientes) {
 
     const [existingCliente] = await con.query(
@@ -185,14 +184,6 @@ export function validarDados(dados) {
     for (const campo in dados) {
         if (!dados[campo]) {
             throw new Error(`Campo "${campo}" está vazio.`);
-        }
-
-        if (campo === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dados[campo])) {
-            throw new Error('E-mail possui um formato inválido.');
-        }
-
-        if (campo === 'cpf' && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(dados[campo])) {
-            throw new Error('CPF possui um formato inválido.');
         }
     }
 

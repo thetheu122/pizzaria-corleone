@@ -9,11 +9,16 @@ import axios from 'axios'
 
 import { API_URL } from '../../config/constants'
 import { toast } from 'react-toastify'
+import MyAccount from '../../components/perfil/myAccount'
+import Cards from 'react-credit-cards';
+import { confirmAlert } from 'react-confirm-alert'
 
 
 export default function Finalizarcadastrado(){
     
+    
 const [ label , setLabel] = useState( false);
+const [proximo , setProximo] = useState(false)
 const [ produtos , setProdutos] = useState([]);
 const [ precos , setPrecos ] = useState([])
 const [ total , setTotal ] = useState(0)
@@ -164,57 +169,190 @@ useEffect(()=>{
 },[produtos]);
 
 
+const [idCartao, setIdCartao] = useState(undefined);
+const [cardDetails, setCardDetails] = useState({
+  cvc: '',
+  expiry: '',
+  focus: '',
+  name: '',
+  number: '',
+});
 
-// useEffect(()=>{
-// async function listar (){
-//      let usuario = localStorage.getItem('usuario-logado');
-//         usuario = JSON.parse(usuario)
-//     try {
+const [id, setiD] = useState(0);
+const [edt, setEdt] = useState(false);
+const [showPassword, setShowPassword] = useState(false);
+const [pagController, setPagController] = useState(true);
 
-//         let compra = {
-//           "id_cliente": usuario.id,
-//           "desconto": 0,
-//           "produtos": 0,
-//           "subtotal": 0,
-//           "total": 0  
-//         };
-  
+const handleInputFocus = (e) => {
+  setCardDetails({ ...cardDetails, focus: e.target.name });
+};
+
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setCardDetails({ ...cardDetails, [name]: value });
+};
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      let usuario = localStorage.getItem('usuario-logado');
+      usuario = JSON.parse(usuario);
+      setiD(usuario.id);
+
+      // ... (restante do código relacionado ao cliente)
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+    }
+  };
+
+  fetchData();
+}, []);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      let request = await axios.get(`${API_URL}/cliente/cartao?request=${id}`);
+      request = request.data;
+
+      if (request.idCartao) {
+        setIdCartao(request.idCartao);
+      } else {
+        setIdCartao(undefined);
+      }
+
+      if (request) {
+        let dados = {
+          cvc: request.cvv || '',
+          expiry: request.validade || '',
+          focus: '',
+          name: request.nome || '',
+          number: request.num || '',
+        };
+        setCardDetails(dados);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+}, [id]);
+
+const alterarUser = async () => {
+  try {
+    // ... (restante do código relacionado à alteração do usuário)
+    cartaoCliente();
+    try {
+        verificarCampos(cardDetails)
+
+        let infoCartao = {
+            num: cardDetails.number,
+            nome: cardDetails.name,
+            validade: cardDetails.expiry,
+            cvv: cardDetails.cvc,
+            id: id,
+            cartao: idCartao
+        }
+
+        let response = await axios.post(API_URL+'/cliente/cartao', infoCartao)  
+
+    } catch (error) {
         
-//         let totalProdutosqtd = 0;
-  
-//         const mappedPrices = produtos.map((item) => {
-//           const preco = parseFloat(item.preco);
-//           const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
+    }
+
+    setEdt(!edt);
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+const cartaoCliente = async () => {
+    try {
+        verificarCampos(cardDetails)
+
+        let infoCartao = {
+            num: cardDetails.number,
+            nome: cardDetails.name,
+            validade: cardDetails.expiry,
+            cvv: cardDetails.cvc,
+            id: id,
+            cartao: idCartao
+        }
+
+        let response = await axios.post(API_URL+'/cliente/cartao', infoCartao)  
+
+    } catch (error) {
         
-//           totalProdutosqtd += quantidade.reduce((acm, pro) => acm + pro, 0);
+    }
+};
+
+const DeletarCartao = async () => {
+    try {
+        let response = await axios.delete(`${API_URL}/cliente/cartao?id=${idCartao}`)
+
+        setIdCartao(undefined)
+         
+        setCardDetails({
+            cvc: "",
+            expiry: "",
+            focus: "",
+            name: "",
+            number: "",
+        })   
+    } catch (error) {
         
-//           if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
-//             return preco * quantidade.reduce((acm, pro) => acm + pro, 0);
-//           } else {
-//             return 0;
-//           }
-//         });
-        
-//         const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
-        
-//         // console.log('Total de produtos (quantidade):', totalProdutosqtd);
-//         // console.log('Total geral:', total);
-        
-        
-//         compra.produtos = totalProdutosqtd;
-//         compra.total = total - desconto;
-//         compra.subtotal = total
-//         compra.desconto = desconto
-  
-//         const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)      
-       
-//       } 
-//         catch (err) {
-//         toast.error(err.message)
-//       }
-//  }
-//  listar()
-// },[produtos.quantidade])
+    }
+};
+
+const verificarCampos = (cardDetails) => {
+  if (!cardDetails.cvc || !cardDetails.expiry || !cardDetails.name || !cardDetails.number) {
+    return 'Campo(s) faltando';
+  } else {
+    return cardDetails;
+  }
+};
+
+
+
+const showConfirmationDialog = () => {
+    confirmAlert({
+        customUI: ({ onClose }) => (
+            <div className="custom-confirm-dialog">
+                <h1>Alteração de Dados</h1>
+                <p>Ao selecionar "Sim", você confirmar as alterações feitas nos campos.</p>
+                <div>
+                    <button onClick={() => {
+                        alterarUser()
+                        onClose();
+                    }}>Sim</button>
+                    <button onClick={() => {
+                        onClose();
+                    }}>Não</button>
+                </div>
+            </div>
+        ),
+    });
+};
+
+const showConfirmationDialogCartao = () => {
+    confirmAlert({
+        customUI: ({ onClose }) => (
+            <div className="custom-confirm-dialog">
+                <h1>Deletar Cartão de sua Conta</h1>
+                <p>Ao selecionar "Sim", você confirmara e deletara seu cartão ativo.</p>
+                <div>
+                    <button onClick={() => {
+                        DeletarCartao();
+                        onClose();
+                    }}>Sim</button>
+                    <button onClick={() => {
+                        onClose();
+                    }}>Não</button>
+                </div>
+            </div>
+        ),
+    });
+};
 
  
     return(
@@ -227,16 +365,87 @@ useEffect(()=>{
 
 
             <div> 
+            
                    <div>
-                      <h2> Meu Carrinho</h2>
-           
-                      {produtos.map((item) => {
 
-                            return (
-                                <ProdutoCompra produto={{ nome: item.produto, preco: item.preco, img: item.imagem , qtd : item.quantidade , id:item.id_carrinho
-                                }} />
-                            );
-                        })}
+                   {proximo 
+                         ? 
+                            <>
+                     <div className='cartaoSide'>
+                    <Cards
+                        cvc={cardDetails.cvc}
+                        expiry={cardDetails.expiry}
+                        focused={cardDetails.focus}
+                        name={cardDetails.name}
+                        number={cardDetails.number}
+                    />
+                    <div>
+                        <form className='formsCartao'>
+                            <input
+                                type="number"
+                                name="number"
+                                placeholder="Número"
+                                onChange={handleInputChange}
+                                onFocus={handleInputFocus}
+                                value={cardDetails.number}
+                                maxLength={16}
+                                className="no-spinners"
+                                disabled={!edt}
+                            />
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Nome"
+                                onChange={handleInputChange}
+                                onFocus={handleInputFocus}
+                                value={cardDetails.name}
+                                disabled={!edt}
+                            />
+                            <div className='expiraCartao'>
+                                <input
+                                    type="text"
+                                    name="expiry"
+                                    placeholder="MM/AA Expiração"
+                                    onChange={handleInputChange}
+                                    onFocus={handleInputFocus}
+                                    value={cardDetails.expiry}
+                                    disabled={!edt}
+                                />
+                                <input
+                                    type="tel"
+                                    name="cvc"
+                                    placeholder="CVC"
+                                    onChange={handleInputChange}
+                                    onFocus={handleInputFocus}
+                                    value={cardDetails.cvc}
+                                    maxLength={3}
+                                    disabled={!edt}
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+               <div className='duplada'> {(pagController == false && idCartao) ? <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button> : null }
+                {edt ?
+                    <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
+                    : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
+                    }
+                    </div>
+                            </>
+                         : 
+                         <>
+                            <h2> Meu Carrinho</h2>
+                            {produtos.map((item) => {
+                                
+                                return (
+                                    <ProdutoCompra produto={{ nome: item.produto, preco: item.preco, img: item.imagem , qtd : item.quantidade , id:item.id_carrinho
+                                    }} />
+                                );
+                                })}
+                         </> 
+           
+                     }
+                    
 
                   
                    </div>
@@ -362,7 +571,7 @@ useEffect(()=>{
                             ))} </h3>
                 </div>
 
-                <button> Comprar </button>
+                <button onClick={ ()=>{ setProximo (true)}}> Comprar </button>
                 <div>
                     <div className='butao'>
                         { digitadoCupom.length  > 0 && 
