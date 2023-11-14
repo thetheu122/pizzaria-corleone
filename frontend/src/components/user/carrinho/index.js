@@ -56,18 +56,17 @@ export default function Carrinho({ onClose }) {
   async function Adicionar (){
   
     try {
-
       let compra = {
         "id_cliente": usuario.id,
         "desconto": 0,
-        "produtos": 0,
+        "produtos": [],
         "subtotal": 0,
-        "total": 0  
+        "total": 0,
+        "ds_qtd": 0  // Adicionando o campo quantidade_total
       };
-
       
       let totalProdutosqtd = 0;
-
+      
       const mappedPrices = listarr.map((item) => {
         const preco = parseFloat(item.preco);
         const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
@@ -75,7 +74,12 @@ export default function Carrinho({ onClose }) {
         totalProdutosqtd += quantidade.reduce((acm, pro) => acm + pro, 0);
       
         if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
-          return preco * quantidade.reduce((acm, pro) => acm + pro, 0);
+          const quantidadeItem = quantidade.reduce((acm, pro) => acm + pro, 0);
+          compra.produtos.push({
+            id_produto: item.id_produto,
+            quantidade: quantidadeItem
+          });
+          return preco * quantidadeItem;
         } else {
           return 0;
         }
@@ -86,21 +90,20 @@ export default function Carrinho({ onClose }) {
       // console.log('Total de produtos (quantidade):', totalProdutosqtd);
       // console.log('Total geral:', total);
       
+      compra.ds_qtd = totalProdutosqtd;  // Atribuindo a quantidade total
+      compra.total = total - compra.desconto;
+      compra.subtotal = total;
       
-      compra.produtos = totalProdutosqtd;
-      compra.total = total;
-
-    if( verificar.length > 0 ){
-      const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)
-    }
-    else{
-      try {
-        const response = await axios.post(`${API_URL}/corleone/pedido/produto`,compra)   
-      } catch (err) {
-        console.log(err.message)
+      if (verificar.length > 0) {
+        const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
+      } else {
+        try {
+          const response = await axios.post(`${API_URL}/corleone/pedido/produto`, compra);
+        } catch (err) {
+          console.log(err.message);
+        }
       }
-     
-    }      
+      
      
 
     } 

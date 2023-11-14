@@ -1,6 +1,21 @@
 import { con } from "../../conection.js";
 
 
+export async function Novopedido(){
+const comando = `
+INSERT INTO tb_pedido (id_cliente, id_tipo_pagamento, id_pedido_produto, ds_nota_pag, dt_pedido, ds_situacao)
+VALUES(? ,
+? ,
+? ,
+? ,
+? , 
+?) `;
+
+
+
+}
+
+
 export async function Listarpedido() {
     let comando = `
     SELECT 
