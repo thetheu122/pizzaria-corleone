@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid} from "../repository/clienteRepository.js";
+import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
 import { transporter } from "../../config/emailsend.js";
 
 const server = Router()
@@ -17,29 +17,29 @@ schema
     .has().symbols(1, 'A senha deve conter um caracter especial'); // Pelo menos um caractere especial
 
 
-server.post('/teste', async (req, resp) => {
-    try {
-        // send mail with defined transport object
-        const info = await transporter.sendMail({
-            from: 'doncorleonespizza@hotmail.com',
-            to: "math.santosmed@gmail.com",
-            subject: "Cupom de Desconto Don Corleone's Pizza",
-            text: "Hello world?",
-            html: `
-                <b>Olá!</b>
-                <p>Seja bem-vindo à Pizzaria Corleone!</p>
-                <p>Aproveite o código de cupom <strong>CORLEONE15</strong> e ganhe 15% de desconto em sua próxima compra.</p>
-                <p>Esta oferta é válida até [data de expiração]. Não perca!</p>
-                <p>Esperamos vê-lo em breve!</p>`,
-        });
+// server.post('/teste', async (req, resp) => {
+//     try {
+//         // send mail with defined transport object
+//         const info = await transporter.sendMail({
+//             from: 'doncorleonespizza@hotmail.com',
+//             to: "math.santosmed@gmail.com",
+//             subject: "Cupom de Desconto Don Corleone's Pizza",
+//             text: "Hello world?",
+//             html: `
+//                 <b>Olá!</b>
+//                 <p>Seja bem-vindo à Pizzaria Corleone!</p>
+//                 <p>Aproveite o código de cupom <strong>CORLEONE15</strong> e ganhe 15% de desconto em sua próxima compra.</p>
+//                 <p>Esta oferta é válida até [data de expiração]. Não perca!</p>
+//                 <p>Esperamos vê-lo em breve!</p>`,
+//         });
 
-        console.log("Message sent: %s", info.messageId);
-        resp.send("Email enviado com sucesso!");
-    } catch (error) {
-        console.error(error);
-        resp.status(500).send("Erro ao enviar o e-mail.");
-    }
-});
+//         console.log("Message sent: %s", info.messageId);
+//         resp.send("Email enviado com sucesso!");
+//     } catch (error) {
+//         console.error(error);
+//         resp.status(500).send("Erro ao enviar o e-mail.");
+//     }
+// });
 
 
 server.post('/cliente/senha/verificar', (req, resp) => {
@@ -71,7 +71,7 @@ server.post('/cliente/cadastro', async (req, resp) => {
         let resposta = req.body;
 
         if (!resposta) {
-            throw new Error("Os dados do cadastro está faltando");
+            throw new Error("Os dados do cadastro estão faltando");
         }
 
         const camposObrigatorios = [
@@ -90,35 +90,33 @@ server.post('/cliente/cadastro', async (req, resp) => {
             if (!(campo in resposta) || !resposta[campo]) {
                 camposFaltando.push(campo);
             }
-        })
+        });
 
         if (camposFaltando.length > 0) {
             const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
             throw new Error(mensagemErro);
         }
 
-
-
-        let respo = await inserirCliente(resposta)
+        let respo = await inserirCliente(resposta);
 
         if (respo === `122`) {
             const mensErro = 'Já existe cliente com essas credenciais';
             throw new Error(mensErro);
-        } else {
-            resp.status(200).send(respo);
+        }
 
+        
+        // Envio do email
+        try {
             const dataAtual = new Date();
-
             const dataExpiracao = new Date(dataAtual);
             dataExpiracao.setDate(dataExpiracao.getDate() + 3);
-
             const diaExpiracao = dataExpiracao.getDate();
-            const mesExpiracao = dataExpiracao.getMonth() + 1; // Os meses em JavaScript são baseados em zero, então adicionamos 1
+            const mesExpiracao = dataExpiracao.getMonth() + 1;
 
-            const info = await transporter.sendMail({
+            await transporter.sendMail({
                 from: 'doncorleonespizza@hotmail.com',
                 to: respo.email,
-                subject: "Bem vindo(a) a Don Corleone's Pizza",
+                subject: "Bem-vindo(a) à Don Corleone's Pizza",
                 text: "",
                 html: `
                 <b>Olá!</b>
@@ -127,11 +125,16 @@ server.post('/cliente/cadastro', async (req, resp) => {
                 <p>Esta oferta é válida até ${diaExpiracao}/${mesExpiracao}. Não perca!</p>
                 <p>Esperamos vê-lo em breve!</p>`,
             });
+        } catch (error) {
         }
+
+
+        resp.status(200).send(respo);
     } catch (err) {
-        resp.status(404).send(err.message)
+        resp.status(404).send(err.message);
     }
-})
+});
+
 
 server.post('/cliente/login', async (req, resp) => {
     try {

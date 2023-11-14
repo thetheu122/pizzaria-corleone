@@ -162,7 +162,9 @@ FOREIGN  KEY ( id_tipo_pagamento) 	REFERENCES tb_tp_pagamento ( id_cartao )
 
 
 );
-REATE TABLE tb_pedido_produto (
+
+
+CREATE TABLE tb_pedido_produto (
 id_pedido_produto   INT PRIMARY KEY AUTO_INCREMENT,
 id_cliente          INT  ,
 ds_produtos         varchar(200),
