@@ -204,6 +204,8 @@ export default function MyAccount() {
                 id: id,
                 cartao: idCartao
             }
+
+            console.log(infoCartao)
     
             let response = await axios.post(API_URL+'/cliente/cartao', infoCartao)  
 

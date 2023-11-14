@@ -68,6 +68,21 @@ export default function Cabecalho(props) {
 
   const [listarr, setListarr] = useState([]);
 
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      setScrolled(isScrolled);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
 
 
   useEffect(() => {
@@ -388,6 +403,8 @@ const addCliente = async () => {
             theme: "dark",
           }
         );
+        
+        setOpenLoginModal(false)
       } else {
         localStorage.removeItem('contiuacao-cadastro');
         setIsLogged(true)
@@ -485,7 +502,7 @@ const CadastrarEndereco = async () => {
 
 return (
   <>
-    <main className='cabecalho'>
+    <main className={`cabecalho ${scrolled ? 'padrao' : null}`}>
       <div className='esquerda-cabecalho'>
 
         <div onClick={() => navigate('/sobrenos')} className='sobre-nos'>
