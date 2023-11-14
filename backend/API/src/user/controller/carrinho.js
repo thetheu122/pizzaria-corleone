@@ -90,18 +90,7 @@ endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
     }
 })
 
-endpoints.get('/corleone/usuario/carrinho/listar/sem/:id' , async (req,resp) =>{
-    try {
-      const {id} = req.params
-      const resposta = await listarcarrinhoidsem(id)
 
-      
-      resp.send(resposta)  
-
-    } catch (err) {
-        resp.status(400).send({erro:err.message})
-    }
-})
 
 
 endpoints.get('/corleone/usuario/carrinho/verificar/:cliente/:produto' , async (req,resp) =>{
@@ -161,6 +150,19 @@ endpoints.get('/corleone/produto/:produto', async (req, resp) => {
 })
   
 
+
+endpoints.get('/corleone/usuario/carrinho/listar/sem/:id' , async (req,resp) =>{
+    try {
+      const {id} = req.params
+      const resposta = await listarcarrinhoidsem(id)
+
+      
+      resp.send(resposta)  
+
+    } catch (err) {
+        resp.status(400).send({erro:err.message})
+    }
+})
 
 
 export default endpoints

@@ -1,12 +1,19 @@
 import './index.scss'
 import CompAtalhosAdm from '../../../components/compAtalhosAdm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
-
+import { API_URL } from '../../../config/constants';
+import axios from 'axios';
 
 export default function ClienteAdm() {
     const [pesquisa, setPesquisa] = useState('')
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [rastreamneto, setRastreamento] = useState([])
+
+
+    useEffect(() => {
+        Rastreamento();
+    }, [])
 
     function openModal() {
         setModalIsOpen(true);
@@ -17,6 +24,12 @@ export default function ClienteAdm() {
         setModalIsOpen(false);
     }
 
+
+    async function Rastreamento() {
+        const r = await axios.get(`${API_URL}/pedido/rastreamento`)
+        console.log(r.data)
+        setRastreamento(r.data)
+    }
 
     return (
         <div className='comp'>
@@ -133,596 +146,37 @@ export default function ClienteAdm() {
 
 
                         <tbody>
+
+                            {rastreamneto.map(item => 
+                            <tr className="linha-separadora">
+                            
+                            <td>{item.data.substr(11, 5)}</td>
+                            <td>{item.produtos}</td>
+                            <td>{item.cep}</td>
+                            <td>{item.total}</td>
+                            <td>{item.cliente}</td>
+                            <td className='con'>{item.status}</td>
+                            
+
+                                <td className='pedido-em-andamento'>
+                                    <div class="pedido-andamento">
+                                        <div class="etapa">
+                                            <div class="bolinha">1</div>
+                                            <div class="linha"></div>
+                                        </div>
+                                        <div class="etapa">
+                                            <div class="bolinha">2</div>
+                                            <div class="linha"></div>
+                                        </div>
+                                        <div class="etapa">
+                                            <div class="bolinha">3</div>
+                                        </div>
+                                    </div>
+                                </td>
+                        </tr>
+                                )}
         
-                            <tr className="linha-separadora">
                             
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
-
-                            
-                            <tr className="linha-separadora">
-                                <td>21:20h</td>
-                                <td>Cannoli</td>
-                                <td>04058-018</td>
-                                <td>50,00 R$</td>
-                                <td>Rick Lima</td>
-
-
-                                <td className='con'>Concluido</td>
-                                
-
-                                    <td className='pedido-em-andamento'>
-                                        <div class="pedido-andamento">
-                                            <div class="etapa">
-                                                <div class="bolinha">1</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">2</div>
-                                                <div class="linha"></div>
-                                            </div>
-                                            <div class="etapa">
-                                                <div class="bolinha">3</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    
-
-
-
-                            </tr>
 
                         </tbody>
 

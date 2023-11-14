@@ -32,7 +32,7 @@ export default function Carrinhodecompras() {
     })
 
     async function ListarCarrinho(idCliente) {
-        const r = await axios.get(`${API_URL}/corleone/usuario/carrinho/listar/${idCliente}`);
+        const r = await axios.get(`${API_URL}/corleone/usuario/carrinho/listar/sem/${idCliente}`);
         setTdscarrinhos(r.data);
     }
 
@@ -56,6 +56,7 @@ export default function Carrinhodecompras() {
         const resp = r.data
         console.log(resp)
         setTdscarrinhos(r.data)
+       
 
     }
 
@@ -148,14 +149,14 @@ export default function Carrinhodecompras() {
                                         <td><img src={`${api.getUri()}/${item.imagem}`} alt={item.produto} /></td>
                                         <td>{item.produto}</td>
                                         <td>
-                                            {item.carrinho === 0 ? (
+                                            {item.carrinho === 'indisponivel' ? (
                                                 <div className='removido'></div>
                                             ) : (
                                                 <div className='tracinhos'>--</div>
                                             )}
                                         </td>
                                         <td>
-                                            {item.carrinho === 1 ? (
+                                            {item.carrinho === 'disponivel' ? (
                                                 <div className='adicionado'></div>
                                             ) : (
                                                 <div className='tracinhos'>--</div>

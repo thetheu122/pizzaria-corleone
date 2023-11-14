@@ -119,6 +119,16 @@ export default function ClienteMaisdetalhe() {
             <CompAtalhosAdm />
             <div className='container--mais'>
 
+            <div className='tiitulo'>
+                    <h1>Clientes</h1>
+                </div>
+
+                <div className='subbtitulo'>
+                    <h1>Detalhe do cliente</h1>
+                </div>
+
+
+
 
                 <div className='conteudo-mais'>
 

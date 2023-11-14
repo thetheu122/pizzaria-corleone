@@ -218,3 +218,34 @@ export async function listarDetalhesPorId(id) {
         const [resposta] = await con.query(comando, [id])
         return resposta
 }
+
+
+
+
+
+
+///////////////////////////// rastreamento pedidos
+
+
+
+
+export async function listarRastreamento() {
+    let comando = `
+            SELECT
+            pd.dt_pedido        as data,
+            pd.ds_situacao      as status,
+            pp.ds_produtos      as produtos,
+            pp.ds_subtotal      as subtotal,
+            pp.ds_total         as total,
+            e.ds_cep            as cep,
+            c.nm_cliente        as cliente
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
+        LEFT JOIN tb_endereco e ON c.id_endereco = e.id_endereco
+        `
+
+        const [resposta] = await con.query(comando)
+        return resposta
+}
