@@ -8,6 +8,7 @@ import Relogio from '../../assets/images/pictures/image15.svg'
 import Chef from '../../assets/images/pictures/image16.svg'
 import Bowl from '../../assets/images/pictures/image17.svg'
 
+import Transition from '../transition/transition';
 
 import { register } from 'swiper/element/bundle'
 
@@ -65,6 +66,7 @@ export default function Leading() {
     }, [])
 
     return (
+        <Transition>
         <main className='leadingPage'>
             <Cabecalho />
             <div className='introducao'>
@@ -216,5 +218,6 @@ export default function Leading() {
             </button>
             <Rodape />
         </main >
+        </Transition>
     )
 }
