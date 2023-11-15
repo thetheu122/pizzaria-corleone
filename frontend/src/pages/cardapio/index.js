@@ -5,7 +5,7 @@ import Seta from '../../assets/images/icons/seta_icon.svg'
 import Lupa from '../../assets/images/icons/lupa.png'
 import carregando from '../../assets/images/carregando.png'
 
-
+import Transition from '../transition/transition'
 
 import Cabecalho from '../../components/user/cabecalho'
 import CardProduct from '../../components/user/cardProduct'
@@ -90,7 +90,7 @@ export default function Cardapio() {
 
     useEffect(() => {
         controladorFiltroSuperior(filtroUrl)
-    },[filtroUrl])
+    }, [filtroUrl])
 
     const ultimoCartao = paginaAtual * itensPorPagina
     const primeiroCartao = ultimoCartao - itensPorPagina
@@ -221,157 +221,159 @@ export default function Cardapio() {
     }
 
     return (
-        <main className='cardapio'>
-            <Cabecalho cadastro={cadastroAtv} funcao={ttt} />
-            <div className='cima'>
-                <div className={`fpizza ${pizzasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('p')}>
-                    <h1>Pizzas</h1>
-                </div>
-                <div className={`fsobremesas ${sobremesaAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('s')}>
-                    <h1>Sobremesas</h1>
-                </div>
-                <div className={`fbebida ${bebidasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('b')}>
-                    <h1>Bebidas</h1>
-                </div>
-                <div className={`fvegetariana ${vegetarianaAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('v')}>
-                    <h1>Vegetarianas</h1>
-                </div>
-            </div>
-
-
-            <div className='meio'>
-                <div className='esquerda'>
-                    <div className='filtro-nome'>
-                        <input placeholder='Digite e aperte enter...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)}></input>
-                        <img alt='lupa' onClick={buscar} src={Lupa} />
+        <Transition>
+            <main className='cardapio'>
+                <Cabecalho cadastro={cadastroAtv} funcao={ttt} />
+                <div className='cima'>
+                    <div className={`fpizza ${pizzasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('p')}>
+                        <h1>Pizzas</h1>
                     </div>
-
-                    <div className='ordenado'>
-                        <p>Ordenar por: </p>
-                        <div>
-                            <select onChange={(e) => setOrderBy(e.target.value)}>
-                                <option value='null'>Nenhum parâmetro</option>
-                                <option value="4">Melhores avaliações</option>
-                                <option value="3">Novidades</option>
-                                <option value="1">Opções Familia</option>
-                                <option value="2">Opções Sofisticadas</option>
-                            </select>
-                        </div>
+                    <div className={`fsobremesas ${sobremesaAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('s')}>
+                        <h1>Sobremesas</h1>
                     </div>
-
-                    <div className='restricoes'>
-                        <div className='restricoesFiltro'>
-                            <input type='radio' value={vegano} onClick={() => sideFilter('v')} disabled={qtdAtv === 3 && !vegano} checked={vegano} />
-                            <p>Vegano</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
-                            <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
-                        </svg>
-
-                        <div className='restricoesFiltro'>
-                            <input type='radio' value={intoleranteOvo} onClick={() => sideFilter('o')} disabled={qtdAtv === 3 && !intoleranteOvo} checked={intoleranteOvo} />
-                            <p>Intolerante a Ovo</p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
-                            <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
-                        </svg>
-
-                        <div className='restricoesFiltro'>
-                            <input type='radio' value={intoleranteGluten} onClick={() => sideFilter('g')} disabled={qtdAtv === 3 && !intoleranteGluten} checked={intoleranteGluten} />
-                            <p>Intolerante a Glúten </p>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
-                            <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
-                        </svg>
-
-                        <div className='restricoesFiltro'>
-                            <input type='radio' value={intoleranteLactose} onClick={() => sideFilter('l')} disabled={qtdAtv === 3 && !intoleranteLactose} checked={intoleranteLactose} />
-                            <p>Intolerante a Lactose</p>
-                        </div>
-
-
-
+                    <div className={`fbebida ${bebidasAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('b')}>
+                        <h1>Bebidas</h1>
                     </div>
-
-                    <h1>Compre Novamente</h1>
-
-                    <CardProduct />
-
-
-
+                    <div className={`fvegetariana ${vegetarianaAtv ? 'prop' : 'notSelect'}`} onClick={() => controladorFiltroSuperior('v')}>
+                        <h1>Vegetarianas</h1>
+                    </div>
                 </div>
 
 
-                <div className='direitinha'>
-                    <div className='direitaMeio'>
-                        {mostrar ? cartoesAtuais.map((item) => (
+                <div className='meio'>
+                    <div className='esquerda'>
+                        <div className='filtro-nome'>
+                            <input placeholder='Digite e aperte enter...' value={pesquisa} onChange={(e) => setPesquisa(e.target.value)}></input>
+                            <img alt='lupa' onClick={buscar} src={Lupa} />
+                        </div>
+
+                        <div className='ordenado'>
+                            <p>Ordenar por: </p>
                             <div>
-                                <CardProduto
-                                    produto={{
-                                        nome: item.nome,
-                                        preco: item.preço,
-                                        imagem: item.imagem,
-                                        id: item.ID,
-                                        media: item.media,
-                                        tipo: item.tipo
-                                    }}
-                                />
+                                <select onChange={(e) => setOrderBy(e.target.value)}>
+                                    <option value='null'>Nenhum parâmetro</option>
+                                    <option value="4">Melhores avaliações</option>
+                                    <option value="3">Novidades</option>
+                                    <option value="1">Opções Familia</option>
+                                    <option value="2">Opções Sofisticadas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className='restricoes'>
+                            <div className='restricoesFiltro'>
+                                <input type='radio' value={vegano} onClick={() => sideFilter('v')} disabled={qtdAtv === 3 && !vegano} checked={vegano} />
+                                <p>Vegano</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
+                                <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
+                            </svg>
+
+                            <div className='restricoesFiltro'>
+                                <input type='radio' value={intoleranteOvo} onClick={() => sideFilter('o')} disabled={qtdAtv === 3 && !intoleranteOvo} checked={intoleranteOvo} />
+                                <p>Intolerante a Ovo</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
+                                <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
+                            </svg>
+
+                            <div className='restricoesFiltro'>
+                                <input type='radio' value={intoleranteGluten} onClick={() => sideFilter('g')} disabled={qtdAtv === 3 && !intoleranteGluten} checked={intoleranteGluten} />
+                                <p>Intolerante a Glúten </p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
+                                <path d="M0.566895 0.5H226.98" stroke="black" stroke-linecap="round" />
+                            </svg>
+
+                            <div className='restricoesFiltro'>
+                                <input type='radio' value={intoleranteLactose} onClick={() => sideFilter('l')} disabled={qtdAtv === 3 && !intoleranteLactose} checked={intoleranteLactose} />
+                                <p>Intolerante a Lactose</p>
                             </div>
 
-                        )) : <div className='not'>
-                            <h1> <img src={carregando} />Produto não encontrado</h1>
-                        </div>}
+
+
+                        </div>
+
+                        <h1>Compre Novamente</h1>
+
+                        <CardProduct />
+
+
 
                     </div>
 
-                    <div className='pagination'>
-                        {mostrar ? (
-                            <div className='paginacao'>
-                                {paginaAtual > 1 ? (
-                                    <button className='proximo' onClick={() => altPag('ant')}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
-                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#53220D" stroke-width="2" stroke-linecap="round" transform="rotate(180, 12.5, 9.5)" />
-                                        </svg>
-                                        <p>Anterior</p>
-                                    </button>
-                                ) : (
-                                    <button className='negado'>
-                                        <p>Anterior</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
-                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#8d8d8d" stroke-width="2" stroke-linecap="round" transform="rotate(180, 12.5, 9.5)" />
-                                        </svg>
-                                    </button>
-                                )}
 
-                                <div className='bolotas'>
-                                    {pages.map(item => (
-                                        <div className={item === paginaAtual ? 'marrom' : 'circulo'} key={item} onClick={() => altPag(item)}>
-                                            {item}
-                                        </div>
-                                    ))}
+                    <div className='direitinha'>
+                        <div className='direitaMeio'>
+                            {mostrar ? cartoesAtuais.map((item) => (
+                                <div>
+                                    <CardProduto
+                                        produto={{
+                                            nome: item.nome,
+                                            preco: item.preço,
+                                            imagem: item.imagem,
+                                            id: item.ID,
+                                            media: item.media,
+                                            tipo: item.tipo
+                                        }}
+                                    />
                                 </div>
 
-                                {paginaAtual < pages.length ? (
-                                    <button className='proximo' onClick={() => altPag('pro')}>
-                                        <p>Próximo</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
-                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#53220D" stroke-width="2" stroke-linecap="round" />
-                                        </svg>
-                                    </button>
-                                ) : (
-                                    <button className='negado'>
-                                        <p>Próximo</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
-                                            <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#8d8d8d" stroke-width="2" stroke-linecap="round" />
-                                        </svg>
-                                    </button>
-                                )}
-                            </div>
-                        ) : null}
+                            )) : <div className='not'>
+                                <h1> <img src={carregando} />Produto não encontrado</h1>
+                            </div>}
+
+                        </div>
+
+                        <div className='pagination'>
+                            {mostrar ? (
+                                <div className='paginacao'>
+                                    {paginaAtual > 1 ? (
+                                        <button className='proximo' onClick={() => altPag('ant')}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                                <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#53220D" stroke-width="2" stroke-linecap="round" transform="rotate(180, 12.5, 9.5)" />
+                                            </svg>
+                                            <p>Anterior</p>
+                                        </button>
+                                    ) : (
+                                        <button className='negado'>
+                                            <p>Anterior</p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                                <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#8d8d8d" stroke-width="2" stroke-linecap="round" transform="rotate(180, 12.5, 9.5)" />
+                                            </svg>
+                                        </button>
+                                    )}
+
+                                    <div className='bolotas'>
+                                        {pages.map(item => (
+                                            <div className={item === paginaAtual ? 'marrom' : 'circulo'} key={item} onClick={() => altPag(item)}>
+                                                {item}
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {paginaAtual < pages.length ? (
+                                        <button className='proximo' onClick={() => altPag('pro')}>
+                                            <p>Próximo</p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                                <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#53220D" stroke-width="2" stroke-linecap="round" />
+                                            </svg>
+                                        </button>
+                                    ) : (
+                                        <button className='negado'>
+                                            <p>Próximo</p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="19" viewBox="0 0 25 19" fill="none">
+                                                <path d="M1.5 9.5H23M23 9.5L13.561 1.5M23 9.5L13.561 17.5" stroke="#8d8d8d" stroke-width="2" stroke-linecap="round" />
+                                            </svg>
+                                        </button>
+                                    )}
+                                </div>
+                            ) : null}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <Rodape />
-        </main>
+                <Rodape />
+            </main>
+        </Transition>
     )
 }
