@@ -17,7 +17,7 @@ ds_tipo_produto         VARCHAR(100)
 CREATE TABLE tb_produto (
 	
 id_produto	   	      INT PRIMARY KEY AUTO_INCREMENT,
-ds_tipo_produto		  INT NOT NULL,
+ds_tipo_produto		    INT NOT NULL,
 ds_ingredientes       VARCHAR(500)  NOT NULL,     
 nm_produto            VARCHAR(500)  NOT NULL,
 vl_preco              VARCHAR(500)  NOT NULL,
