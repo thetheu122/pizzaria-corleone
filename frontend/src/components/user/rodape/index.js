@@ -11,9 +11,9 @@ export default function Rodape() {
     const navigate = useNavigate()
 
     const linkStyles = {
-        textDecoration: 'none', 
-        color: 'inherit',      
-        cursor: 'pointer',     
+        textDecoration: 'none',
+        color: 'inherit',
+        cursor: 'pointer',
     }
 
     return (
@@ -33,7 +33,7 @@ export default function Rodape() {
                             href="https://maps.google.com/?q=Av+Giovanni+Gronchi+Vila+Andrade,74"
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={linkStyles} 
+                            style={linkStyles}
                         >
                             Av Giovanni Gronchi Vila Andrade,74
                         </a>
@@ -43,7 +43,7 @@ export default function Rodape() {
                             href="https://maps.google.com/?q=Rua+Cachoeira+Alta,610"
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={linkStyles} 
+                            style={linkStyles}
                         >
                             Rua Cachoeira Alta,610
                         </a>
@@ -53,7 +53,7 @@ export default function Rodape() {
                             href="https://maps.google.com/?q=R.+Itapechinga,6-24"
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={linkStyles} 
+                            style={linkStyles}
                         >
                             R. Itapechinga, 6-24
                         </a>
@@ -70,25 +70,31 @@ export default function Rodape() {
                 <div className='redes-sociais'>
                     <h4>Siga-nos nas redes Sociais</h4>
                     <div>
-                        <img alt='whatsapp' src={Whatsapp} className='contato'/>
-                        <img alt='instagram' src={Instagram} className='contato'/>
-                        <img alt='facebook' src={Facebook} className='contato'/>
-                        <img alt='x' src={X} className='contato'/>
+                        <img alt='whatsapp' src={Whatsapp} className='contato' />
+                        <img alt='instagram' src={Instagram} className='contato' />
+                        <img alt='facebook' src={Facebook} className='contato' />
+                        <img alt='x' src={X} className='contato' />
                     </div>
                 </div>
 
                 <div className='contatos'>
                     <h4>Outros Contatos</h4>
                     <div>
-                        <img alt='telefone' src={Telefone} className='contato'/>
+                        <img alt='telefone' src={Telefone} className='contato' />
                         <p>+55 11 993673706</p>
                     </div>
                     <div>
-                        <img alt='telefone' src={Telefone} className='contato'/>
+                        <img alt='telefone' src={Telefone} className='contato' />
                         <p>+55 11 923063609</p>
                     </div>
                 </div>
             </div>
+
+            <div class="scrolling-text-container">
+                <div class="scrolling-text">
+                    <p>DON CORLEONE'S  PIZZA DON CORLEONE'S PIZZA  DON CORLEONE'S PIZZA  DON CORLEONE'S PIZZA  DON CORLEONE'S PIZZA   DON CORLEONE'S PIZZA</p>
+                </div>
+            </div>
         </main>
     )
-    }
+}

@@ -1,4 +1,4 @@
-.rodape{
+.rodape {
     margin-top: 55px;
     padding: 20px 50px;
     text-align: left;
@@ -9,22 +9,22 @@
     background-color: #FFC857;
     gap: 70px;
 
-    .contato{
+    .contato {
         width: 20px;
         height: 20px;
     }
 
-    .titutoContato{
+    .titutoContato {
         font-family: lato-bold;
         font-size: 15px;
         font-style: normal;
         font-weight: 600;
         width: 70px;
-        margin-top:20px;
-     
+        margin-top: 20px;
+
     }
 
-    h4{
+    h4 {
         font-family: lato-bold;
         font-size: 17px;
         font-style: normal;
@@ -32,7 +32,7 @@
         width: 230px;
     }
 
-    p{
+    p {
         color: rgba(0, 0, 0, 0.75);
         font-size: 15px;
         font-style: normal;
@@ -45,42 +45,72 @@
         cursor: pointer;
         transition: 0.1;
 
-      
+
     }
 
 
-  
-    .redes-sociais{
+
+    .redes-sociais {
         margin-bottom: 20px;
-        h4{
+
+        h4 {
             margin: 20px 0px 10px 0px;
         }
-        div > img{
+
+        div>img {
             margin-top: 5px;
             margin-right: 15px;
-            cursor:pointer
+            cursor: pointer
         }
     }
 
 
-    .contatos{
+    .contatos {
 
-        h4{
+        h4 {
             margin: 10px 0px;
         }
-        div{
+
+        div {
             display: flex;
             align-items: center;
             margin-top: 10px;
-            img{
+
+            img {
                 width: 18px;
                 margin-right: 5px;
             }
-            p{
+
+            p {
                 margin: 0px;
             }
         }
     }
 
 
+}
+
+.scrolling-text-container {
+    width: 150px;
+    overflow: hidden;
+}
+
+.scrolling-text {
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+
+    p {
+        font-size: 40px;
+        font-weight: bold;
+    }
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-800%);
+    }
 }

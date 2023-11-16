@@ -9,6 +9,7 @@ import Cabecalho from '../../components/user/cabecalho';
 import Rodape from '../../components/user/rodape';
 import CompSobre from '../../components/compSobre'
 import { useState } from 'react';
+import Top50 from '../../assets/images/pictures/logo-50toppizza.png'
 
 export default function SobreNos() {
 
@@ -20,16 +21,11 @@ export default function SobreNos() {
       <Cabecalho />
 
       <div className='contaiiner'>
-        <h1 className='titulo'>Nossa historia</h1>
-        <h2 className='subtitulo'>CORLEONE’S PIZZA </h2>
+        <p>DON CORLEONE</p>
+        <h2>__"Qualquer pessoa pode fazer uma PIZZA, mas sempre será uma pizza qualquer."</h2>
       </div>
 
-
-
-
-
-
-      <div className='texto-container'>
+      {/* <div className='texto-container'>
 
         <img src={restaurante} alt="Imagem do Restaurante" className="img-restaurante" />
 
@@ -57,36 +53,16 @@ export default function SobreNos() {
         <img src={pizza} />
       </div>
 
+      <Rodape /> */}
 
-      <div className="comp-sobre-nos">
-            <div className="containerrr">
-                <div className='sub-container'>
-                    <div className="titulo">
-                        <h1>A Corleone Pizzaria</h1>
-                    </div>
-
-                    <div className="conteudo-sobre-nos">
-                        <div className="esquerda-sobre-nos">
-
-                            <img src={RestauranteComp} alt="imagem" />
-                        </div>
-
-                        <div className="direita-sobre-nos">
-                            <div><h1>O Sabor Autêntico da Itália!</h1></div>
-                            <p>Quando você escolhe a Corleone Pizzaria, não está apenas saboreando uma pizza excepcional, mas também fazendo parte de nossa história. Somos uma empresa comprometida em proporcionar momentos memoráveis, reunindo famílias e amigos em torno da mesa, celebrando a vida e compartilhando risadas.</p>
-                            <p>Convidamos você a se juntar a nós nesta jornada gastronômica única. Deixe-nos transportar você para a Itália, mesmo que esteja a milhares de quilômetros de distância. Descubra a magia da culinária italiana, com um toque especial do Brasil, na Corleone Pizzaria.</p>                                                                     
-                        </div>
-                    </div>
-                </div>
-            
-                
-            </div>
+      <div className='cardapio-sobrenos'>
+        <div className='esquerda-cardapio-sobrenos'>
+          <h1>"Terceira melhor cadeia de pizza artesanal do mundo e a primeira brasileira."</h1>
+          <p>"De acordo com o top 50 de pizzas de 2022."</p>
+          <button>Descubra agora os sabores da tradição</button>
         </div>
-
-
-
-
-      <Rodape />
+        <img src={Top50} alt='top50' className='direita-cardapio-sobrenos'/>
+      </div>
 
 
 

@@ -12,7 +12,7 @@ const Transition = ({ children }) => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setTransitioning(false);
-        }, 250); // 1000 milissegundos = 1 segundo
+        }, 300); // 1000 milissegundos = 1 segundo
 
         console.log(children)
 
@@ -22,7 +22,7 @@ const Transition = ({ children }) => {
     return (
         <>
             {children}
-            <motion.div
+            {/* <motion.div
                 className='slide-in'
                 initial={{ scaleY: 1 }}
                 animate={{ scaleY: 0 }}
@@ -32,7 +32,7 @@ const Transition = ({ children }) => {
                 {children.props.className === "leadingPage" ? <InicialPage /> : children.props.className === "cardapio" ? <PizzaAnimation /> :  children.props.className === "background-minhaconta" ? <PerfilAnimation/> : null}
 
                 <h1>{children.props.className === "leadingPage" ? "Página Inicial" : children.props.className === "cardapio" ? "Cardapio" : children.props.className === "background-minhaconta" ? "Minha Conta" : null}</h1>
-            </motion.div>
+            </motion.div> */}
         </>
     );
 };
