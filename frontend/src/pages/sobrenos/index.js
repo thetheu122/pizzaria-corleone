@@ -10,10 +10,13 @@ import Rodape from '../../components/user/rodape';
 import CompSobre from '../../components/compSobre'
 import { useState } from 'react';
 import Top50 from '../../assets/images/pictures/logo-50toppizza.png'
+import { useNavigate } from 'react-router-dom';
 
 export default function SobreNos() {
 
   const [mostrarBotao, setMostrarBotao] = useState(false);
+
+  const navigate = useNavigate()
 
   return (
     <div className="App">
@@ -53,19 +56,24 @@ export default function SobreNos() {
         <img src={pizza} />
       </div>
 
-      <Rodape /> */}
+       */}
 
       <div className='cardapio-sobrenos'>
         <div className='esquerda-cardapio-sobrenos'>
           <h1>"Terceira melhor cadeia de pizza artesanal do mundo e a primeira brasileira."</h1>
           <p>"De acordo com o top 50 de pizzas de 2022."</p>
-          <button>Descubra agora os sabores da tradição</button>
+          <button onClick={() => navigate('/cardapio')}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="29" viewBox="0 0 35 29" fill="none">
+              <path d="M2.88354 15.6783V18.3798C2.88354 18.6182 3.17562 18.7771 3.37034 18.7771H29.7546C30.0467 18.7771 30.2414 18.5387 30.2414 18.3798V15.6783C30.2414 15.5988 30.2414 15.4399 30.144 15.3604L24.3025 10.4341H8.91979L3.07826 15.3604C3.07826 15.5194 2.88354 15.5988 2.88354 15.6783ZM9.30923 11.3081H23.913L28.6836 15.281H18.1689C18.0715 15.9166 17.39 16.3139 16.8059 16.3139C16.027 16.3139 15.5402 15.9166 15.4428 15.281H4.73336L9.30923 11.3081ZM3.95449 16.0756H14.5666L14.664 16.155C15.1508 16.7112 15.9296 17.1085 16.7085 17.1085C17.4874 17.1085 18.2662 16.7907 18.753 16.155L18.8504 16.0756H29.4625V17.9825H3.95449V16.0756Z" />
+            </svg>
+            <p>Descubra agora os sabores da tradição</p>
+          </button>
         </div>
-        <img src={Top50} alt='top50' className='direita-cardapio-sobrenos'/>
+        <img src={Top50} alt='top50' className='direita-cardapio-sobrenos' />
       </div>
 
 
-
+      <Rodape />
     </div>
 
   );

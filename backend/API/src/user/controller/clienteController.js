@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
-import { transporter } from "../../config/emailsend.js";
+import { emailCadastro,  editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -75,7 +74,6 @@ server.post('/cliente/cadastro', async (req, resp) => {
         }
 
         const camposObrigatorios = [
-            "endereco",
             "cliente",
             "email",
             "telefone",
@@ -99,35 +97,12 @@ server.post('/cliente/cadastro', async (req, resp) => {
 
         let respo = await inserirCliente(resposta);
 
+        emailCadastro(resposta.email)
+
         if (respo === `122`) {
             const mensErro = 'Já existe cliente com essas credenciais';
             throw new Error(mensErro);
         }
-
-        
-        // Envio do email
-        try {
-            const dataAtual = new Date();
-            const dataExpiracao = new Date(dataAtual);
-            dataExpiracao.setDate(dataExpiracao.getDate() + 3);
-            const diaExpiracao = dataExpiracao.getDate();
-            const mesExpiracao = dataExpiracao.getMonth() + 1;
-
-            await transporter.sendMail({
-                from: 'doncorleonespizza@hotmail.com',
-                to: respo.email,
-                subject: "Bem-vindo(a) à Don Corleone's Pizza",
-                text: "",
-                html: `
-                <b>Olá!</b>
-                <p>Seja bem-vindo à Pizzaria Corleone!</p>
-                <p>Aproveite o código de cupom <strong>CORLEONE15</strong> e ganhe 15% de desconto em sua próxima compra.</p>
-                <p>Esta oferta é válida até ${diaExpiracao}/${mesExpiracao}. Não perca!</p>
-                <p>Esperamos vê-lo em breve!</p>`,
-            });
-        } catch (error) {
-        }
-
 
         resp.status(200).send(respo);
     } catch (err) {

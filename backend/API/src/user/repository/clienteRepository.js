@@ -1,4 +1,5 @@
 import { con } from "../../conection.js";
+import { transporter } from "../../config/emailsend.js";
 
 export async function inserirCliente(clientes) {
 
@@ -120,8 +121,8 @@ export async function listarCliente() {
 INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
    `
 
-   const[resposta]= await con.query(comando)
-   return resposta
+    const [resposta] = await con.query(comando)
+    return resposta
 }
 
 
@@ -147,8 +148,8 @@ INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
 WHERE nm_cliente like ?
    `
 
-   const[resposta]= await con.query(comando, [`%${nome}%`])
-   return resposta
+    const [resposta] = await con.query(comando, [`%${nome}%`])
+    return resposta
 }
 
 
@@ -187,9 +188,9 @@ export function validarDados(dados) {
         }
     }
 
-   
-    
-    
+
+
+
 
 
 
@@ -216,10 +217,30 @@ export async function listarid(id) {
     INNER JOIN tb_endereco e ON c.id_endereco = e.id_endereco
     WHERE c.id_cliente = ?
     `
-    
+
     const [resposta] = await con.query(comando, [id]);
     return resposta;
 }
 
 
-  
+
+export async function emailCadastro(email) {
+    const dataAtual = new Date();
+    const dataExpiracao = new Date(dataAtual);
+    dataExpiracao.setDate(dataExpiracao.getDate() + 3);
+    const diaExpiracao = dataExpiracao.getDate();
+    const mesExpiracao = dataExpiracao.getMonth() + 1;
+
+    await transporter.sendMail({
+        from: 'doncorleonespizza@hotmail.com',
+        to: email,
+        subject: "Bem-vindo(a) à Don Corleone's Pizza",
+        text: "",
+        html: `
+                <b>Olá!</b>
+                <p>Seja bem-vindo à Pizzaria Corleone!</p>
+                <p>Aproveite o código de cupom <strong>CORLEONE15</strong> e ganhe 15% de desconto em sua próxima compra.</p>
+                <p>Esta oferta é válida até ${diaExpiracao}/${mesExpiracao}. Não perca!</p>
+                <p>Esperamos vê-lo em breve!</p>`,
+    });
+}
