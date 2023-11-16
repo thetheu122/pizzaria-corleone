@@ -1,7 +1,51 @@
+/* Seu arquivo de estilo (por exemplo, styles.css) */
+.react-confirm-alert-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.react-confirm-alert-body {
+  background: white;
+  border-radius: 4px;
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  
+  box-shadow: 0px 0px 10px 0px #000000;
+}
+
 .body{
   display: flex;
   flex-direction: row;
   
+  .endereco{
+    width: 600px !important;
+    display: flex;
+    align-items: start;
+
+
+    div{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+      button{
+        margin-left: 42px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+      }
+
+    }
+    
+    
+  }
 
   width: auto;
   height: auto;
@@ -104,13 +148,48 @@ color: white;
 }
 
 }
+.butaoo{
+  
+display: flex;
+background-color: white;
+flex-direction: column;
+
+margin-bottom: 5px !important;
+outline: none !important;
+border: 1px solid rgb(226, 226, 226) !important;
+
+height:45px !important;
+width: 89% !important;
+border-radius: 7px;
+
+margin-left: 30px !important;
+
+input{
+ height: 80% !important;
+
+ outline: none !important;
+ border: none !important;
+
+ font-size: 14px !important;
+ margin-left: 10px !important;
+ text-transform: uppercase !important;
+}
+label{
+ margin-left: 12px  !important;
+ font-size: 13px !important;
+ margin-bottom: 4px !important;
+ color: #a2a2a2 !important;
+ margin-left: 15px !important;
+}
+
+}
 .butao{
 display: flex;
 flex-direction: column;
 
-margin-bottom: 5px;
-outline: none;
-border: 1px solid rgb(226, 226, 226);
+margin-bottom: 5px !important;
+outline: none !important;
+border: 1px solid rgb(226, 226, 226) !important;
 
 height:45px !important;
 width: 87% !important;
@@ -118,20 +197,20 @@ width: 87% !important;
 margin-left: 30px !important;
 
 input{
- height: 80%;
+ height: 80% !important;
 
- outline: none;
- border: none;
+ outline: none !important;
+ border: none !important;
 
- font-size: 14px;
- margin-left: 10px;
- text-transform: uppercase;
+ font-size: 14px !important;
+ margin-left: 10px !important;
+ text-transform: uppercase !important;
 }
 label{
- margin-left: 12px;
- font-size: 13px;
- margin-bottom: 4px;
- color: #a2a2a2;
+ margin-left: 12px  !important;
+ font-size: 13px !important;
+ margin-bottom: 4px !important;
+ color: #a2a2a2 !important;
 }
 
 }
@@ -158,8 +237,10 @@ margin-bottom: 40px;
 .paginacao {
 display: flex;
 flex-direction: row;
+align-items: center;
+justify-content: end;
+width: 75%;
 
-width:64%;
 margin-top: 40px;
 padding-right: 100px;
  h3{
@@ -226,12 +307,16 @@ div {
 }
 }
 .duplada{
+  margin-top: 20px;
+  margin-left: -25px;
   button{
-    width: 50px;
+    align-items:center ;
+    width: 120px;
   }
+}
 .cartaoSide {
   display: flex !important;
-  flex-direction: row !important;
+  flex-direction: row;
   align-items: center;
   gap: 10px !important;
   margin-top: 20px !important;
@@ -261,7 +346,7 @@ div {
     margin: 10px 0px 15px 0px !important;
     text-align: left !important;
   }
-}
+
 
 .formsCartao {
   display: flex !important;

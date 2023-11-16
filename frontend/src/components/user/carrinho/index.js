@@ -31,6 +31,8 @@ export default function Carrinho({ onClose }) {
 
         const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/' + us.id);
         setListarr(response.data)
+        const resp     = await axios.get(`${API_URL}/corleone/pedido/cliente/${us.id}`);
+        setVerificar(resp.data)
 
         if (listarr.length < 1) {
           setMostrar(true)

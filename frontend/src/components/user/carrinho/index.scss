@@ -1,3 +1,4 @@
+
 @keyframes showSidebar {
     from {
       opacity: 0;
@@ -12,6 +13,7 @@
   };
 
 .carrinhoSideBar{
+    z-index: 99999 !important;
     display: flex;
     flex-direction: column;
 

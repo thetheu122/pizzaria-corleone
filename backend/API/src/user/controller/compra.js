@@ -50,7 +50,6 @@ endpoints.put('/corleone/altera/pedido/:id' , async ( req , resp ) =>{
         
         const {id}   = req.params
         const compra = req.body
-
         const resposta = await alterarCompra( compra , id )
         resp.send(resposta)
 

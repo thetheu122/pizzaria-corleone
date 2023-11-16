@@ -16,9 +16,15 @@ import { confirmAlert } from 'react-confirm-alert'
 
 export default function Finalizarcadastrado(){
     
+
+const [cep , setCep ] = useState ('') // input do CEP --
+const [label2 , setLabel2] = useState(true)
+const [ numero , setNumero ] = useState(0) // numero da casa --
+
     
 const [ label , setLabel] = useState( false);
 const [proximo , setProximo] = useState(false)
+const [ depois , setDepois ] = useState(true)
 const [ produtos , setProdutos] = useState([]);
 const [ precos , setPrecos ] = useState([])
 const [ total , setTotal ] = useState(0)
@@ -168,6 +174,32 @@ useEffect(()=>{
 
 },[produtos]);
 
+
+const SuccessIcon = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M16 8l-4 4-4-4" />
+    </svg>
+  );
+  
+  const confirmaCompra = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => (
+        <div className="custom-confirm-dialog">
+          <h1>Compra realizada com sucesso</h1>
+          <button onClick={onClose}>Fechar</button>
+        </div>
+      ),
+    });
+  };
 
 const [idCartao, setIdCartao] = useState(undefined);
 const [cardDetails, setCardDetails] = useState({
@@ -334,6 +366,10 @@ const showConfirmationDialog = () => {
     });
 };
 
+
+
+
+
 const showConfirmationDialogCartao = () => {
     confirmAlert({
         customUI: ({ onClose }) => (
@@ -371,15 +407,21 @@ const showConfirmationDialogCartao = () => {
                    {proximo 
                          ? 
                             <>
-                     <div className='cartaoSide'>
-                    <Cards
-                        cvc={cardDetails.cvc}
-                        expiry={cardDetails.expiry}
-                        focused={cardDetails.focus}
-                        name={cardDetails.name}
-                        number={cardDetails.number}
-                    />
-                    <div>
+                    
+                  { depois 
+                        ? <> 
+                        
+                         <div className='cartao'>
+                                                
+                        <div className='cartaoSide'>
+                            <Cards
+                            cvc={cardDetails.cvc}
+                            expiry={cardDetails.expiry}
+                            focused={cardDetails.focus}
+                            name={cardDetails.name}
+                            number={cardDetails.number}
+                            />
+                        <div>
                         <form className='formsCartao'>
                             <input
                                 type="number"
@@ -424,13 +466,61 @@ const showConfirmationDialogCartao = () => {
                             </div>
                         </form>
                     </div>
-                </div>
-               <div className='duplada'> {(pagController == false && idCartao) ? <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button> : null }
-                {edt ?
-                    <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
-                    : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
-                    }
-                    </div>
+                 </div>
+                        <div className='duplada'> {(pagController == false && idCartao) ? <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button> : null }
+                        {edt ?
+                        <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
+                        : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
+                        }
+
+                        <button onClick={ ()=>{ setDepois(false)}}>  Continuar  </button>  
+                        </div>  
+
+                        </div>
+                        </>
+                  
+                        : 
+                        <> 
+                           {/* parte do endereço aqui */}
+                            <div className='endereco'>
+                               
+                                <div>
+                                
+                                <div className='butaoo'>
+                                        {  cep.length > 0 && 
+                                          <label>CEP</label>
+                                        }
+                                        <input placeholder='CEP' 
+                                         value={cep}
+                                         onChange={ (e) => { setCep ( e.target.value) ;}}
+                                         onClick={()=> { setLabel2(true) }  } /> 
+                                </div>
+
+                               <div className='butaoo'>
+                                       {  numero.length > 0 && 
+                                          <label>N°</label>
+                                        }
+                                        <input
+                                        placeholder='N°'
+                                         value={numero}
+                                         type='number'
+                                         onChange={ (e) => { setNumero ( e.target.value) ;}}
+                                         /> 
+                                </div>
+                                { cep.length > 0 && numero.length > 0 &&
+                                
+                                <button onClick={confirmaCompra}> Comprar </button>
+                                
+                                }
+                              
+                                
+                                </div>
+                              
+                            </div>
+                          
+                          </>
+                  }
+
                             </>
                          : 
                          <>
