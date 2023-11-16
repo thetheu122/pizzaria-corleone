@@ -1,37 +1,43 @@
 import { con } from "../../conection.js";
 
 
-export async function Novopedido(){
+export async function Novopedido(pedido){
 const comando = `
-INSERT INTO tb_pedido (id_cliente, id_tipo_pagamento, id_pedido_produto, ds_nota_pag, dt_pedido, ds_situacao)
-VALUES(? ,
-? ,
-? ,
-? ,
-? , 
-?) `;
+    INSERT INTO tb_pedido (
+        id_cliente,
+         id_cartao,
+          id_pedido_produto,
+           dt_pedido,
+            ds_situacao)
+    VALUES (?, ?, ?, ?, ?) `;
 
+    const [resposta] = await con.query(comando, [
+        pedido.cliente,
+        pedido.cartao,
+        pedido.pedido_produto,
+        pedido.data,
+        pedido.situacao
+    ])
 
+    
+    pedido.id = resposta.insertId
+    return pedido;
 
 }
 
 
 export async function Listarpedido() {
     let comando = `
-    SELECT 
-    c.id_cliente       as id,
-    c.nm_cliente       as nome,
-    p.nm_produto       as produto,
-    pd.id_pedido       as idpedido,
-    pd.dt_pedido       as data,
-    pd.ds_situacao     as situacao,
-    pp.id_produto	   as idproduto,
-    tp.id_cartao       as idcartao
-FROM tb_cliente c
-LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
+            SELECT
+            pd.id_pedido       as idpedido,
+            pd.dt_pedido       as data,
+            pd.ds_situacao     as situacao,
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
     `
 
     const [resposta] = await con.query(comando)
@@ -41,21 +47,17 @@ LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
 
 export async function listarPorNome(nome) {
     let comando = `
-            SELECT 
-            c.id_cliente       as id,
-            c.nm_cliente       as nome,
-            p.nm_produto       as produto,
+            SELECT
             pd.id_pedido       as idpedido,
             pd.dt_pedido       as data,
             pd.ds_situacao     as situacao,
-            pp.id_produto	   as idproduto,
-            tp.id_cartao       as idcartao
-        FROM tb_cliente c
-        LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-        LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-        LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
-        WHERE p.nm_produto like ?
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
+        WHERE pp.ds_produtos like ?
         `
 
         const [resposta] = await con.query(comando, [`%${nome}%`])
@@ -64,20 +66,16 @@ export async function listarPorNome(nome) {
 
 export async function listarPorId(id) {
     let comando = `
-            SELECT 
-            c.id_cliente       as idcliente,
-            c.nm_cliente       as nome,
-            p.nm_produto       as produto,
+            SELECT
             pd.id_pedido       as idpedido,
             pd.dt_pedido       as data,
             pd.ds_situacao     as situacao,
-            pp.id_produto	   as idproduto,
-            tp.id_cartao       as idcartao
-        FROM tb_cliente c
-        LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-        LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-        LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
         WHERE pd.id_pedido = ?
         `
 
@@ -89,21 +87,17 @@ export async function listarPorId(id) {
 
 export async function listarPorOrdemAlfabetica() {
     let comando = `
-            SELECT 
-            c.id_cliente as idcliente,
-            c.nm_cliente as nome,
-            p.nm_produto as produto,
-            pd.id_pedido as idpedido,
-            pd.dt_pedido as data,
-            pd.ds_situacao as situacao,
-            pp.id_produto as idproduto,
-            tp.id_cartao as idcartao
-        FROM tb_cliente c
-        LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-        LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-        LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
-        ORDER BY p.nm_produto
+            SELECT
+            pd.id_pedido       as idpedido,
+            pd.dt_pedido       as data,
+            pd.ds_situacao     as situacao,
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
+        ORDER BY pp.ds_produtos
         `
 
         const [resposta] = await con.query(comando)
@@ -113,20 +107,16 @@ export async function listarPorOrdemAlfabetica() {
 
 export async function listarPelaData(data) {
     let comando = `
-            SELECT 
-            c.id_cliente       AS idcliente,
-            c.nm_cliente       AS nome,
-            p.nm_produto       AS produto,
-            pd.id_pedido       AS idpedido,
-            pd.dt_pedido       AS data,
-            pd.ds_situacao     AS situacao,
-            pp.id_produto      AS idproduto,
-            tp.id_cartao       AS idcartao
-        FROM tb_cliente c
-        LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-        LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-        LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
+            SELECT
+            pd.id_pedido       as idpedido,
+            pd.dt_pedido       as data,
+            pd.ds_situacao     as situacao,
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
         WHERE DATE(pd.dt_pedido) = ?
         ORDER BY pd.dt_pedido
         `
@@ -139,20 +129,16 @@ export async function listarPelaData(data) {
 
 export async function listarPorStatusEntregue() {
     let comando = `
-            SELECT 
-            c.id_cliente       AS idcliente,
-            c.nm_cliente       AS nome,
-            p.nm_produto       AS produto,
-            pd.id_pedido       AS idpedido,
-            pd.dt_pedido       AS data,
-            pd.ds_situacao     AS situacao,
-            pp.id_produto      AS idproduto,
-            tp.id_cartao       AS idcartao
-        FROM tb_cliente c
-        LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-        LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-        LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
+            SELECT
+            pd.id_pedido       as idpedido,
+            pd.dt_pedido       as data,
+            pd.ds_situacao     as situacao,
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
         WHERE pd.ds_situacao = 'entregue'
         ORDER BY pd.ds_situacao
         `
@@ -166,20 +152,16 @@ export async function listarPorStatusEntregue() {
 
 export async function listarPorStatusCancelado() {
     let comando = `
-            SELECT 
-            c.id_cliente       AS idcliente,
-            c.nm_cliente       AS nome,
-            p.nm_produto       AS produto,
-            pd.id_pedido       AS idpedido,
-            pd.dt_pedido       AS data,
-            pd.ds_situacao     AS situacao,
-            pp.id_produto      AS idproduto,
-            tp.id_cartao       AS idcartao
-        FROM tb_cliente c
-        LEFT JOIN tb_tp_pagamento tp ON c.id_cartao = tp.id_cartao
-        LEFT JOIN tb_pedido pd ON c.id_cliente = pd.id_cliente
-        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido = pp.id_pedido
-        LEFT JOIN tb_produto p ON pp.id_produto = p.id_produto
+            SELECT
+            pd.id_pedido       as idpedido,
+            pd.dt_pedido       as data,
+            pd.ds_situacao     as situacao,
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
         WHERE pd.ds_situacao = 'cancelado'
         ORDER BY pd.ds_situacao
         `
@@ -188,6 +170,8 @@ export async function listarPorStatusCancelado() {
         return resposta
 }
 
+
+//////////////////////MAIS DETALHES
 
 
 
@@ -232,6 +216,7 @@ export async function listarDetalhesPorId(id) {
 export async function listarRastreamento() {
     let comando = `
             SELECT
+            pd.id_pedido 		as idpedido,
             pd.dt_pedido        as data,
             pd.ds_situacao      as status,
             pp.ds_produtos      as produtos,
@@ -249,3 +234,40 @@ export async function listarRastreamento() {
         const [resposta] = await con.query(comando)
         return resposta
 }
+
+
+
+export async function atualizarStatusParte1(id) {
+    let comando = `
+        UPDATE tb_pedido
+        SET ds_situacao = 'Em preparo'
+        WHERE id_pedido = ?
+        `
+        const [resposta] = await con.query(comando, [id])
+        return resposta
+}
+
+
+
+export async function atualizarStatusParte2(id) {
+    let comando = `
+        UPDATE tb_pedido
+        SET ds_situacao = 'Saiu para entrega'
+        WHERE id_pedido = ?
+        `
+        const [resposta] = await con.query(comando, [id])
+        return resposta
+}
+
+
+export async function atualizarStatusParte3(id) {
+    let comando = `
+        UPDATE tb_pedido
+        SET ds_situacao = 'Entregue'
+        WHERE id_pedido = ?
+        `
+        const [resposta] = await con.query(comando, [id])
+        return resposta
+}
+
+

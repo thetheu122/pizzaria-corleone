@@ -5,6 +5,7 @@ import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal'
 import axios from 'axios'
+import React from 'react';
 
 
 
@@ -39,7 +40,7 @@ export default function ListarPedido() {
 
     //console.log(AaoZ)
     //console.log(data)
-    console.log(entregue)
+    //console.log(entregue)
 
 
     useEffect(() => {
@@ -52,7 +53,9 @@ export default function ListarPedido() {
 
     async function ListarPedidos() {
         const r = await axios.get(API_URL + '/pedido')
+        console.log(r.data)
         const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
+        console.log(uniquePedidos)
         setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));
     }
 
@@ -157,7 +160,6 @@ export default function ListarPedido() {
                             <Modal
                                 isOpen={modalIsOpen}
                                 onRequestClose={closeModal}
-                                contentLabel="Modal de Filtros"
                                 className="custom-modal"
                             >
 
@@ -275,13 +277,13 @@ export default function ListarPedido() {
                         <tbody>
 
                             {pedidos.map(item => (
-                                item.produto &&
+                                item.produtos &&
                                     item.data ? (
                                     <tr className="linha-separadora" key={item.idpedido}>
                                         <td>{item.idpedido}</td>
                                         <td>{item.nome}</td>
-                                        <td>Cartão de crédito</td>
-                                        <td>{item.produto}</td>
+                                        <td>Cartão de crédito(inserir)</td>
+                                        <td>{item.produtos}</td>
                                         <td>{item.data.substr(0, 10)}</td>
                                         <td>
                                             {item.situacao === 'Entregue' && <div className='status-entregue'></div>}
