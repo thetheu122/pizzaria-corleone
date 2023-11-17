@@ -29,12 +29,17 @@ const endpoints = Router();
 
 endpoints.post('/produto', async (req, resp) => {
   try {
-    const produto = req.body;
+     const produto = req.body; 
 
-    
+     const verificar = await analise(produto)
+
+     if( verificar.length > 0){
+         resp.status(400).send({erro: verificar})
+      }
+      else{
       const resposta =  await inserirProduto(produto)
       resp.send(resposta)
-
+      }
 
 
   } catch (err) {
