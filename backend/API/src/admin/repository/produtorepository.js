@@ -489,3 +489,9 @@ export async function deletarCarrinhoProduto(id) {
     const [resposta] = await con.query(comando, [id]);
     return resposta.affectedRows;
 }
+
+export async function contarProdutos() {
+  const comando = `SELECT COUNT(*) as totalProdutos FROM tb_produto`; 
+  const [resposta] = await con.query(comando);
+  return resposta[0].totalProdutos;
+}
