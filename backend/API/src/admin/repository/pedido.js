@@ -267,31 +267,13 @@ export async function atualizarStatusParte2(id) {
 
 
 export async function atualizarStatusParte3(id) {
-    let comando = ``
-    if( id == 1){
-         comando = `
-        UPDATE tb_pedido
-        SET ds_situacao = 'Em preparo'
-        WHERE id_pedido = ?
-        `
-    }
-    else if (id == 2){
-        comando = `
-        UPDATE tb_pedido
-        SET ds_situacao = 'Em preparo'
-        WHERE id_pedido = ?
-        `
-    }
-    else{
-     comando = `
-        UPDATE tb_pedido
-        SET ds_situacao = 'Entregue'
-        WHERE id_pedido = ?
-        `
-        
-    }
 
-    const [resposta] = await con.query(comando, [id])
+    const comando = `
+        UPDATE tb_pedido
+        SET ds_situacao = ?
+        WHERE id_pedido = ?
+        `
+    const [resposta] = await con.query(comando, [id.situacao,id.id])
     return resposta
 }
 

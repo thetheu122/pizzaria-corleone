@@ -76,8 +76,9 @@ export default function Finalizarcadastrado() {
           const firstTwoDigits = calculatedDistance.toFixed(2);
   
           // Formata a distância
-          const formattedDistance = `${firstTwoDigits} km`;
+          // const formattedDistance = `${firstTwoDigits} km`;
   
+          const formattedDistance = firstTwoDigits ;
           setDistance(formattedDistance);
         } else {
           toast.error('Erro: Coordenadas não encontradas.');
@@ -98,7 +99,9 @@ export default function Finalizarcadastrado() {
 
   async function calculoFrete() {
     try {
-      let freti = distance * tabelaTotal.length * 2
+      // let freti = distance * tabelaTotal.length *2
+      let tabelaTotalvezesesdois =  tabelaTotal.length* 0.02
+      let freti = distance * tabelaTotalvezesesdois
 
       setFrete(freti)
 
@@ -107,7 +110,8 @@ export default function Finalizarcadastrado() {
         "frete": 0,
       }
 
-      compra.total_compra = compra + frete
+      compra.total_compra = compra + freti
+      alert(distance)
 
 
       let usuario = localStorage.getItem('usuario-logado');
@@ -264,6 +268,7 @@ export default function Finalizarcadastrado() {
 
         compra.total = totall - descontonovo
         compra.desconto = descontonovo
+        compra.total = frete + total
 
 
         const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);

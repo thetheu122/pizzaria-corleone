@@ -183,9 +183,11 @@ endpoints.get('/pedido/rastreamento', async (req, resp) => {
 // });
 
 // Endpoint para entregue
-endpoints.put('/pedido/rastreamento/entregue/:id', async (req, resp) => {
+
+
+endpoints.put('/pedido/rastreamento/alterar', async (req, resp) => {
     try {
-        const { id } = req.params;
+        const id  = req.body;
         const result = await atualizarStatusParte3(id);
 
         if (result === 0) {
