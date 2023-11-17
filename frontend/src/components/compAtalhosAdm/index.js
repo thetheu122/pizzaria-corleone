@@ -123,7 +123,7 @@ useEffect(()=> {
                         <div className='pop-up-atalhos'>   
                                 <h3 onClick={() => {navigate('/clienteDetalhes')}}>Detalhes Clientes</h3>
 
-                                <h4 onClick={() => {navigate('/favoritos')}}>Favoritos</h4>
+                                
                                 <div onClick={fecharPopUpClientes}>
                                     <img src={Setapracima}/>
                                 </div>

@@ -48,6 +48,10 @@ export default function Informacoes(props) {
 
     const [verificar, setVerificar] = useState([])
 
+    const api = axios.create({
+        baseURL: API_URL
+    })
+
     let usuario = JSON.parse(localStorage.getItem('usuario-logado'))
 
     useEffect(() => {
@@ -367,8 +371,10 @@ export default function Informacoes(props) {
 
             <div className='secao-01-pizza'>
                 <div className='secao-01-superior'>
-
-                    <img src={Pizza} alt="Pizza" />
+                    {produto.map((item) => (
+                        <img src={`${api.getUri()}/${item.imagem}`} alt="Pizza" />
+                    ))}
+                    
 
                     <div className='secao-01-parte-lateral'>
                         <div className='secao-01-parte-lateral-pizza'>

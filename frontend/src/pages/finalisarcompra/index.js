@@ -300,11 +300,11 @@ export default function Finalizarcadastrado() {
       alert(idpedidoproduto)
       let pedido = {
         "cliente": usuario.id,
-        "cartao": idCartao,
-        "pedido_produto": idpedidoproduto,
-        "situacao": "Em preparo"
-      }
-      const r = await axios.post(`${API_URL}/pedido`, pedido)
+        "cartao":idCartao,
+        "pedido_produto":idpedidoproduto,
+        "situacao":"Em preparo"
+        }
+        const r  = await axios.post(`${API_URL}/pedido`,pedido)
 
     } catch (err) {
       toast.error(err.message)

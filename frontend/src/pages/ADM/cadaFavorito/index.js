@@ -152,7 +152,6 @@ export default function CadaFavorito() {
                                     <tr className="cada-linha">
                                         <td className='imagem-fav'><img src={`${api.getUri()}/${item.imagem}`} /></td>
                                         <td>{item.produto}</td>
-
                                     </tr>
                                 )}
 

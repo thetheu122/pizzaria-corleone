@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento } from "../repository/pedido.js";
+import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue } from "../repository/pedido.js";
 
 
 
@@ -130,7 +130,7 @@ endpoints.get('/pedido/detalhes/id/:id', async (req, resp) => {
 
 
 
-////////////////////////// rastreamento pedido
+////////////////////////// a pedido
 
 
 
@@ -146,58 +146,72 @@ endpoints.get('/pedido/rastreamento', async (req, resp) => {
     }
 })
 
+// // Endpoint para em preparo
+// endpoints.put('/pedido/rastreamento/empreparo/:id', async (req, resp) => {
+//     try {
+//         const { id } = req.params;
+//         const result = await atualizarStatusParte1(id);
 
-endpoints.put('/pedido/rastreamento/empreparo/:id', async (req,resp) => {
+//         if (result === 0) {
+//             resp.status(400).send({ err: "Status do pedido não foi alterado" });
+//         } else {
+//             resp.status(200).send({ message: "Status do pedido alterado" });
+//         }
+//     } catch (err) {
+//         resp.status(400).send({
+//             erro: err.message
+//         });
+//     }
+// });
+
+// // Endpoint para saiu para entrega
+// endpoints.put('/pedido/rastreamento/saiuparaentrega/:id', async (req, resp) => {
+//     try {
+//         const { id } = req.params;
+//         const result = await atualizarStatusParte2(id);
+
+//         if (result === 0) {
+//             resp.status(400).send({ err: "Status do pedido não foi alterado" });
+//         } else {
+//             resp.status(200).send({ message: "Status do pedido alterado" });
+//         }
+//     } catch (err) {
+//         resp.status(400).send({
+//             erro: err.message
+//         });
+//     }
+// });
+
+// Endpoint para entregue
+endpoints.put('/pedido/rastreamento/entregue/:id', async (req, resp) => {
     try {
-        const {id} = req.params
-        const w = await atualizarStatusParte1(id)
+        const { id } = req.params;
+        const result = await atualizarStatusParte3(id);
 
-        if(w === 0) {
-            resp.status(400).send({err: "status do pedido não foi alterado"})
+        if (result === 0) {
+            resp.status(400).send({ err: "Status do pedido não foi alterado" });
         } else {
-            resp.status(200).send({message: "status do pedido alterado"})
+            resp.status(200).send({ message: "Status do pedido alterado" });
         }
     } catch (err) {
         resp.status(400).send({
             erro: err.message
-        })
+        });
     }
-})
+});
 
-endpoints.put('/pedido/rastreamento/saiuparaentrega/:id', async (req,resp) => {
+
+endpoints.get('/pedido/entregue', async (req, resp) => {
     try {
-        const {id} = req.params
-        const w = await atualizarStatusParte2(id)
+        const pedidosEntregues = await listarPedidosEntregue();
 
-        if(w === 0) {
-            resp.status(400).send({err: "status do pedido não foi alterado"})
-        } else {
-            resp.status(200).send({message: "status do pedido alterado"})
-        }
+        resp.send(pedidosEntregues);
     } catch (err) {
         resp.status(400).send({
             erro: err.message
-        })
+        });
     }
-})
-
-
-endpoints.put('/pedido/rastreamento/entregue/:id', async (req,resp) => {
-    try {
-        const {id} = req.params
-        const w = await atualizarStatusParte3(id)
-
-        if(w === 0) {
-            resp.status(400).send({err: "status do pedido não foi alterado"})
-        } else {
-            resp.status(200).send({message: "status do pedido alterado"})
-        }
-    } catch (err) {
-        resp.status(400).send({
-            erro: err.message
-        })
-    }
-})
+});
 
 
 

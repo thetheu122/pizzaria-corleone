@@ -3,14 +3,21 @@ import '../../../assets/config/fonts-config.scss'
 
 import Carrinho from '../../../assets/images/icons/shopping-cart_icon.svg'
 import Star from '../../../assets/images/icons/star_icon.svg'
+import { API_URL } from '../../../config/constants';
+import axios from 'axios';
 
 export default function CardProduct(props) {
 
+    const api = axios.create({
+        baseURL: API_URL
+    })
 
     return (
         <main className='card-product'>
 
-            <div className='produto'></div>
+            <div className='produto'>
+                <img src={`${api.getUri()}/${props.imagem}`} />
+            </div>
 
             <div className='descricao-produto'>
 
