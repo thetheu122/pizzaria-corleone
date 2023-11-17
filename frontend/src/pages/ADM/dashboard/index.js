@@ -17,6 +17,7 @@ export default function Dashboard() {
     const [listaproduto, setListaproduto] = useState([]);
     const [totalProdutos, setTotalProdutos] = useState(0);
     const [totalProdutosAtivos, setTotalProdutosAtivos] = useState(0);
+    const [totalvendido , setTotalvendido] = useState()
     const navigate = useNavigate();
 
     /*useEffect(() => {
@@ -120,7 +121,8 @@ export default function Dashboard() {
         async function fetchData() {
             try {
                 const data = await PedidossEntregue();
-
+               const total = calcularTotalVendas(PedidosEntregue)
+               setTotalvendido(total)
                 if (data && data.length) {
                     setTotalVendas(data.length);
                 }
@@ -130,7 +132,15 @@ export default function Dashboard() {
         }
 
         fetchData();
-    }, []);
+    }, [PedidosEntregue]);
+
+    function calcularTotalVendas(pedidos) {
+        const total = pedidos.reduce((acc, item) => {
+          const itemTotal = parseFloat(item.total);
+          return acc + (isNaN(itemTotal) ? 0 : itemTotal);
+        }, 0);
+        return total;
+      }
 
     return (
         <section className='pagina-dashboard'>
@@ -149,8 +159,8 @@ export default function Dashboard() {
 
                 <div className='custo-vendido'>
                     <img src={Dinheiro} />
-                    <h1>vendido</h1>
-
+                    <h1>vendido {totalvendido}</h1>
+                 
 
                     <p>Valor total vendido neste dia</p>
                 </div>

@@ -20,42 +20,20 @@ export default function ClienteAdm() {
   }, [rastreamento]);
 
 
-  // async function UpdateStatus(novoStatus) {
-  //   try {
-  //     let data = {
-  //       situacao: novoStatus,
-  //       id: idp,
-  //     };
-  //     const r = await axios.put(`${API_URL}/pedido/rastreamento/alterar`, data);
-  //     toast.success(`Pedido ${idp} atualizado para ${novoStatus}`);
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  // }
-
-
-async function UpdateStatus(novoStatus) {
-  try {
-    let data = {
-      situacao: 0,
-      id: idp,
-    };
-    const r = await axios.put(`${API_URL}/pedido/rastreamento/alterar`, data);
-
-    // Atualizar a lista após a alteração de status
-    const updatedRastreamento = rastreamento.map(item => {
-      if (item.idpedido === idp) {
-        return { ...item, status: novoStatus };
-      }
-      return item;
-    });
-    setRastreamento(updatedRastreamento);
-
-    toast.success(`Pedido ${idp} atualizado para ${novoStatus}`);
-  } catch (error) {
-    toast.error(error.message);
+  async function UpdateStatus(novoStatus) {
+    try {
+      let data = {
+        situacao: novoStatus,
+        id: idp,
+      };
+      const r = await axios.put(`${API_URL}/pedido/rastreamento/alterar`, data);
+      toast.success(`Pedido ${idp} atualizado para ${novoStatus}`);
+    } catch (error) {
+      toast.error(error.message);
+    }
   }
-}
+
+
 
 
   return (
@@ -96,53 +74,56 @@ async function UpdateStatus(novoStatus) {
                   <td>{item.cliente}</td>
                   <td className='con'>{item.status}</td>
                   <td className='pedido-em-andamento'>
-                    {item.status == 'Em preparo' && (
-                      <div className="pedido-andamento">
-                        <div className="etapa">
-                          <div onClick={() => { setidp(item.idpedido); UpdateStatus('em preparo'); }} className="bolinha">1</div>
-                          <div className="linha-cinza"></div>
-                        </div>
-                        <div className="etapa">
-                          <div onClick={() => { setidp(item.idpedido); UpdateStatus('saiu pra entrega'); }} className="bolinha-cinza">2</div>
-                          <div className="linha-cinza"></div>
-                        </div>
-                        <div className="etapa">
-                          <div onClick={() => { setidp(item.idpedido); UpdateStatus('entregue'); }} className="bolinha-cinza">3</div>
-                        </div>
-                      </div>
-                    )}
-                    {item.status == 'Saiu para entrega' && (
-                      <div className="pedido-andamento">
-                        <div className="etapa">
-                          <div onClick={() => setidp(item.idpedido)} className="bolinha">1</div>
-                          <div className="linha"></div>
-                        </div>
-                        <div className="etapa">
-                          <div onClick={() => UpdateStatus('entregue')} className="bolinha-cinza">2</div>
-                          <div className="linha-cinza"></div>
-                        </div>
-                        <div className="etapa">
-                          <div onClick={() => UpdateStatus('entregue')} className="bolinha-cinza">3</div>
-                        </div>
-                      </div>
-                    )}
-                    {item.status == 'Entregue' && (
-                      <div onClick={() => UpdateStatus('entregue')} className="pedido-andamento">
-                        <div className="etapa">
-                          <div className="bolinha">1</div>
-                          <div className="linha"></div>
-                        </div>
-                        <div className="etapa">
-                          <div className="bolinha">2</div>
-                          <div className="linha"></div>
-                        </div>
+  {item.status === 'em preparo' && (
+    <div className="pedido-andamento">
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('em preparo'); }} className="bolinha">1</div>
+        <div className="linha-cinza"></div>
+      </div>
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('saiu para entrega'); }} className="bolinha-cinza">2</div>
+        <div className="linha-cinza"></div>
+      </div>
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('entregue'); }} className="bolinha-cinza">3</div>
+      </div>
+    </div>
+  )}
 
-                        <div className="etapa">
-                          <div className="bolinha">3</div>
-                        </div>
-                      </div>
-                    )}
-                  </td>
+  {item.status === 'saiu para entrega' && (
+    <div className="pedido-andamento">
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('em preparo'); }} className="bolinha">1</div>
+        <div className="linha"></div>
+      </div>
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('saiu para entrega'); }} className="bolinha-cinza">2</div>
+        <div className="linha-cinza"></div>
+      </div>
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('entregue'); }} className="bolinha-cinza">3</div>
+      </div>
+    </div>
+  )}
+
+  {item.status === 'entregue' && (
+    <div className="pedido-andamento">
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('em preparo'); }} className="bolinha">1</div>
+        <div className="linha"></div>
+      </div>
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('saiu para entrega'); }} className="bolinha">2</div>
+        <div className="linha"></div>
+      </div>
+      <div className="etapa">
+        <div onClick={() => { setidp(item.idpedido); UpdateStatus('entregue'); }} className="bolinha">3</div>
+      </div>
+    </div>
+  )}
+</td>
+
+
                 </tr>
               ))}
             </tbody>
