@@ -78,26 +78,29 @@ export async function inserirProduto(produto) {
     const comando = `
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as nome, 
-      tb_tipo_produto.id_tipo_produto   as idtipo, 
+    tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.id_tipo_produto   as idtipo, 
     tb_tipo_produto.ds_tipo_produto   as tipo,
     tb_produto.ds_ingredientes        as ingredientes,
-      tb_produto.ds_descricao           as descricao,
+    tb_produto.ds_descricao           as descricao,
     tb_produto.vl_preco               as preço,
     tb_produto.vl_preco_promocional   as preco_promocional,
-      tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.id_imagem               as idimagem,
-      tb_imagem.img_produto                 as imagem,
-      tb_restricao.id_restricao         as idrestricao,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.id_imagem               as idimagem,
+    tb_imagem.img_produto             as imagem,
+    tb_restricao.id_restricao         as idrestricao,
     tb_restricao.ds_restricao         as restricao,
-     tb_media.ds_media                   as media 
+    tb_media.ds_media                 as media,
+    tb_favorito.id_favorito           as id_favorito,
+    tb_carrinho.id_carrinho           as id_carrinho
   FROM
-      tb_produto
-  INNER JOIN
-        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
-  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
-   left join tb_media ON   tb_media.id_produto = tb_produto.id_produto
+    tb_produto
+  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  LEFT JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_media ON tb_media.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_favorito ON tb_favorito.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_carrinho ON tb_carrinho.id_produto = tb_produto.id_produto
     `;
 
     const [res] = await con.query(comando);
@@ -114,22 +117,29 @@ export async function inserirProduto(produto) {
     const comando = `
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as nome, 
+    tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.id_tipo_produto   as idtipo, 
     tb_tipo_produto.ds_tipo_produto   as tipo,
     tb_produto.ds_ingredientes        as ingredientes,
-      tb_produto.ds_descricao           as descricao,
+    tb_produto.ds_descricao           as descricao,
     tb_produto.vl_preco               as preço,
     tb_produto.vl_preco_promocional   as preco_promocional,
-      tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.img_produto                  as imagem,
-      tb_restricao.id_restricao         as idrestricao,
-    tb_restricao.ds_restricao         as restricao
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.id_imagem               as idimagem,
+    tb_imagem.img_produto             as imagem,
+    tb_restricao.id_restricao         as idrestricao,
+    tb_restricao.ds_restricao         as restricao,
+    tb_media.ds_media                 as media,
+    tb_favorito.id_favorito           as id_favorito,
+    tb_carrinho.id_carrinho           as id_carrinho
   FROM
-      tb_produto
-  INNER JOIN
-        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
-  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+    tb_produto
+  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  LEFT JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_media ON tb_media.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_favorito ON tb_favorito.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_carrinho ON tb_carrinho.id_produto = tb_produto.id_produto
   where tb_produto.nm_produto like ?
     `
     
@@ -144,26 +154,29 @@ export async function inserirProduto(produto) {
     const comando = `
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as nome,
-      tb_tipo_produto.id_tipo_produto   as idtipo, 
+    tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.id_tipo_produto   as idtipo, 
     tb_tipo_produto.ds_tipo_produto   as tipo,
     tb_produto.ds_ingredientes        as ingredientes,
-      tb_produto.ds_descricao           as descricao,
+    tb_produto.ds_descricao           as descricao,
     tb_produto.vl_preco               as preço,
     tb_produto.vl_preco_promocional   as preco_promocional,
-      tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.id_imagem               as idimagem,
-      tb_imagem.img_produto                 as imagem,
-      tb_restricao.id_restricao         as idrestricao,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.id_imagem               as idimagem,
+    tb_imagem.img_produto             as imagem,
+    tb_restricao.id_restricao         as idrestricao,
     tb_restricao.ds_restricao         as restricao,
-     tb_media.ds_media                   as media 
+    tb_media.ds_media                 as media,
+    tb_favorito.id_favorito           as id_favorito,
+    tb_carrinho.id_carrinho           as id_carrinho
   FROM
-      tb_produto
-  INNER JOIN
-        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
-  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
-   left join tb_media ON   tb_media.id_produto = tb_produto.id_produto
+    tb_produto
+  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  LEFT JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_media ON tb_media.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_favorito ON tb_favorito.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_carrinho ON tb_carrinho.id_produto = tb_produto.id_produto
   where tb_produto.id_produto = ?
     `
      
@@ -177,21 +190,29 @@ export async function inserirProduto(produto) {
     const comando = `
     SELECT
     tb_produto.id_produto             as ID,
-      tb_produto.nm_produto             as nome, 
-    tb_tipo_produto.ds_tipo_produto   as tipo ,
+    tb_produto.nm_produto             as nome, 
+    tb_tipo_produto.id_tipo_produto   as idtipo, 
+    tb_tipo_produto.ds_tipo_produto   as tipo,
     tb_produto.ds_ingredientes        as ingredientes,
-      tb_produto.ds_descricao           as descricao ,
+    tb_produto.ds_descricao           as descricao,
     tb_produto.vl_preco               as preço,
-    tb_produto.vl_preco_promocional   as Preco_promocional,
-      tb_produto.bt_disponivel          as disponivel,
-      tb_imagem.img_produto                 as imagem,
-    tb_restricao.ds_restricao         as restricao
+    tb_produto.vl_preco_promocional   as preco_promocional,
+    tb_produto.bt_disponivel          as disponivel,
+    tb_imagem.id_imagem               as idimagem,
+    tb_imagem.img_produto             as imagem,
+    tb_restricao.id_restricao         as idrestricao,
+    tb_restricao.ds_restricao         as restricao,
+    tb_media.ds_media                 as media,
+    tb_favorito.id_favorito           as id_favorito,
+    tb_carrinho.id_carrinho           as id_carrinho
   FROM
-      tb_produto
-  INNER JOIN
-        tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-  left JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
-  left JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+    tb_produto
+  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+  LEFT JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_media ON tb_media.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_favorito ON tb_favorito.id_produto = tb_produto.id_produto
+  LEFT JOIN tb_carrinho ON tb_carrinho.id_produto = tb_produto.id_produto
   where tb_restricao.ds_restricao like ?
     `
 
@@ -446,3 +467,25 @@ export async function deletarImagem(imagem, id) {
     return resposta.affectedRows;
 }
 
+
+
+export async function deletarFavoritoProduto(id) {
+  const comando = `
+    DELETE FROM tb_favorito
+     WHERE id_produto = ?;
+    `;
+
+    const [resposta] = await con.query(comando, [id]);
+    return resposta.affectedRows;
+}
+
+
+export async function deletarCarrinhoProduto(id) {
+  const comando = `
+    DELETE FROM tb_carrinho
+    WHERE id_produto = ?;
+    `;
+
+    const [resposta] = await con.query(comando, [id]);
+    return resposta.affectedRows;
+}

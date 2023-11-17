@@ -20,6 +20,33 @@ export default function Finalizarcadastrado(){
 const [cep , setCep ] = useState ('') // input do CEP --
 const [label2 , setLabel2] = useState(true)
 const [ numero , setNumero ] = useState(0) // numero da casa --
+const [frete , setFrete] = useState(0)
+
+
+// funcao que calcula o frete 
+
+async function calculoFrete (){
+    try {
+
+        setFrete()
+
+        let compra = {
+         "total_compra": 0,
+         "frete" :0,
+        }
+
+        compra.total_compra = compra + frete
+    
+        
+        let usuario = localStorage.getItem('usuario-logado');
+        usuario = JSON.parse(usuario)
+
+        const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)
+    } catch (err) {
+        toast.error(err.message)
+    }
+}
+
 
     
 const [ label , setLabel] = useState( false);
@@ -29,6 +56,7 @@ const [ produtos , setProdutos] = useState([]);
 const [ precos , setPrecos ] = useState([])
 const [ total , setTotal ] = useState(0)
 const [ subtotal , seSubtTotal ] = useState(0)
+const [idpedidoproduto , setIdpedidoproduto] =useState(0)
 
 const [ produtosugestao , setProdutosugestao ] = useState([])
 
@@ -47,11 +75,7 @@ async function cupom() {
 
       if (response.data.length > 0) {
         const desconto = (total * response.data[0].ds_valor) / 100;
-        const conta = total - desconto ;
-
-        setTotal(conta)
-        seSubtTotal(conta)
-        setDesconto(desconto);
+        setDesconto(desconto)
         setDigitadoCupom('')
       }
     } catch (error) {
@@ -122,23 +146,26 @@ useEffect(()=>{
         setPrecos(mappedPrices);
 
         try {
+            
             let compra = {
                 "id_cliente": usuario.id,
-                "desconto": 0,
-                "produtos": [],
-                "subtotal": 0,
-                "total": 0,
-                "ds_qtd": 0 // Adicionado campo de quantidade_total
+                "desconto": 0     ,
+                "produtos": []    ,
+                "subtotal": 0     ,
+                "total"   : 0     ,
+                "frete"   : frete ,
+                "ds_qtd"  : 0       // Adicionado campo de quantidade_total
               };
               
               let totalProdutosqtd = 0;
-              
+          
               const mappedPrices = produtos.map((item) => {
                 const preco = parseFloat(item.preco);
                 const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
               
                 const quantidadeTotalProduto = quantidade.reduce((acm, pro) => acm + pro, 0);
                 totalProdutosqtd += quantidadeTotalProduto;
+              
               
                 if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
                   compra.produtos.push({
@@ -150,15 +177,22 @@ useEffect(()=>{
                   return 0;
                 }
               });
+              let descontonovo = 0
+              if(desconto> 0){
+                 descontonovo = desconto 
+              }
+
               
-              const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
-              
+              const totall = mappedPrices.reduce((acm, preco) => acm + preco, 0);
               // console.log('Total de produtos (quantidade):', totalProdutosqtd);
               // console.log('Total geral:', total);
               
               compra.ds_qtd = totalProdutosqtd; // Atualizando quantidade_total
-              compra.total = total - desconto;
-              compra.subtotal = total;
+              compra.subtotal = totall;
+           
+            compra.total = totall - descontonovo
+            compra.desconto = descontonovo
+           
               
               const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
               
@@ -173,6 +207,37 @@ useEffect(()=>{
     listar();
 
 },[produtos]);
+
+
+
+useEffect(() => {
+    let novoIdPedidoProduto = null;
+
+    if (tabelaTotal.length > 0 ) {
+      novoIdPedidoProduto = tabelaTotal[0].id_pedido_produto;
+      setIdpedidoproduto(novoIdPedidoProduto);
+    }
+  }, [tabelaTotal]);
+
+// inserir o pedido 
+
+ async function Pedido(){
+    let usuario = localStorage.getItem('usuario-logado');
+    usuario = JSON.parse(usuario)
+    try {
+alert(idpedidoproduto)
+        let pedido ={
+        "cliente": usuario.id,
+        "cartao":idCartao,
+        "pedido_produto":idpedidoproduto,
+        "situacao":"Em preparo"
+        }
+        const r  = await axios.post(`${API_URL}/pedido`,pedido)
+
+    } catch (err) {
+        toast.error(err.message)
+    }
+}
 
 
 const SuccessIcon = () => (
@@ -193,13 +258,24 @@ const SuccessIcon = () => (
   const confirmaCompra = () => {
     confirmAlert({
       customUI: ({ onClose }) => (
-        <div className="custom-confirm-dialog">
+        <div className="custom">
           <h1>Compra realizada com sucesso</h1>
+          <div>
           <button onClick={onClose}>Fechar</button>
+          <button
+            onClick={() => {
+              // Usando o método window.location.href para redirecionar
+              window.location.href = 'http://localhost:3000/minhaconta';
+            }}
+          >
+            Acompanhar compra
+          </button>
+          </div>
         </div>
       ),
     });
   };
+  
 
 const [idCartao, setIdCartao] = useState(undefined);
 const [cardDetails, setCardDetails] = useState({
@@ -469,11 +545,11 @@ const showConfirmationDialogCartao = () => {
                  </div>
                         <div className='duplada'> {(pagController == false && idCartao) ? <button className='butaum' onClick={showConfirmationDialogCartao}>Deletar Cartão</button> : null }
                         {edt ?
-                        <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
-                        : <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
+                             <button className='butaum' onClick={showConfirmationDialog}>Salvar</button>
+                        :    <button className='butaum' onClick={() => setEdt(!edt)}>Editar</button>
                         }
 
-                        <button onClick={ ()=>{ setDepois(false)}}>  Continuar  </button>  
+                            <button onClick={ ()=>{ setDepois(false);}} >  Continuar  </button>  
                         </div>  
 
                         </div>
@@ -507,11 +583,14 @@ const showConfirmationDialogCartao = () => {
                                          onChange={ (e) => { setNumero ( e.target.value) ;}}
                                          /> 
                                 </div>
-                                { cep.length > 0 && numero.length > 0 &&
+                                { frete  >  0 
                                 
-                                <button onClick={confirmaCompra}> Comprar </button>
-                                
+                                 ? <> <button onClick={()=>{confirmaCompra();Pedido()}}> Comprar </button></>
+                                 : <> <button onClick={()=>{calculoFrete()}}> Calcular </button> </>
+                                  
                                 }
+
+                            
                               
                                 
                                 </div>
@@ -624,7 +703,7 @@ const showConfirmationDialogCartao = () => {
                 <div> 
                     <div>   
                         {tabelaTotal.map((item) =>(
-                          <p>{item.ds_qtd > 1 ? `Produtos ( ${item.ds_qtd} )`: `Produto ( ${item.ds_qtd} )` }</p> 
+                          <p>{item.ds_qtd > 1 ? `Produtos ( ${item.ds_qtd} )`: `Produto ( ${item.ds_qtd} )` } </p> 
                                      
                             ))
                          } 
@@ -633,8 +712,8 @@ const showConfirmationDialogCartao = () => {
                     
                     <div>
                            <p> Descontos </p>
-                           <p> - R$ {desconto}
-                            
+                       <p> - R$ {tabelaTotal.map((item) => item.desconto)}
+
                             
                              </p> 
                     </div>   

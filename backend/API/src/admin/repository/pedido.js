@@ -7,20 +7,22 @@ const comando = `
         id_cliente,
          id_cartao,
           id_pedido_produto,
-           dt_pedido,
             ds_situacao)
-    VALUES (?, ?, ?, ?, ?) `;
+    VALUES (?, ?, ?, ?) `;
+
 
     const [resposta] = await con.query(comando, [
         pedido.cliente,
         pedido.cartao,
         pedido.pedido_produto,
-        pedido.data,
         pedido.situacao
     ])
+  
 
-    
+      
     pedido.id = resposta.insertId
+ 
+
     return pedido;
 
 }
