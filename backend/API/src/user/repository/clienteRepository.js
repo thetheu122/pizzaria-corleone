@@ -225,7 +225,8 @@ export async function listarid(id) {
 
 
 export async function emailCadastro(email) {
-    const dataAtual = new Date();
+    try {
+        const dataAtual = new Date();
     const dataExpiracao = new Date(dataAtual);
     dataExpiracao.setDate(dataExpiracao.getDate() + 3);
     const diaExpiracao = dataExpiracao.getDate();
@@ -243,4 +244,8 @@ export async function emailCadastro(email) {
                 <p>Esta oferta é válida até ${diaExpiracao}/${mesExpiracao}. Não perca!</p>
                 <p>Esperamos vê-lo em breve!</p>`,
     });
+    } catch (error) {
+        console.log(error.message)
+    }
+    
 }
