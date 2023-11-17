@@ -20,7 +20,7 @@ export default function Finalizarcadastrado(){
 const [cep , setCep ] = useState ('') // input do CEP --
 const [label2 , setLabel2] = useState(true)
 const [ numero , setNumero ] = useState(0) // numero da casa --
-const [frete , setFrete] = useState(0)
+const [frete , setFrete] = useState(1)
 
 
 // funcao que calcula o frete 
@@ -225,7 +225,7 @@ useEffect(() => {
     let usuario = localStorage.getItem('usuario-logado');
     usuario = JSON.parse(usuario)
     try {
-alert(idpedidoproduto)
+
         let pedido ={
         "cliente": usuario.id,
         "cartao":idCartao,
@@ -233,7 +233,7 @@ alert(idpedidoproduto)
         "situacao":"Em preparo"
         }
         const r  = await axios.post(`${API_URL}/pedido`,pedido)
-
+     alert(pedido)
     } catch (err) {
         toast.error(err.message)
     }
