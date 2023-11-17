@@ -18,14 +18,51 @@ export default function SobreNos() {
 
   const navigate = useNavigate()
 
+  const contratos = 95
+  const cidade = 11
+  const funcionarios = 400
+  const mulheres = 45
+  const restaurante = 15
+  const clientes = 5500
+
+
   return (
     <div className="App">
-
       <Cabecalho />
 
       <div className='contaiiner'>
         <p>DON CORLEONE</p>
         <h2>__"Qualquer pessoa pode fazer uma PIZZA, mas sempre será uma pizza qualquer."</h2>
+      </div>
+
+      <div className='historias'>
+        <h1>__Historias reais, PESSOAS REAIS</h1>
+        <div className='cardsHistorias'>
+          <div>
+            <div className='javier'>
+              <p>Sua paixão pela melhoria contínua e sua busca incessante por resultados positivos refletem-se na filosofia que o impulsiona: "Ganhar, ganhar e ganhar", seguindo os passos sábios de Luis Aragonés. </p>
+            </div>
+            <h2>Javier Coladonaro</h2>
+            <p>De Gerente de Produção a <br /><strong>Diretor de Cadeia de Suprimentos.</strong></p>
+          </div>
+
+          <div>
+            <div className='fabrizio'>
+              <p>Sua ascensão meteórica reflete uma mentalidade proativa e a capacidade de transcender fronteiras. Como Gerente de P&D de Produto, ele é reconhecido por liderar equipes na concepção e criação de produtos inovadores que vão além das expectativas. </p>
+            </div>
+            <h2>Fabrizio Polacco</h2>
+            <p>De Pizzaiolo a <br /><strong>Gerente de P&D de Produto</strong></p>
+          </div>
+
+          <div>
+            <div className='elizabeth'>
+              <p>Sua paixão pela melhoria contínua e sua busca incessante por resultados positivos refletem-se na filosofia que o impulsiona: "Ganhar, ganhar e ganhar", seguindo os passos sábios de Luis Aragonés. </p>
+            </div>
+            <h2>Elizabeth Cabral</h2>
+            <p>De Equipe de Restaurante a <br /><strong>Especialista em Aprendizado</strong></p>
+          </div>
+        </div>
+
       </div>
 
       {/* <div className='texto-container'>
@@ -45,18 +82,17 @@ export default function SobreNos() {
 
       <div className='secao-intermediaria'>
         <h2>Somos uma empresa que nasceu do desejo de compartilhar a riqueza da cultura italiana com o Brasil. Cada pizza que sai de nossa cozinha é uma homenagem à tradição, ao amor pela comida e à convivialidade italiana. Valorizamos a qualidade dos ingredientes e a autenticidade dos sabores, para que você possa se transportar diretamente para as encantadoras ruas de Roma, Nápoles ou Florença</h2>
-      </div>
+      </div> */}
 
 
-      <div className='subtitulo3'>
+      {/* <div className='subtitulo3'>
         <div className='texto3'>
           <h2 >Nossas pizzas são preparadas com a dedicação e o cuidado que só uma pizzaria italiana legítima pode oferecer. Desde a massa artesanal, amassada à mão, até o molho de tomate caseiro, cada etapa é executada com maestria para garantir uma experiência gastronômica única.</h2>
           <h2 >Além de nossas pizzas tradicionais, trazemos um toque de inovação, combinando ingredientes locais e inspirações brasileiras. Assim, criamos sabores exclusivos que agradam a todos os paladares. Nosso objetivo é encantar você com a fusão perfeita entre a tradição italiana e a criatividade brasileira.</h2>
         </div>
         <img src={pizza} />
-      </div>
+      </div> */}
 
-       */}
 
       <div className='cardapio-sobrenos'>
         <div className='esquerda-cardapio-sobrenos'>
@@ -72,10 +108,43 @@ export default function SobreNos() {
         <img src={Top50} alt='top50' className='direita-cardapio-sobrenos' />
       </div>
 
+      <div className='contador'>
+        <h1>Nós fazemos pizza, mas <br /> somos bons em matemática.</h1>
+        <div className='meio'>
+          <div className='numbers'>
+            <div>
+              <h1>{contratos}%</h1>
+              <h2>CONTRATOS POR PRAZO INDETERMINADO</h2>
+            </div>
+            <div>
+              <h1>+{cidade}</h1>
+              <h2>CIDADES</h2>
+            </div>
+            <div>
+              <h1>+{funcionarios}</h1>
+              <h2>FUNCIONÁRIOS</h2>
+            </div>
+          </div>
+
+          <div className='numbers'>
+            <div>
+              <h1>+{mulheres}%</h1>
+              <h2>MULHERES CONTRATADAS</h2>
+            </div>
+            <div>
+              <h1>+{restaurante}</h1>
+              <h2>RESTAURANTES</h2>
+            </div>
+            <div>
+              <h1>+{clientes}</h1>
+              <h2>CLIENTES SATISFEITOS</h2>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <Rodape />
     </div>
-
   );
 }
 
