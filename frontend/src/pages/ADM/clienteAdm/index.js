@@ -250,8 +250,27 @@ export default function ClienteAdm() {
                                             },
                                         }}
                                     >
-                                        {item.status === 'Em preparo' && 
-                                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                        
+                                        {item.status === 'Em preparo' && (
+                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} class="pedido-andamento">
+                                                <div style={{ display: 'flex', alignItems: 'center' }} class="etapa">
+                                                    <div style={{ backgroundColor: '#1bb159', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>1</div>
+                                                    <div style={{ width: '30px', height: '3px', backgroundColor: '#1bb159', margin: '0px' }} class="linha"></div>
+                                                </div>
+                                                <div style={{ display: 'flex', alignItems: 'center' }} class="etapa">
+                                                    <div style={{ backgroundColor: '#777676', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>2</div>
+                                                    <div style={{ width: '30px', height: '3px', backgroundColor: '#777676', margin: '0px' }} class="linha"></div>
+                                                </div>
+                                                <div class="etapa">
+                                                    <div style={{ backgroundColor: '#777676', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>3</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        )}
+
+                                        {item.status === 'Entregue' && (
+                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} class="pedido-andamento">
                                                 <div style={{ display: 'flex', alignItems: 'center' }} class="etapa">
                                                     <div style={{ backgroundColor: '#1bb159', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>1</div>
@@ -265,24 +284,8 @@ export default function ClienteAdm() {
                                                     <div style={{ backgroundColor: '#1bb159', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>3</div>
                                                 </div>
                                             </div>
-                                        </div>}
-
-                                        {item.status === 'Entregue' &&
-                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                                                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }} class="pedido-andamento">
-                                                    <div style={{ display: 'flex', alignItems: 'center' }} class="etapa">
-                                                        <div style={{ backgroundColor: '#1bb159', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>1</div>
-                                                        <div style={{ width: '30px', height: '3px', backgroundColor: '#1bb159', margin: '0px' }} class="linha"></div>
-                                                    </div>
-                                                    <div style={{ display: 'flex', alignItems: 'center' }} class="etapa">
-                                                        <div style={{ backgroundColor: '#1bb159', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>2</div>
-                                                        <div style={{ width: '30px', height: '3px', backgroundColor: '#1bb159', margin: '0px' }} class="linha"></div>
-                                                    </div>
-                                                    <div class="etapa">
-                                                        <div style={{ backgroundColor: '#1bb159', borderRadius: '50%', width: '30px', height: '30px', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>3</div>
-                                                    </div>
-                                                </div>
-                                            </div>}
+                                        </div>
+                                        )}
                                     </Modal>
                                 </tr>
                             )}

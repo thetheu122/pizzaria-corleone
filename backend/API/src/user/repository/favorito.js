@@ -69,7 +69,7 @@ END AS valor,
     tb_cliente.nm_cliente AS cliente,
     tb_favorito.id_cliente,
     tb_produto.nm_produto AS produto,
-    tb_favorito.id_produto,
+    tb_favorito.id_produto as idproduto,
     tb_favorito.ds_favorito,
     tb_favorito.id_favorito     ,
     tb_imagem.img_produto       as imagem   

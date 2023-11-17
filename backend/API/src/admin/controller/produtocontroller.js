@@ -13,7 +13,9 @@ import {
   listarportipo,
   listarPorRestricao,
   listarImagem,
-  Inseririmagem
+  Inseririmagem,
+  deletarFavoritoProduto,
+  deletarCarrinhoProduto
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -296,6 +298,52 @@ endpoints.delete('/imagem/deletar/:id', async (req, resp) => {
 
     else {
       resp.status(200).send("imagem excluida com sucesso")
+    }
+  } catch (err) {
+    resp.status(500).send(err.message)
+  }
+
+})
+
+
+
+
+endpoints.delete('/produto/favoritos/deletar/:id', async (req, resp) => {
+  try {
+    const {id} = req.params
+
+
+    const r = await deletarFavoritoProduto(id)
+
+    if (r === 0) {
+      resp.status(404).send('favorito desse produto não encontrado')
+    }
+
+    else {
+      resp.status(200).send("favorito desse produto excluido com sucesso")
+    }
+  } catch (err) {
+    resp.status(500).send(err.message)
+  }
+
+})
+
+
+
+
+endpoints.delete('/produto/carrinho/deletar/:id', async (req, resp) => {
+  try {
+    const {id} = req.params
+
+
+    const r = await deletarCarrinhoProduto(id)
+
+    if (r === 0) {
+      resp.status(404).send('Carrinho desse produto não encontrado')
+    }
+
+    else {
+      resp.status(200).send("Carrinho desse produto excluido com sucesso")
     }
   } catch (err) {
     resp.status(500).send(err.message)
