@@ -11,10 +11,10 @@ import Transition from '../transition/transition'
 
 export default function MinhaConta() {
   // CONTROLADORES MENU DIRETA
-  const [pedidosAtv, setPedidosAtv] = useState(true)
+  const [pedidosAtv, setPedidosAtv] = useState(false)
   const [favorito, setFavorito] = useState(false)
   const [historico, setHistorico] = useState(false)
-  const [detalheConta, setDeltalheConta] = useState(false)
+  const [detalheConta, setDeltalheConta] = useState(true)
 
   const navigate = useNavigate()
 

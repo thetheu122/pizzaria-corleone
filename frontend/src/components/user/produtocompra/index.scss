@@ -12,6 +12,10 @@
     height: 120px;
     margin-bottom: 20px;
 
+    svg{
+        cursor: pointer;
+    }
+
     
 
     img{
@@ -38,6 +42,7 @@
                 user-select: none;
 
                 padding: 5px;
+                cursor: pointer;
             }
      }
 
