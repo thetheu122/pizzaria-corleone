@@ -146,48 +146,35 @@ CREATE TABLE tb_media (
   FOREIGN KEY (id_produto) REFERENCES tb_produto(id_produto)
 );
 
+
+
 CREATE TABLE tb_pedido_produto (
-id_pedido_produto   INT PRIMARY KEY AUTO_INCREMENT,
-id_cliente          INT  ,
-ds_subtotal			varchar(200),
-ds_total            VARCHAR(200),
-ds_desconto         VARCHAR(200),
-ds_frete            VARCHAR(200),
-ds_produtos         json,
-ds_qtd              INT ,
+    id_pedido_produto INT PRIMARY KEY AUTO_INCREMENT,
+    id_cliente INT,
+    ds_subtotal VARCHAR(200),
+    ds_total VARCHAR(200),
+    ds_desconto VARCHAR(200),
+    ds_frete VARCHAR(200),
+    ds_produtos JSON,
+    ds_qtd INT,
     
-FOREIGN  KEY ( id_cliente) 	REFERENCES tb_cliente ( id_cliente ) 
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
 );
 
 
 
 CREATE TABLE tb_pedido (
-
-id_pedido           INT PRIMARY KEY AUTO_INCREMENT,
-id_cliente          INT NOT NULL ,
-id_tipo_pagamento   INT NOT NULL,
-ds_nota_pag         VARCHAR(200) NOT NULL ,
-dt_pedido           DATE         NOT NULL , 
-ds_situacao         VARCHAR(200) NOT NULL ,
-
-FOREIGN  KEY ( id_cliente )         REFERENCES tb_cliente ( id_cliente )  ,
-FOREIGN  KEY ( id_tipo_pagamento) 	REFERENCES tb_tp_pagamento ( id_cartao ) 
-
-
-);
-
-
-CREATE TABLE tb_pedido_produto (
-id_pedido_produto   INT PRIMARY KEY AUTO_INCREMENT,
-id_cliente          INT  ,
-ds_produtos         varchar(200),
-ds_subtotal			varchar(200),
-ds_total            VARCHAR(200),
-ds_desconto         VARCHAR(200),
-ds_frete            VARCHAR(200),
+    id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+    id_pedido_produto INT NOT NULL,
+    id_cliente INT NOT NULL,
+    id_cartao INT NOT NULL,
+    dt_pedido TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    ds_situacao VARCHAR(200) NOT NULL,
     
-FOREIGN  KEY ( id_cliente) 	REFERENCES tb_cliente ( id_cliente ) );
-
+    FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente),
+    FOREIGN KEY (id_cartao) REFERENCES tb_cartao(id_cartao),
+    FOREIGN KEY (id_pedido_produto) REFERENCES tb_pedido_produto(id_pedido_produto)
+);
 
 
 
