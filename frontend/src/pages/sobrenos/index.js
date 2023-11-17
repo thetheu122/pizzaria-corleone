@@ -1,6 +1,5 @@
 import '../../assets/config/fonts-config.scss'
 import './App.scss';
-import fundo6 from '../../images/fundo6.jpg'
 
 import RestauranteComp from '../../assets/img/restaurante comp.png'
 import restaurante from '../../images/restaurante.png'
@@ -114,7 +113,7 @@ export default function SobreNos() {
           <div className='numbers'>
             <div>
               <h1>{contratos}%</h1>
-              <h2>CONTRATOS POR PRAZO INDETERMINADO</h2>
+              <h2>CONTRATOS SEM PRAZO</h2>
             </div>
             <div>
               <h1>+{cidade}</h1>
