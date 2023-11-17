@@ -56,7 +56,7 @@ export default function Cabecalho(props) {
   const [endereco, setEndereco] = useState({})
   const [cpf, setCpf] = useState('');
 
-  const [captcha, setCaptcha] = useState(false)
+  const [captcha, setCaptcha] = useState(true)
 
   const [cadastro, setCadastro] = useState(true);
 
