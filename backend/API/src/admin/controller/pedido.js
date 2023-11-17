@@ -10,8 +10,9 @@ const endpoints = Router()
 endpoints.post('/pedido', async (req, resp) => {
     try {
         const pedido = req.body;
-
+        // console.log("foi ? sera:"+ pedido);
         const resposta = await Novopedido(pedido)
+        console.log("foi:"+resposta)
         resp.send(resposta)
     } catch (err) {
         resp.status(400).send({
