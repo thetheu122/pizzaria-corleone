@@ -48,6 +48,7 @@
             transition: 150ms;
             position: relative;
             top: 50px;
+            right: 10px;
 
             &:hover {
                 cursor: pointer;
@@ -95,11 +96,12 @@
 
         .precoNome {
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px !important;
 
+            position: relative;
+
+            margin: 10px 0px;
 
 
             h3 {

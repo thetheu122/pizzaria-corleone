@@ -510,7 +510,7 @@ return (
           <p>Sobre nos</p>
         </div>
 
-        <div onClick={() => navigate('/pedidos/ativos')} className='pedidos-ativos'>
+        <div onClick={() => navigate('/minhaconta')} className='pedidos-ativos'>
           <img alt='pedidos-ativos' src={Sino} />
           <p>Pedidos Ativos</p>
         </div>
