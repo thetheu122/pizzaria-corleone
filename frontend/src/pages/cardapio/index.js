@@ -57,6 +57,11 @@ export default function Cardapio() {
     //USER id
     const [idUsuario, setIdUsuario] = useState(0);
 
+    // api url 
+    const api = axios.create({
+        baseURL: API_URL
+    })
+
     useEffect(() => {
         setPages([])
         let novoArray = []
@@ -296,7 +301,10 @@ export default function Cardapio() {
 
                         <h1>Compre Novamente</h1>
 
-                        <CardProduct />
+                        <CardProduct  produto = {{
+                         
+                        }}
+                        />
 
 
 

@@ -47,21 +47,21 @@ export async function inserirProduto(produto) {
   
   export async function verificarproduto(produto){
     const comando = `
-    SELECT
-	  tb_produto.id_produto             as ID,
-    tb_produto.nm_produto             as Nome,  
-    tb_tipo_produto.ds_tipo_produto   as tipo ,
-	  tb_produto.vl_preco               as Preço,
-	  tb_produto.vl_preco_promocional   as Preço_promocional,
-    tb_produto.ds_ingredientes        as ingredientes,
-    tb_produto.ds_descricao           as Descrição ,
-    tb_produto.bt_disponivel          as disponivel
-    FROM tb_produto 
-    INNER JOIN
-    tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-    where tb_produto.nm_produto = ?
-    or   tb_produto.ds_ingredientes =?
-    or   tb_produto.ds_descricao = ?`
+      SELECT
+      tb_produto.id_produto             as ID,
+      tb_produto.nm_produto             as Nome,  
+      tb_tipo_produto.ds_tipo_produto   as tipo ,
+      tb_produto.vl_preco               as Preço,
+      tb_produto.vl_preco_promocional   as Preço_promocional,
+      tb_produto.ds_ingredientes        as ingredientes,
+      tb_produto.ds_descricao           as Descrição ,
+      tb_produto.bt_disponivel          as disponivel
+      FROM tb_produto 
+      INNER JOIN
+      tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+      where tb_produto.nm_produto = ?
+      or   tb_produto.ds_ingredientes =?
+      or   tb_produto.ds_descricao = ?`
 
     const [ resposta ] = await con.query( comando , [
        produto.nome ,

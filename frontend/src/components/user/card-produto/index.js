@@ -7,6 +7,7 @@ import LinhaAmarela from '../../../assets/images/icons/linha-amarela.svg'
 import Coracao from '../../../assets/images/icons/coracao_icon.svg'
 import Carrinho from '../../../assets/images/icons/shopping-cart_icon.svg'
 import Seta from '../../../assets/images/icons/seta_icon.svg'
+import PizzaMargue from '../../../assets/images/pictures/margherita.png'
 import Star from '../../../assets/images/icons/star_icon.svg'
 import Loja from '../../../assets/images/icons/loja-localizacao.png'
 import Add from '../../../assets/images/pictures/add-cart.png'
@@ -46,6 +47,10 @@ export default function CardProduto(props) {
     // ID FAVORITO
     const [idFav, setIdFav] = useState(0)
 
+
+        const api = axios.create({
+        baseURL: API_URL
+    })
 
 
     function ttt(novoValor) {
@@ -245,7 +250,7 @@ useEffect(()=>{
         }
 
     }
-
+    
     return (
         <main className='card-produto'>
 
@@ -276,7 +281,9 @@ useEffect(()=>{
                 <img alt='linha' src={LinhaAmarela} className='linha2' />
 
                 <div className='descricao-produto'>
-
+                    <div className='imagem-pizza-comp'>
+                        <img src={`${api.getUri()}/${props.produto.imagem}`} />
+                    </div>
                     <div className='precoNome'>
                         <h3>{props.produto.nome}</h3>
                         <p>R${props.produto.preco}</p>

@@ -270,7 +270,7 @@ export default function EditarProduto() {
 
 
     function BuscarImagem(imagem) {
-        //alert(`${api.getUri()}/${imagem}`)
+        console.log(`${api.getUri()}/${imagem}`)
         return `${api.getUri()}/${imagem}`
     }
 
@@ -312,6 +312,7 @@ export default function EditarProduto() {
 
                     <div className='img' onClick={escolherImagem}>
                         <div className='ti-h1'>
+
 
 
 

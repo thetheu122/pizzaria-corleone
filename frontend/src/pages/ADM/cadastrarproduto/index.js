@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { useNavigate } from 'react-router-dom';
 import storage from 'local-storage';
-
+import { toast, ToastContainer}  from 'react-toastify'
 import { API_URL } from '../../../config/constants';
 
 
@@ -29,6 +29,19 @@ export default function Cadastro() {
     }, [])
 
 */
+
+
+    function notifySuccess() {
+        toast.success('Produto cadastrado com sucesso!', {
+            position: 'top-right',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    }
+
   
   async function cadastrarProduto() {
     const formData = new FormData();
@@ -78,7 +91,7 @@ export default function Cadastro() {
 
 
       if (respCadastro.status === 200) {
-        alert('Produto cadastrado com sucesso!');
+        notifySuccess();
 
       } else {
         alert(`Erro ao cadastrar o produto: ${respCadastro.statusText}, ${resprestricao.statusText}`);
@@ -119,6 +132,7 @@ export default function Cadastro() {
 
     return (
         <div className='connt'>
+            <ToastContainer />
 
             <CompAtalhosAdm />
 
@@ -302,4 +316,3 @@ export default function Cadastro() {
 
     )
 }
-
