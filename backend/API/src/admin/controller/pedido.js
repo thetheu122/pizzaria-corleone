@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento } from "../repository/pedido.js";
+import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue } from "../repository/pedido.js";
 
 
 
@@ -198,6 +198,18 @@ endpoints.put('/pedido/rastreamento/entregue/:id', async (req,resp) => {
         })
     }
 })
+
+endpoints.get('/pedido/entregue', async (req, resp) => {
+    try {
+        const pedidosEntregues = await listarPedidosEntregue();
+
+        resp.send(pedidosEntregues);
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        });
+    }
+});
 
 
 

@@ -15,7 +15,8 @@ import {
   listarImagem,
   Inseririmagem,
   deletarFavoritoProduto,
-  deletarCarrinhoProduto
+  deletarCarrinhoProduto,
+  contarProdutos
 } from '../repository/produtorepository.js';
 
 import multer from 'multer';
@@ -350,6 +351,17 @@ endpoints.delete('/produto/carrinho/deletar/:id', async (req, resp) => {
   }
 
 })
+
+endpoints.get('/produto/contar', async (req, res) => {
+  try {
+    const totalProdutos = await contarProdutos();
+    res.json({ totalProdutos });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao contar produtos.' });
+  }
+});
+
 
 
 
