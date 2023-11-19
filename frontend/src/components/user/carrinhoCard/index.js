@@ -10,6 +10,10 @@ import { API_URL } from '../../../config/constants'
 
 export default function CardCarrinho(props) {
 
+    const api = axios.create({
+        baseURL: API_URL
+    })
+
     
     function deletar(){
         
@@ -89,7 +93,9 @@ export default function CardCarrinho(props) {
     return (
         <main className='cardCarrinho'>
 
-            <div className='alimento'></div>
+            <div className='alimento'>
+                <img className='alimento' src={`${api.getUri()}`} />
+            </div>
 
             <div className='pequenasInformacoes'>
 

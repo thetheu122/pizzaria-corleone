@@ -289,8 +289,8 @@ useEffect(()=>{
 
                 <div className='baixo'>
                     <div>
-                        <div className='circulo'>
-                            <img alt='carrinho' src={Carrinho} onClick={() => carrinho()} />
+                        <div onClick={() => carrinho()} className='circulo'>
+                            <img alt='carrinho' src={Carrinho} />
                         </div>
                         <Link to={`/informacao/${props.produto.id}`} className='mais-detalhes'>
                             <p>Mais Detalhes</p>

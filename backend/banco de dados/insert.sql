@@ -164,3 +164,25 @@ insert into  tb_restricao (id_produto,ds_restricao)
 
 INSERT INTO tb_associado (nm_nome, ds_email, ds_senha, ds_cnpj)
 VALUES ('corleone', 'corleonemkmw@.com', 'mkmw123', '123456');
+
+
+-- INSERTS TABELA SUGESTAO
+
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (1, 1);
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (2, 2);
+
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (3, 3);
+
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (4, 4);
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (5, 5);
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (6, 6);
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (7, 7);
+
+INSERT INTO tb_sugestao (id_produto, ds_sugestao) VALUES (8, 8);
