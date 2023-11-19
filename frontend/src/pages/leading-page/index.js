@@ -30,6 +30,7 @@ import Cabecalho from '../../components/user/cabecalho'
 import CompSobre from '../../components/compSobre'
 import { useEffect, useState } from 'react';
 import CardFiltroLeadingPage from '../../components/cardFiltroLeadingPage';
+import Whatsapp from '../../components/whatsapp';
 
 
 export default function Leading() {
@@ -68,6 +69,7 @@ export default function Leading() {
     return (
         <Transition>
         <main className='leadingPage'>
+            <Whatsapp />
             <Cabecalho />
             <div className='introducao'>
                 <h2>CORLEONE'S PIZZA</h2>
