@@ -17,15 +17,14 @@ export async function ListarCardapio(tp, restricao_1, restricao_2, restricao_3, 
    MAX(img.img_produto) AS imagem,
    MAX(m.ds_media) AS media , 
    MAX(r1.ds_restricao) AS restricao_1, 
-   MAX(r2.ds_restricao) AS restricao_2, 
-   MAX(r3.ds_restricao) AS restricao_3
+   MAX(r2.ds_restricao) AS restricao_2
 FROM tb_produto p
 INNER JOIN tb_tipo_produto AS tp ON p.ds_tipo_produto = tp.id_tipo_produto
 LEFT JOIN tb_imagem AS img ON img.id_produto = p.id_produto
 LEFT JOIN tb_media AS m ON m.id_produto = p.id_produto
 INNER JOIN tb_restricao r1 ON p.id_produto = r1.id_produto AND r1.ds_restricao like ?
 INNER JOIN tb_restricao r2 ON p.id_produto = r2.id_produto AND r2.ds_restricao like ?
-INNER JOIN tb_restricao r3 ON p.id_produto = r3.id_produto AND r3.ds_restricao like ?
+
 WHERE p.nm_produto LIKE ?
 AND tp.ds_tipo_produto LIKE ?
 GROUP BY 
@@ -40,8 +39,7 @@ GROUP BY
    img.img_produto, 
    m.ds_media, 
    r1.ds_restricao, 
-   r2.ds_restricao, 
-   r3.ds_restricao
+   r2.ds_restricao
 ORDER BY null
    `
 
@@ -61,15 +59,14 @@ ORDER BY null
    MAX(img.img_produto) AS imagem,
    MAX(m.ds_media) AS media , 
    MAX(r1.ds_restricao) AS restricao_1, 
-   MAX(r2.ds_restricao) AS restricao_2, 
-   MAX(r3.ds_restricao) AS restricao_3
+   MAX(r2.ds_restricao) AS restricao_2
 FROM tb_produto p
 INNER JOIN tb_tipo_produto AS tp ON p.ds_tipo_produto = tp.id_tipo_produto
 LEFT JOIN tb_imagem AS img ON img.id_produto = p.id_produto
 LEFT JOIN tb_media AS m ON m.id_produto = p.id_produto
 INNER JOIN tb_restricao r1 ON p.id_produto = r1.id_produto AND r1.ds_restricao like ?
 INNER JOIN tb_restricao r2 ON p.id_produto = r2.id_produto AND r2.ds_restricao like ?
-INNER JOIN tb_restricao r3 ON p.id_produto = r3.id_produto AND r3.ds_restricao like ?
+
 WHERE p.nm_produto LIKE ?
 AND tp.ds_tipo_produto LIKE ?
 GROUP BY 
@@ -84,8 +81,7 @@ GROUP BY
    img.img_produto, 
    m.ds_media, 
    r1.ds_restricao, 
-   r2.ds_restricao, 
-   r3.ds_restricao
+   r2.ds_restricao
 ORDER BY p.vl_preco asc
    `
    }
@@ -105,15 +101,14 @@ ORDER BY p.vl_preco asc
    MAX(img.img_produto) AS imagem,
    MAX(m.ds_media) AS media , 
    MAX(r1.ds_restricao) AS restricao_1, 
-   MAX(r2.ds_restricao) AS restricao_2, 
-   MAX(r3.ds_restricao) AS restricao_3
+   MAX(r2.ds_restricao) AS restricao_2
 FROM tb_produto p
 INNER JOIN tb_tipo_produto AS tp ON p.ds_tipo_produto = tp.id_tipo_produto
 LEFT JOIN tb_imagem AS img ON img.id_produto = p.id_produto
 LEFT JOIN tb_media AS m ON m.id_produto = p.id_produto
 INNER JOIN tb_restricao r1 ON p.id_produto = r1.id_produto AND r1.ds_restricao like ?
 INNER JOIN tb_restricao r2 ON p.id_produto = r2.id_produto AND r2.ds_restricao like ?
-INNER JOIN tb_restricao r3 ON p.id_produto = r3.id_produto AND r3.ds_restricao like ?
+
 WHERE p.nm_produto LIKE ?
 AND tp.ds_tipo_produto LIKE ?
 GROUP BY 
@@ -128,8 +123,7 @@ GROUP BY
    img.img_produto, 
    m.ds_media, 
    r1.ds_restricao, 
-   r2.ds_restricao, 
-   r3.ds_restricao
+   r2.ds_restricao
 ORDER BY p.vl_preco desc
    `
    }
@@ -149,15 +143,14 @@ ORDER BY p.vl_preco desc
    MAX(img.img_produto) AS imagem,
    MAX(m.ds_media) AS media , 
    MAX(r1.ds_restricao) AS restricao_1, 
-   MAX(r2.ds_restricao) AS restricao_2, 
-   MAX(r3.ds_restricao) AS restricao_3
+   MAX(r2.ds_restricao) AS restricao_2
 FROM tb_produto p
 INNER JOIN tb_tipo_produto AS tp ON p.ds_tipo_produto = tp.id_tipo_produto
 LEFT JOIN tb_imagem AS img ON img.id_produto = p.id_produto
 LEFT JOIN tb_media AS m ON m.id_produto = p.id_produto
 INNER JOIN tb_restricao r1 ON p.id_produto = r1.id_produto AND r1.ds_restricao like ?
 INNER JOIN tb_restricao r2 ON p.id_produto = r2.id_produto AND r2.ds_restricao like ?
-INNER JOIN tb_restricao r3 ON p.id_produto = r3.id_produto AND r3.ds_restricao like ?
+
 WHERE p.nm_produto LIKE ?
 AND tp.ds_tipo_produto LIKE ?
 GROUP BY 
@@ -172,8 +165,7 @@ GROUP BY
    img.img_produto, 
    m.ds_media, 
    r1.ds_restricao, 
-   r2.ds_restricao, 
-   r3.ds_restricao
+   r2.ds_restricao
 ORDER BY p.id_produto desc
    `
    }
@@ -193,15 +185,14 @@ ORDER BY p.id_produto desc
    MAX(img.img_produto) AS imagem,
    MAX(m.ds_media) AS media , 
    MAX(r1.ds_restricao) AS restricao_1, 
-   MAX(r2.ds_restricao) AS restricao_2, 
-   MAX(r3.ds_restricao) AS restricao_3
+   MAX(r2.ds_restricao) AS restricao_2
 FROM tb_produto p
 INNER JOIN tb_tipo_produto AS tp ON p.ds_tipo_produto = tp.id_tipo_produto
 LEFT JOIN tb_imagem AS img ON img.id_produto = p.id_produto
 LEFT JOIN tb_media AS m ON m.id_produto = p.id_produto
 INNER JOIN tb_restricao r1 ON p.id_produto = r1.id_produto AND r1.ds_restricao like ?
 INNER JOIN tb_restricao r2 ON p.id_produto = r2.id_produto AND r2.ds_restricao like ?
-INNER JOIN tb_restricao r3 ON p.id_produto = r3.id_produto AND r3.ds_restricao like ?
+
 WHERE p.nm_produto LIKE ?
 AND tp.ds_tipo_produto LIKE ?
 GROUP BY 
@@ -216,8 +207,7 @@ GROUP BY
    img.img_produto, 
    m.ds_media, 
    r1.ds_restricao, 
-   r2.ds_restricao, 
-   r3.ds_restricao
+   r2.ds_restricao
 ORDER BY m.ds_media desc
    `
    }

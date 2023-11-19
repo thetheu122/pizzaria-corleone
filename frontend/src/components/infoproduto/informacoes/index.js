@@ -48,6 +48,30 @@ export default function Informacoes(props) {
 
     const [verificar, setVerificar] = useState([])
 
+    const [sugestao, setSugestao] = useState([]);
+    const [numeroAleatorio, setNumeroAleatorio] = useState(null);
+  
+    useEffect(() => {
+      ListarSugestao();
+    }, []); 
+  
+    async function ListarSugestao() {
+      try {
+        const novoNumero = Math.floor(Math.random() * 8) + 1;
+        console.log(`Número aleatório gerado: ${novoNumero}`);
+        setNumeroAleatorio(novoNumero);
+  
+        const r = await axios.get(`${API_URL}/corleone/sugestao/pizza/${novoNumero}`);
+        console.log(r.data);
+        setSugestao(r.data);
+      } catch (error) {
+        console.error('Erro ao listar sugestões:', error);
+      }
+    }
+    
+
+    ///////////////////////////////////////////
+
     const api = axios.create({
         baseURL: API_URL
     })
@@ -407,7 +431,10 @@ export default function Informacoes(props) {
                             </div>
                         </div>
                         <h4>Você talvez gostaria</h4>
-                        <Recomendacoes recomendacao={{ nome: "calloni", imagem: comida }} />
+                        {sugestao.map((item) => 
+                                <Recomendacoes recomendacao={{ nome: item.produto, imagem: item.imagem }} />
+                        )}
+                        
                     </div>
                 </div>
 

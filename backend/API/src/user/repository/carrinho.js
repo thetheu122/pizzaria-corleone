@@ -215,3 +215,32 @@ export async function listarcarrinhoidsem(id) {
 
 
 
+
+
+
+
+export async function passarImagemCarrinho(id) {
+
+    const comando = `
+        SELECT
+        c.id_carrinho       as id,
+        c.id_produto        AS id_produto_carrinho,
+        c.id_cliente        as idcliente,
+        c.ds_carrinho       as carrinho,
+        c.ds_qtd            as quantidade,
+        p.nm_produto        as nome,
+        i.id_imagem         as idimagem,
+        i.img_produto       as imagem
+    FROM
+        tb_carrinho c
+    JOIN
+        tb_produto p ON c.id_produto = p.id_produto
+    LEFT JOIN
+        tb_imagem i ON p.id_produto = i.id_produto
+    WHERE
+        c.id_carrinho = ? 
+    
+    `;
+    const [resposta] = await con.query(comando, [id])
+    return resposta
+}

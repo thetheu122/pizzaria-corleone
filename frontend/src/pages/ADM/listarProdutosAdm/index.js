@@ -132,7 +132,7 @@ export default function ListarProdutosAdm() {
                         await axios.delete(`${API_URL}/produto/${id}`);
                         notifySuccess();
 
-                        
+
                     } else {
                         await axios.delete(`${API_URL}/produto/${id}`);
                         notifySuccess();
@@ -202,7 +202,24 @@ export default function ListarProdutosAdm() {
                                 else if (!imagemid && !carrinhoId && !favoritoId) {
                                     deletarRestricao()
                                     deletarProduto()
-                                } else if (!restricaoId && !favoritoId) {
+                                }
+                                else if (carrinhoId && !imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !carrinhoId) {
+                                    deletarFavorito()
+                                    deletarProduto()
+                                }
+                                else if (favoritoId && !imagemid && !restricaoId && !carrinhoId) {
+                                    deletarFavorito()
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId && !favoritoId) {
                                     deletarCarrinho()
                                     deletarImagem();
                                     deletarProduto()
@@ -214,6 +231,10 @@ export default function ListarProdutosAdm() {
                                 }
                                 else if (!restricaoId && !carrinhoId && !favoritoId) {
                                     deletarImagem();
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
                                     deletarProduto()
                                 }
                                 else if (!favoritoId && !carrinhoId) {
@@ -236,7 +257,7 @@ export default function ListarProdutosAdm() {
                                     deletarFavorito()
                                     deletarCarrinho()
                                     deletarProduto()
-                                } 
+                                }
                             } else if (filtro.length > 0) {
                                 if (!imagemid && !restricaoId && !favoritoId && !carrinhoId) {
                                     deletarProduto();
@@ -289,7 +310,7 @@ export default function ListarProdutosAdm() {
                                     deletarProduto()
                                 }
                             }
-                             else {
+                            else {
                                 alert('Os IDs de restrição ou imagem estão nulos.');
                             }
                         }
