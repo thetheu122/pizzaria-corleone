@@ -62,6 +62,28 @@ export default function Cardapio() {
         baseURL: API_URL
     })
 
+    //comprados do cliente
+    const [compras, setCompras] = useState([])
+
+
+    useEffect(() => {
+       setPaginaAtual(1);
+    },[vegano, intoleranteOvo, intoleranteGluten, intoleranteLactose])
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                let response = await axios.get(API_URL + `/comprados/usuario?id=${idUsuario}`)
+                response = response.data
+
+                setCompras(response)
+                console.log(response)
+            } catch (err) {
+            }
+        }
+        fetchData()
+    }, [idUsuario])
+
     useEffect(() => {
         setPages([])
         let novoArray = []
@@ -159,14 +181,12 @@ export default function Cardapio() {
 
         let restricao_1 = restricoesAtivas[0]
         let restricao_2 = restricoesAtivas[1]
-        let restricao_3 = restricoesAtivas[2]
 
         restricao_1 = restricao_1 ? restricao_1 : '%'
         restricao_2 = restricao_2 ? restricao_2 : '%'
-        restricao_3 = restricao_3 ? restricao_3 : '%'
 
         // Execute a chamada à API
-        let response = await axios.get(`${API_URL}/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&restricao_3=${restricao_3}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`);
+        let response = await axios.get(`${API_URL}/produto/consulta/cardapio?tp=${tipoComida}&restricao_1=${restricao_1}&restricao_2=${restricao_2}&nm=${pesquisa ? pesquisa : '%'}&orderby=${orderBy}`);
 
         response = response.data
 
@@ -267,7 +287,7 @@ export default function Cardapio() {
 
                         <div className='restricoes'>
                             <div className='restricoesFiltro'>
-                                <input type='radio' value={vegano} onClick={() => sideFilter('v')} disabled={qtdAtv === 3 && !vegano} checked={vegano} />
+                                <input type='radio' value={vegano} onClick={() => sideFilter('v')} disabled={qtdAtv === 2 && !vegano} checked={vegano} />
                                 <p>Vegano</p>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -275,7 +295,7 @@ export default function Cardapio() {
                             </svg>
 
                             <div className='restricoesFiltro'>
-                                <input type='radio' value={intoleranteOvo} onClick={() => sideFilter('o')} disabled={qtdAtv === 3 && !intoleranteOvo} checked={intoleranteOvo} />
+                                <input type='radio' value={intoleranteOvo} onClick={() => sideFilter('o')} disabled={qtdAtv === 2 && !intoleranteOvo} checked={intoleranteOvo} />
                                 <p>Intolerante a Ovo</p>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -283,7 +303,7 @@ export default function Cardapio() {
                             </svg>
 
                             <div className='restricoesFiltro'>
-                                <input type='radio' value={intoleranteGluten} onClick={() => sideFilter('g')} disabled={qtdAtv === 3 && !intoleranteGluten} checked={intoleranteGluten} />
+                                <input type='radio' value={intoleranteGluten} onClick={() => sideFilter('g')} disabled={qtdAtv === 2 && !intoleranteGluten} checked={intoleranteGluten} />
                                 <p>Intolerante a Glúten </p>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="228" height="1" viewBox="0 0 228 1" fill="none">
@@ -291,7 +311,7 @@ export default function Cardapio() {
                             </svg>
 
                             <div className='restricoesFiltro'>
-                                <input type='radio' value={intoleranteLactose} onClick={() => sideFilter('l')} disabled={qtdAtv === 3 && !intoleranteLactose} checked={intoleranteLactose} />
+                                <input type='radio' value={intoleranteLactose} onClick={() => sideFilter('l')} disabled={qtdAtv === 2 && !intoleranteLactose} checked={intoleranteLactose} />
                                 <p>Intolerante a Lactose</p>
                             </div>
 
@@ -299,12 +319,16 @@ export default function Cardapio() {
 
                         </div>
 
-                        <h1>Compre Novamente</h1>
+                        {compras.length > 0 &&
+                            <>
+                                <h1>Compre Novamente</h1>
 
-                        <CardProduct  produto = {{
-                         
-                        }}
-                        />
+                                {compras.slice(0, 4).map((compra, index) => (
+                                    <CardProduct key={index} produto={compra.id_produto} />
+                                ))}
+                            </>
+                        }
+
 
 
 

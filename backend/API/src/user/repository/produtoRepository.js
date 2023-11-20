@@ -1,6 +1,6 @@
 import { con } from '../../conection.js'
 
-export async function ListarCardapio(tp, restricao_1, restricao_2, restricao_3, nm, orderby) {
+export async function ListarCardapio(tp, restricao_1, restricao_2, nm, orderby) {
    
    let comando =
       `
@@ -212,7 +212,46 @@ ORDER BY m.ds_media desc
    `
    }
 
-   let [response] = await con.query(comando, [restricao_1, restricao_2, restricao_3, nm, tp]);
+   let [response] = await con.query(comando, [restricao_1, restricao_2, nm, tp]);
 
    return response
+}
+
+export async function CompradosPeloCliente(id){
+   let comando =
+   `
+         SELECT pp.ds_produtos AS produtos
+           FROM tb_pedido 	  AS p
+     INNER JOIN
+        tb_pedido_produto 	  AS pp ON p.id_pedido_produto = pp.id_pedido_produto
+          WHERE p.ds_situacao = "Entregue"
+            AND p.id_cliente  = ?
+   `
+
+   let [response] = await con.query(comando, id);
+
+   return response[0]
+}
+
+export async function ListagemProdutosComprados(id){
+   let comando = 
+   `
+      SELECT
+            tp.nm_produto  AS nome,
+            ti.img_produto AS imagem,
+            tm.ds_media    AS media
+        FROM
+            tb_produto AS tp
+   LEFT JOIN
+            tb_imagem AS ti ON tp.id_produto = ti.id_produto
+   LEFT JOIN
+            tb_media  AS tm ON tp.id_produto = tm.id_produto
+       WHERE
+            tp.id_produto = ?
+
+   `
+
+   let [response] = await con.query(comando, id)
+
+   return response[0]
 }
