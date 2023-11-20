@@ -7,9 +7,11 @@ import SetaBaixo from '../../../assets/img/setabaixo.png'
 import Modal from 'react-modal';
 
 import ApexChart  from 'react-apexcharts'
+import { API_URL } from '../../../config/constants'
+import axios from 'axios'
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 //import { Chart } from "react-google-charts";
 
@@ -17,6 +19,48 @@ Modal.setAppElement('#root');
 
 
 export default function Vendas() {
+
+
+    const [grafico, setGrafico] = useState([])
+
+    useEffect(() => {
+        InformacoesGrafico()
+    }, [])
+
+
+    async function InformacoesGrafico() {
+        try {
+            const response = await axios.get(`${API_URL}/vendas/grafico`);
+            const dadosAPI = response.data;
+            
+    
+            // Verifica se há dados antes de formatar
+            if (dadosAPI && dadosAPI.length > 0) {
+                const dadosFormatados = dadosAPI.map(item => {
+                    // Extrai o mês da data
+                    const dia = new Date(item.data).getDate();
+
+                    console.log(dia)
+                    console.log(item.total)
+    
+                    return {
+                        x: dia,
+                        y: item.total
+                    };
+                });
+    
+                // Define o estado do gráfico com os dados formatados
+                console.log(dadosFormatados)
+                setGrafico(dadosFormatados);
+            } else {
+                console.log('Não há dados disponíveis para o gráfico.');
+            }
+        } catch (error) {
+            console.error('Erro ao obter dados do gráfico:', error);
+        }
+    }
+    
+
 
 
     function openModal() {
@@ -35,7 +79,7 @@ export default function Vendas() {
         console.log('Data selecionada:', selectedDate);
         closeModal();
     }
-    /*    const dataBase = [
+    /*   const dataBase = [
         ["Mês", "Vendas"],
         ["Janeiro", 10000],
         ["Fevereiro", 15000],
@@ -50,67 +94,23 @@ export default function Vendas() {
         ["Dezembro", 50000],
 ]*/
 
+
+
     const [filtro, setFiltro] = useState('')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedPayment, setSelectedPayment] = useState('');
     const [selectedDate, setSelectedDate] = useState('')
 
     const series = [{
-        data: [{
-            x: "Janeiro",
-            y: 10000
-        },
-        {
-            x: "Fevereiro",
-            y: 15000
-        },
-        {
-            x: "Abril",
-            y: 45000
-        },
-        {
-            x: "Maio",
-            y: 15000
-        },
-        {
-            x: "Junho",
-            y: 45000
-        },
-        {
-            x: "Julho",
-            y: 30000
-        },
-        {
-            x: "Agosto",
-            y: 55000
-        },
-        {
-            x: "Setembro",
-            y: 65000
-        },
-        {
-            x: "Outubro",
-            y: 25000
-        },
-        {
-            x: "Novembro",
-            y: 45000
-        },
-        {
-            x: "Dezembro",
-            y: 50000
-        },
-    ]
-    }]
+        name: "Vendas totais",
+        data: grafico.map(item => ({ x: item.x, y:item.y  }))
+    }];
 
     let options = {
         chart: {
             height: 500,
             width: 1000,
             type: 'linechart'
-        },
-        xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
         },
         dataLables: {
             enabled: false
@@ -291,93 +291,3 @@ export default function Vendas() {
 
     )
 }
-
-/*                            <tr className='cada-valor-vendas'>
-                                <td>6</td>
-                                <td>R$123,45</td>
-                                <td>R$123,45</td>
-                                <td>--</td>
-                                <td>CARTÃO</td>
-                                <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>
-
-//                             <tr className='cada-valor-vendas'>
-//                                 <td>6</td>
-//                                 <td>R$123,45</td>
-//                                 <td>R$123,45</td>
-//                                 <td>--</td>
-//                                 <td>CARTÃO</td>
-//                                 <td>DÉBITO</td>
-//                                 <td><img src={Deletar} /></td>
-//                             </tr>*/
