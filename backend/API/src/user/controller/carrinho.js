@@ -80,7 +80,9 @@ endpoints.get('/corleone/usuario/carrinho/listar' , async (req,resp) =>{
 endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
     try {
       const {id} = req.params
+      console.log(id)
       const resposta = await listarcarrinhoid(id)
+      
 
       
       resp.send(resposta)  

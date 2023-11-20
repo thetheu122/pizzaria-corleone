@@ -75,23 +75,26 @@ LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto;
 export async function listarcarrinhoid(id) {
 
     const comando = `
-    SELECT 
-    CASE 
-      WHEN ds_carrinho = 0 THEN 'indisponivel'
-      WHEN ds_carrinho = 1 THEN 'disponivel'
-    END AS carrinho,
-    id_carrinho,
-    tb_produto.nm_produto AS produto,
-    tb_produto.vl_preco AS preco,
-    tb_carrinho.ds_qtd AS quantidade,
-    tb_produto.id_produto,
-    tb_cliente.nm_cliente AS cliente,
-    tb_cliente.id_cliente
-  FROM tb_carrinho
-  LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
-  LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
-  WHERE tb_cliente.id_cliente = ?
-  AND tb_carrinho.ds_carrinho = 1
+        SELECT 
+        CASE 
+            WHEN tb_carrinho.ds_carrinho = 0 THEN 'indisponivel'
+            WHEN tb_carrinho.ds_carrinho = 1 THEN 'disponivel'
+        END AS carrinho,
+        tb_carrinho.id_carrinho,
+        tb_produto.nm_produto AS produto,
+        tb_produto.vl_preco AS preco,
+        tb_carrinho.ds_qtd AS quantidade,
+        tb_produto.id_produto,
+        tb_cliente.nm_cliente AS cliente,
+        tb_cliente.id_cliente,
+        tb_imagem.id_imagem     as idimagem,
+        tb_imagem.img_produto   as imagem
+    FROM tb_carrinho
+    LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
+    LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
+    LEFT JOIN tb_imagem ON tb_produto.id_produto = tb_imagem.id_produto
+    WHERE tb_cliente.id_cliente = 5
+    AND tb_carrinho.ds_carrinho = 1;
     
     `;
     const [resposta] = await con.query(comando, [id])

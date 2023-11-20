@@ -205,6 +205,7 @@ export default function Finalizarcadastrado() {
       const resp = await axios.get(`${API_URL}/corleone/pedido/cliente/${usuario.id}`);
       setTabelaTotal(resp.data)
 
+      console.log(response.data)
 
       setProdutos(response.data)
 
@@ -685,7 +686,7 @@ export default function Finalizarcadastrado() {
 
                   return (
                     <ProdutoCompra produto={{
-                      nome: item.produto, preco: item.preco, img: item.imagem, qtd: item.quantidade, id: item.id_carrinho
+                      nome: item.produto, preco: item.preco, imagem: item.imagem, qtd: item.quantidade, id: item.id_carrinho
                     }} />
                   );
                 })}
@@ -762,7 +763,7 @@ export default function Finalizarcadastrado() {
 
             <div className='sugestao-itens'>
               {cartoesAtuais.map(item => (
-                <Sugestao produto={{ nome: item.nome, media: item.media, preco: item.preço, id: item.ID }} />
+                <Sugestao produto={{ nome: item.nome, imagem: item.imagem, media: item.media, preco: item.preço, id: item.ID }} />  
               ))}
             </div>
 

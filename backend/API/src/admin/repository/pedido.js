@@ -180,25 +180,29 @@ export async function listarPorStatusCancelado() {
 export async function listarDetalhesPorId(id) {
     let comando = `
             SELECT
-            p.id_pedido     as idpedido,
-            p.dt_pedido     as data,
-            c.nm_cliente    as nome,
-            c.ds_telefone   as telefone,
-            e.ds_estado     as estado,
-            e.ds_cidade     as cidade,
-            e.ds_bairro     as bairro,
-            e.ds_rua        as rua,
-            e.ds_numero     as numero,
-            e.ds_cep        as cep,
-            pr.nm_produto   as produto,
-            p.ds_situacao   as status
+            c.id_cliente        as idcliente,
+            c.nm_cliente        as nomecliente,
+            c.ds_telefone       as telefone,
+            pp.ds_produtos      as produtos,
+            pp.ds_total         as total,
+            p.id_pedido         as idpedido,
+            p.dt_pedido         as data,
+            p.ds_situacao       as status,
+            e.id_endereco       as endereco,
+            e.ds_estado         as estado,
+            e.ds_cidade         as cidade,
+            e.ds_bairro         as bairro,
+            e.ds_rua            as rua,
+            e.ds_numero         as numero,
+            e.ds_cep            as cep,
+            pr.id_produto       as idproduto
         FROM
-            tb_pedido p
-            LEFT JOIN tb_pedido_produto pp ON p.id_pedido = pp.id_pedido
-            LEFT JOIN tb_produto pr ON pp.id_produto = pr.id_produto
-            LEFT JOIN tb_cliente c ON p.id_cliente = c.id_cliente
-            LEFT JOIN tb_endereco e ON c.id_endereco = e.id_endereco
-            WHERE p.id_pedido = ?
+            tb_pedido_produto pp
+            JOIN tb_pedido p ON pp.id_pedido_produto = p.id_pedido_produto
+            LEFT JOIN tb_endereco e ON p.id_cliente = e.id_endereco
+            JOIN tb_produto pr ON p.id_pedido_produto = pr.id_produto
+            JOIN tb_cliente c ON p.id_cliente = c.id_cliente
+        WHERE p.id_pedido = ?
         `
 
         const [resposta] = await con.query(comando, [id])

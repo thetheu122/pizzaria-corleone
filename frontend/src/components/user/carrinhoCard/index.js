@@ -7,12 +7,29 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 import { API_URL } from '../../../config/constants'
+import { useEffect, useState } from 'react'
 
 export default function CardCarrinho(props) {
 
     const api = axios.create({
         baseURL: API_URL
     })
+
+
+    const [carrinho, setCarrinho] = useState([])
+
+
+    useEffect(() => {
+        listarCarrinhoimagem();
+    }, [])
+
+
+    async function listarCarrinhoimagem() {
+        const r = await axios.get(`${API_URL}/corleone/usuario/carrinho/listar/imagem/${props.produto.id}`)
+        console.log(r.data)
+        setCarrinho(r.data)
+    }
+
 
     
     function deletar(){
@@ -94,7 +111,7 @@ export default function CardCarrinho(props) {
         <main className='cardCarrinho'>
 
             <div className='alimento'>
-                <img className='alimento' src={`${api.getUri()}`} />
+                <img className='alimento' src={`${api.getUri()}/${props.produto.imagem}`} />
             </div>
 
             <div className='pequenasInformacoes'>

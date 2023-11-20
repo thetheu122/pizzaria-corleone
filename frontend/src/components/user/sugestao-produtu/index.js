@@ -7,6 +7,10 @@ import { toast } from 'react-toastify';
 
 import { API_URL } from '../../../config/constants';
 export default function  Sugestao(props){
+
+    const api = axios.create({
+        baseURL: API_URL
+    })
     
     const [ verificar   , setVerificar ]  = useState([]) 
     const  id = props.produto.id
@@ -104,7 +108,7 @@ useEffect(()=>{
     return(
        <div className='com-sugestao'>
            
-           <img src={Margherita} />
+           <img src={`${api.getUri()}/${props.produto.imagem}`} />
            
            
                <p>{props.produto.nome}</p>

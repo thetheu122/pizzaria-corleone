@@ -23,6 +23,8 @@ export default function ListarPedido() {
         navigate(`/detalhes/pedido/${id}`)
     }
 
+    
+
 
     ///<button className="modal-button" type="submit">Aplicar Filtros</button>
     const [buscarid, setBuscarid] = useState('')
@@ -278,6 +280,7 @@ export default function ListarPedido() {
 
                             {pedidos.map(item => (
                                 item.produtos &&
+                                item.situacao === 'Entregue' &&
                                     item.data ? (
                                     <tr className="linha-separadora" key={item.idpedido}>
                                         <td>{item.idpedido}</td>
@@ -286,9 +289,7 @@ export default function ListarPedido() {
                                         <td>{item.produtos}</td>
                                         <td>{item.data.substr(0, 10)}</td>
                                         <td>
-                                            {item.situacao === 'Entregue' && <div className='status-entregue'></div>}
-                                            {item.situacao === 'cancelado' && <div className='status-cancelado'></div>}
-                                            {item.situacao === 'pendente' && null}
+                                            <div className='status-entregue'></div>
                                         </td>
                                         <td className='preto' onClick={() => { MaisDetalhes(item.idpedido) }}>mais detalhes...</td>
                                     </tr>

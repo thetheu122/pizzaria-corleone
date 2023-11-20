@@ -9,6 +9,10 @@ export default  function ProdutoCompra(props){
 
 const [qtd, setQtd] = useState(0)
 
+const api = axios.create({
+    baseURL: API_URL
+})
+
 
     function deletar(){
         let id = props.produto.id
@@ -76,7 +80,7 @@ const [qtd, setQtd] = useState(0)
 
         <div className='produtoCompra'>
 
-               <img src={imagemproduto}/>
+               <img src={`${api.getUri()}/${props.produto.imagem}`}/>
                <p>{props.produto.nome}</p>
 
                <div>

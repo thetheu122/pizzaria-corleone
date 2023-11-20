@@ -45,24 +45,7 @@ export default function MaisDetalhes() {
         navigate('/listapedido')
     }
 
-    const groupedDetalhes = detalhes.reduce((acc, item) => {
-        if (!acc[item.idpedido]) {
-            acc[item.idpedido] = {
-                idpedido: item.idpedido,
-                nome: item.nome,
-                status: item.status,
-                pagamento: item.pagamento,
-                produtos: [item.produto],
-                data: item.data.substr(0, 10),
-                total: item.total,
-                endereco: `${item.rua} - ${item.bairro} - ${item.cidade}`,
-                telefone: item.telefone,
-            };
-        } else {
-            acc[item.idpedido].produtos.push(item.produto);
-        }
-        return acc;
-    }, {});
+
 
 
 
@@ -122,24 +105,24 @@ export default function MaisDetalhes() {
 
 
                         <tbody>
-                            {Object.values(groupedDetalhes).map((item) => (
+                            {detalhes.map((item) => (
                                 <tr key={item.idpedido}>
                                     <td className="compe-linha-detalhes"></td>
                                     <td>{item.idpedido}</td>
                                     <td className="comp-linha-detalhes"></td>
-                                    <td>{item.nome}</td>
+                                    <td>{item.nomecliente}</td>
                                     <td className="comp-linha-detalhes"></td>
-                                    <td>Dinheiro</td>
+                                    <td>cartão de credito</td>
                                     <td className="comp-linha-detalhes"></td>
                                     <td>{item.produtos.join(', ')}</td>
                                     <td className="comp-linha-detalhes"></td>
-                                    <td>{item.data}</td>
+                                    <td>{item.data.substr(0,10)}</td>
                                     <td className="comp-linha-detalhes"></td>
                                     <td>R$169,00</td>
                                     <td className="comp-linha-detalhes"></td>
-                                    <td>{item.endereco}</td>
+                                    <td>{item.rua}, {item.numero} - {item.bairro} - {item.estado} - CEP: {item.cep}</td>
                                     <td className="comp-linha-detalhes"></td>
-                                    <td>{item.telefone}</td>
+                                    <td>(11) {item.telefone}</td>
                                 </tr>
                             ))}
                         </tbody>

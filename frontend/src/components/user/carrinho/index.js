@@ -30,6 +30,7 @@ export default function Carrinho({ onClose }) {
         setUsuario(us)
 
         const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/' + us.id);
+        console.log(response.data)
         setListarr(response.data)
         const resp     = await axios.get(`${API_URL}/corleone/pedido/cliente/${us.id}`);
         setVerificar(resp.data)
@@ -133,7 +134,7 @@ export default function Carrinho({ onClose }) {
       {mostrar == false &&
         <>
           {listarr.map((item) => (
-            <CardCarrinho produto={{ nome: item.produto, preco: item.preco, qtd: item.quantidade, id: item.id_carrinho, }} />
+            <CardCarrinho produto={{ nome: item.produto, preco: item.preco, qtd: item.quantidade, id: item.id_carrinho, imagem: item.imagem}} />
           ))
           }
           <Link to={'/corleone/usuario/compra'} className='button' onClick={Adicionar}>
