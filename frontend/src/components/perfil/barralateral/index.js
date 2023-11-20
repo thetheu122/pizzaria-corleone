@@ -57,7 +57,7 @@ export default function Barralateral(props) {
         <div className='barra-lateral'>
             <div className='fundo'>
                 <div className='barra-lateral-secao-01'>
-                    <div className='barra-lateral-voltar' onClick={() => navigate(-1)} >
+                    <div className='barra-lateral-voltar-minhaconta' onClick={() => navigate(-1)} >
                         <img src={Voltar} />
                         Voltar
                     </div>
