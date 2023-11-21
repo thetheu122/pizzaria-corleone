@@ -191,7 +191,7 @@ export default function Dashboard() {
                                 <th>Nome</th>
                                 <th>Total</th>
                                 <th> Subtoal</th>
-                                <th>Quantidade</th>
+                               
 
                             </tr>
                         </thead>
@@ -206,7 +206,7 @@ export default function Dashboard() {
                                     <td>{item.cliente}</td>
                                     <td>{item.total}</td>
                                     <td>{item.subtotal}</td>
-                                    <td>{item.qtd}</td>
+                                    
                                 </tr>
 
 
