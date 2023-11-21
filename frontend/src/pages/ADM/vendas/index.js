@@ -13,19 +13,59 @@ import axios from 'axios'
 
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 //import { Chart } from "react-google-charts";
 
 Modal.setAppElement('#root');
 
 
+
+
 export default function Vendas() {
 
-
+    const [PedidosEntregue, setPedidosEntregue] = useState([]);
     const [grafico, setGrafico] = useState([])
+    const [searchTerm, setSearchTerm] = useState('');
+    const [vendas, setVendas] = useState([])
+    const { id } = useParams();
 
     useEffect(() => {
         InformacoesGrafico()
+        PedidossEntregue()
     }, [])
+
+    //async function buscarProdutos(id) {
+       // try {
+            //const resposta = await axios.get(`${API_URL}/pedido/id/${id}`);
+            //setVendas(resposta.data);
+        //} catch (error) {
+           // console.error('Erro ao buscar produtos:', error);
+        //}
+   // }
+    
+    
+     // useEffect(() => {
+       // buscarProdutos(id);
+    //  }, [id]);
+  
+
+
+    async function PedidossEntregue() {
+        try {
+            const response = await axios.get(`${API_URL}/pedido/entregue/data`);
+            console.log('Dados recebidos:', response.data);
+
+            setPedidosEntregue(response.data);
+
+            const pedidosConcluidosEntregues = response.data.filter(
+                (item) => item.ds_situacao === 'Concluído' || item.ds_situacao === 'Entregue'
+            );
+            console.log('Pedidos concluídos ou entregues:', pedidosConcluidosEntregues);
+            }catch(error) {
+                console.error('Erro ao obter pedidos entregues:', error);
+                return [];
+            }
+        }
 
 
     async function InformacoesGrafico() {
@@ -170,8 +210,8 @@ export default function Vendas() {
                             <input
                                 type='text'
                                 placeholder='Busque por id ou nome do cliente'
-                                value={filtro}
-                                onChange={e => setFiltro(e.target.value)}
+                                value={searchTerm}
+                                onChange={e => setSearchTerm(e.target.value)}
                             />
                             <div className="input-image"></div>
                         </div>
@@ -243,9 +283,9 @@ export default function Vendas() {
                             <tr>
                                 <th>ID</th>
                                 <th>Cobrado</th>
-                                <th>Método de pag.</th>
-                                <th>Pagamento</th>
+                                <th>Subtotal</th>
                                 <th>Data</th>
+                                
                                 <th>Excluir</th>
                             </tr>
                         </thead>
@@ -253,15 +293,15 @@ export default function Vendas() {
                         <tr className='linha-separadora'></tr>
 
                         <tbody>
-
+                        {PedidosEntregue && PedidosEntregue.map(item => (
                             <tr className='cada-valor-vendas'>
-                                <td>6</td>
-                                <td>R$123,45</td>
-                                <td>CARTÃO</td>
-                                <td>DÉBITO</td>
-                                <td>01/01/2023</td>
+                                <td>#{item.idpedido}</td>
+                                <td>{item.total}</td>
+                                <td>{item.subtotal}</td>
+                                <td>{item.data.substr(0, 10)}</td>
                                 <td><img src={Deletar} /></td>
                             </tr>
+                             ))}
                         </tbody>
                     </table>
                 </div>
