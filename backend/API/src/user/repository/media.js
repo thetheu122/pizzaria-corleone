@@ -24,6 +24,19 @@ WHERE id_produto = ?
 const [ resposta ] = await con.query(comando,[media.media,id])
 return resposta
 }
+
+export async function mediaPeloId(id){
+    let comando =
+    `   
+    SELECT ds_media AS media
+      FROM tb_media
+     WHERE id_produto = ?
+    `
+
+    const [response] = await con.query(comando,[id])
+
+    return response[0]
+}
   
 
 

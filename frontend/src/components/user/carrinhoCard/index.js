@@ -11,6 +11,18 @@ import { useEffect, useState } from 'react'
 
 export default function CardCarrinho(props) {
 
+    const [media, setMedia] = useState(null)
+
+    useEffect(() => {
+        async function fetchData(){
+            let response = await axios.get(API_URL + `/media?id=${props.produto.id}`)
+            response = response.data
+            setMedia(response.media)
+        }
+
+        fetchData()
+    },[])
+
     const api = axios.create({
         baseURL: API_URL
     })
@@ -118,27 +130,26 @@ export default function CardCarrinho(props) {
 
                 <div className='descricaoProduto'>
                     <h3>{props.produto.nome}  </h3>
-                    <div className='circulo'>
-                        <img alt='coracao' src={Coracao}/>
-                      
-                    </div>
+                    <div className='qtd'>
+                          <p onClick={ remover}> - </p>
+                             {props.produto.qtd}
+                           <p onClick={alterar}> + </p> 
+                     </div>
                     <svg onClick={deletar} className='svg' xmlns="http://www.w3.org/2000/svg" width="15" height="17" viewBox="0 0 15 17" fill="none" >
                             <path d="M1 2.01746L13.3896 15.2992" stroke="#53220D" strokeWidth="2" strokeLinecap="round" />
                             <path d="M1.00049 15.2985L13.3901 2.01674" stroke="#53220D" strokeWidth="2" strokeLinecap="round" />
                    </svg>
                 </div>
 
+               
+
                 <div className='baixoDescricaoProdutos'>
+                    {media && 
                     <div className='pretin'>
-                        <p>4.9</p>
+                        <p>{media}</p>
                         <img alt='estrela' src={Star}/>
-                    </div>
-                     <div className='qtd'>
-                          <p onClick={ remover}> - </p>
-                             {props.produto.qtd}
-                           <p onClick={alterar}> + </p> 
-                     </div>
-                    <p>{props.produto.preco}</p>
+                    </div>}
+                    <p>R${props.produto.preco}</p>
                 </div>
 
 

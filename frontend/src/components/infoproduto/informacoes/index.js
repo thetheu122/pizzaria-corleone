@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './index.scss'
 import '../../../assets/config/fonts-config.scss'
 
@@ -381,7 +382,12 @@ export default function Informacoes(props) {
 
 
     return (
-        <div className='informacoes'>
+        <motion.div 
+            className='informacoes'
+            initial={{ y: -100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}  
+        >
             <Cabecalho cadastro={cadastroAtv} funcao={ttt} />
             <div className='informacoes-titulo'>
                 {produto.map((item) => (
@@ -487,6 +493,6 @@ export default function Informacoes(props) {
             </div>
 
             {isModalOpen && <Modal onClose={() => setModalOpen(false)} />}
-        </div>
+        </motion.div>
     )
 }

@@ -14,6 +14,10 @@ export default function PagFavorito() {
     //listagem dos produtos favoritos do cliente
     const [produtosFav, setProdutosFav] = useState([])
 
+    useEffect(() => {
+        console.log(produtosFav)
+    },[produtosFav])
+
 
     useEffect(() => {
         try {
@@ -45,7 +49,7 @@ export default function PagFavorito() {
                                 nome: item.produto,
                                 preco: item.preco,
                                 imagem: item.imagem,
-                                idProduct: item.id_produto,
+                                idProduct: item.idproduto,
                                 idFavorito: item.id_favorito,
                                 media: item.media,
                                 ingredientes: item.ingredientes,

@@ -93,7 +93,7 @@ export async function listarcarrinhoid(id) {
     LEFT JOIN tb_cliente ON tb_carrinho.id_cliente = tb_cliente.id_cliente
     LEFT JOIN tb_produto ON tb_carrinho.id_produto = tb_produto.id_produto
     LEFT JOIN tb_imagem ON tb_produto.id_produto = tb_imagem.id_produto
-    WHERE tb_cliente.id_cliente = 5
+    WHERE tb_cliente.id_cliente = ?
     AND tb_carrinho.ds_carrinho = 1;
     
     `;

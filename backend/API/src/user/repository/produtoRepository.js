@@ -220,10 +220,9 @@ ORDER BY m.ds_media desc
 export async function CompradosPeloCliente(id){
    let comando =
    `
-         SELECT pp.ds_produtos AS produtos
-           FROM tb_pedido 	  AS p
-     INNER JOIN
-        tb_pedido_produto 	  AS pp ON p.id_pedido_produto = pp.id_pedido_produto
+         SELECT pp.ds_produtos        AS produtos
+           FROM tb_pedido 	           AS p
+     INNER JOIN tb_pedido_produto 	  AS pp ON p.id_pedido_produto = pp.id_pedido_produto
           WHERE p.ds_situacao = "Entregue"
             AND p.id_cliente  = ?
    `

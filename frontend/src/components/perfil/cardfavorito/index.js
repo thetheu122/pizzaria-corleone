@@ -8,13 +8,16 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 
 import { API_URL } from '../../../config/constants'
+import { useNavigate } from 'react-router-dom'
 export default function CardFavorito(props) {
+
+    const navigate = useNavigate()
 
     // id cliente
     const [idc, setIdc] = useState(0)
 
     // info produto
-    const [idProduto, setIdProduto] = useState(props.produto.id)
+    const [idProduto, setIdProduto] = useState(props.produto.idProduct)
 
     // ID FAVORITO
     const [idFav, setIdFav] = useState(props.produto.idFavorito)
@@ -48,9 +51,13 @@ export default function CardFavorito(props) {
 
     }
 
+    // useEffect(() => {
+    //     console.log(props)
+    // },[])
+
 
     return (
-        <div className='card-favorito'>
+        <div className='card-favorito' onClick={() => {navigate('/informacao/' + idProduto)}}>
 
             <img className='favorito-pizza' src={pizza} />
 
@@ -68,9 +75,6 @@ export default function CardFavorito(props) {
                 <div className='favorito-icons'>
 
                     <h3>R${props.produto.preco}</h3>
-                    <div className='favorito-circulo'>
-                        <img src={carrinho} />
-                    </div>
 
                     <div className='circulo' onClick={() => desfavoritar()}>
                         {favorito ? <svg width="19" height="16" viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg">

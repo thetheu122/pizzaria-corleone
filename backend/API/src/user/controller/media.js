@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {alterarmedia, inserirmedia } from "../repository/media.js";
+import {alterarmedia, inserirmedia, mediaPeloId } from "../repository/media.js";
 
 
 const endpoints = Router()
@@ -27,6 +27,18 @@ endpoints.put('/media/:id', async (req, resp) => {
             resp.send(resposta)
         
       
+    } catch (err) {
+        resp.status(400).send({ erro: err.message});
+    }
+});
+
+endpoints.get('/media', async (req, resp) => {
+    try {
+        const { id } = req.query;
+      
+        const resposta = await mediaPeloId(id);
+        
+        resp.send(resposta)
     } catch (err) {
         resp.status(400).send({ erro: err.message});
     }

@@ -16,10 +16,9 @@
     z-index: 99999 !important;
     display: flex;
     flex-direction: column;
+    align-items: center;
 
     animation: showSidebar .4s;
-
-    z-index: 10;
 
     background-color: white;
 
@@ -28,8 +27,6 @@
     position:fixed;
     right: 0;
     top:0;
-
-    padding: 30px 20px;
     
     width: 427px;
     height: 100vh;
@@ -38,6 +35,13 @@
      > svg{
         justify-self:start;
         align-self: self-start;
+
+        margin-top: 25px;
+        margin-left: 20px;
+        margin-bottom: 5px;
+
+        width: 20px;
+        height: 20px;
 
         &:hover{
             cursor: pointer;
@@ -64,6 +68,7 @@
         flex-shrink: 0;
 
         margin-top: 15px;
+        margin-left: 110px;
 
         transition: 170ms;
 
@@ -99,4 +104,12 @@
         }
     }
 
+}
+
+.carrinhoPro{
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: visible;
+
+    padding-left: 50px;
 }

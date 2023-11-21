@@ -132,7 +132,7 @@ export default function Carrinho({ onClose }) {
       }
 
       {mostrar == false &&
-        <>
+        <div className='carrinhoPro'>
           {listarr.map((item) => (
             <CardCarrinho produto={{ nome: item.produto, preco: item.preco, qtd: item.quantidade, id: item.id_carrinho, imagem: item.imagem}} />
           ))
@@ -143,7 +143,7 @@ export default function Carrinho({ onClose }) {
             </svg>
             <p >Fazer Pedido</p>
           </Link>
-        </>
+        </div>
 
 
       }
