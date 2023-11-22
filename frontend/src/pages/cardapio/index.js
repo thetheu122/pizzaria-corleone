@@ -75,9 +75,9 @@ export default function Cardapio() {
             try {
                 let response = await axios.get(API_URL + `/comprados/usuario?id=${idUsuario}`)
                 response = response.data
-
-                setCompras(response)
                 console.log(response)
+                setCompras(response)
+                
             } catch (err) {
             }
         }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData, listarVendasData} from "../repository/pedido.js";
+import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData, listarVendasData, deletarPedidoPorId} from "../repository/pedido.js";
 
 
 
@@ -242,6 +242,30 @@ endpoints.get('/pedido/vendas/data/:data', async (req, resp) => {
         })
     }
 })
+
+endpoints.delete('/pedido/deletar/:id', async (req, resp) => {
+    try {
+        const id = req.params.id; 
+        const result = await deletarPedidoPorId(id);
+
+       
+        if (result.affectedRows > 0) {
+            resp.status(200).send({
+                mensagem: 'Pedido excluído com sucesso.'
+            });
+        } else {
+            resp.status(404).send({
+                erro: 'Pedido não encontrado.'
+            });
+        }
+    } catch (err) {
+        resp.status(500).send({
+            erro: err.message
+        });
+    }
+});
+
+
 
 
 

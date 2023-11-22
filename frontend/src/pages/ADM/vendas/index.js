@@ -6,7 +6,7 @@ import CompAtalhosAdm from '../../../components/compAtalhosAdm'
 import SetaBaixo from '../../../assets/img/setabaixo.png'
 import Modal from 'react-modal';
 
-import ApexChart  from 'react-apexcharts'
+import ApexChart from 'react-apexcharts'
 import { API_URL } from '../../../config/constants'
 import axios from 'axios'
 
@@ -28,26 +28,33 @@ export default function Vendas() {
     const [searchTerm, setSearchTerm] = useState('');
     const [vendas, setVendas] = useState([])
     const { id } = useParams();
+    const [excluido, setExcluido] = useState(false);
 
     useEffect(() => {
-        InformacoesGrafico()
-        PedidossEntregue()
-    }, [])
+        InformacoesGrafico();
+        PedidossEntregue();
+    
+       
+        if (id) {
+            ExcluirPedido(id);
+        }
+    }, [id]);
+    
 
     //async function buscarProdutos(id) {
-       // try {
-            //const resposta = await axios.get(`${API_URL}/pedido/id/${id}`);
-            //setVendas(resposta.data);
-        //} catch (error) {
-           // console.error('Erro ao buscar produtos:', error);
-        //}
-   // }
-    
-    
-     // useEffect(() => {
-       // buscarProdutos(id);
+    // try {
+    //const resposta = await axios.get(`${API_URL}/pedido/id/${id}`);
+    //setVendas(resposta.data);
+    //} catch (error) {
+    // console.error('Erro ao buscar produtos:', error);
+    //}
+    // }
+
+
+    // useEffect(() => {
+    // buscarProdutos(id);
     //  }, [id]);
-  
+
 
 
     async function PedidossEntregue() {
@@ -61,19 +68,38 @@ export default function Vendas() {
                 (item) => item.ds_situacao === 'Concluído' || item.ds_situacao === 'Entregue'
             );
             console.log('Pedidos concluídos ou entregues:', pedidosConcluidosEntregues);
-            }catch(error) {
-                console.error('Erro ao obter pedidos entregues:', error);
-                return [];
-            }
+        } catch (error) {
+            console.error('Erro ao obter pedidos entregues:', error);
+            return [];
         }
+    }
+
+
+
+    async function ExcluirPedido(id) {
+        try {
+            const response = await axios.delete(`${API_URL}/pedido/deletar/${id}`);
+
+            if (response.status === 200) {
+                console.log('Pedido excluído com sucesso.');
+                setExcluido(true); 
+            } else {
+                console.log('Erro ao excluir o pedido:', response.data.erro || 'Status da resposta:', response.status);
+            }
+        } catch (error) {
+            console.error('Não foi possível excluir o pedido:', error.message);
+        }
+    }
+
+
 
 
     async function InformacoesGrafico() {
         try {
             const response = await axios.get(`${API_URL}/vendas/grafico`);
             const dadosAPI = response.data;
-            
-    
+
+
             // Verifica se há dados antes de formatar
             if (dadosAPI && dadosAPI.length > 0) {
                 const dadosFormatados = dadosAPI.map(item => {
@@ -82,13 +108,13 @@ export default function Vendas() {
 
                     console.log(dia)
                     console.log(item.total)
-    
+
                     return {
                         x: dia,
                         y: item.total
                     };
                 });
-    
+
                 // Define o estado do gráfico com os dados formatados
                 console.log(dadosFormatados)
                 setGrafico(dadosFormatados);
@@ -99,7 +125,7 @@ export default function Vendas() {
             console.error('Erro ao obter dados do gráfico:', error);
         }
     }
-    
+
 
 
 
@@ -143,7 +169,7 @@ export default function Vendas() {
 
     const series = [{
         name: "Lucro em reais",
-        data: grafico.map(item => ({ x: item.x, y:item.y  }))
+        data: grafico.map(item => ({ x: item.x, y: item.y }))
     }];
 
     let options = {
@@ -159,29 +185,29 @@ export default function Vendas() {
             y: 25000,
             borderColor: '#00E396',
             label: {
-              borderColor: '#00E396',
-              style: {
-                color: '#fff',
-                background: '#00E396',
-              },
-              text: 'Support',
-            },   
-          }, {
+                borderColor: '#00E396',
+                style: {
+                    color: '#fff',
+                    background: '#00E396',
+                },
+                text: 'Support',
+            },
+        }, {
             y: 40000,
             y2: 50000,
             borderColor: '#000',
             fillColor: '#FEB019',
             opacity: 0.2,
             label: {
-              borderColor: '#333',
-              style: {
-                fontSize: '10px',
-                color: '#333',
-                background: '#FEB019',
-              },
-              text: 'Y-axis range',
+                borderColor: '#333',
+                style: {
+                    fontSize: '10px',
+                    color: '#333',
+                    background: '#FEB019',
+                },
+                text: 'Y-axis range',
             }
-          }],
+        }],
         hAxis: {
             title: "Tempo",
         },
@@ -206,7 +232,7 @@ export default function Vendas() {
 
                     <div className='conteudo-input'>
                         <div className="input-container">
-                            
+
                             <input
                                 type='text'
                                 placeholder='Busque por id ou nome do cliente'
@@ -285,7 +311,7 @@ export default function Vendas() {
                                 <th>Cobrado</th>
                                 <th>Subtotal</th>
                                 <th>Data</th>
-                                
+
                                 <th>Excluir</th>
                             </tr>
                         </thead>
@@ -293,15 +319,16 @@ export default function Vendas() {
                         <tr className='linha-separadora'></tr>
 
                         <tbody>
-                        {PedidosEntregue && PedidosEntregue.map(item => (
-                            <tr className='cada-valor-vendas'>
-                                <td>#{item.idpedido}</td>
-                                <td>{item.total}</td>
-                                <td>{item.subtotal}</td>
-                                <td>{item.data.substr(0, 10)}</td>
-                                <td><img src={Deletar} /></td>
-                            </tr>
-                             ))}
+                            {PedidosEntregue && PedidosEntregue.map(item => (
+                                <tr className='cada-valor-vendas'>
+                                    <td>#{item.idpedido}</td>
+                                    <td>{item.total}</td>
+                                    <td>{item.subtotal}</td>
+                                    <td>{item.data.substr(0, 10)}</td>
+                                    <td onClick={() => ExcluirPedido(item.idpedido)}><img src={Deletar} alt="Deletar" /></td>
+
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

@@ -350,6 +350,16 @@ export async function listarVendasData(data) {
         return resposta
 }
 
+export async function deletarPedidoPorId(idPedido) {
+    let comando = `
+        DELETE FROM tb_pedido
+        WHERE id_pedido = ?;
+    `;
+
+    const [resposta] = await con.query(comando, [idPedido]);
+    return resposta;
+}
+
 
 
 

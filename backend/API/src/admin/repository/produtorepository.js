@@ -495,3 +495,4 @@ export async function contarProdutos() {
   const [resposta] = await con.query(comando);
   return resposta[0].totalProdutos;
 }
+
