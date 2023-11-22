@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData} from "../repository/pedido.js";
+import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData, listarVendasData} from "../repository/pedido.js";
 
 
 
@@ -228,6 +228,20 @@ endpoints.get('/pedido/entregue/data', async (req, resp) => {
     }
 });
 
+
+
+
+endpoints.get('/pedido/vendas/data/:data', async (req, resp) => {
+    try {
+        const {data} = req.params
+        const w = await listarVendasData(data)
+        resp.send(w)
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
 
 
 

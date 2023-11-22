@@ -142,7 +142,7 @@ export default function Vendas() {
     const [selectedDate, setSelectedDate] = useState('')
 
     const series = [{
-        name: "Vendas totais",
+        name: "Lucro em reais",
         data: grafico.map(item => ({ x: item.x, y:item.y  }))
     }];
 
