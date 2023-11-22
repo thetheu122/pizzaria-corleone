@@ -10,7 +10,7 @@ const endpoints = Router()
 endpoints.get('/cupom/:cupom' , async (req,resp) =>{
     try {
         const {cupom} = req.params
-        console.log(cupom)
+     
         const resposta  = await verificarCupom(cupom)
 
         resp.send(resposta)

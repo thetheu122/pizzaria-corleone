@@ -10,7 +10,7 @@ const endpoints = Router()
 endpoints.post ('/corleone/pedido/produto' , async (req,resp)=>{
     try {
         const compra   = req.body
-        console.log('post :'+ compra)
+        // console.log('post :'+ compra)
         const resposta = await novaCompra(compra) 
      
 
@@ -36,7 +36,7 @@ endpoints.get('/corleone/pedido/cliente/:id', async ( req , resp ) =>{
 endpoints.get('/corleone/pedido/cliente/verificar/:idp/:idc', async ( req , resp ) =>{
     try {
         const {idp,idc} = req.params
- console.log('post:' +compra)
+//  console.log('post:' +compra)
         const resposta = await verificarCompra(idp,idc)
  
         resp.send(resposta)

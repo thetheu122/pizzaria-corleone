@@ -312,8 +312,37 @@ export default function Finalizarcadastrado() {
         }
         const r  = await axios.post(`${API_URL}/pedido`,pedido)
 
+
+
     } catch (err) {
       toast.error(err.message)
+    }
+
+    try {
+      let compra = {
+        "ds_status":true
+      }
+      const r = await axios.post(`${API_URL}/corleone/pedido/produto`,compra)
+
+      for (const cont of produtos) {
+        let id = cont.id
+        let user = {
+            "disponivel": false,
+            "qtd": 1,
+            "idcarrinho": id
+        }
+    
+        try {
+            let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar', user)
+            alert(respo)
+        } catch (error) {
+            console.error(error)
+            toast.error(error.message)
+        }
+    }
+    
+    } catch (error) {
+      toast.error(error.message)
     }
   }
 

@@ -55,7 +55,7 @@ export default function ListarPedido() {
 
     async function ListarPedidos() {
         const r = await axios.get(API_URL + '/pedido')
-        console.log(r.data)
+
         const uniquePedidos = [...new Set(r.data.map(item => item.idpedido))];
         console.log(uniquePedidos)
         setPedidos(uniquePedidos.map(idpedido => r.data.find(item => item.idpedido === idpedido)));

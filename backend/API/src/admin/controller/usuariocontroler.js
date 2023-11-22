@@ -9,7 +9,7 @@ server.put('/usuarioadm/login', async (req, resp)=>{
     try{
       const {nome , email , senha , cnpj }= req.body;
       const resposta =await loginadm(nome ,email, senha ,cnpj )
-      console.log(cnpj)
+
       if(resposta === false){
         throw new Error ('credenciais inválidas')
       }

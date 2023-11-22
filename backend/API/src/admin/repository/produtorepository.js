@@ -450,7 +450,7 @@ export async function alterarImagem(id, imagem){
   `
   
   const [ resposta ] = await con.query(comando, [imagem, id])
-  console.log({imagem, id})
+
   console.log(resposta.affectedRows);
   return resposta.affectedRows
 }

@@ -33,7 +33,7 @@ set    ds_carrinho = ? ,
 where  id_carrinho = ? 
 
 `;
-console.log(itens)
+
     const [resposta] = await con.query(comando, [
         itens.disponivel,
         itens.qtd,

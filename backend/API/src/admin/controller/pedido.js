@@ -189,7 +189,7 @@ endpoints.put('/pedido/rastreamento/alterar', async (req, resp) => {
     try {
         const id  = req.body;
         const result = await atualizarStatusParte3(id);
-        console.log(id)
+
 
         if (result === 0) {
             resp.status(400).send({ err: "Status do pedido não foi alterado" });

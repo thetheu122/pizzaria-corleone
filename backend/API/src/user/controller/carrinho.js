@@ -22,7 +22,7 @@ const verificar =( (req,resp,itens) =>{
 endpoints.post('/corleone/usuario/carrinho' , async (req,resp) =>{
     try {
            const itens = req.body
-           console.log(itens)
+
         if( verificar(req,resp,itens)){
             const enviar = await itenscarrinho(itens)
            
@@ -80,7 +80,6 @@ endpoints.get('/corleone/usuario/carrinho/listar' , async (req,resp) =>{
 endpoints.get('/corleone/usuario/carrinho/listar/:id' , async (req,resp) =>{
     try {
       const {id} = req.params
-      console.log(id)
       const resposta = await listarcarrinhoid(id)
       
 

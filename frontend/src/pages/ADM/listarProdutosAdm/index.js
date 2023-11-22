@@ -89,7 +89,7 @@ export default function ListarProdutosAdm() {
 
     async function Listando() {
         const r = await axios.get(API_URL + '/produto')
-        console.log(r.data)
+
         setProdutos(r.data)
     }
 

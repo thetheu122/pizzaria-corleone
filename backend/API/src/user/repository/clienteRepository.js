@@ -178,7 +178,7 @@ export async function editarInfoClient(newInfos, id) {
     const [resposta] = await con.query(comando, [newInfos.nome, newInfos.email, newInfos.telefone, newInfos.senha, newInfos.cpf, newInfos.dtnascimento, newInfos.estado, newInfos.cidade, newInfos.bairro, newInfos.rua, newInfos.numero, newInfos.cep, id])
 
     return resposta
-    console.log(resposta)
+  
 }
 
 export function validarDados(dados) {

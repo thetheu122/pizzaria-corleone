@@ -2,8 +2,8 @@ import { con } from "../../conection.js";
 
 export async function novaCompra(compra) {
   const comando = `
-    INSERT INTO tb_pedido_produto (id_cliente, ds_produtos, ds_subtotal, ds_total, ds_desconto, ds_frete, ds_qtd)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO tb_pedido_produto (id_cliente, ds_produtos, ds_subtotal, ds_total, ds_desconto, ds_frete, ds_qtd,ds_status)
+    VALUES (?, ?, ?, ?, ?, ?, ?,?)
   `;
   
   const [resposta] = await con.query(comando, [
@@ -14,6 +14,7 @@ export async function novaCompra(compra) {
     compra.desconto,
     compra.frete,
     compra.ds_qtd,
+    compra.ds_status
   ]);
 
   compra.id = resposta.insertId;
@@ -38,7 +39,8 @@ export async function listarCompra(id) {
       tb_pedido_produto.ds_qtd
     FROM tb_pedido_produto
     INNER JOIN tb_cliente ON tb_pedido_produto.id_cliente = tb_cliente.id_cliente
-    WHERE tb_cliente.id_cliente = ?;
+    WHERE tb_cliente.id_cliente = ?
+    AND   tb_pedido_produto.ds_status = false;
   `;
   
   const [resposta] = await con.query(comando, [id]);

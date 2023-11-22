@@ -50,7 +50,6 @@ export async function verificarrestricao(restricao){
     where ds_restricao like ?
     `;
 const [ resposta ] = await con.query( comando , ["%" +restricao+ "%"])
-console.log(restricao)
 if  (resposta.length > 0){
     return true
 }

@@ -55,26 +55,24 @@ export default function Carrinho({ onClose }) {
 
 
   async function Adicionar() {
-
     try {
       let compra = {
         "id_cliente": usuario.id,
         "desconto": 0,
-        "produtos": [],
+        "produtos": [], // Aqui você manterá os detalhes dos produtos
         "subtotal": 0,
-        "total": 0,
+        "total_compra": 0,
         "ds_qtd": 0  // Adicionando o campo quantidade_total
       };
-
-      
+  
       let totalProdutosqtd = 0;
-      
+  
       const mappedPrices = listarr.map((item) => {
         const preco = parseFloat(item.preco);
         const quantidade = Array.isArray(item.quantidade) ? item.quantidade : [item.quantidade];
-
+  
         totalProdutosqtd += quantidade.reduce((acm, pro) => acm + pro, 0);
-
+  
         if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
           const quantidadeItem = quantidade.reduce((acm, pro) => acm + pro, 0);
           compra.produtos.push({
@@ -86,34 +84,34 @@ export default function Carrinho({ onClose }) {
           return 0;
         }
       });
-
-      const total = mappedPrices.reduce((acm, preco) => acm + preco, 0);
-
-      // console.log('Total de produtos (quantidade):', totalProdutosqtd);
-      // console.log('Total geral:', total);
+  
+      // Calcular o subtotal
+      const subtotal = mappedPrices.reduce((acm, preco) => acm + preco, 0);
       
-      
-      compra.produtos = totalProdutosqtd;
-      compra.total = total;
-
-    if( verificar.length > 0 ){
-      const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`,compra)
-    }
-    else{
-      try {
-        const response = await axios.post(`${API_URL}/corleone/pedido/produto`,compra)   
-      } catch (err) {
-        console.log(err.message)
+      // Calcular o total (considerando desconto, se houver)
+      const total = subtotal - compra.desconto;
+  
+      // Atribuir os valores corretos
+      compra.subtotal = subtotal;
+      compra.total_compra = total;
+  
+      // Atribuir a quantidade total
+      compra.ds_qtd = totalProdutosqtd;
+  
+      if (verificar.length > 0) {
+        const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
+      } else {
+        try {
+          const response = await axios.post(`${API_URL}/corleone/pedido/produto`, compra);
+        } catch (err) {
+          console.log(err.message);
+        }
       }
-     
-    }      
-     
-
-    }
-    catch (err) {
-      toast.error(err.message)
+    } catch (err) {
+      toast.error(err.message);
     }
   }
+  
 
 
   return (

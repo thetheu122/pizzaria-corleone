@@ -38,7 +38,6 @@ endpoints.post('/cliente/cartao', async (req, resp) => {
 
         if(request.cartao){
             let requestUpdate = await AlterarCartao(request)
-            console.log(request.cartao)
             
             resp.send(requestUpdate)
         }
