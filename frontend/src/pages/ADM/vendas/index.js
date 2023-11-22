@@ -270,10 +270,7 @@ export default function Vendas() {
 
                 <div className='grafico-vendas'>
                     <div className='titulo-grafico'><h2>Gráficos de venda</h2></div>
-                    <div className='tema-grafico'>
-                        <h1>Gráfico</h1>
-                        <div><h2>Anual</h2><img src={SetaBaixo} /></div>
-                    </div>
+
 
                     <ApexChart
                         options={options}
