@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue } from "../repository/pedido.js";
+import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData} from "../repository/pedido.js";
 
 
 
@@ -207,6 +207,18 @@ endpoints.put('/pedido/rastreamento/alterar', async (req, resp) => {
 endpoints.get('/pedido/entregue', async (req, resp) => {
     try {
         const pedidosEntregues = await listarPedidosEntregue();
+
+        resp.send(pedidosEntregues);
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        });
+    }
+});
+
+endpoints.get('/pedido/entregue/data', async (req, resp) => {
+    try {
+        const pedidosEntregues = await listarPedidosEntreguecomData();
 
         resp.send(pedidosEntregues);
     } catch (err) {
