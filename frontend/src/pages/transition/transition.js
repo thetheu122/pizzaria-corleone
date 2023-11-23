@@ -32,7 +32,7 @@ const Transition = ({ children }) => {
             >
                 {children.props.className === "leadingPage" ? <InicialPage /> : children.props.className === "cardapio" ? <PizzaAnimation /> :  children.props.className === "background-minhaconta" ? <PerfilAnimation/> : children.props.className === "App" ? <SobreNos/> : null}
 
-                <h1>{children.props.className === "leadingPage" ? "Página Inicial" : children.props.className === "cardapio" ? "Cardapio" : children.props.className === "background-minhaconta" ? "Minha Conta" : children.props.className === "App" ? "Sobre Nos" : null}</h1>
+                <h1 className={`${children.props.className === "App" ? "porteiro" : "titular"}`}>{children.props.className === "leadingPage" ? "Página Inicial" : children.props.className === "cardapio" ? "Cardapio" : children.props.className === "background-minhaconta" ? "Minha Conta" : children.props.className === "App" ? "Sobre Nos" : null}</h1>
             </motion.div>
         </>
     );

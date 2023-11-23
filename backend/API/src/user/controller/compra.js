@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { alterarCompra, deleteCompra, listarCompra, novaCompra, verificarCompra } from "../repository/compra.js";
+import { HistoricoCompras, alterarCompra, deleteCompra, listarCompra, novaCompra, verificarCompra } from "../repository/compra.js";
 
 
 
@@ -63,6 +63,18 @@ endpoints.delete('/corleone/deletar/compra/:id', async (req,resp) =>{
     try {
         const {id} = req.params
         const resposta  = await deleteCompra(id)
+
+        resp.send(resposta)
+    } catch (error) {
+        resp.status(500).send({err:error.message})
+    }
+})
+
+endpoints.get('/historico/compras/cliente', async (req, resp) => {
+    try  {
+        const { id } = req.query
+
+        const resposta  = await HistoricoCompras(id)
 
         resp.send(resposta)
     } catch (error) {

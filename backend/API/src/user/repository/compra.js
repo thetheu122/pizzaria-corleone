@@ -102,3 +102,23 @@ export async function verificarCompra(idp, idc) {
   const [resposta] = await con.query(comando, [idp, idc]);
   return resposta;
 }
+
+export async function HistoricoCompras(id){
+  let comando = 
+  `
+  SELECT pp.ds_produtos, 
+         p.*, 
+         c.id_cliente
+    FROM tb_pedido_produto AS pp
+    JOIN tb_pedido  AS p 
+                    ON pp.id_pedido_produto = p.id_pedido_produto
+    JOIN tb_cliente AS c 
+                    ON pp.id_cliente = c.id_cliente
+   WHERE c.id_cliente   = ?
+     AND p.ds_situacao  = "Entregue"
+  `
+
+  let [ response ] = await con.query(comando, id)
+
+  return response
+}
