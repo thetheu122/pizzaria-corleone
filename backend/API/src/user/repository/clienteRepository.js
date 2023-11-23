@@ -249,3 +249,18 @@ export async function emailCadastro(email) {
     }
     
 }
+
+
+export async function clientePorTelefone(telefone){
+    let tel = "%" + telefone + "%"
+    let comando =
+    `
+    SELECT * 
+      FROM TB_CLIENTE
+     WHERE ds_telefone LIKE ?       
+    `
+
+    const [ response ] = await con.query(comando, [tel])
+
+    return response
+}

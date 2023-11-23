@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { emailCadastro,  editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
+import { clientePorTelefone, emailCadastro,  editarInfoClient, infoCLiente, inserirCliente, listarCliente, listarNome, loginCliente, loginClienteGoogle, validarDados, listarid } from "../repository/clienteRepository.js";
 
 const server = Router()
 
@@ -65,50 +65,50 @@ server.post('/cliente/senha/verificar', (req, resp) => {
 
 })
 
-server.post('/cliente/cadastro', async (req, resp) => {
-    try {
-        let resposta = req.body;
+    server.post('/cliente/cadastro', async (req, resp) => {
+        try {
+            let resposta = req.body;
 
-        if (!resposta) {
-            throw new Error("Os dados do cadastro estão faltando");
-        }
-
-        const camposObrigatorios = [
-            "cliente",
-            "email",
-            "telefone",
-            "senha",
-            "cpf",
-            "nascimento"
-        ];
-
-        const camposFaltando = [];
-
-        camposObrigatorios.forEach((campo) => {
-            if (!(campo in resposta) || !resposta[campo]) {
-                camposFaltando.push(campo);
+            if (!resposta) {
+                throw new Error("Os dados do cadastro estão faltando");
             }
-        });
 
-        if (camposFaltando.length > 0) {
-            const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
-            throw new Error(mensagemErro);
+            const camposObrigatorios = [
+                "cliente",
+                "email",
+                "telefone",
+                "senha",
+                "cpf",
+                "nascimento"
+            ];
+
+            const camposFaltando = [];
+
+            camposObrigatorios.forEach((campo) => {
+                if (!(campo in resposta) || !resposta[campo]) {
+                    camposFaltando.push(campo);
+                }
+            });
+
+            if (camposFaltando.length > 0) {
+                const mensagemErro = `Campos obrigatórios faltando: ${camposFaltando.join(", ")}`;
+                throw new Error(mensagemErro);
+            }
+
+            let respo = await inserirCliente(resposta);
+
+            emailCadastro(resposta.email)
+
+            if (respo === `122`) {
+                const mensErro = 'Já existe cliente com essas credenciais';
+                throw new Error(mensErro);
+            }
+
+            resp.status(200).send(respo);
+        } catch (err) {
+            resp.status(404).send(err.message);
         }
-
-        let respo = await inserirCliente(resposta);
-
-        emailCadastro(resposta.email)
-
-        if (respo === `122`) {
-            const mensErro = 'Já existe cliente com essas credenciais';
-            throw new Error(mensErro);
-        }
-
-        resp.status(200).send(respo);
-    } catch (err) {
-        resp.status(404).send(err.message);
-    }
-});
+    });
 
 
 server.post('/cliente/login', async (req, resp) => {
@@ -235,6 +235,18 @@ server.get('/clientes/cartao/:id', async (req, resp) => {
         }
     } catch (err) {
         resp.status(500).send({ erro: err.message });
+    }
+});
+
+server.get('/cliente/consulta/telefone', async (req, resp) => {
+    try {
+        let { telefone } = req.query;
+
+        let respo = await clientePorTelefone(telefone);
+
+        resp.status(200).send(respo);
+    } catch (err) {
+        resp.status(404).send(err.message);
     }
 });
 

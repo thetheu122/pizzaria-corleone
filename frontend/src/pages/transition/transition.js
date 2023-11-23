@@ -5,6 +5,7 @@ import './index.scss';
 import { PizzaAnimation } from '../../components/LottieAnimations/pizzaAnimation';
 import { InicialPage } from '../../components/LottieAnimations/menuAnimation';
 import { PerfilAnimation } from '../../components/LottieAnimations/accountAnimation';
+import { SobreNos } from '../../components/LottieAnimations/SobreNos';
 
 const Transition = ({ children }) => {
     const [isTransitioning, setTransitioning] = useState(true);
@@ -29,7 +30,7 @@ const Transition = ({ children }) => {
                 exit={{ scaleY: 1 }}
                 transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: isTransitioning ? 1 : 0 }}
             >
-                {children.props.className === "leadingPage" ? <InicialPage /> : children.props.className === "cardapio" ? <PizzaAnimation /> :  children.props.className === "background-minhaconta" ? <PerfilAnimation/> : null}
+                {children.props.className === "leadingPage" ? <InicialPage /> : children.props.className === "cardapio" ? <PizzaAnimation /> :  children.props.className === "background-minhaconta" ? <PerfilAnimation/> : children.props.className === "App" ? <SobreNos/> : null}
 
                 <h1>{children.props.className === "leadingPage" ? "Página Inicial" : children.props.className === "cardapio" ? "Cardapio" : children.props.className === "background-minhaconta" ? "Minha Conta" : children.props.className === "App" ? "Sobre Nos" : null}</h1>
             </motion.div>
