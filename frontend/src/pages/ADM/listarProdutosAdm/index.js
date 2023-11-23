@@ -120,6 +120,7 @@ export default function ListarProdutosAdm() {
             const restricaoId = produto.idrestricao
             const favoritoId = produto.id_favorito
             const carrinhoId = produto.id_carrinho
+            const sugestaoId = produto.idsugestao
 
             console.log(`imagem: ${imagemid}`);
             console.log(`restricao: ${restricaoId}`);
@@ -143,6 +144,15 @@ export default function ListarProdutosAdm() {
                     console.log(err.response.data.erro);
                 }
             };
+
+            const deletarSugestao = async () => {
+                try {
+                    await axios.delete(`${API_URL}/corleone/sugestao/deletar/${sugestaoId}`)
+                    deletarProduto()
+                } catch (err) {
+                    console.log(err.response.data.erro);
+                }
+            }
 
             const deletarImagem = async () => {
                 try {
@@ -187,126 +197,337 @@ export default function ListarProdutosAdm() {
                     {
                         label: 'Sim', onClick: () => {
                             if (!filtro) {
-                                if (!imagemid && !restricaoId && !favoritoId && !carrinhoId) {
+                                if (!imagemid && !restricaoId && !favoritoId && !carrinhoId && !sugestaoId) {
                                     deletarProduto();
-                                } else if (!imagemid && !favoritoId) {
+                                }
+
+                                 else if (!imagemid && !favoritoId && !sugestaoId) {
                                     deletarCarrinho()
                                     deletarRestricao()
+                                    deletarProduto()
+                                }
+
+                                else if (!imagemid && !carrinhoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarRestricao()
+                                    deletarProduto()
+                                }
+
+                                else if (!imagemid && !favoritoId && !carrinhoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarRestricao()
+                                    deletarProduto()
+                                }
+
+                                
+                                 else if (!imagemid && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarRestricao()
+                                    deletarSugestao()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !carrinhoId) {
                                     deletarFavorito()
                                     deletarRestricao()
+                                    deletarSugestao()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !carrinhoId && !favoritoId) {
                                     deletarRestricao()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+
+                                else if (carrinhoId && !imagemid && !restricaoId && !favoritoId && !sugestaoId) {
+                                    deletarCarrinho()
                                     deletarProduto()
                                 }
                                 else if (carrinhoId && !imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId && !sugestaoId) {
                                     deletarCarrinho()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !restricaoId && !favoritoId) {
                                     deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !carrinhoId && !sugestaoId) {
+                                    deletarFavorito()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !restricaoId && !carrinhoId) {
+                                    deletarFavorito()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (favoritoId && !imagemid && !restricaoId && !carrinhoId && !sugestaoId) {
                                     deletarFavorito()
                                     deletarProduto()
                                 }
                                 else if (favoritoId && !imagemid && !restricaoId && !carrinhoId) {
                                     deletarFavorito()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+
+                                else if (!restricaoId && !favoritoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!restricaoId && !favoritoId) {
                                     deletarCarrinho()
                                     deletarImagem();
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId && !carrinhoId && !sugestaoId) {
+                                    deletarFavorito()
+                                    deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!restricaoId && !carrinhoId) {
                                     deletarFavorito()
                                     deletarImagem();
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId && !carrinhoId && !favoritoId && !sugestaoId) {
+                                    deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!restricaoId && !carrinhoId && !favoritoId) {
                                     deletarImagem();
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId && !sugestaoId) {
+                                    deletarCarrinho()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !restricaoId && !favoritoId) {
                                     deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!favoritoId && !carrinhoId && !sugestaoId) {
+                                    deletarRestricao()
+                                    deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!favoritoId && !carrinhoId) {
                                     deletarRestricao()
                                     deletarImagem();
+                                    deletarSugestao()
                                     deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !sugestaoId) {
+                                    deletarFavorito()
+                                    deletarCarrinho()
+                                    deletarProduto();
                                 }
                                 else if (!imagemid && !restricaoId) {
                                     deletarFavorito()
                                     deletarCarrinho()
+                                    deletarSugestao()
                                     deletarProduto();
+                                }
+                                else if (!imagemid && !sugestaoId) {
+                                    deletarRestricao()
+                                    deletarFavorito()
+                                    deletarCarrinho()
+                                    deletarProduto()
                                 }
                                 else if (!imagemid) {
                                     deletarRestricao()
                                     deletarFavorito()
                                     deletarCarrinho()
+                                    deletarSugestao()
                                     deletarProduto()
-                                } else if (!restricaoId) {
+                                } 
+                                else if (!restricaoId && !sugestaoId) {
                                     deletarImagem();
                                     deletarFavorito()
                                     deletarCarrinho()
                                     deletarProduto()
                                 }
+                                else if (!restricaoId) {
+                                    deletarImagem();
+                                    deletarFavorito()
+                                    deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                
+                                
                             } else if (filtro.length > 0) {
                                 if (!imagemid && !restricaoId && !favoritoId && !carrinhoId) {
                                     deletarProduto();
-                                } else if (!imagemid && !favoritoId) {
+                                }                                  else if (!imagemid && !favoritoId && !sugestaoId) {
                                     deletarCarrinho()
                                     deletarRestricao()
+                                    deletarProduto()
+                                }
+
+                                else if (!imagemid && !carrinhoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarRestricao()
+                                    deletarProduto()
+                                }
+
+                                else if (!imagemid && !favoritoId && !carrinhoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarRestricao()
+                                    deletarProduto()
+                                }
+
+                                
+                                 else if (!imagemid && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarRestricao()
+                                    deletarSugestao()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !carrinhoId) {
                                     deletarFavorito()
                                     deletarRestricao()
+                                    deletarSugestao()
                                     deletarProduto()
                                 }
                                 else if (!imagemid && !carrinhoId && !favoritoId) {
                                     deletarRestricao()
+                                    deletarSugestao()
                                     deletarProduto()
-                                } else if (!restricaoId && !favoritoId) {
+                                }
+
+                                else if (carrinhoId && !imagemid && !restricaoId && !favoritoId && !sugestaoId) {
                                     deletarCarrinho()
+                                    deletarProduto()
+                                }
+                                else if (carrinhoId && !imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !carrinhoId && !sugestaoId) {
+                                    deletarFavorito()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !carrinhoId) {
+                                    deletarFavorito()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (favoritoId && !imagemid && !restricaoId && !carrinhoId && !sugestaoId) {
+                                    deletarFavorito()
+                                    deletarProduto()
+                                }
+                                else if (favoritoId && !imagemid && !restricaoId && !carrinhoId) {
+                                    deletarFavorito()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+
+                                else if (!restricaoId && !favoritoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarImagem();
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarImagem();
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId && !carrinhoId && !sugestaoId) {
+                                    deletarFavorito()
                                     deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!restricaoId && !carrinhoId) {
                                     deletarFavorito()
                                     deletarImagem();
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId && !carrinhoId && !favoritoId && !sugestaoId) {
+                                    deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!restricaoId && !carrinhoId && !favoritoId) {
+                                    deletarImagem();
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId && !sugestaoId) {
+                                    deletarCarrinho()
+                                    deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !favoritoId) {
+                                    deletarCarrinho()
+                                    deletarSugestao()
+                                    deletarProduto()
+                                }
+                                else if (!favoritoId && !carrinhoId && !sugestaoId) {
+                                    deletarRestricao()
                                     deletarImagem();
                                     deletarProduto()
                                 }
                                 else if (!favoritoId && !carrinhoId) {
                                     deletarRestricao()
                                     deletarImagem();
+                                    deletarSugestao()
                                     deletarProduto()
+                                }
+                                else if (!imagemid && !restricaoId && !sugestaoId) {
+                                    deletarFavorito()
+                                    deletarCarrinho()
+                                    deletarProduto();
                                 }
                                 else if (!imagemid && !restricaoId) {
                                     deletarFavorito()
                                     deletarCarrinho()
+                                    deletarSugestao()
                                     deletarProduto();
+                                }
+                                else if (!imagemid && !sugestaoId) {
+                                    deletarRestricao()
+                                    deletarFavorito()
+                                    deletarCarrinho()
+                                    deletarProduto()
                                 }
                                 else if (!imagemid) {
                                     deletarRestricao()
                                     deletarFavorito()
                                     deletarCarrinho()
+                                    deletarSugestao()
                                     deletarProduto()
-                                } else if (!restricaoId) {
+                                } 
+                                else if (!restricaoId && !sugestaoId) {
                                     deletarImagem();
                                     deletarFavorito()
                                     deletarCarrinho()
+                                    deletarProduto()
+                                }
+                                else if (!restricaoId) {
+                                    deletarImagem();
+                                    deletarFavorito()
+                                    deletarCarrinho()
+                                    deletarSugestao()
                                     deletarProduto()
                                 }
                             }

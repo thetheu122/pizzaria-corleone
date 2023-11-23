@@ -55,6 +55,12 @@ export default function Vendas() {
     // buscarProdutos(id);
     //  }, [id]);
 
+    async function pesqData() {
+        const r = await axios.get(`${API_URL}/pedido/vendas/data/${selectedDate}`)
+        setPedidosEntregue(r.data)
+
+        setModalIsOpen(false)
+    }
 
 
     async function PedidossEntregue() {
@@ -257,25 +263,7 @@ export default function Vendas() {
                                 <h2 className="modal-title">Filtros</h2>
                                 <form className='conteudo-filtros' onSubmit={handleFilterSubmit}>
 
-                                    <label className="modal-label">
-                                        <p>Formas de pagamento</p>
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Pix</h5>
-                                        </div>
-
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Dinheiro</h5>
-                                        </div>
-
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Cartão de credito</h5>
-                                        </div>
-                                    </label>
-
-                                    <div className='divisao-filtros'></div>
+  
 
 
                                     <label className="modal-label-2">
@@ -291,7 +279,7 @@ export default function Vendas() {
                                 </form>
 
                                 <div className='modal-button-filtros'>
-                                    <button className="modal-button" type="submit">Aplicar Filtros</button>
+                                    <button onClick={pesqData} className="modal-button" type="submit">Aplicar Filtros</button>
                                 </div>
                             </Modal>
 

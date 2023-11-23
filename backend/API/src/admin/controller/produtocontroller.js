@@ -362,5 +362,30 @@ endpoints.get('/produto/contar', async (req, res) => {
 
 
 
+
+endpoints.delete('/produto/sugestao/deletar/:id', async (req, resp) => {
+  try {
+    const { id } = req.params
+
+
+    const r = await excluirSugestao(id)
+
+    if (r === 0) {
+      resp.status(404).send('Carrinho desse produto não encontrado')
+    }
+
+    else {
+      resp.status(200).send("Carrinho desse produto excluido com sucesso")
+    }
+  } catch (err) {
+    resp.status(500).send(err.message)
+  }
+
+})
+
+
+
+
+
 export default endpoints;
 

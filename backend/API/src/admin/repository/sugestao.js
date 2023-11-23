@@ -88,3 +88,19 @@ const [ resposta ] = await con.query(comando,[id])
 return  resposta 
 
 }
+
+
+
+
+
+
+export async function excluirSugestao(id) {
+    const comando = `
+    DELETE FROM tb_sugestao WHERE 
+    id_produto = ?
+
+    `;
+  
+    const [res] = await con.query(comando, [id]);
+    return res.affectedRows;
+  }

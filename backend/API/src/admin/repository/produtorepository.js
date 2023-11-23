@@ -77,30 +77,33 @@ export async function inserirProduto(produto) {
   export async function listarProdutos() {
     const comando = `
     SELECT
-    tb_produto.id_produto             as ID,
-    tb_produto.nm_produto             as nome, 
-    tb_tipo_produto.id_tipo_produto   as idtipo, 
-    tb_tipo_produto.ds_tipo_produto   as tipo,
-    tb_produto.ds_ingredientes        as ingredientes,
-    tb_produto.ds_descricao           as descricao,
-    tb_produto.vl_preco               as preço,
-    tb_produto.vl_preco_promocional   as preco_promocional,
-    tb_produto.bt_disponivel          as disponivel,
-    tb_imagem.id_imagem               as idimagem,
-    tb_imagem.img_produto             as imagem,
-    tb_restricao.id_restricao         as idrestricao,
-    tb_restricao.ds_restricao         as restricao,
-    tb_media.ds_media                 as media,
-    tb_favorito.id_favorito           as id_favorito,
-    tb_carrinho.id_carrinho           as id_carrinho
-  FROM
+    tb_produto.id_produto             AS ID,
+    tb_produto.nm_produto             AS nome, 
+    tb_tipo_produto.id_tipo_produto   AS idtipo, 
+    tb_tipo_produto.ds_tipo_produto   AS tipo,
+    tb_produto.ds_ingredientes        AS ingredientes,
+    tb_produto.ds_descricao           AS descricao,
+    tb_produto.vl_preco               AS preço,
+    tb_produto.vl_preco_promocional   AS preco_promocional,
+    tb_produto.bt_disponivel          AS disponivel,
+    tb_imagem.id_imagem               AS idimagem,
+    tb_imagem.img_produto             AS imagem,
+    tb_restricao.id_restricao         AS idrestricao,
+    tb_restricao.ds_restricao         AS restricao,
+    tb_media.ds_media                 AS media,
+    tb_favorito.id_favorito           AS id_favorito,
+    tb_carrinho.id_carrinho           AS id_carrinho,
+    tb_sugestao.id_sugestao           AS idsugestao,
+    tb_sugestao.ds_sugestao           AS ds_sugestao
+FROM
     tb_produto
-  INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
-  LEFT JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
-  LEFT JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
-  LEFT JOIN tb_media ON tb_media.id_produto = tb_produto.id_produto
-  LEFT JOIN tb_favorito ON tb_favorito.id_produto = tb_produto.id_produto
-  LEFT JOIN tb_carrinho ON tb_carrinho.id_produto = tb_produto.id_produto
+INNER JOIN tb_tipo_produto ON tb_produto.ds_tipo_produto = tb_tipo_produto.id_tipo_produto
+LEFT JOIN tb_imagem ON tb_imagem.id_produto = tb_produto.id_produto
+LEFT JOIN tb_restricao ON tb_restricao.id_produto = tb_produto.id_produto
+LEFT JOIN tb_media ON tb_media.id_produto = tb_produto.id_produto
+LEFT JOIN tb_favorito ON tb_favorito.id_produto = tb_produto.id_produto
+LEFT JOIN tb_carrinho ON tb_carrinho.id_produto = tb_produto.id_produto
+LEFT JOIN tb_sugestao ON tb_sugestao.id_produto = tb_produto.id_produto
     `;
 
     const [res] = await con.query(comando);
