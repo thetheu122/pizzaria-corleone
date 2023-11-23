@@ -1,6 +1,6 @@
 import Lottie from 'react-lottie'
 
-import NosJSON from '../../../assets/lottieJSON/perfil.json'
+import NosJSON from '../../../assets/lottieJSON/sobrenos.json'
 
 export const SobreNos = () => {
     const defaultOptions = {
@@ -9,5 +9,14 @@ export const SobreNos = () => {
         animationData: NosJSON 
     }
 
-    return <Lottie options={defaultOptions} width={200} height={200}/>
+    const zoomFactor = 3; 
+
+    return (
+        <Lottie
+            options={defaultOptions}
+            width={50 * zoomFactor} 
+            height={50 * zoomFactor} 
+            style={{ transform: `scale(${zoomFactor})` }}
+        />
+    )
 }
