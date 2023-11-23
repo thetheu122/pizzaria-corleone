@@ -1,5 +1,6 @@
 import '../../assets/config/fonts-config.scss'
 import './App.scss';
+import CountUp from 'react-countup';
 
 import RestauranteComp from '../../assets/img/restaurante comp.png'
 import restaurante from '../../images/restaurante.png'
@@ -7,7 +8,7 @@ import pizza from '../../images/fundo.png'
 import Cabecalho from '../../components/user/cabecalho';
 import Rodape from '../../components/user/rodape';
 import CompSobre from '../../components/compSobre'
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Top50 from '../../assets/images/pictures/logo-50toppizza.png'
 import { useNavigate } from 'react-router-dom';
 import Transition from '../transition/transition';
@@ -15,6 +16,26 @@ import Transition from '../transition/transition';
 export default function SobreNos() {
 
   const [mostrarBotao, setMostrarBotao] = useState(false);
+
+  const myElement = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      // No caso de múltiplos elementos observados, entries é uma lista
+      // Neste caso, estamos observando apenas um elemento, então usamos [0] para pegar a primeira entrada
+      if (entries[0].isIntersecting) {
+        setIsVisible(true);
+        // Uma vez que a animação foi disparada, podemos parar de observar
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(myElement.current);
+
+    return () => observer.disconnect();
+  }, []);
+
 
   const navigate = useNavigate()
 
@@ -113,31 +134,61 @@ export default function SobreNos() {
           <h1>Nós fazemos pizza, mas <br /> somos bons em matemática.</h1>
           <div className='meio'>
             <div className='numbers'>
-              <div>
-                <h1>{contratos}%</h1>
+              <div ref={myElement}>
+                <h1>
+                  {isVisible && (
+                    <CountUp end={contratos} duration={5} />
+                  )}
+                  %
+                </h1>
                 <h2>CONTRATOS SEM PRAZO</h2>
               </div>
-              <div>
-                <h1>+{cidade}</h1>
+              <div ref={myElement}>
+                <h1>
+                  +
+                  {isVisible && (
+                    <CountUp end={cidade} duration={5} />
+                  )}
+                </h1>
                 <h2>CIDADES</h2>
               </div>
-              <div>
-                <h1>+{funcionarios}</h1>
+              <div ref={myElement}>
+                <h1>
+                  +
+                  {isVisible && (
+                    <CountUp end={funcionarios} duration={5} />
+                  )}
+                </h1>
                 <h2>FUNCIONÁRIOS</h2>
               </div>
             </div>
 
             <div className='numbers'>
-              <div>
-                <h1>+{mulheres}%</h1>
+              <div ref={myElement}>
+                <h1>
+                  +
+                  {isVisible && (
+                    <CountUp end={mulheres} duration={5} />
+                  )}
+                  %</h1>
                 <h2>MULHERES CONTRATADAS</h2>
               </div>
-              <div>
-                <h1>+{restaurante}</h1>
+              <div ref={myElement}>
+                <h1>
+                  +
+                  {isVisible && (
+                    <CountUp end={restaurante} duration={5} />
+                  )}
+                </h1>
                 <h2>RESTAURANTES</h2>
               </div>
-              <div>
-                <h1>+{clientes}</h1>
+              <div ref={myElement}>
+                <h1>
+                  +
+                  {isVisible && (
+                    <CountUp end={clientes} duration={5} />
+                  )}
+                </h1>
                 <h2>CLIENTES SATISFEITOS</h2>
               </div>
             </div>
