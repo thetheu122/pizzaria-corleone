@@ -225,7 +225,6 @@ export default function Finalizarcadastrado() {
       try {
 
         let compra = {
-          "id_cliente": usuario.id,
           "desconto": 0,
           "produtos": [],
           "subtotal": 0,
@@ -262,14 +261,13 @@ export default function Finalizarcadastrado() {
         // console.log('Total geral:', total);
         let descontonovo = 0
         if (desconto > 0) {
+          compra.desconto = descontonovo
           descontonovo = desconto
         }
         compra.ds_qtd = totalProdutosqtd; // Atualizando quantidade_total
         compra.subtotal = totall;
 
-        compra.total = totall 
-        compra.desconto = descontonovo
-        compra.total_compra = frete + total
+        compra.total = totall;
 
 
         const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
