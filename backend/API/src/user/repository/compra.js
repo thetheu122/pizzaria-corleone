@@ -17,7 +17,7 @@ export async function novaCompra(compra) {
    false
   ]);
 
-  console.log(compra.total_compra)
+  console.log(compra.total)
 
   compra.id = resposta.insertId;
   return compra;
