@@ -10,12 +10,14 @@ export async function novaCompra(compra) {
     compra.id_cliente,
     JSON.stringify(compra.ds_produtos),
     compra.subtotal,
-    compra.total_compra,
+    compra.total,
     compra.desconto,
     compra.frete,
     compra.ds_qtd,
-    compra.ds_status
+   false
   ]);
+
+  console.log(compra.total_compra)
 
   compra.id = resposta.insertId;
   return compra;
@@ -36,7 +38,8 @@ export async function listarCompra(id) {
       JSON_UNQUOTE(tb_pedido_produto.ds_produtos) AS ds_produtos,
       tb_pedido_produto.ds_subtotal,
       tb_pedido_produto.ds_frete,
-      tb_pedido_produto.ds_qtd
+      tb_pedido_produto.ds_qtd,
+      tb_pedido_produto.ds_status
     FROM tb_pedido_produto
     INNER JOIN tb_cliente ON tb_pedido_produto.id_cliente = tb_cliente.id_cliente
     WHERE tb_cliente.id_cliente = ?

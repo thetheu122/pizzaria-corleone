@@ -231,7 +231,7 @@ export default function Finalizarcadastrado() {
           "subtotal": 0,
           "total": 0,
           "frete": frete,
-          "ds_qtd": 0       // Adicionado campo de quantidade_total
+          "ds_qtd": 0 
         };
 
         let totalProdutosqtd = 0;
@@ -254,22 +254,22 @@ export default function Finalizarcadastrado() {
             return 0;
           }
         });
-        let descontonovo = 0
-        if (desconto > 0) {
-          descontonovo = desconto
-        }
+
 
 
         const totall = mappedPrices.reduce((acm, preco) => acm + preco, 0);
         // console.log('Total de produtos (quantidade):', totalProdutosqtd);
         // console.log('Total geral:', total);
-
+        let descontonovo = 0
+        if (desconto > 0) {
+          descontonovo = desconto
+        }
         compra.ds_qtd = totalProdutosqtd; // Atualizando quantidade_total
         compra.subtotal = totall;
 
-        compra.total = totall - descontonovo
+        compra.total = totall 
         compra.desconto = descontonovo
-        compra.total = frete + total
+        compra.total_compra = frete + total
 
 
         const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
