@@ -2,7 +2,7 @@ import Lottie from 'react-lottie'
 
 import NosJSON from '../../../assets/lottieJSON/perfil.json'
 
-export const NosAnimation = () => {
+export const SobreNos = () => {
     const defaultOptions = {
         loop: true,
         autoplay: true,
