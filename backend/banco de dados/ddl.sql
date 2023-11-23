@@ -233,3 +233,8 @@ ds_valor   int
 );
 
 
+CREATE TABLE tb_sugestoes (
+    id_sugestoes    INT AUTO_INCREMENT PRIMARY KEY,
+    ds_telefone     VARCHAR(20),
+    ds_sugestao     TEXT
+);

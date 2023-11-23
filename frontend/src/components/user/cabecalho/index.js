@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as Components from './Components';
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios, { AxiosError } from 'axios';
@@ -56,7 +56,7 @@ export default function Cabecalho(props) {
   const [endereco, setEndereco] = useState({})
   const [cpf, setCpf] = useState('');
 
-  const [captcha, setCaptcha] = useState(true)
+  // const [captcha, setCaptcha] = useState(true)
 
   const [cadastro, setCadastro] = useState(true);
 
@@ -258,18 +258,18 @@ export default function Cabecalho(props) {
         theme: "light",
       });
     }
-    else if (!captcha) {
-      toast.warn('Clique no botão "Não sou um robô"', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
+    // else if (!captcha) {
+    //   toast.warn('Clique no botão "Não sou um robô"', {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    // }
     else if (!nome.includes(" ")) {
       toast.warn('Seu nome precisar conter ao menos um sobrenome', {
         position: "top-right",
@@ -284,7 +284,7 @@ export default function Cabecalho(props) {
     }
     else {
       setOpenCadastroModal(!openCadastroModal)
-      setCaptcha(false)
+      // setCaptcha(false)
       let local = {
         nome: nome,
         email: email,
@@ -297,19 +297,19 @@ export default function Cabecalho(props) {
 
   const login = async () => {
     try {
-      if (!captcha) {
-        toast.warn('Clique no botão "Não sou um robô"', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-      else {
+      // if (!captcha) {
+      //   toast.warn('Clique no botão "Não sou um robô"', {
+      //     position: "top-right",
+      //     autoClose: 5000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: true,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "light",
+      //   });
+      // }
+
         const logi =
         {
           email: emailLogin,
@@ -332,7 +332,7 @@ export default function Cabecalho(props) {
           progress: undefined,
           theme: "colored",
         });
-      }
+      
     } catch (err) {
       toast.error(err.response.data.erro);
     }
@@ -564,11 +564,11 @@ return (
               <Components.Input type='text' placeholder='Nome' spellCheck='false' value={nome} onChange={handleNomeChange} />
               <Components.Input type='email' placeholder='Email' spellCheck='false' value={email} onChange={(e) => setEmail(e.target.value)} />
               <Components.Input type='password' placeholder='Senha' spellCheck='false' value={senha} onChange={(e) => setSenha(e.target.value)} />
-              <ReCAPTCHA
+              {/* <ReCAPTCHA
                 sitekey="6LdHbGsoAAAAAEuxguADWAR5shW3Jy3ZNQHtVbOQ"
                 onChange={() => setCaptcha(true)}
-              />
-              <Components.Button onClick={() => inversao()}>Criar conta</Components.Button>
+              />*/}
+              <Components.Button onClick={() => inversao()}>Criar conta</Components.Button> 
             </Components.Form>
           </Components.SignUpContainer>
 
@@ -577,10 +577,10 @@ return (
               <Components.Title>Entrar</Components.Title>
               <Components.Input type='email' placeholder='Email' spellCheck='false' value={emailLogin} onChange={(e) => setEmailLogin(e.target.value)} />
               <Components.Input type='password' placeholder='Senha' spellCheck='false' value={senhaLogin} onChange={(e) => setSenhaLogin(e.target.value)} />
-              <ReCAPTCHA
+              {/* <ReCAPTCHA
                 sitekey="6LdHbGsoAAAAAEuxguADWAR5shW3Jy3ZNQHtVbOQ"
                 onChange={() => setCaptcha(true)}
-              />
+              /> */}
               <Components.Anchor href='#'>Esqueceu a senha?</Components.Anchor>
               <Components.Button onClick={login}>Entrar</Components.Button>
             </Components.Form>
