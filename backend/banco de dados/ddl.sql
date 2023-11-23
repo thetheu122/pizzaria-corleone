@@ -156,11 +156,11 @@ CREATE TABLE tb_pedido_produto (
     ds_desconto VARCHAR(200),
     ds_frete VARCHAR(200),
     ds_produtos JSON,
-    ds_qtd INT,
+    ds_qtd      INT,
+    ds_status     boolean,
     
     FOREIGN KEY (id_cliente) REFERENCES tb_cliente(id_cliente)
 );
-
 
 
 CREATE TABLE tb_pedido (
