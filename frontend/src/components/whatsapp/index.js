@@ -5,7 +5,7 @@ import Whats from '../../assets/images/icons/whatsappIcon.svg'
 export default function Whatsapp(){
 
     const handleCardClick = () => {
-        const url = 'https://wa.me/+5511993673706?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20Don%20Corleone%20Pizza';
+        const url = 'https://wa.me/+5511998172476?text=Ol%C3%A1%2C%20tenho%20interesse%20na%20Don%20Corleone%20Pizza';
         window.open(url, '_blank');
     };
 

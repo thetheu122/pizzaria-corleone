@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { alterarCompra, deleteCompra, listarCompra, novaCompra, verificarCompra } from "../repository/compra.js";
+import { HistoricoCompras, alterarCompra, deleteCompra, listarCompra, novaCompra, verificarCompra } from "../repository/compra.js";
 
 
 
