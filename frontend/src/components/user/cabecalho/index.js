@@ -103,7 +103,7 @@ export default function Cabecalho(props) {
 
       listar()
     }
-  }, []);
+  }, [listarr]);
 
   useEffect(() => {
     let usuario = localStorage.getItem('contiuacao-cadastro');
