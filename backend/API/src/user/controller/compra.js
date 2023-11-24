@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { HistoricoCompras, alterarCompra, deleteCompra, listarCompra, novaCompra, verificarCompra } from "../repository/compra.js";
+import { HistoricoCompras, alterarCompra, alterarstatus, deleteCompra, listarCompra, novaCompra, verificarCompra } from "../repository/compra.js";
 
 
 
@@ -12,7 +12,7 @@ endpoints.post ('/corleone/pedido/produto' , async (req,resp)=>{
         const compra   = req.body
         // console.log('post :'+ compra)
         const resposta = await novaCompra(compra) 
-     
+        console.log("resposta"+resposta.ds_status)
 
         resp.send(resposta)
     } catch (err) {
@@ -20,6 +20,16 @@ endpoints.post ('/corleone/pedido/produto' , async (req,resp)=>{
     }
 })
 
+endpoints.put('/alterar/status/:id', async (req, resp) => {
+    try {
+      const { id } = req.params;
+      const resposta = await alterarstatus(id);
+      console.log(resposta)
+      resp.send(resposta);
+    } catch (error) {
+      resp.status(500).send({ error: error.message });
+    }
+  });
 
 endpoints.get('/corleone/pedido/cliente/:id', async ( req , resp ) =>{
     try {

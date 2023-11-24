@@ -32,7 +32,7 @@ export default function Carrinho({ onClose }) {
         const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/' + us.id);
         console.log(response.data)
         setListarr(response.data)
-        const resp     = await axios.get(`${API_URL}/corleone/pedido/cliente/${us.id}`);
+        const resp = await axios.get(`${API_URL}/corleone/pedido/cliente/${us.id}`);
         setVerificar(resp.data)
 
         if (listarr.length < 1) {
@@ -61,8 +61,9 @@ export default function Carrinho({ onClose }) {
         "desconto": 0,
         "produtos": [], // Aqui você manterá os detalhes dos produtos
         "subtotal": 0,
-        "total_compra": 0,
-        "ds_qtd": 0  // Adicionando o campo quantidade_total
+        "total": 0,
+        "ds_qtd": 0 ,
+        "ds_status":false
       };
   
       let totalProdutosqtd = 0;
@@ -77,6 +78,7 @@ export default function Carrinho({ onClose }) {
           const quantidadeItem = quantidade.reduce((acm, pro) => acm + pro, 0);
           compra.produtos.push({
             id_produto: item.id_produto,
+            nome:item.nm_produto,
             quantidade: quantidadeItem
           });
           return preco * quantidadeItem;

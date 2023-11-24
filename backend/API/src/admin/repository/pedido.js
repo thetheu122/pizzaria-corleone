@@ -149,6 +149,26 @@ export async function listarPorStatusEntregue() {
         return resposta
 }
 
+export async function listarPorStatusEntregueid(id) {
+    let comando = `
+            SELECT
+            pd.id_pedido       as idpedido,
+            pd.dt_pedido       as data,
+            pd.ds_situacao     as situacao,
+            pp.ds_produtos     as produtos,
+            c.nm_cliente       as nome
+        FROM
+            tb_pedido pd
+        LEFT JOIN tb_pedido_produto pp ON pd.id_pedido_produto = pp.id_pedido_produto
+        LEFT JOIN tb_cliente c ON pd.id_cliente = c.id_cliente
+        WHERE pd.ds_situacao = 'entregue'
+        AND   pd.id_cliente  = ?
+        ORDER BY pd.ds_situacao
+        `
+
+        const [resposta] = await con.query(comando,[id])
+        return resposta
+}
 
 
 

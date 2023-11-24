@@ -43,7 +43,7 @@ endpoints.put('/corleone/usuario/carrinho/editar' , async (req,resp) =>{
         const itens = req.body
         const resposta = await alteraritens(itens)
         
-     
+
 
         if(!itens.qtd){
             erro.push('É necessario preencher todos os campos .Campo "qtd" vazio')

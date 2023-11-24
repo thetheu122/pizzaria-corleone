@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData, listarVendasData, deletarPedidoPorId} from "../repository/pedido.js";
+import { Listarpedido, Novopedido, atualizarStatusParte1, atualizarStatusParte2, atualizarStatusParte3, listarDetalhesPorId, listarPelaData, listarPorId, listarPorNome, listarPorOrdemAlfabetica, listarPorStatusCancelado, listarPorStatusEntregue, listarRastreamento, listarPedidosEntregue, listarPedidosEntreguecomData, listarVendasData, deletarPedidoPorId, listarPorStatusEntregueid} from "../repository/pedido.js";
 
 
 
@@ -99,7 +99,17 @@ endpoints.get('/pedido/status/entregue', async (req, resp) => {
         })
     }
 })
-
+endpoints.get('/pedido/status/entregue/:id', async (req, resp) => {
+    try {
+        const {id} = req.params
+        const w = await listarPorStatusEntregueid(id)
+        resp.send(w)
+    } catch (err) {
+        resp.status(400).send({
+            erro: err.message
+        })
+    }
+})
 
 endpoints.get('/pedido/status/cancelado', async (req, resp) => {
     try {
@@ -189,7 +199,6 @@ endpoints.put('/pedido/rastreamento/alterar', async (req, resp) => {
     try {
         const id  = req.body;
         const result = await atualizarStatusParte3(id);
-
 
         if (result === 0) {
             resp.status(400).send({ err: "Status do pedido não foi alterado" });

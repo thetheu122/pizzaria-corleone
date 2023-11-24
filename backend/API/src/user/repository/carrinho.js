@@ -40,7 +40,6 @@ where  id_carrinho = ?
         itens.idcarrinho
     ])
 
-
     return resposta.affectedRows > 0
 }
 

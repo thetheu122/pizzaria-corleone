@@ -201,11 +201,9 @@ export default function Finalizarcadastrado() {
 
     async function listar() {
 
-      const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/' + usuario.id);
+      const response = await axios.get(API_URL + '/corleone/usuario/carrinho/listar/'+usuario.id);
       const resp = await axios.get(`${API_URL}/corleone/pedido/cliente/${usuario.id}`);
       setTabelaTotal(resp.data)
-
-      console.log(response.data)
 
       setProdutos(response.data)
 
@@ -225,6 +223,7 @@ export default function Finalizarcadastrado() {
       try {
 
         let compra = {
+          "ds_status":false,
           "desconto": 0,
           "produtos": [],
           "subtotal": 0,
@@ -246,6 +245,7 @@ export default function Finalizarcadastrado() {
           if (!isNaN(preco) && quantidade.every((qtd) => !isNaN(qtd))) {
             compra.produtos.push({
               id_produto: item.id_produto,
+              nome:item.nm_produto,
               quantidade: quantidadeTotalProduto
             });
             return preco * quantidadeTotalProduto;
@@ -253,8 +253,9 @@ export default function Finalizarcadastrado() {
             return 0;
           }
         });
-
-
+         
+        if( final == true )
+        compra.ds_status = true;
 
         const totall = mappedPrices.reduce((acm, preco) => acm + preco, 0);
         // console.log('Total de produtos (quantidade):', totalProdutosqtd);
@@ -267,10 +268,10 @@ export default function Finalizarcadastrado() {
         compra.ds_qtd = totalProdutosqtd; // Atualizando quantidade_total
         compra.subtotal = totall;
 
-        compra.total = totall;
+        compra.total = (totall + frete).toFixed(2);
 
 
-        const response = await axios.put(`${API_URL}/corleone/altera/pedido/${usuario.id}`, compra);
+        const response = await axios.put(`${API_URL}/corleone/altera/pedido/${idpedidoproduto}`, compra);
 
 
 
@@ -306,43 +307,39 @@ export default function Finalizarcadastrado() {
         "cliente": usuario.id,
         "cartao":idCartao,
         "pedido_produto":idpedidoproduto,
-        "situacao":"Em preparo"
+        "situacao":"entregue"
         }
         const r  = await axios.post(`${API_URL}/pedido`,pedido)
-
-
+       
+  
 
     } catch (err) {
       toast.error(err.message)
     }
 
-    try {
-      let compra = {
-        "ds_status":true
-      }
-      const r = await axios.post(`${API_URL}/corleone/pedido/produto`,compra)
 
-      for (const cont of produtos) {
-        let id = cont.id
-        let user = {
-            "disponivel": false,
-            "qtd": 1,
-            "idcarrinho": id
-        }
-    
-        try {
-            let respo = await axios.put(API_URL + '/corleone/usuario/carrinho/editar', user)
-            alert(respo)
-        } catch (error) {
-            console.error(error)
-            toast.error(error.message)
-        }
-    }
-    
-    } catch (error) {
-      toast.error(error.message)
-    }
   }
+
+  async function removerCarrinho() {
+    try {
+        await Promise.all(produtos.map(async (cont) => {
+            let id = cont.id_carrinho;
+            let user = {
+                disponivel: false,
+                qtd: 1,
+                idcarrinho: id
+            };
+
+            let response = await axios.put(`${API_URL}/corleone/usuario/carrinho/editar`, user);
+
+            console.log(cont);
+            console.log("tentativa" + response.data);
+        }));
+    } catch (error) {
+        toast.error(error.message);
+    }
+}
+
 
 
   const SuccessIcon = () => (
@@ -366,11 +363,14 @@ export default function Finalizarcadastrado() {
         <div className="custom">
           <h1>Compra realizada com sucesso</h1>
           <div>
-            <button onClick={onClose}>Fechar</button>
+            <button               onClick={() => {
+                // Usando o método window.location.href para redirecionar
+                window.location.href = 'http://localhost:3000/cardapio'; removerCarrinho();setFinal(true);
+              }}>Fechar</button>
             <button
               onClick={() => {
                 // Usando o método window.location.href para redirecionar
-                window.location.href = 'http://localhost:3000/minhaconta';
+                window.location.href = 'http://localhost:3000/minhaconta'; removerCarrinho();setFinal(true);
               }}
             >
               Acompanhar compra
@@ -553,7 +553,7 @@ export default function Finalizarcadastrado() {
   };
 
 
-
+const [ final , setFinal] = useState(false)
 
 
   const showConfirmationDialogCartao = () => {
@@ -575,6 +575,8 @@ export default function Finalizarcadastrado() {
       ),
     });
   };
+
+  
 
 
   return (
@@ -690,7 +692,7 @@ export default function Finalizarcadastrado() {
                         </div>
                         {frete > 0
 
-                          ? <> <button onClick={() => { confirmaCompra(); Pedido() }}> Comprar </button></>
+                          ? <> <button onClick={() => { confirmaCompra(); Pedido(); }}> Comprar </button></>
                           : <> <button onClick={() => { calculoFrete() }}> Calcular </button> </>
 
                         }
