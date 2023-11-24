@@ -24,6 +24,13 @@ export default function MaisDetalhes() {
         VeriStatus()
     }, [])
 
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
+
     async function listarDetalhes() {
         const r = await axios.get(`${API_URL}/pedido/detalhes/id/${id}`)
         const resp = r.data
@@ -62,7 +69,7 @@ export default function MaisDetalhes() {
                     <h1>Mais detalhes</h1>
 
                     <div onClick={Voltar}>
-                        <img src={SetaEsquerda} />
+                      
                         <p>voltar</p>
                     </div>
                 </div>

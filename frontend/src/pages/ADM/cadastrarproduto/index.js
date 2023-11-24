@@ -22,13 +22,13 @@ export default function Cadastro() {
 
     const navigate = useNavigate();
 
-    /*useEffect(() => {
+    useEffect(() => {
         if(!storage('adm-logado')){
             navigate('/associado')
         }
     }, [])
 
-*/
+
 
 
     function notifySuccess() {
@@ -81,7 +81,7 @@ export default function Cadastro() {
           restricao: restricao
         
       };
-      alert(JSON.stringify(restricaoData));
+      //alert(JSON.stringify(restricaoData));
       
      
       const resprestricao = await axios.post(API_URL + '/restricao', restricaoData);
@@ -94,18 +94,18 @@ export default function Cadastro() {
         notifySuccess();
 
       } else {
-        alert(`Erro ao cadastrar o produto: ${respCadastro.statusText}, ${resprestricao.statusText}`);
+        toast.error(`Erro ao cadastrar o produto: ${respCadastro.statusText}, ${resprestricao.statusText}`);
       }
 
       if (!nome || !tipoproduto || !ingredientes || !restricao || preco <= 0 || !descricao) {
-        alert('Por favor, preencha todos os campos obrigatórios.');
+        toast.error('Por favor, preencha todos os campos obrigatórios.');
         return;
       }
     } catch (err) {
       if (err.response) {
-        alert(`Erro ao cadastrar o produto: ${JSON.stringify(err.response.data)}`);
+        toast.error(`Erro ao cadastrar o produto: ${JSON.stringify(err.response.data)}`);
       } else {
-        alert(`Erro ao cadastrar o produto: ${err.message}`);
+        toast.error(`Erro ao cadastrar o produto: ${err.message}`);
       }
     }
   }

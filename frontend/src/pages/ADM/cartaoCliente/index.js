@@ -6,10 +6,13 @@ import { useParams } from 'react-router-dom';
 import CompAtalhosAdm from '../../../components/compAtalhosAdm';
 import { API_URL } from '../../../config/constants';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'
 import './index.scss';
 
 export default function Cartaocliente() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [SelectedCardIndex, setSelectedCardIndex] = ([])
   const [cartao, setCartao] = useState([]);
   const [detalhesCartao, setDetalhesCartao] = useState({
@@ -21,8 +24,20 @@ export default function Cartaocliente() {
   });
 
   useEffect(() => {
+    // Use localStorage para verificar se o usuário está logado
+    if (!localStorage.getItem('adm-logado')) {
+        navigate('/associado');
+    }
+}, []);
+
+  useEffect(() => {
     fetchCartao(id);
   }, [id]);
+
+  const handleVoltar = () => {
+
+    navigate(`/clienteadmmaisdetalhe/${id}`);
+  };
 
   async function fetchCartao(id) {
     try {
@@ -48,9 +63,9 @@ export default function Cartaocliente() {
     setSelectedCardIndex(index);
     setDetalhesCartao({
       cvc: selectedCard.cvv || '',
-      expiry: selectedCard.validade || '', 
-      name: selectedCard.nome || '',       
-      number: selectedCard.num || '',      
+      expiry: selectedCard.validade || '',
+      name: selectedCard.nome || '',
+      number: selectedCard.num || '',
     });
   };
 
@@ -65,6 +80,10 @@ export default function Cartaocliente() {
 
         <div className="subtitulo-cartao">
           <h1>Cartão</h1>
+          <div onClick={handleVoltar}>
+
+            <p className='p'>voltar</p>
+          </div>
         </div>
 
         <div className="cartaoSide">

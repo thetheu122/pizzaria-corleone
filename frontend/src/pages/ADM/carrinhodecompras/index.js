@@ -1,5 +1,5 @@
 import './index.scss'
-
+import SetaEsquerda from '../../../assets/img/seta-esquerda.png'
 import CompAtalhosAdm from "../../../components/compAtalhosAdm"
 import Lupa from '../../../assets/images/pictures/lupa 1.png'
 import Coracao from '../../../assets/img/coracao 2.png'
@@ -16,6 +16,7 @@ import { API_URL } from '../../../config/constants'
 
 export default function Carrinhodecompras() {
     const navigate = useNavigate()
+   
 
     const { id } = useParams();
 
@@ -60,6 +61,11 @@ export default function Carrinhodecompras() {
 
     }
 
+    const handleVoltar = () => {
+       
+        navigate(`/clienteadmmaisdetalhe/${id}`);
+      };
+
 
 
     const handleSelecaoChange = (event) => {
@@ -73,7 +79,12 @@ export default function Carrinhodecompras() {
           }
     };
 
-
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
 
 
 
@@ -98,6 +109,13 @@ export default function Carrinhodecompras() {
 
                 <div className='subtitulo-carrinho'>
                     <h1>Carrinho de Compras</h1>
+
+                    <div onClick={handleVoltar}>
+                       
+                        <p className='p'>voltar</p>
+                    </div>
+
+                    
                 </div>
 
 

@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from 'react';
 import Top50 from '../../assets/images/pictures/logo-50toppizza.png'
 import { useNavigate } from 'react-router-dom';
 import Transition from '../transition/transition';
+import Whatsapp from '../../components/whatsapp';
 
 export default function SobreNos() {
 
@@ -42,7 +43,7 @@ export default function SobreNos() {
   const contratos = 95
   const cidade = 11
   const funcionarios = 400
-  const mulheres = 45
+  const mulheres = 65
   const restaurante = 15
   const clientes = 5500
 
@@ -51,6 +52,7 @@ export default function SobreNos() {
     <Transition>
       <div className="App">
         <Cabecalho />
+        <Whatsapp/>
 
         <div className='contaiiner'>
           <p>DON CORLEONE</p>

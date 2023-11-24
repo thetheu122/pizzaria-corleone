@@ -5,6 +5,8 @@ import Filtro from '../../../assets/img/filtro vendas.png'
 import CompAtalhosAdm from '../../../components/compAtalhosAdm'
 import SetaBaixo from '../../../assets/img/setabaixo.png'
 import Modal from 'react-modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ApexChart from 'react-apexcharts'
 import { API_URL } from '../../../config/constants'
@@ -39,6 +41,19 @@ export default function Vendas() {
             ExcluirPedido(id);
         }
     }, [id]);
+
+    
+    
+
+    useEffect(() => {
+        if (excluido) {
+            // Realize ações adicionais após a exclusão
+            console.log('Pedido excluído com sucesso!');
+            // Se necessário, você pode redefinir o estado excluido para evitar re-execução desnecessária
+            setExcluido(false);
+        }
+    }, [excluido]);
+      
     
 
     //async function buscarProdutos(id) {
@@ -85,20 +100,26 @@ export default function Vendas() {
     async function ExcluirPedido(id) {
         try {
             const response = await axios.delete(`${API_URL}/pedido/deletar/${id}`);
-
+            
             if (response.status === 200) {
-                console.log('Pedido excluído com sucesso.');
-                setExcluido(true); 
+                toast.success('Pedido excluído com sucesso.');
+                
+               
+                setPedidosEntregue(prevPedidos => prevPedidos.filter(item => item.idpedido !== id));
+                
+              
             } else {
                 console.log('Erro ao excluir o pedido:', response.data.erro || 'Status da resposta:', response.status);
+    
+                if (response.status === 404) {
+                    toast.error('Não foi possível excluir o pedido: Pedido não encontrado.');
+                }
             }
         } catch (error) {
             console.error('Não foi possível excluir o pedido:', error.message);
         }
     }
-
-
-
+    
 
     async function InformacoesGrafico() {
         try {
@@ -235,18 +256,10 @@ export default function Vendas() {
                 </div>
 
                 <div className='conteudo-produtos-vendas'>
+                <ToastContainer containerId="pagina-vendas" />
 
                     <div className='conteudo-input'>
-                        <div className="input-container">
-
-                            <input
-                                type='text'
-                                placeholder='Busque por id ou nome do cliente'
-                                value={searchTerm}
-                                onChange={e => setSearchTerm(e.target.value)}
-                            />
-                            <div className="input-image"></div>
-                        </div>
+                    
 
                         <div className="parte-dois-filtros">
                             <div onClick={openModal} className="parte-dois-filtros-1">

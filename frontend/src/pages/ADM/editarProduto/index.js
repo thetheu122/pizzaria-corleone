@@ -40,7 +40,7 @@ export default function EditarProduto() {
     }
 
 
-
+   
 
 
     const api = axios.create({
@@ -223,7 +223,7 @@ export default function EditarProduto() {
             }
 
             else if (restricao.length > 1) {
-                alert('Apenas uma restrição pode ser cadastrada')
+                toast.error('Apenas uma restrição pode ser cadastrada')
             }
             else {
                 const respRestricao = await axios.put(`${API_URL}/restricao/alterar/${idrestricao}`, alterarRestricao)
@@ -243,7 +243,7 @@ export default function EditarProduto() {
                 disponivel: disponivel
             }
 
-            alert(JSON.stringify(produto));
+           // alert(JSON.stringify(produto));
 
             const resposta = await axios.put(`${API_URL}/produto/editar/${idproduto}`, produto)
 
@@ -255,10 +255,12 @@ export default function EditarProduto() {
         } catch (err) {
             if (err.response) {
                 console.log('Erro de resposta:', err.response.data);
-                alert(`Erro na tentativa de alterar o produto: ${JSON.stringify(err.response.data)}`);
+                toast.error(`Erro na tentativa de alterar o produto `);
+                //${JSON.stringify(err.response.data)}
             } else {
                 console.log('Erro não tratado:', err.message);
-                alert(`Erro na tentativa de alterar o produto: ${err.message}`);
+                toast.error(`Erro na tentativa de alterar o produto`);
+                // ${err.message}
             }
         }
 

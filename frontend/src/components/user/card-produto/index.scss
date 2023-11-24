@@ -82,6 +82,7 @@
         display: flex;
         align-items: flex-start;
 
+        cursor: pointer;
         img {
             height: 287.523px;
             width: 100%;
@@ -161,7 +162,7 @@
 
             .circulo {
                 width: 40px;
-                height: 40px;
+                height: 41px;
                 flex-shrink: 0;
                 border-radius: 50%;
                 background-color: #53220D;

@@ -21,6 +21,9 @@
         padding-left: 15px;
         width: 100%;
         align-items: center;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;  
       
 
         h1 {
@@ -39,9 +42,36 @@
         font-size: 12px;
         color: #636363;
         padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;  
 
 
-
+        .left-content {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            
+            img {
+                height: 12px;
+                margin-right: 5px;
+                margin-top: 2px;
+            }
+    
+            p {
+                font-family: lato-regular;
+                font-weight: 580;
+                font-size: 20px;
+               
+            }
+        }
+        p {
+            font-family: lato-regular;
+            font-weight: 580;
+            font-size: 15px;
+           
+        }
+    
         h1 {
             font-family: lato-regular;
             font-weight: 580;

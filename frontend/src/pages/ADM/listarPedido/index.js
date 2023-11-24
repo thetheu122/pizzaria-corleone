@@ -15,7 +15,12 @@ Modal.setAppElement('#root')
 
 export default function ListarPedido() {
 
-
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
 
     const navigate = useNavigate()
 
@@ -23,13 +28,14 @@ export default function ListarPedido() {
         navigate(`/detalhes/pedido/${id}`)
     }
 
-    
+
 
 
     ///<button className="modal-button" type="submit">Aplicar Filtros</button>
     const [buscarid, setBuscarid] = useState('')
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [pedidos, setPedidos] = useState([])
+    let timeoutId;
 
 
     //////////////////////////////filtros
@@ -40,18 +46,42 @@ export default function ListarPedido() {
     /////////////////////////////////
 
 
+
     //console.log(AaoZ)
     //console.log(data)
     //console.log(entregue)
 
 
     useEffect(() => {
-        if (buscarid.length > 0) {
-            ListarporNomeOuId()
-        } else {
+        
+            
+        
             ListarPedidos()
-        }
-    }, [buscarid])
+        
+    }, [])
+
+    useEffect(() => {
+        // Função que será executada após o atraso
+        const fetchData = async () => {
+            if (!isNaN(buscarid)) {
+                const rId = await axios.get(`${API_URL}/pedido/id/${buscarid}`);
+                const uniquePedidos = [...new Set(rId.data.map(item => item.idpedido))];
+                setPedidos(uniquePedidos.map(idpedido => rId.data.find(item => item.idpedido === idpedido)));
+            } else {
+                const rNome = await axios.get(`${API_URL}/pedido/nome/${buscarid}`);
+                const uniquePedidos = [...new Set(rNome.data.map(item => item.idpedido))];
+                setPedidos(uniquePedidos.map(idpedido => rNome.data.find(item => item.idpedido === idpedido)));
+            }
+        };
+
+        // Limpar o timeout anterior antes de configurar um novo
+        clearTimeout(timeoutId);
+
+        // Configurar um novo timeout
+        timeoutId = setTimeout(fetchData, 300); // Ajuste o valor do atraso conforme necessário
+    }, [buscarid]);
+
+
 
     async function ListarPedidos() {
         const r = await axios.get(API_URL + '/pedido')
@@ -142,16 +172,7 @@ export default function ListarPedido() {
                 <div className='container-tres'>
 
                     <div className='cont-quatro'>
-                        <div className="input-container">
-                            <input
-                                type='text'
-                                placeholder='Busque por id ou nome do pedido'
-                                value={buscarid}
-                                onChange={e => setBuscarid(e.target.value)}
-                            />
-                            <div className="input-image"></div>
-                        </div>
-
+                     
                         <div className='filtro'>
                             <div className='filtro' onClick={openModal}>
                                 <div className="filtro-image"></div>
@@ -185,25 +206,7 @@ export default function ListarPedido() {
 
                                     <div className='divisao-filtros'></div>
 
-                                    <label className="modal-label">
-                                        <p>Formas de pagamento</p>
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Pix</h5>
-                                        </div>
-
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Dinheiro</h5>
-                                        </div>
-
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Cartão de credito</h5>
-                                        </div>
-                                    </label>
-
-                                    <div className='divisao-filtros'></div>
+                                    
 
 
                                     <label className="modal-label-2">
@@ -253,8 +256,8 @@ export default function ListarPedido() {
                         </div>
 
 
-                        <h2 className='entregue'>Status: Entregue</h2>
-                        <h2 className='data'>Data: 30/07/2023</h2>
+                        
+
                     </div>
 
 
@@ -280,10 +283,10 @@ export default function ListarPedido() {
 
                             {pedidos.map(item => (
                                 item.produtos &&
-                                item.situacao === 'Entregue' &&
+                                    item.situacao === 'Entregue' &&
                                     item.data ? (
                                     <tr className="linha-separadora" key={item.idpedido}>
-                                        <td>{item.idpedido}</td>
+                                        <td>#{item.idpedido}</td>
                                         <td>{item.nome}</td>
                                         <td>Cartão de crédito(inserir)</td>
                                         <td>{item.produtos}</td>

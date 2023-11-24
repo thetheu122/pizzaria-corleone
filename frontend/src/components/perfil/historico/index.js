@@ -1,11 +1,24 @@
 import './index.scss'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 import Cardhistorico from '../cardhistorico'
+<<<<<<< HEAD
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { API_URL } from '../../../config/constants'
 import { useEffect, useState } from 'react'
+=======
+import { API_URL } from '../../../config/constants'
+>>>>>>> 3cb32f459974dc79f823633b923c01b1d566a787
 export default function Historico() {
+    const [historico, setHistorico] = useState([])
+
+    useEffect(() => {
+       async function fetchData(){
+        let response = await axios.get(API_URL + ``)
+       } 
+    },[])
 
 const [pedido, setPedido] = useState([])
 

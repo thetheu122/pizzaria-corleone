@@ -28,6 +28,14 @@ export default function CadaFavorito() {
     })
 
     useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
+    
+
+    useEffect(() => {
 
         if (buscarNome.length > 0) {
             ListarnomeFavoritos()
@@ -50,16 +58,16 @@ export default function CadaFavorito() {
         try {
             // Modifique a chamada da API para incluir o ID do usuário e o nome do produto
             const response = await axios.get(`${API_URL}/corleone/produtos/favoritos/verificar/${id}/produto/${buscarNome}`);
-            
+
             // Atualize o estado com a resposta da API
             setTdsFavoritos(response.data);
         } catch (error) {
             console.error("Erro ao buscar favoritos:", error);
         }
     }
-    
+
     // ...
-    
+
     useEffect(() => {
         if (buscarNome.length > 0) {
             mostrarFavoritosPorNome(id, buscarNome);
@@ -68,7 +76,11 @@ export default function CadaFavorito() {
         }
         mostrarFavoritosPorNome();
     }, [buscarNome]);
-    
+
+    const handleVoltar = () => {
+       
+        navigate(`/clienteadmmaisdetalhe/${id}`);
+      };
 
 
 
@@ -86,7 +98,7 @@ export default function CadaFavorito() {
             navigate(`/cadafavorito/cliente/${id}`);
         } else if (valorSelecionado === 'pagamento') {
             navigate(`/cartao/listar/${id}`);
-          }
+        }
     };
 
 
@@ -102,6 +114,11 @@ export default function CadaFavorito() {
 
                 <div className='subtitulo-cada-favoritos'>
                     <h1>Favoritos</h1>
+
+                    <div onClick={handleVoltar}>
+                       
+                       <p className='p'>voltar</p>
+                   </div>
                 </div>
 
 
@@ -131,10 +148,12 @@ export default function CadaFavorito() {
 
                         </div>
 
+                        {tdsFavoritos.length > 0 && (
+                            <div className='titulo-cada-favorito'>
+                                <h1>Produtos favoritados pelo cliente {tdsFavoritos[0].cliente}</h1>
+                            </div>
+                        )}
 
-                        <div className='titulo-cada-favorito'>
-                            <h1>Produtos  favoritados  pelo  cliente  {nome}</h1>
-                        </div>
 
                         <div className='linha'></div>
 
