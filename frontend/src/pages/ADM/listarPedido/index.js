@@ -63,15 +63,19 @@ export default function ListarPedido() {
     useEffect(() => {
         // Função que será executada após o atraso
         const fetchData = async () => {
-            if (!isNaN(buscarid)) {
-                const rId = await axios.get(`${API_URL}/pedido/id/${buscarid}`);
-                const uniquePedidos = [...new Set(rId.data.map(item => item.idpedido))];
-                setPedidos(uniquePedidos.map(idpedido => rId.data.find(item => item.idpedido === idpedido)));
-            } else {
-                const rNome = await axios.get(`${API_URL}/pedido/nome/${buscarid}`);
-                const uniquePedidos = [...new Set(rNome.data.map(item => item.idpedido))];
-                setPedidos(uniquePedidos.map(idpedido => rNome.data.find(item => item.idpedido === idpedido)));
+            try {
+                if (!isNaN(buscarid)) {
+                    const rId = await axios.get(`${API_URL}/pedido/id/${buscarid}`);
+                    const uniquePedidos = [...new Set(rId.data.map(item => item.idpedido))];
+                    setPedidos(uniquePedidos.map(idpedido => rId.data.find(item => item.idpedido === idpedido)));
+                } else {
+                    const rNome = await axios.get(`${API_URL}/pedido/nome/${buscarid}`);
+                    const uniquePedidos = [...new Set(rNome.data.map(item => item.idpedido))];
+                    setPedidos(uniquePedidos.map(idpedido => rNome.data.find(item => item.idpedido === idpedido)));
+                }    
+            } catch (error) {
             }
+            
         };
 
         // Limpar o timeout anterior antes de configurar um novo
