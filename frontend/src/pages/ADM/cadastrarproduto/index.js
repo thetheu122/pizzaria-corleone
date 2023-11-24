@@ -81,7 +81,7 @@ export default function Cadastro() {
           restricao: restricao
         
       };
-      alert(JSON.stringify(restricaoData));
+      //alert(JSON.stringify(restricaoData));
       
      
       const resprestricao = await axios.post(API_URL + '/restricao', restricaoData);

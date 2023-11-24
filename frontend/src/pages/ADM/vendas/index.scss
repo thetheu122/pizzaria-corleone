@@ -101,8 +101,9 @@
   .parte-dois-filtros {
     display: flex;
     flex-direction: row;
-    padding-left: 30px;
+    padding-left: 10px;
     margin-top: 10px;
+    margin-bottom: 20px;
     
   }
 
@@ -266,6 +267,7 @@
   .grafico-real:hover {
     cursor: crosshair;
   }
+  
 
 
 }

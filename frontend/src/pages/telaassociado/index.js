@@ -3,7 +3,8 @@ import '../../assets/config/fonts-config.scss'
 import { useEffect, useState, useRef } from "react"
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios'
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import storage from 'local-storage';
 import LoadingBar from 'react-top-loading-bar';
 
@@ -48,23 +49,26 @@ export default function TelaAssociado() {
       const response = await axios.put(API_URL + '/usuarioadm/login', associadoo)
       storage('adm-logado', associadoo)
       if (response.status === 200) {
+      
 
         setTimeout(() => {
 
-        navigate('/cadastroproduto')
+        navigate('/dashboard')
 
       }, 2500) }
     }
     catch (error) {
       ref.current.complete();
-      setCarregando(false)
-
+      setCarregando(false);
+  
       if (error.response) {
-        alert(error.response.data.erro);
+          // Se a resposta da API contiver um erro
+          toast.error(error.response.data.erro, { containerId: 'pagina-vendas' });
       } else {
-        alert(error.message);
+          // Se houver um erro diferente, como uma falha de rede
+          toast.error(error.message, { containerId: 'pagina-vendas' });
       }
-    }
+  }
   }
 
 
@@ -72,7 +76,7 @@ export default function TelaAssociado() {
   return (
     <div className="login-associado">
        <LoadingBar color='#53220D' ref={ref}/>
-
+       <ToastContainer containerId="pagina-associado" />
       <div className='direitaaaaa'>
         <h2>Entrar na Conta Associada</h2>
 

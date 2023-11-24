@@ -20,13 +20,15 @@ export default function Dashboard() {
     const [totalvendido , setTotalvendido] = useState()
     const navigate = useNavigate();
 
-    /*useEffect(() => {
-        if(!storage('adm-logado')){
-            navigate('/associado')
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
         }
-    }, [])
+    }, []);
+    
 
-*/
+
 
     async function PedidossEntregue() {
         try {
