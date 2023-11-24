@@ -1,6 +1,7 @@
 import './index.scss'
 import '../../../assets/config/fonts-config.scss'
 import Modal from 'react-modal'
+import CountUp from 'react-countup';
 
 import LinhaAmarela from '../../../assets/images/icons/linha-amarela.svg'
 //import Pizza from '../../../assets/images/icons/carrinho-completo.png'
@@ -36,6 +37,8 @@ export default function CardProduto(props) {
     const [ verificar   , setVerificar ]  = useState([]) 
 
     const [nome, setNome] = useState('')
+
+    const navigate = useNavigate()
 
     // id cliente
     const [idc, setIdc] = useState(0)
@@ -279,7 +282,7 @@ useEffect(()=>{
                 <img alt='linha' src={LinhaAmarela} className='linha2' />
 
                 <div className='descricao-produto'>
-                    <div className='imagem-pizza-comp'>
+                    <div className='imagem-pizza-comp' onClick={() => navigate('/informacao/' + props.produto.id)}>
                         <img src={`${api.getUri()}/${props.produto.imagem}`} />
                     </div>
                     <div className='precoNome'>
@@ -298,7 +301,7 @@ useEffect(()=>{
                         </Link>
                     </div>
                     <div className='pretin'>
-                        <p>{props.produto.media !== null ? props.produto.media : 0}</p>
+                        <p>{props.produto.media !== null ? <CountUp end={props.produto.media} duration={5} /> : 0}</p>
                         <img alt='estrela' src={Star} />
                     </div>
                 </div>
