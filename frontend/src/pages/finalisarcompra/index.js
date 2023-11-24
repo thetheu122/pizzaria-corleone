@@ -365,12 +365,12 @@ export default function Finalizarcadastrado() {
           <div>
             <button               onClick={() => {
                 // Usando o método window.location.href para redirecionar
-                window.location.href = 'http://localhost:3000/cardapio'; removerCarrinho();setFinal(true);
+                window.location.href = API_URL+'/cardapio'; removerCarrinho();setFinal(true);
               }}>Fechar</button>
             <button
               onClick={() => {
                 // Usando o método window.location.href para redirecionar
-                window.location.href = 'http://localhost:3000/minhaconta'; removerCarrinho();setFinal(true);
+                window.location.href = API_URL+'/minhaconta'; removerCarrinho();setFinal(true);
               }}
             >
               Acompanhar compra
