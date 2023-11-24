@@ -1,20 +1,33 @@
 .fundo {
    display: flex;
    flex-direction: column;
-   justify-content: space-evenly;
    background-color: white;
    max-width: 700px;
    width: 100%;
    height: auto;
    min-height: 610px;
    border-radius: 15px;
+   padding-top: 0px;
 
 
    h1 {
       color: #53220D;
       font-size: 3rem;
-      margin-top: 20px;
+      margin-top: 90px;
       text-align: center;
+   }
+
+   .pp{
+      color: black;
+      font-size: 2rem;
+      margin-top: 10px!important;
+
+      img {
+         width: 23px;
+         margin-right: 12px;
+
+         animation: loading 1s infinite;
+     }
    }
 
    .cartoesHistorico {
