@@ -616,7 +616,7 @@ return (
                 <Components.Paragraph>
                   Para manter conectado com a gente, por favor, entre com sua conta
                 </Components.Paragraph>
-                <GoogleLogin
+                {/* <GoogleLogin
                   onSuccess={credentialResponse => {
                     var credentialResponseDecoded = jwtDecode(credentialResponse.credential)
                     loginGoogle(credentialResponseDecoded)
@@ -624,7 +624,7 @@ return (
                   onError={() => {
                     toast.error('Erro ao realizar login')
                   }}
-                />
+                /> */}
                 <Components.GhostButton onClick={() => toggle(false)}>
                   Cadastrar-se
                 </Components.GhostButton>
