@@ -15,7 +15,12 @@ Modal.setAppElement('#root')
 
 export default function ListarPedido() {
 
-
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
 
     const navigate = useNavigate()
 

@@ -26,6 +26,12 @@ export default function ClienteDetalhe() {
         console.log(id)
 
     }
+    useEffect(() => {
+      // Use localStorage para verificar se o usuário está logado
+      if (!localStorage.getItem('adm-logado')) {
+          navigate('/associado');
+      }
+  }, []);
 
 
     useEffect(() => {

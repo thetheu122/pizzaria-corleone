@@ -11,6 +11,8 @@ export default function ClienteAdm() {
   const [status, setStatus] = useState('');
   const [idp, setidp] = useState([]);
 
+ 
+
   useEffect(() => {
     async function listar() {
       const r = await axios.get(`${API_URL}/pedido/rastreamento`);

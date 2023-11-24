@@ -30,6 +30,12 @@ export default function ClienteMaisdetalhe() {
             console.error('Erro ao buscar detalhes do cliente', error);
         }
     }
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
 
 
     async function fetchFavoritosCliente() {

@@ -22,13 +22,13 @@ export default function Cadastro() {
 
     const navigate = useNavigate();
 
-    /*useEffect(() => {
+    useEffect(() => {
         if(!storage('adm-logado')){
             navigate('/associado')
         }
     }, [])
 
-*/
+
 
 
     function notifySuccess() {

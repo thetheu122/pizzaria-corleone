@@ -24,6 +24,13 @@ export default function MaisDetalhes() {
         VeriStatus()
     }, [])
 
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
+
     async function listarDetalhes() {
         const r = await axios.get(`${API_URL}/pedido/detalhes/id/${id}`)
         const resp = r.data

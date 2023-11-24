@@ -24,6 +24,13 @@ export default function Cartaocliente() {
   });
 
   useEffect(() => {
+    // Use localStorage para verificar se o usuário está logado
+    if (!localStorage.getItem('adm-logado')) {
+        navigate('/associado');
+    }
+}, []);
+
+  useEffect(() => {
     fetchCartao(id);
   }, [id]);
 

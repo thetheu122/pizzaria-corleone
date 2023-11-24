@@ -32,7 +32,12 @@ export default function ListarProdutosAdm() {
 
     const navigate = useNavigate();
 
-
+    useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
 
     function notifySuccess() {
         toast.success('Produto removido com sucesso!', {

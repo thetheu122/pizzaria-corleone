@@ -28,6 +28,14 @@ export default function CadaFavorito() {
     })
 
     useEffect(() => {
+        // Use localStorage para verificar se o usuário está logado
+        if (!localStorage.getItem('adm-logado')) {
+            navigate('/associado');
+        }
+    }, []);
+    
+
+    useEffect(() => {
 
         if (buscarNome.length > 0) {
             ListarnomeFavoritos()
