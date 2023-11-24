@@ -62,7 +62,7 @@ export default function MaisDetalhes() {
                     <h1>Mais detalhes</h1>
 
                     <div onClick={Voltar}>
-                        <img src={SetaEsquerda} />
+                      
                         <p>voltar</p>
                     </div>
                 </div>

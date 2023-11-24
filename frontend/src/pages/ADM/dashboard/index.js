@@ -1,7 +1,8 @@
 import './index.scss';
 import Banco from '../../../assets/img/banco.png';
 import Dinheiro from '../../../assets/img/money.png';
-import Caixa from '../../../assets/img/caixa.png';
+import Caixa from '../../../images/caixa.png';
+
 import { useEffect, useState } from 'react';
 import Desligado from '../../../assets/img/on or off.png';
 import CompAtalhosAdm from '../../../components/compAtalhosAdm';
@@ -17,7 +18,7 @@ export default function Dashboard() {
     const [listaproduto, setListaproduto] = useState([]);
     const [totalProdutos, setTotalProdutos] = useState(0);
     const [totalProdutosAtivos, setTotalProdutosAtivos] = useState(0);
-    const [totalvendido , setTotalvendido] = useState()
+    const [totalvendido, setTotalvendido] = useState()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export default function Dashboard() {
             navigate('/associado');
         }
     }, []);
-    
+
 
 
 
@@ -58,7 +59,7 @@ export default function Dashboard() {
         }
     }
 
-   
+
 
 
 
@@ -84,7 +85,7 @@ export default function Dashboard() {
         }
     }
 
-  
+
 
 
 
@@ -123,8 +124,8 @@ export default function Dashboard() {
         async function fetchData() {
             try {
                 const data = await PedidossEntregue();
-               const total = calcularTotalVendas(PedidosEntregue)
-               setTotalvendido(total)
+                const total = calcularTotalVendas(PedidosEntregue)
+                setTotalvendido(total)
                 if (data && data.length) {
                     setTotalVendas(data.length);
                 }
@@ -138,84 +139,85 @@ export default function Dashboard() {
 
     function calcularTotalVendas(pedidos) {
         const total = pedidos.reduce((acc, item) => {
-          const itemTotal = parseFloat(item.total);
-          return acc + (isNaN(itemTotal) ? 0 : itemTotal);
+            const itemTotal = parseFloat(item.total);
+            return acc + (isNaN(itemTotal) ? 0 : itemTotal);
         }, 0);
         return total;
-      }
+    }
 
     return (
         <section className='pagina-dashboard'>
-        <CompAtalhosAdm />
-        <div className="container-dashboard">
-            <div className="topo-dashboard">
-                <h1>Minha Operação</h1>
-            </div>
-
-            <div className='grafico-dashboard'>
-                <div className='total-vendas'>
-                    <img src={Banco} />
-                    <h1>{totalVendas} </h1>
-                    <p>Quantidade de vendas realizadas neste dia</p>
+            <CompAtalhosAdm />
+            <div className="container-dashboard">
+                <div className="topo-dashboard">
+                    <h1>Minha Operação</h1>
                 </div>
 
-                <div className='custo-vendido'>
-                    <img src={Dinheiro} />
-                    <h1>vendido {totalvendido}</h1>
-                 
+                <div className='grafico-dashboard'>
+                    <div className='total-vendas'>
+                        <img src={Banco} />
+                        <h1>{totalVendas} </h1>
+                        <p>Quantidade de vendas realizadas neste dia</p>
+                    </div>
 
-                    <p>Valor total vendido neste dia</p>
+                    <div className='custo-vendido'>
+                        <img src={Dinheiro} />
+                        <h1>vendido {totalvendido}</h1>
+
+
+                        <p>Valor total vendido neste dia</p>
+                    </div>
+
+
+                    <div className='produtos-cadastrados'>
+                        <img src={Caixa} />
+                        <h1>{listaproduto.length} produto{listaproduto.length !== 1 ? 's' : ''}</h1>
+                        <p>Quantidade de produtos cadastrados</p>
+                    </div>
+
+
+
+                    <div className='produtos-ativos'>
+                        <img src={Desligado} />
+                        <h1>{totalProdutosAtivos} produto{totalProdutosAtivos !== 1 ? 's' : ''} ativo{totalProdutosAtivos !== 1 ? 's' : ''}</h1>
+                        <p>Quantidade de produtos ativos</p>
+                    </div>
+
                 </div>
-
-
-                <div className='produtos-cadastrados'>
-                    <img scr={caixaa} />
-                    <h1>{listaproduto.length} produto{listaproduto.length !== 1 ? 's' : ''}</h1>
-                    <p>Quantidade de produtos cadastrados</p>
-                </div>
-
-
-                <div className='produtos-ativos'>
-                    <img src={Desligado} />
-                    <h1>{totalProdutosAtivos} produto{totalProdutosAtivos !== 1 ? 's' : ''} ativo{totalProdutosAtivos !== 1 ? 's' : ''}</h1>
-                    <p>Quantidade de produtos ativos</p>
-                </div>
-
-            </div>
 
                 <div className='conteudo-dashboard'>
                     <h2>Dashboard</h2>
                     <p>últimas vendas realizadas no dia</p>
                     <table className='tabela-dashboard'>
                         <thead>
-                        <tr>
+                            <tr>
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>Total</th>
                                 <th> Subtoal</th>
-                               
+
 
                             </tr>
                         </thead>
                         <tr className='cada-valor'></tr>
 
                         <tbody>
-                        {PedidosEntregue && PedidosEntregue.map(item => (
-                            <tr className='conteudo-tabela'>
-                                <td className='comp-linha'></td>
-                                <tr className='cada-valor'>
-                                    <td>#{item.idpedido}</td>
-                                    <td>{item.cliente}</td>
-                                    <td>{item.total}</td>
-                                    <td>{item.subtotal}</td>
-                                    
+                            {PedidosEntregue && PedidosEntregue.map(item => (
+                                <tr className='conteudo-tabela'>
+                                    <td className='comp-linha'></td>
+                                    <tr className='cada-valor'>
+                                        <td>#{item.idpedido}</td>
+                                        <td>{item.cliente}</td>
+                                        <td>{item.total}</td>
+                                        <td>{item.subtotal}</td>
+
+                                    </tr>
+
+
+
                                 </tr>
-
-
-                               
-                            </tr>
-                         ))}
-                   </tbody>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -69,6 +69,10 @@ export default function CadaFavorito() {
         mostrarFavoritosPorNome();
     }, [buscarNome]);
 
+    const handleVoltar = () => {
+       
+        navigate(`/clienteadmmaisdetalhe/${id}`);
+      };
 
 
 
@@ -102,6 +106,11 @@ export default function CadaFavorito() {
 
                 <div className='subtitulo-cada-favoritos'>
                     <h1>Favoritos</h1>
+
+                    <div onClick={handleVoltar}>
+                       
+                       <p className='p'>voltar</p>
+                   </div>
                 </div>
 
 

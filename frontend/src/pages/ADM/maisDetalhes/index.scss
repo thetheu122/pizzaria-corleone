@@ -66,11 +66,35 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-
-        img {
-            height: 12px;
-            margin-right: 5px;
-            margin-top: 2px;
+        
+        .left-content {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            
+            img {
+                height: 12px;
+                margin-right: 5px;
+                margin-top: 2px;
+            }
+    
+            p {
+                font-family: lato-regular;
+                font-weight: 580;
+                font-size: 20px;
+               
+            }
+        }
+        p {
+            font-family: lato-regular;
+            font-weight: 580;
+            font-size: 15px;
+           
+        }
+    
+        h1 {
+            font-family: lato-regular;
+            font-weight: 580;
         }
     }
 

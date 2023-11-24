@@ -201,25 +201,7 @@ export default function ListarPedido() {
 
                                     <div className='divisao-filtros'></div>
 
-                                    <label className="modal-label">
-                                        <p>Formas de pagamento</p>
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Pix</h5>
-                                        </div>
-
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Dinheiro</h5>
-                                        </div>
-
-                                        <div className='paymentForm'>
-                                            <div className='payment-input'><input type='checkbox' /></div>
-                                            <h5>Cartão de credito</h5>
-                                        </div>
-                                    </label>
-
-                                    <div className='divisao-filtros'></div>
+                                    
 
 
                                     <label className="modal-label-2">
@@ -269,7 +251,7 @@ export default function ListarPedido() {
                         </div>
 
 
-                        <h2 className='entregue'>Status: Entregue</h2>
+                        
 
                     </div>
 
