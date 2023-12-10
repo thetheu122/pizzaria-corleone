@@ -14,6 +14,8 @@ import CadastroPart2 from '../cadastropart2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+////wendel
+
 function App(props) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
